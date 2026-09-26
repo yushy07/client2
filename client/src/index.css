@@ -1,37 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  /* Core Base Palette */
-  --ink: #161716;
-  --paper: #f6f3ed;
-  --soft: #eeebe4;
-  --pearl: #fbfaf7;
-  --moss: #33584b;
-  --moss-dark: #213b32;
-  --saffron: #f5cb38;
-  --coral: #e1664d;
-  --lavender: #8e89b9;
+  /* Core Base Palette - Jaymurti Architectural System */
+  --paper: #F6F1E8;        /* Warm Ivory / Bone */
+  --ink: #171717;          /* Deep Ink / Charcoal */
+  --soft: #ECE6DA;         /* Warm Sand */
+  --pearl: #FFFDF8;        /* Bright Ivory Surface */
+  --terracotta: #C96F52;   /* Muted Terracotta Accent */
+  --cobalt: #3346A8;       /* Deep Cobalt / Indigo */
+  --sage: #8FA58B;         /* Soft Sage */
+  --mustard: #D7A83E;      /* Warm Mustard */
+  --dusty-rose: #C98D91;   /* Dusty Rose */
+  --saffron: #D7A83E;      /* Mapped to Warm Mustard */
+  --coral: #C96F52;        /* Mapped to Terracotta */
+  --moss: #3346A8;         /* Mapped to Cobalt Accent */
+  --moss-dark: #1F2C6E;
 
   /* Semantic Surface Roles */
-  --surface-paper: #f6f3ed;
-  --surface-warm: #f1ede4;
-  --surface-soft: #eeebe4;
-  --surface-pearl: #fbfaf7;
-  --surface-white: #ffffff;
-  --surface-dark: #161716;
-  --surface-moss: #33584b;
-  --surface-moss-dark: #213b32;
+  --surface-paper: #F6F1E8;
+  --surface-warm: #EFE9DC;
+  --surface-soft: #ECE6DA;
+  --surface-pearl: #FFFDF8;
+  --surface-white: #FFFFFF;
+  --surface-dark: #171717;
+  --surface-moss: #3346A8;
+  --surface-moss-dark: #1F2C6E;
 
   /* Semantic Text Roles */
-  --text-primary: #161716;
-  --text-secondary: #5e605b;
-  --text-muted: #767771;
-  --text-on-dark: #ffffff;
-  --text-on-dark-muted: rgba(255, 255, 255, 0.72);
+  --text-primary: #171717;
+  --text-secondary: #524E48;
+  --text-muted: #78736B;
+  --text-on-dark: #FFFFFF;
+  --text-on-dark-muted: rgba(255, 255, 255, 0.76);
 
   /* Semantic Border Roles */
-  --line: rgba(22, 23, 22, 0.15);
-  --line-dark: rgba(255, 255, 255, 0.2);
+  --line: rgba(23, 23, 23, 0.12);
+  --line-dark: rgba(255, 255, 255, 0.18);
 
   /* Typography Font Stacks */
   --sans: "DM Sans", Arial, sans-serif;
