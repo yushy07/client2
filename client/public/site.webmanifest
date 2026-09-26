@@ -1,0 +1,14 @@
+{
+  "name": "Jaymurti Traders | Birla Opus Paints",
+  "short_name": "Jaymurti Traders",
+  "description": "Authorized Birla Opus paint dealer in Baskhari, Ambedkar Nagar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#171817",
+  "theme_color": "#171817",
+  "icons": [{
+    "src": "/storage/kumar-hardware-logo.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }]
+}

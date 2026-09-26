@@ -1,0 +1,34 @@
+export const colourDirections = [
+  ["Parchment", "C01", "#E9E0CB"], ["Warm Linen", "C02", "#D8CCB7"], ["Honey Glow", "C03", "#D4AA54"], ["Soft Marigold", "C04", "#E6B650"],
+  ["Clay Sun", "C05", "#D98550"], ["Terracotta", "C06", "#B96646"], ["Rosewood", "C07", "#9D504C"], ["Petal Note", "C08", "#C86A7A"],
+  ["Berry Ink", "C09", "#95475F"], ["Plum Light", "C10", "#876182"], ["Lilac Dust", "C11", "#B19CBC"], ["Lavender Mist", "C12", "#C9BDD5"],
+  ["Dawn Blue", "C13", "#A5C1D6"], ["Rain Blue", "C14", "#7D9EC0"], ["Ocean Room", "C15", "#5B7FA4"], ["Midnight Pool", "C16", "#3E5E83"],
+  ["Sea Glass", "C17", "#6FA8A2"], ["Blue Green", "C18", "#4C847B"], ["Moss Path", "C19", "#6D875D"], ["Olive Leaf", "C20", "#8A9660"],
+  ["Pistachio", "C21", "#AAB06B"], ["Citrus Leaf", "C22", "#B8B85E"], ["Stone Haze", "C23", "#B7B2A7"], ["River Grey", "C24", "#8D9290"],
+  ["Charcoal", "C25", "#565B5B"], ["Quiet Ink", "C26", "#303838"], ["Sandstone", "C27", "#C6A78D"], ["Chai Spice", "C28", "#AD7B57"],
+  ["Cocoa Bean", "C29", "#775744"], ["Copper Clay", "C30", "#A8674D"], ["Coral Wash", "C31", "#DE866F"], ["Blush Wall", "C32", "#E8A9A1"],
+  ["Cloud White", "C33", "#F1EEE6"], ["Paper White", "C34", "#E6E2D8"], ["Moon Grey", "C35", "#C9C7C2"], ["Soft Shadow", "C36", "#9E9C96"],
+  ["Pebble", "C37", "#7A766D"], ["Forest Ink", "C38", "#3F5649"], ["Jade Quiet", "C39", "#547B6D"], ["Fern Light", "C40", "#90A68B"],
+  ["Sunlit Lime", "C41", "#BFC878"], ["Ochre Field", "C42", "#BE9345"], ["Saffron Dust", "C43", "#D9A742"], ["Rust Story", "C44", "#A9563D"],
+  ["Garnet", "C45", "#833D45"], ["Indigo Night", "C46", "#4E527C"], ["Bluebell", "C47", "#7888B8"], ["Silver Blue", "C48", "#A9B5C6"],
+] as const;
+
+function shiftHexColour(hex: string, shift: number) {
+  const channels = [hex.slice(1, 3), hex.slice(3, 5), hex.slice(5, 7)].map((value) => Number.parseInt(value, 16));
+  const shiftedChannels = channels.map((channel) => Math.max(0, Math.min(255, Math.round(channel + (255 - channel) * shift))));
+  return `#${shiftedChannels.map((channel) => channel.toString(16).padStart(2, "0")).join("")}`;
+}
+
+const tickerShadeShifts = [0, 0.11, -0.08, 0.19, -0.15];
+
+export const colourTickerShades = Array.from({ length: colourDirections.length * tickerShadeShifts.length }, (_, index) => {
+  const [name, code, hex] = colourDirections[index % colourDirections.length];
+  const cycle = Math.floor(index / colourDirections.length);
+  const shift = tickerShadeShifts[cycle];
+  return {
+    name,
+    code: `${code}-${String(cycle + 1).padStart(2, "0")}`,
+    hex: shiftHexColour(hex, shift),
+    position: index + 1,
+  };
+});

@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1786554231801,
+      "tag": "0000_furry_zzzax",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786554540834,
+      "tag": "0001_omniscient_cargill",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786630798940,
+      "tag": "0002_rainy_nighthawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1786688538902,
+      "tag": "0003_known_micromacro",
+      "breakpoints": true
+    }
+  ]
+}
