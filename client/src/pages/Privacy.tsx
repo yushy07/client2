@@ -82,7 +82,7 @@ export default function Privacy() {
           <ul>
             <li>Responding directly to your paint enquiries and technical questions.</li>
             <li>Providing personalised paint recommendations, finish specifications, and colour consultation.</li>
-            <li>Scheduling priority showroom visits and live tinting demonstrations at our Adityapur store.</li>
+            <li>Scheduling priority showroom visits and product guidance at our Baskhari store.</li>
             <li>Improving our customer service, product availability, and showroom consultation experience.</li>
           </ul>
           <p>
@@ -119,7 +119,7 @@ export default function Privacy() {
           <ul>
             <li>
               <strong>Google Maps &amp; Google Business Profile:</strong> To view verified showroom listings, operating
-              hours, customer reviews, and step-by-step driving directions to our store at D S Tower, Adityapur.
+              hours, customer reviews, and step-by-step driving directions to our store at Shukul Bazar, Baskhari.
             </li>
             <li>
               <strong>WhatsApp:</strong> To enable direct messaging with our showroom desk for instant enquiries and photos.
