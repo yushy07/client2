@@ -17,9 +17,9 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
   return (
     <div className="space-y-0">
       {/* 06 — INTERIOR PAINT WORLD */}
-      <section id="interior-paint-world" className="py-24 bg-dark text-on-dark border-t border-border-teal relative">
+      <section id="interior-paint-world" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-10 sm:mb-16">
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider border border-border-teal">
                 <Home className="w-3.5 h-3.5" />
@@ -45,7 +45,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
               <div className="pt-4 flex flex-wrap gap-4">
                 <Button
                   onClick={() => onExploreCatalogue?.("Interior")}
-                  className="bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium px-6 py-2.5 rounded-xl flex items-center gap-2"
+                  className="bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium px-6 py-2.5 rounded-xl flex items-center gap-2 min-h-[44px]"
                 >
                   Explore 124-Product Interior Range <ArrowUpRight className="w-4 h-4" />
                 </Button>
@@ -53,18 +53,18 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
             </div>
 
             <div className="lg:col-span-6 relative">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-border-teal shadow-2xl bg-dark-surface">
+              <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden border border-border-teal shadow-2xl bg-dark-surface">
                 <img
                   src={INTERIOR_PAINT_WORLD.heroImage}
                   alt={INTERIOR_PAINT_WORLD.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
                   <div>
                     <span className="text-xs uppercase tracking-widest text-accent font-semibold block mb-1">
                       Interior Luxury Emulsion
                     </span>
-                    <h3 className="text-2xl font-serif text-white">One Pure Elegance</h3>
+                    <h3 className="text-xl sm:text-2xl font-serif text-white">One Pure Elegance</h3>
                     <p className="text-xs text-surface mt-1">Available in Velvet Matt, Soft Sheen, and Radiant Glow finishes</p>
                   </div>
                 </div>
@@ -73,11 +73,11 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
           </div>
 
           {/* Featured Interior Solution Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
             {INTERIOR_PAINT_WORLD.featuredProducts.map((p, idx) => (
               <div
                 key={idx}
-                className="bg-dark-surface border border-border-teal rounded-2xl p-5 flex flex-col justify-between hover:border-accent transition-all group"
+                className="bg-dark-surface border border-border-teal rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-accent transition-all group"
               >
                 <div>
                   <div className="aspect-square w-full rounded-xl overflow-hidden bg-dark-surface mb-4">
@@ -96,7 +96,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                   variant="ghost"
                   size="sm"
                   onClick={() => onEnquire?.(p.name, `I want an estimate and availability for ${p.name} (${p.finishType}).`)}
-                  className="mt-4 w-full bg-dark-surface hover:bg-brand-secondary text-accent text-xs py-2 rounded-lg flex items-center justify-center gap-1.5"
+                  className="mt-4 w-full bg-dark-surface hover:bg-brand-secondary text-accent text-xs py-2 min-h-[40px] rounded-lg flex items-center justify-center gap-1.5"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" /> Enquire
                 </Button>
@@ -107,22 +107,22 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
       </section>
 
       {/* 07 — EXTERIOR & PROTECTION WORLD */}
-      <section id="exterior-protection-world" className="py-24 bg-dark text-on-dark border-t border-border-teal relative">
+      <section id="exterior-protection-world" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-10 sm:mb-16">
             <div className="lg:col-span-6 relative order-2 lg:order-1">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-border-teal shadow-2xl bg-dark-surface">
+              <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden border border-border-teal shadow-2xl bg-dark-surface">
                 <img
                   src={EXTERIOR_PROTECTION_WORLD.heroImage}
                   alt={EXTERIOR_PROTECTION_WORLD.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
                   <div>
                     <span className="text-xs uppercase tracking-widest text-accent font-semibold block mb-1">
                       Exterior Wall Emulsion
                     </span>
-                    <h3 className="text-2xl font-serif text-white">One True Life &amp; Flex</h3>
+                    <h3 className="text-xl sm:text-2xl font-serif text-white">One True Life &amp; Flex</h3>
                     <p className="text-xs text-surface mt-1">Exterior emulsion formulations for building facades and outer walls</p>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
               <div className="pt-4 flex flex-wrap gap-4">
                 <Button
                   onClick={() => onExploreCatalogue?.("Exterior")}
-                  className="bg-brand-secondary hover:bg-dark-surface text-on-dark font-medium px-6 py-2.5 rounded-xl flex items-center gap-2"
+                  className="bg-brand-secondary hover:bg-dark-surface text-on-dark font-medium px-6 py-2.5 rounded-xl flex items-center gap-2 min-h-[44px]"
                 >
                   Explore Exterior &amp; Waterproofing Products <ArrowUpRight className="w-4 h-4" />
                 </Button>
@@ -163,11 +163,11 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
           </div>
 
           {/* Featured Exterior Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
             {EXTERIOR_PROTECTION_WORLD.featuredProducts.map((p, idx) => (
               <div
                 key={idx}
-                className="bg-dark-surface border border-border-teal rounded-2xl p-5 flex flex-col justify-between hover:border-accent transition-all group"
+                className="bg-dark-surface border border-border-teal rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-accent transition-all group"
               >
                 <div>
                   <div className="aspect-square w-full rounded-xl overflow-hidden bg-dark-surface mb-4">
@@ -186,7 +186,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                   variant="ghost"
                   size="sm"
                   onClick={() => onEnquire?.(p.name, `I want an estimate and waterproofing assessment for ${p.name}.`)}
-                  className="mt-4 w-full bg-dark-surface hover:bg-brand-secondary text-accent text-xs py-2 rounded-lg flex items-center justify-center gap-1.5"
+                  className="mt-4 w-full bg-dark-surface hover:bg-brand-secondary text-accent text-xs py-2 min-h-[40px] rounded-lg flex items-center justify-center gap-1.5"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" /> Enquire
                 </Button>
@@ -197,9 +197,9 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
       </section>
 
       {/* 08 — WOOD & FINISHES WORLD */}
-      <section id="wood-finishes-world" className="py-24 bg-dark text-on-dark border-t border-border-teal relative">
+      <section id="wood-finishes-world" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-10 sm:mb-16">
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-highlight text-xs font-semibold uppercase tracking-wider border border-border-teal">
                 <Trees className="w-3.5 h-3.5" />
@@ -225,7 +225,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
               <div className="pt-4 flex flex-wrap gap-4">
                 <Button
                   onClick={() => onExploreCatalogue?.("Wood Finishes")}
-                  className="bg-dark-surface hover:bg-dark text-on-dark border border-highlight/40 font-medium px-6 py-2.5 rounded-xl flex items-center gap-2"
+                  className="bg-dark-surface hover:bg-dark text-on-dark border border-highlight/40 font-medium px-6 py-2.5 rounded-xl flex items-center gap-2 min-h-[44px]"
                 >
                   Explore Allwood Polish &amp; PU Range <ArrowUpRight className="w-4 h-4" />
                 </Button>
@@ -233,18 +233,18 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
             </div>
 
             <div className="lg:col-span-6 relative">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-border-teal shadow-2xl bg-dark-surface">
+              <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden border border-border-teal shadow-2xl bg-dark-surface">
                 <img
                   src={WOOD_FINISHES_WORLD.heroImage}
                   alt={WOOD_FINISHES_WORLD.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
                   <div>
                     <span className="text-xs uppercase tracking-widest text-highlight font-semibold block mb-1">
                       Polyurethane Wood Finish
                     </span>
-                    <h3 className="text-2xl font-serif text-white">Allwood Italian PU Clear</h3>
+                    <h3 className="text-xl sm:text-2xl font-serif text-white">Allwood Italian PU Clear</h3>
                     <p className="text-xs text-surface mt-1">Clear wood coating designed for interior and exterior timber surfaces</p>
                   </div>
                 </div>
@@ -253,11 +253,11 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
           </div>
 
           {/* Featured Wood Solution Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {WOOD_FINISHES_WORLD.featuredProducts.map((p, idx) => (
               <div
                 key={idx}
-                className="bg-dark-surface border border-border-teal rounded-2xl p-5 flex flex-col justify-between hover:border-highlight transition-all group"
+                className="bg-dark-surface border border-border-teal rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-highlight transition-all group"
               >
                 <div>
                   <div className="aspect-square w-full rounded-xl overflow-hidden bg-dark-surface mb-4">
@@ -276,7 +276,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                   variant="ghost"
                   size="sm"
                   onClick={() => onEnquire?.(p.name, `I want an estimate and application advice for ${p.name}.`)}
-                  className="mt-4 w-full bg-dark-surface hover:bg-brand-secondary text-highlight text-xs py-2 rounded-lg flex items-center justify-center gap-1.5"
+                  className="mt-4 w-full bg-dark-surface hover:bg-brand-secondary text-highlight text-xs py-2 min-h-[40px] rounded-lg flex items-center justify-center gap-1.5"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" /> Enquire
                 </Button>
@@ -288,3 +288,4 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
     </div>
   );
 };
+

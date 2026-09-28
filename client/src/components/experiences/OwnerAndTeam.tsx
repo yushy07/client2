@@ -75,7 +75,7 @@ export const OwnerAndTeam: React.FC = () => {
   return (
     <section
       id="leadership"
-      className="py-24 bg-[#0a0f11] text-white border-t border-teal-900/40 relative overflow-hidden"
+      className="py-12 sm:py-16 lg:py-24 bg-[#0a0f11] text-white border-t border-teal-900/40 relative overflow-hidden"
     >
       {/* Ambient background glows */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
@@ -83,7 +83,7 @@ export const OwnerAndTeam: React.FC = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-10 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111a1d] text-[var(--saffron,#e8a338)] text-xs font-semibold uppercase tracking-wider mb-4 border border-teal-800/50 backdrop-blur-md">
             <Users className="w-3.5 h-3.5" />
             Founder & Showroom Leadership · Baskhari
@@ -106,7 +106,7 @@ export const OwnerAndTeam: React.FC = () => {
         {/* =========================================================================
             PART 1: THE FOUNDER & SHOWROOM VIDEO SHOWCASE
             ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12 sm:mb-24">
           {/* Left Column: Owner Profile & Photos */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <div className="relative rounded-2xl overflow-hidden border border-teal-800/40 bg-[#101719] shadow-2xl group">

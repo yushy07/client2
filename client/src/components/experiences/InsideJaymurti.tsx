@@ -9,10 +9,10 @@ export const InsideJaymurti: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState<ShowroomPhoto | null>(null);
 
   return (
-    <section id="inside-jaymurti" className="py-24 bg-dark text-on-dark border-t border-border-teal relative">
+    <section id="inside-jaymurti" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Masthead */}
-        <div className="max-w-3xl mb-12">
+        <div className="max-w-3xl mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
             <Building2 className="w-3.5 h-3.5" />
             Baskhari Showroom Gallery · On-Site Photography
@@ -69,7 +69,7 @@ export const InsideJaymurti: React.FC = () => {
         </div>
 
         {/* Practical Showroom Context Footnote */}
-        <div className="mt-12 p-6 rounded-2xl bg-dark-surface border border-border-teal flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-dark-surface border border-border-teal flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-1">
             <span className="text-xs uppercase font-semibold text-accent tracking-wider">
               Visit Jaymurti Traders in Person

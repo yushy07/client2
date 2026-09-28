@@ -76,7 +76,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
   const rightVariant: RoomVariant = currentScene.variants[rightVariantIndex] || currentScene.variants[Math.min(1, currentScene.variants.length - 1)];
 
   return (
-    <section id="room-shade-studio" className="py-24 bg-[#0c1214] text-white border-t border-border-teal/40 relative overflow-hidden">
+    <section id="room-shade-studio" className="py-12 sm:py-16 lg:py-24 bg-[#0c1214] text-white border-t border-border-teal/40 relative overflow-hidden">
       {/* Decorative architectural ambient glow */}
       <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-[160px] pointer-events-none" />
@@ -84,7 +84,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-12 gap-6">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface/90 text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal/60 backdrop-blur-md">
               <Layers className="w-3.5 h-3.5 text-accent" />

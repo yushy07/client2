@@ -42,14 +42,14 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
   };
 
   return (
-    <section id="colour-capsule" className="py-24 bg-dark text-on-dark border-t border-border-teal relative overflow-hidden">
+    <section id="colour-capsule" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative overflow-hidden">
       {/* Subtle architectural background gradients */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-secondary/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Editorial Masthead */}
-        <div className="max-w-3xl mb-12">
+        <div className="max-w-3xl mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
             <BookOpen className="w-3.5 h-3.5" />
             Birla Opus Archive · 50 Editorial Spreads
@@ -64,12 +64,12 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
         </div>
 
         {/* Chapter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar scroll-smooth">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-10 no-scrollbar scroll-smooth">
           {CHAPTERS.map((ch) => (
             <button
               key={ch}
               onClick={() => handleChapterChange(ch)}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
+              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] ${
                 activeChapter === ch
                   ? "bg-dark-surface text-on-dark shadow-md shadow-dark-surface/40 font-semibold"
                   : "bg-dark-surface text-on-dark-muted hover:bg-dark-surface hover:text-surface border border-border-teal"

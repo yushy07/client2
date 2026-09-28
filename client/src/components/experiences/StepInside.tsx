@@ -37,14 +37,14 @@ export const StepInside: React.FC = () => {
   };
 
   return (
-    <section id="step-inside" className="py-20 lg:py-28 bg-[#0c1417] text-white border-t border-teal-900/40 relative overflow-hidden">
+    <section id="step-inside" className="py-12 sm:py-16 lg:py-28 bg-[#0c1417] text-white border-t border-teal-900/40 relative overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 -left-32 w-80 h-80 bg-amber-500/10 rounded-full blur-[130px] pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 lg:mb-16">
+        <div className="max-w-3xl mb-8 lg:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111c20] text-[var(--saffron,#e8a338)] text-xs font-semibold uppercase tracking-wider mb-4 border border-teal-800/60 backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5" />
             Cinematic Showroom Experience · Baskhari

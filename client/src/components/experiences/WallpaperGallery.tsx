@@ -30,10 +30,10 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
   }, [activeCategory]);
 
   return (
-    <section id="wallpaper-gallery" className="py-24 bg-dark text-on-dark border-t border-border-teal relative">
+    <section id="wallpaper-gallery" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Masthead */}
-        <div className="max-w-3xl mb-12">
+        <div className="max-w-3xl mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
             <Palette className="w-3.5 h-3.5" />
             Visual Wallpaper Discovery · 13 Curated Design Families
@@ -47,12 +47,12 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar scroll-smooth">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-10 no-scrollbar scroll-smooth">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
+              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] ${
                 activeCategory === cat
                   ? "bg-dark-surface text-on-dark shadow-md shadow-dark-surface/40 font-semibold"
                   : "bg-dark-surface text-on-dark-muted hover:bg-brand-secondary hover:text-surface border border-border-teal"

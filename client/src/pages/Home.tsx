@@ -35,7 +35,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { FormEvent, memo, PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, Fragment, memo, PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { calculatePaintEstimate, findStoreByPincode, storeDirectory, type SpaceType, type SurfaceType } from "../../../shared/paintTools";
 import { businessProfile } from "../../../shared/businessProfile";
 import { birlaOpusCategories, birlaOpusProductCount, birlaOpusProducts } from "../../../shared/birlaOpusCatalogue";
@@ -119,8 +119,8 @@ const ProductCard = memo(function ProductCard({
     <article className="product-card" onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
       <div className="product-image-stage">
         <div className="product-topline">
-          <span>{product.category}</span>
-          <span>{String(index + 1).padStart(2, "0")}</span>
+          <span className="product-topline-family">{product.family} · {product.category}</span>
+          <span className="product-topline-num">{String(index + 1).padStart(2, "0")}</span>
         </div>
         <div
           className={`product-can ${product.imageUrl ? "with-image" : ""} ${isImageLoaded ? "image-ready" : ""}`}
@@ -166,13 +166,14 @@ const ProductCard = memo(function ProductCard({
         </button>
       </div>
       <div className="product-card-copy">
+        <div className="product-family-tag">{product.family} Series</div>
         <h3>{product.name}</h3>
         <p>{product.copy}</p>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "14px", gap: "8px" }}>
           <button
             type="button"
             className="button-primary"
-            style={{ minHeight: "36px", padding: "0 12px", fontSize: "10.5px" }}
+            style={{ minHeight: "40px", padding: "0 14px", fontSize: "11px", flex: 1, justifyContent: "center" }}
             onClick={() =>
               onAddCart({
                 id: `prod-${product.slug}`,
@@ -185,7 +186,7 @@ const ProductCard = memo(function ProductCard({
           >
             + Add to Enquiry
           </button>
-          <a className="product-card-action" href={product.sourceUrl} target="_blank" rel="noreferrer">
+          <a className="product-card-action" href={product.sourceUrl} target="_blank" rel="noreferrer" style={{ padding: "0 4px", whiteSpace: "nowrap" }}>
             Details <ArrowRight size={12} />
           </a>
         </div>
@@ -2237,21 +2238,34 @@ export default function Home() {
           {comparisonLimitMessage && <p className="comparison-message" role="status">{comparisonLimitMessage}</p>}
 
           <div className="products-grid">
-            {visibleProducts.map((product, index) => (
-              <ProductCard
-                product={product}
-                index={index}
-                isImageLoaded={Boolean(loadedProductImages[product.slug])}
-                isCompared={comparisonSlugs.includes(product.slug)}
-                onImageLoad={markProductImageLoaded}
-                onCompare={toggleProductComparison}
-                onQuickView={setQuickViewProduct}
-                onAddCart={addToCart}
-                onPointerMove={handleProductTilt}
-                onPointerLeave={resetProductTilt}
-                key={product.sourceUrl}
-              />
-            ))}
+            {visibleProducts.map((product, index) => {
+              const prevProduct = index > 0 ? visibleProducts[index - 1] : null;
+              const isNewFamily = !prevProduct || prevProduct.family !== product.family;
+              return (
+                <Fragment key={product.sourceUrl}>
+                  {isNewFamily && (
+                    <div className="product-family-divider" role="presentation">
+                      <span className="product-family-divider-label">
+                        <span className="family-badge-dot" /> {product.family} Series · {product.category}
+                      </span>
+                      <span className="product-family-divider-line" />
+                    </div>
+                  )}
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    isImageLoaded={Boolean(loadedProductImages[product.slug])}
+                    isCompared={comparisonSlugs.includes(product.slug)}
+                    onImageLoad={markProductImageLoaded}
+                    onCompare={toggleProductComparison}
+                    onQuickView={setQuickViewProduct}
+                    onAddCart={addToCart}
+                    onPointerMove={handleProductTilt}
+                    onPointerLeave={resetProductTilt}
+                  />
+                </Fragment>
+              );
+            })}
           </div>
 
           {productPagination.pageCount > 1 && (
@@ -3419,6 +3433,23 @@ export default function Home() {
             <p>
               For authentic Birla Opus paints, automated shade tinting, and consultation: <a href="tel:+918756659035">+91 87566 59035</a>
             </p>
+            <div className="footer-quick-actions">
+              <a href={`tel:${businessProfile.phoneHref}`} className="footer-action-btn footer-action-btn--call" aria-label="Call Jaymurti Traders">
+                <PhoneCall size={14} /> Call Showroom
+              </a>
+              <a
+                href={`https://wa.me/${businessProfile.whatsappHref}?text=${encodeURIComponent("Hello Jaymurti Traders, I would like to enquire about Birla Opus paints.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-action-btn footer-action-btn--whatsapp"
+                aria-label="WhatsApp Showroom Desk"
+              >
+                <MessageCircle size={14} /> WhatsApp Desk
+              </a>
+              <a href={googleBusinessProfileUrl} target="_blank" rel="noopener noreferrer" className="footer-action-btn footer-action-btn--maps" aria-label="Directions on Google Maps">
+                <MapPin size={14} /> Google Directions
+              </a>
+            </div>
             <div className="footer-social-links">
               <a href={businessProfile.instagramUrl} target="_blank" rel="noopener noreferrer" className="footer-social-pill">
                 Instagram @paintwalebhaiya45
