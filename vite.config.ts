@@ -150,7 +150,13 @@ function vitePluginLocalStorageResolver(): Plugin {
       const publicBase = path.resolve(PROJECT_ROOT, "client", "public", "storage", "extracted");
       const rootBase = path.resolve(PROJECT_ROOT, "storage", "extracted");
 
+      let cachedIndexedFiles: { filePath: string; fileName: string; alpha: string; tokens: string[] }[] | null = null;
+
       function getAllFiles() {
+        if (cachedIndexedFiles) {
+          return cachedIndexedFiles;
+        }
+
         const searchDirs: string[] = [];
         if (fs.existsSync(publicBase)) {
           const subdirs = fs.readdirSync(publicBase).map((d) => path.join(publicBase, d));
@@ -177,8 +183,17 @@ function vitePluginLocalStorageResolver(): Plugin {
             results.push({ filePath: fullPath, fileName: f, alpha, tokens });
           }
         }
+        cachedIndexedFiles = results;
         return results;
       }
+
+      const invalidateCache = () => {
+        cachedIndexedFiles = null;
+      };
+
+      server.watcher.on("add", invalidateCache);
+      server.watcher.on("change", invalidateCache);
+      server.watcher.on("unlink", invalidateCache);
 
       server.middlewares.use((req, res, next) => {
         const url = req.url?.split("?")[0] || "";

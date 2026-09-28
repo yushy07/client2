@@ -108,9 +108,6 @@ client/public/__manus__/
 vitest_results.json
 .vercel
 scratch/
-scratch_*.ts
-scratch_*.js
-generate_shades_data.ts
 
 # Local raw/source storage (production assets live in client/public/storage/)
 /storage/

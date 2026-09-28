@@ -29,11 +29,7 @@ const GET_USER_INFO_PATH = `/webdev.v1.WebDevAuthPublicService/GetUserInfo`;
 const GET_USER_INFO_WITH_JWT_PATH = `/webdev.v1.WebDevAuthPublicService/GetUserInfoWithJwt`;
 
 class OAuthService {
-  constructor(private client: ReturnType<typeof axios.create>) {
-    if (ENV.oAuthServerUrl) {
-      console.log("[OAuth] Initialized with baseURL:", ENV.oAuthServerUrl);
-    }
-  }
+  constructor(private client: ReturnType<typeof axios.create>) {}
 
   private decodeState(state: string): string {
     return decodeOAuthState(state).redirectUri;
@@ -59,7 +55,7 @@ class OAuthService {
   }
 
   async getUserInfoByToken(
-    token: ExchangeTokenResponse
+    token: Pick<ExchangeTokenResponse, "accessToken">
   ): Promise<GetUserInfoResponse> {
     const { data } = await this.client.post<GetUserInfoResponse>(
       GET_USER_INFO_PATH,
@@ -78,7 +74,7 @@ const createOAuthHttpClient = (): AxiosInstance =>
     timeout: AXIOS_TIMEOUT_MS,
   });
 
-class SDKServer {
+export class SDKServer {
   private readonly client: AxiosInstance;
   private readonly oauthService: OAuthService;
 
@@ -129,16 +125,16 @@ class SDKServer {
   async getUserInfo(accessToken: string): Promise<GetUserInfoResponse> {
     const data = await this.oauthService.getUserInfoByToken({
       accessToken,
-    } as ExchangeTokenResponse);
+    });
     const loginMethod = this.deriveLoginMethod(
-      (data as any)?.platforms,
-      (data as any)?.platform ?? data.platform ?? null
+      data.platforms,
+      data.platform ?? null
     );
     return {
-      ...(data as any),
+      ...data,
       platform: loginMethod,
       loginMethod,
-    } as GetUserInfoResponse;
+    };
   }
 
   private parseCookies(cookieHeader: string | undefined) {
@@ -242,14 +238,14 @@ class SDKServer {
     );
 
     const loginMethod = this.deriveLoginMethod(
-      (data as any)?.platforms,
-      (data as any)?.platform ?? data.platform ?? null
+      data.platforms,
+      data.platform ?? null
     );
     return {
-      ...(data as any),
+      ...data,
       platform: loginMethod,
       loginMethod,
-    } as GetUserInfoWithJwtResponse;
+    };
   }
 
   async authenticateRequest(req: Request): Promise<AuthenticatedUser> {

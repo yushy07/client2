@@ -42,7 +42,7 @@ describe("service enquiries", () => {
   it("calculates estimates and only returns studios mapped to a supported pincode", () => {
     expect(calculatePaintEstimate("villa", "exterior", 1000, "224129")).toEqual({ low: 17400, high: 21228 });
     expect(calculatePaintEstimate("studio", "interior", 80, "224129")).toBeNull();
-    expect(findStoreByPincode("224129")?.name).toBe("Jaymurti Traders");
+    expect(findStoreByPincode("224129")?.name).toBe("Birla Opus Paint Jaymurti Traders");
     expect(findStoreByPincode("110001")).toBeUndefined();
   });
 });

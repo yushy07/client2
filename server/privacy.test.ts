@@ -11,8 +11,8 @@ const vercelConfig = JSON.parse(readFileSync(resolve(projectRoot, "vercel.json")
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
 
 describe("Moving archive ticker loop & motion", () => {
-  it("uses a relaxed 200-second drift loop with pause on hover/focus and reduced motion support", () => {
-    expect(stylesheet).toContain("animation: archive-ticker-drift 200s linear infinite;");
+  it("uses a relaxed 600-second drift loop with pause on hover/focus and reduced motion support", () => {
+    expect(stylesheet).toContain("animation: archive-ticker-drift 600s linear infinite;");
     expect(stylesheet).toContain(".colour-archive-ticker:hover .colour-archive-ticker-track");
     expect(stylesheet).toContain(".colour-archive-ticker:focus-within .colour-archive-ticker-track");
     expect(stylesheet).toContain("animation-play-state: paused;");
@@ -28,7 +28,7 @@ describe("Privacy policy page and routing", () => {
 
   it("contains all required legal and informational sections with Jaymurti Traders details", () => {
     expect(privacyPage).toContain("Privacy Policy");
-    expect(privacyPage).toContain("Last updated: 19 August 2026");
+    expect(privacyPage).toContain("Jaymurti Traders");
     expect(privacyPage).toContain("Information We Collect");
     expect(privacyPage).toContain("Consultation Forms");
     expect(privacyPage).toContain("Contact Forms");
@@ -49,7 +49,7 @@ describe("Privacy policy page and routing", () => {
 
   it("includes dynamic SEO title, description, and canonical link", () => {
     expect(privacyPage).toContain("Privacy Policy | Jaymurti Traders");
-    expect(privacyPage).toContain("https://kumarhardware.vercel.app/privacy");
+    expect(privacyPage).toContain("https://jaymurtitraders.com/privacy");
     expect(privacyPage).toContain('document.querySelector(\'meta[name="description"]\')');
     expect(privacyPage).toContain('document.querySelector(\'link[rel="canonical"]\')');
   });
@@ -60,8 +60,8 @@ describe("Privacy policy page and routing", () => {
   });
 
   it("declares the privacy canonical URL in sitemap.xml without UI anchors", () => {
-    expect(sitemap).toContain("<loc>https://kumarhardware.vercel.app/</loc>");
-    expect(sitemap).toContain("<loc>https://kumarhardware.vercel.app/privacy</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/privacy</loc>");
     expect(sitemap).not.toContain("#products");
     expect(sitemap).not.toContain("#reviews");
   });

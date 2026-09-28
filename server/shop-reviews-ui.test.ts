@@ -11,8 +11,8 @@ describe("automatic shop reviews UI and Google profile integration", () => {
   it("places the automatic star-rated review section above FAQ with the exact official Google Business Profile link", () => {
     expect(homePage).toContain('id="reviews"');
     expect(homePage.indexOf('id="reviews"')).toBeLessThan(homePage.indexOf('id="faq"'));
-    expect(homePage).toContain("googleBusinessProfileUrl");
-    expect(businessProfileCode).toContain("https://share.google/Nyju9PoRuINGGoD83");
+    expect(homePage).toContain("https://share.google/gRc5IXyeEJe85BzRg");
+    expect(businessProfileCode).toContain("https://share.google/gRc5IXyeEJe85BzRg");
     expect(homePage).toContain('target="_blank"');
     expect(homePage).toContain('rel="noopener noreferrer"');
     expect(homePage).toContain("Review us on Google");

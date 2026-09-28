@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 
 export type CircularGalleryItem = {
   color: string;
@@ -13,7 +13,9 @@ type CircularGalleryProps = {
   onSelect: (code: string) => void;
 };
 
-export default function CircularGallery({ items, activeCode, onSelect }: CircularGalleryProps) {
+// ⚡ Bolt Optimization: Memoized with React.memo to prevent unnecessary re-renders
+// when parent state updates on periodic timers (e.g. hero banner, room shade loops) in Home.tsx.
+const CircularGallery = memo(function CircularGallery({ items, activeCode, onSelect }: CircularGalleryProps) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,4 +52,6 @@ export default function CircularGallery({ items, activeCode, onSelect }: Circula
       </div>
     </div>
   );
-}
+});
+
+export default CircularGallery;

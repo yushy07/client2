@@ -12,20 +12,20 @@ export default function Privacy() {
     if (metaDesc) {
       metaDesc.setAttribute(
         "content",
-        "Privacy policy and data handling practices for Jaymurti Traders, authorized Birla Opus paint dealer in Baskhari, Uttar Pradesh."
+        "Privacy policy and data handling practices for Jaymurti Traders, Birla Opus paint dealer and showroom in Baskhari, Ambedkar Nagar, Uttar Pradesh."
       );
     }
 
     const canonical = document.querySelector('link[rel="canonical"]');
     const previousCanonical = canonical?.getAttribute("href") ?? "";
     if (canonical) {
-      canonical.setAttribute("href", "https://kumarhardware.vercel.app/privacy");
+      canonical.setAttribute("href", "https://jaymurtitraders.com/privacy");
     }
 
     window.scrollTo(0, 0);
 
     return () => {
-      document.title = previousTitle || "Jaymurti Traders | Birla Opus Paints in Baskhari";
+      document.title = previousTitle || "Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar";
       if (metaDesc && previousDesc) {
         metaDesc.setAttribute("content", previousDesc);
       }
@@ -45,13 +45,13 @@ export default function Privacy() {
         <h1>Privacy Policy</h1>
         <p className="legal-intro">
           This privacy policy outlines how Jaymurti Traders collects, uses, and safeguards the
-          information you provide when using our website or communicating with our paint showroom in Baskhari.
+          information you provide when using our website or communicating with our paint showroom in Baskhari, Ambedkar Nagar.
         </p>
 
         <section>
           <h2>Information We Collect</h2>
           <p>
-            As an independent paint showroom and authorized Birla Opus dealer, we collect only the details
+            As an independent paint showroom and Birla Opus dealer, we collect only the details
             necessary to assist you with your paint selection, colour curation, and project planning. Information
             is collected when you interact with us across the website through:
           </p>
@@ -82,7 +82,7 @@ export default function Privacy() {
           <ul>
             <li>Responding directly to your paint enquiries and technical questions.</li>
             <li>Providing personalised paint recommendations, finish specifications, and colour consultation.</li>
-            <li>Scheduling priority showroom visits and product guidance at our Baskhari store.</li>
+            <li>Scheduling priority showroom visits and live tinting demonstrations at our Baskhari showroom.</li>
             <li>Improving our customer service, product availability, and showroom consultation experience.</li>
           </ul>
           <p>
@@ -103,10 +103,9 @@ export default function Privacy() {
         <section>
           <h2>Google Analytics Disclosure</h2>
           <p>
-            We may use Google Analytics to monitor aggregated, non-personally identifiable website metrics such as page
+            We may use analytics tools to monitor aggregated, non-personally identifiable website metrics such as page
             views, visitor duration, and device types. This data helps us understand how visitors discover our showroom and
-            ensures the website loads quickly and reliably across all devices. Google Analytics processes data in accordance
-            with Google’s privacy practices.
+            ensures the website loads quickly and reliably across all devices.
           </p>
         </section>
 
@@ -175,7 +174,7 @@ export default function Privacy() {
           </ul>
         </section>
 
-        <p className="legal-updated">Last updated: 19 August 2026</p>
+        <p className="legal-updated">Last updated: 27 September 2026</p>
       </div>
     </main>
   );

@@ -159,7 +159,7 @@ export const productVideoStories: ProductVideoStory[] = [
   },
   {
     id: "one-pure-elegance-showroom",
-    title: "One Pure Elegance (Showroom Edition)",
+    title: "One Pure Elegance (Jaymurti Traders Edition)",
     category: "Luxury Interior Emulsion",
     family: "Opus One Signature",
     descriptor: "Flagship formulation available for in-person demonstration at Jaymurti Traders Baskhari.",
@@ -301,7 +301,7 @@ function ProductVideoCard({
           playsInline
           preload={preloadStrategy}
           className="product-story-video"
-          aria-label={`Official silent video demonstration of ${story.title}`}
+          aria-label={`Silent video demonstration of ${story.title}`}
         />
         <div className="product-story-media-overlay" aria-hidden="true" />
         <div className="product-story-index-badge">

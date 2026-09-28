@@ -5,6 +5,14 @@ import express from "express";
 import { ENV } from "./env";
 import { storageProxyLimiter } from "./rateLimiter";
 
+type IndexedFile = { filePath: string; fileName: string; alpha: string; tokens: string[] };
+
+let fileIndexCache: IndexedFile[] | null = null;
+
+export function clearStorageProxyCache() {
+  fileIndexCache = null;
+}
+
 export function registerStorageProxy(app: Express) {
   const currentDir = typeof import.meta.dirname === "string" ? import.meta.dirname : process.cwd();
   const possiblePublicStorage = [
@@ -26,7 +34,9 @@ export function registerStorageProxy(app: Express) {
   }
 
   // Pre-index all files across all directories for O(1) matching
-  function getAllFiles(): { filePath: string; fileName: string; alpha: string; tokens: string[] }[] {
+  function getAllFiles(): IndexedFile[] {
+    if (fileIndexCache) return fileIndexCache;
+
     const searchDirs: string[] = [];
     if (fs.existsSync(extractedPath)) {
       const subdirs = fs.readdirSync(extractedPath).map((d) => path.join(extractedPath, d));
@@ -54,6 +64,7 @@ export function registerStorageProxy(app: Express) {
         results.push({ filePath: fullPath, fileName: f, alpha, tokens });
       }
     }
+    fileIndexCache = results;
     return results;
   }
 

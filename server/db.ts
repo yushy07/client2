@@ -198,7 +198,7 @@ export async function listPublishedShopReviews(): Promise<PublicShopReview[]> {
           createdAt: shopReviews.createdAt,
         })
         .from(shopReviews)
-        .where(or(eq(shopReviews.status, "published"), eq(shopReviews.status, "approved" as any)))
+        .where(or(eq(shopReviews.status, "published"), eq(shopReviews.status, "approved")))
         .orderBy(desc(shopReviews.createdAt)),
       3500,
       "Published reviews query",

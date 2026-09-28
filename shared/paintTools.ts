@@ -3,12 +3,11 @@ export type SurfaceType = "interior" | "exterior";
 
 export const storeDirectory = [
   {
-    name: "Jaymurti Traders",
-    nameHindi: "जयमूर्ति ट्रेडर्स",
-    address: "Shukul Bazar, Baskhari",
-    hours: "8:00 AM – 9:00 PM",
+    name: "Birla Opus Paint Jaymurti Traders",
+    address: "Shukul Bazar, Baskhari, Ambedkar Nagar",
+    hours: "Daily · 8 AM–9 PM",
     city: "Ambedkar Nagar, Uttar Pradesh 224129",
-    phone: "+91 8756659035",
+    phone: "+91 87566 59035",
     instagram: "@paintwalebhaiya45",
     pincodes: ["224129"],
   },

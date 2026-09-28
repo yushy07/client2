@@ -37,10 +37,28 @@ app.use("/api", apiLimiter, trpcHandler);
 app.use(apiLimiter, trpcHandler);
 
 // Express error handler to guarantee JSON error output
-app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error("[API Error Handler]:", err);
   if (!res.headersSent) {
-    res.status(500).json({ error: { message: err?.message || "Internal server error" } });
+    let statusCode = 500;
+    let message = "Internal server error";
+
+    if (typeof err === "object" && err !== null) {
+      const errObj = err as Record<string, unknown>;
+      if (typeof errObj.status === "number") {
+        statusCode = errObj.status;
+      } else if (typeof errObj.statusCode === "number") {
+        statusCode = errObj.statusCode;
+      }
+
+      if (typeof errObj.message === "string" && errObj.message) {
+        message = errObj.message;
+      }
+    } else if (typeof err === "string" && err) {
+      message = err;
+    }
+
+    res.status(statusCode).json({ error: { message } });
   }
 });
 

@@ -27,7 +27,7 @@ export const shopReviews = mysqlTable("shopReviews", {
   displayName: varchar("displayName", { length: 80 }).notNull(),
   rating: int("rating").notNull(),
   reviewText: text("reviewText").notNull(),
-  status: mysqlEnum("status", ["published", "private"]).default("private").notNull(),
+  status: mysqlEnum("status", ["published", "private", "approved"]).default("private").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

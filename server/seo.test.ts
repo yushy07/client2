@@ -10,10 +10,10 @@ const manifest = readFileSync(resolve(projectRoot, "client/public/site.webmanife
 
 describe("SEO foundation", () => {
   it("declares a crawlable canonical homepage and social metadata", () => {
-    expect(html).toContain("<title>Jaymurti Traders | Birla Opus Paints in Baskhari</title>");
+    expect(html).toContain("<title>Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar</title>");
     expect(html).toContain('name="description"');
     expect(html).toContain('name="robots" content="index, follow');
-    expect(html).toContain('rel="canonical" href="https://kumarhardware.vercel.app/"');
+    expect(html).toContain('rel="canonical" href="https://jaymurtitraders.com/"');
     expect(html).toContain('property="og:image"');
   });
 
@@ -26,10 +26,10 @@ describe("SEO foundation", () => {
 
   it("publishes valid crawl entry points", () => {
     expect(robots).toContain("Allow: /");
-    expect(robots).toContain("Sitemap: https://kumarhardware.vercel.app/sitemap.xml");
+    expect(robots).toContain("Sitemap: https://jaymurtitraders.com/sitemap.xml");
     expect(sitemap).toContain("<urlset");
-    expect(sitemap).toContain("<loc>https://kumarhardware.vercel.app/</loc>");
-    expect(sitemap).toContain("<loc>https://kumarhardware.vercel.app/privacy</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/privacy</loc>");
     expect(manifest).toContain('"start_url": "/"');
   });
 });

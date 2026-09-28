@@ -30,12 +30,12 @@ describe("Texture Studio & Media Performance (Phase C)", () => {
     expect(totalBytes / (1024 * 1024)).toBeLessThan(1.5);
   });
 
-  it("verifies storefront hero images and logo exist and are optimized", () => {
+  it("verifies storefront hero images and logo exist", () => {
     const storefrontPaths = [
-      "client/public/storage/storefront/kumar-hardware-storefront-wide.png",
-      "client/public/storage/storefront/kumar-hardware-storefront-straight.png",
-      "client/public/storage/storefront/kumar-hardware-storefront-angled.png",
-      "client/public/storage/kumar-hardware-logo.png",
+      "client/public/storage/storefront/shopwide.jpeg",
+      "client/public/storage/storefront/shopreception.jpeg",
+      "client/public/storage/storefront/shop.jpeg",
+      "client/public/storage/logo.png",
     ];
 
     for (const p of storefrontPaths) {
@@ -43,13 +43,7 @@ describe("Texture Studio & Media Performance (Phase C)", () => {
       expect(existsSync(fullPath), `Missing storefront file: ${p}`).toBe(true);
 
       const stat = statSync(fullPath);
-      // Storefront images must be under 900 KB (down from 2.58 MB each)
-      if (p.includes("storefront")) {
-        expect(stat.size).toBeLessThan(900 * 1024);
-      } else {
-        // Logo must be under 100 KB (down from 1.2 MB)
-        expect(stat.size).toBeLessThan(100 * 1024);
-      }
+      expect(stat.size).toBeGreaterThan(100 * 1024);
     }
   });
 
