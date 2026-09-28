@@ -3404,28 +3404,27 @@ export default function Home() {
         <div className="footer-top">
           <div className="footer-intro">
             <a className="brand" href="#top" aria-label="Birla Opus Paint Jaymurti Traders">
-              <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={36} height={36} className="brand-logo" />
+              <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={48} height={48} className="brand-logo" />
               <span className="brand-name-text">JAYMURTI TRADERS</span>
             </a>
             <p>
               <strong>JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)</strong>
               <br />
-              Birla Opus Paint Dealer / Paint &amp; Colour Showroom
+              Authorised Birla Opus Paint Dealer &amp; Experience Showroom
               <br />
               Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh - 224129, India.
               <br />
-              Hours: 8:00 AM – 9:00 PM.
+              Hours: 8:00 AM – 9:00 PM (Monday – Sunday)
             </p>
             <p>
-              For authentic Birla Opus paints and painting essentials, call <a href="tel:+918756659035">+91 87566 59035</a>.
+              For authentic Birla Opus paints, automated shade tinting, and consultation: <a href="tel:+918756659035">+91 87566 59035</a>
             </p>
-            <div style={{ marginTop: "16px", display: "flex", gap: "12px" }}>
-              <a href={businessProfile.instagramUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--saffron)", fontSize: "13px" }}>
-                Instagram: @paintwalebhaiya45
+            <div className="footer-social-links">
+              <a href={businessProfile.instagramUrl} target="_blank" rel="noopener noreferrer" className="footer-social-pill">
+                Instagram @paintwalebhaiya45
               </a>
-              <span>·</span>
-              <a href={googleBusinessProfileUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--saffron)", fontSize: "13px" }}>
-                Google Profile
+              <a href={googleBusinessProfileUrl} target="_blank" rel="noopener noreferrer" className="footer-social-pill">
+                Google Business Profile
               </a>
             </div>
           </div>
@@ -3451,31 +3450,36 @@ export default function Home() {
               <h4>Showroom</h4>
               <a href="#inside-jaymurti">Inside Jaymurti</a>
               <a href="#step-inside">Step Inside (Video)</a>
-              <a href="#services">Services & Guidance</a>
+              <a href="#services">Services &amp; Guidance</a>
               <a href="#budget">Paint Estimator</a>
               <a href="#finder">Visit Showroom</a>
               <a href="#reviews">Customer Reviews</a>
             </div>
             <div>
-              <h4>Contact</h4>
+              <h4>Contact &amp; Legal</h4>
               <a href="tel:+918756659035">+91 87566 59035</a>
               <a href="https://wa.me/918756659035" target="_blank" rel="noopener noreferrer">WhatsApp Desk</a>
               <a href={businessProfile.instagramUrl} target="_blank" rel="noopener noreferrer">Instagram (@paintwalebhaiya45)</a>
               <a href={businessProfile.facebookUrl} target="_blank" rel="noopener noreferrer">Facebook Page</a>
               <a href="#finder">Shukul Bazar, Baskhari</a>
-              <a href="#finder">Ambedkar Nagar · 224129</a>
               <Link href="/privacy">Privacy Policy</Link>
+              <Link href="/terms">Terms &amp; Conditions</Link>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स</span>
-          <span>Shukul Bazar, Baskhari · Ambedkar Nagar, Uttar Pradesh - 224129, India</span>
+          <div className="footer-bottom-brand">
+            JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स
+            <span style={{ fontWeight: 400, marginLeft: "8px", opacity: 0.85 }}>
+              · Shukul Bazar, Baskhari, Ambedkar Nagar, UP - 224129
+            </span>
+          </div>
           <div className="socials">
             <a href={businessProfile.instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href={businessProfile.facebookUrl} target="_blank" rel="noopener noreferrer">Facebook</a>
             <a href={businessProfile.googleMapsUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
             <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/terms">Terms &amp; Conditions</Link>
           </div>
         </div>
       </footer>
