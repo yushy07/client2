@@ -43,11 +43,10 @@ describe("Product Stories Video Showcase", () => {
     expect(productStoriesComponent).not.toContain("product-stories-indicator-dot");
   });
 
-  it("preserves View Master Catalogue and Consult CTAs with infinite scrollbar", () => {
+  it("preserves View Master Catalogue and Consult CTAs with infinite 10s auto-advance", () => {
     expect(productStoriesComponent).toContain("View master catalogue");
     expect(productStoriesComponent).toContain("Consult on master finishes");
-    expect(productStoriesComponent).toContain("product-stories-scrollbar-track");
-    expect(productStoriesComponent).toContain("product-stories-scrollbar-thumb");
+    expect(productStoriesComponent).toContain("AUTO_ADVANCE_INTERVAL = 10000");
   });
 
   it("supports click-to-center focusing on all cards", () => {

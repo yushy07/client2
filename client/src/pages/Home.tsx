@@ -3242,11 +3242,11 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="review-summary-side">
-                  <p>
-                    {publishedReviewsQuery.data?.reviews.length
-                      ? `${publishedReviewsQuery.data.reviews.length} public ${publishedReviewsQuery.data.reviews.length === 1 ? "review" : "reviews"}`
-                      : "3–5 star reviews will appear here automatically."}
-                  </p>
+                  {Boolean(publishedReviewsQuery.data?.reviews.length) && (
+                    <p>
+                      {`${publishedReviewsQuery.data!.reviews.length} public ${publishedReviewsQuery.data!.reviews.length === 1 ? "review" : "reviews"}`}
+                    </p>
+                  )}
                   <a href={googleBusinessProfileUrl} target="_blank" rel="noopener noreferrer" className="review-summary-google-link">
                     View on Google <ArrowRight size={12} />
                   </a>

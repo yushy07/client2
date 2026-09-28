@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { ArrowRight, Play, Pause, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Pause, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface ProductVideoStory {
   id: string;
@@ -170,7 +170,7 @@ export const productVideoStories: ProductVideoStory[] = [
   },
 ];
 
-const AUTO_ADVANCE_INTERVAL = 10000; // 10 seconds per product
+const AUTO_ADVANCE_INTERVAL = 10000; // 10 seconds per product in the center
 
 interface ProductVideoCardProps {
   story: ProductVideoStory;
@@ -212,32 +212,49 @@ function ProductVideoCard({
 
     // Explicitly enforce silent playback at DOM level
     video.muted = true;
+    video.defaultMuted = true;
     video.volume = 0;
 
     if (!isSectionInView || !isCentered) {
       video.pause();
+      video.currentTime = 0;
       setIsPlaying(false);
       return;
     }
 
+    // Centered card: rewind to beginning and play for 10 seconds
+    const playCentered = () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsPlaying(true))
+          .catch(() => setIsPlaying(false));
+      }
+    };
+
+    playCentered();
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
-          video.muted = true;
-          video.volume = 0;
-          video.play().then(() => setIsPlaying(true)).catch(() => {
-            setIsPlaying(false);
-          });
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+          playCentered();
         } else {
           video.pause();
           setIsPlaying(false);
         }
       },
-      { threshold: [0, 0.25, 0.6] }
+      { threshold: [0, 0.2, 0.5] }
     );
 
     observer.observe(video);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
   }, [isSectionInView, isCentered]);
 
   const togglePlayback = useCallback((e: React.MouseEvent | React.KeyboardEvent) => {
@@ -245,7 +262,7 @@ function ProductVideoCard({
     const video = videoRef.current;
     if (!video) return;
 
-    // If card is not centered, click centers it
+    // If card is not centered, clicking centers it
     if (!isCentered) {
       onFocusCard();
       return;
@@ -263,8 +280,7 @@ function ProductVideoCard({
     }
   }, [isCentered, onFocusCard]);
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    // If user clicked outside the interactive links, focus/center this card
+  const handleCardClick = () => {
     if (!isCentered) {
       onFocusCard();
     }
@@ -272,7 +288,7 @@ function ProductVideoCard({
 
   return (
     <article
-      className={`product-story-card ${isPlaying ? "is-playing" : "is-paused"} ${isCentered ? "is-centered" : ""}`}
+      className={`product-story-card ${isPlaying ? "is-playing" : "is-paused"} ${isCentered ? "is-centered ring-2 ring-accent/60 shadow-2xl scale-[1.02]" : "opacity-85 hover:opacity-100"}`}
       style={{
         "--card-accent": story.accentTone,
         transform: `translateX(calc(${virtualIndex} * var(--story-step-width)))`,
@@ -313,8 +329,22 @@ function ProductVideoCard({
         </div>
         <div className="product-story-motion-tag">
           <Sparkles size={12} />
-          <span>Motion Showcase</span>
+          <span>{isCentered ? "Now Playing (10s)" : "Motion Showcase"}</span>
         </div>
+
+        {/* 10-Second Progress Indicator on the active center card */}
+        {isCentered && isPlaying && (
+          <div className="absolute top-0 inset-x-0 h-1 bg-white/20 z-20 overflow-hidden">
+            <div
+              key={`progress-${virtualIndex}`}
+              className="h-full bg-accent"
+              style={{
+                width: "100%",
+                animation: "storyProgress 10s linear forwards",
+              }}
+            />
+          </div>
+        )}
       </div>
 
       <div className="product-story-info">
@@ -338,7 +368,6 @@ export function ProductStories() {
   // Virtual continuous floating-point offset on the infinite belt
   const [offset, setOffset] = useState<number>(0);
   const [isInteracting, setIsInteracting] = useState<boolean>(false);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [autoTimerKey, setAutoTimerKey] = useState<number>(0);
   const [centerShiftSteps, setCenterShiftSteps] = useState<number>(0);
@@ -346,8 +375,7 @@ export function ProductStories() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const dragStartRef = useRef<{ clientX: number; startOffset: number; isScrollbar: boolean } | null>(null);
-  const scrollbarTrackRef = useRef<HTMLDivElement>(null);
+  const dragStartRef = useRef<{ clientX: number; startOffset: number } | null>(null);
   const wheelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isInitializedRef = useRef<boolean>(false);
 
@@ -380,7 +408,7 @@ export function ProductStories() {
     const viewportWidth = viewport.clientWidth;
     if (!viewportWidth) return 0;
 
-    const cardEl = viewport.querySelector<HTMLElement>(".product-story-card");
+    const cardEl = viewport.querySelector<HTMLElement>("article.product-story-card");
     const cardWidth = cardEl ? cardEl.offsetWidth : 300;
     const cardMarginLeft = cardEl ? parseFloat(window.getComputedStyle(cardEl).marginLeft) || 0 : 0;
 
@@ -426,9 +454,9 @@ export function ProductStories() {
     resetAutoplayTimer();
   }, [resetAutoplayTimer]);
 
-  // 10-Second Continuous Autoplay Loop
+  // 10-Second Continuous Infinite Autoplay Loop
   useEffect(() => {
-    if (isHovered || isInteracting) return;
+    if (!isSectionInView || isInteracting) return;
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mediaQuery.matches) return;
@@ -438,7 +466,7 @@ export function ProductStories() {
     }, AUTO_ADVANCE_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [isHovered, isInteracting, advanceOffset, autoTimerKey]);
+  }, [isSectionInView, isInteracting, advanceOffset, autoTimerKey]);
 
   // Touch Swipe for mobile infinite carousel
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -447,7 +475,6 @@ export function ProductStories() {
     dragStartRef.current = {
       clientX: e.touches[0].clientX,
       startOffset: offset,
-      isScrollbar: false,
     };
   };
 
@@ -487,52 +514,6 @@ export function ProductStories() {
     }, 450);
   };
 
-  // True Infinite Interactive Bottom Scrollbar Pointer / Drag Logic
-  const handleScrollbarPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    const track = scrollbarTrackRef.current;
-    if (!track) return;
-
-    setIsInteracting(true);
-    setIsTransitioning(false);
-    track.setPointerCapture(e.pointerId);
-
-    const trackRect = track.getBoundingClientRect();
-    const trackWidth = trackRect.width || 800;
-    const pxPerStep = Math.max(30, trackWidth / totalOriginal);
-
-    dragStartRef.current = {
-      clientX: e.clientX,
-      startOffset: offset,
-      isScrollbar: true,
-    };
-
-    const handlePointerMove = (moveEvent: PointerEvent) => {
-      if (!dragStartRef.current) return;
-      const diffX = moveEvent.clientX - dragStartRef.current.clientX;
-      const stepsMoved = diffX / pxPerStep;
-      setOffset(dragStartRef.current.startOffset + stepsMoved);
-    };
-
-    const handlePointerUp = (upEvent: PointerEvent) => {
-      try {
-        track.releasePointerCapture(upEvent.pointerId);
-      } catch {
-        // Safe fallback
-      }
-      track.removeEventListener("pointermove", handlePointerMove);
-      track.removeEventListener("pointerup", handlePointerUp);
-      const shift = calculateCenterShiftSteps();
-      setIsTransitioning(true);
-      setOffset((prev) => Math.round(prev + shift) - shift);
-      dragStartRef.current = null;
-      setIsInteracting(false);
-      resetAutoplayTimer();
-    };
-
-    track.addEventListener("pointermove", handlePointerMove);
-    track.addEventListener("pointerup", handlePointerUp);
-  };
-
   // Dynamic sliding window of virtual cards centered around the active centered card
   const virtualCenterPos = offset + centerShiftSteps;
   const centerIdx = Math.floor(virtualCenterPos);
@@ -558,15 +539,6 @@ export function ProductStories() {
     return cards;
   }, [centerIdx, virtualCenterPos, totalOriginal]);
 
-  // Modulo-normalized index for accessibility attributes (0 to totalOriginal - 1)
-  const normalizedActiveIndex = ((Math.round(virtualCenterPos) % totalOriginal) + totalOriginal) % totalOriginal;
-
-  // True Infinite Cyclic Thumb Position: sweeps smoothly across the wide track
-  const cyclicRatio = ((virtualCenterPos % totalOriginal) + totalOriginal) % totalOriginal / totalOriginal;
-  const thumbWidthPercent = Math.max(8, (1 / totalOriginal) * 100);
-  const thumbTravelPercent = (100 - thumbWidthPercent);
-  const thumbLeftPercent = cyclicRatio * thumbTravelPercent;
-
   return (
     <section
       ref={sectionRef}
@@ -576,8 +548,6 @@ export function ProductStories() {
       data-section-label="Stories"
       data-reveal
       aria-label="Birla Opus Product Video Stories"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="product-stories-header">
         <div className="product-stories-intro">
@@ -589,6 +559,24 @@ export function ProductStories() {
         </div>
 
         <div className="product-stories-side">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => advanceOffset(-1)}
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/15 active:scale-95"
+              aria-label="Previous product video"
+              title="Previous video"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={() => advanceOffset(1)}
+              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/15 active:scale-95"
+              aria-label="Next product video"
+              title="Next video"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
           <a href="#products" className="arrow-link">
             View master catalogue <ArrowRight size={15} />
           </a>
@@ -628,37 +616,7 @@ export function ProductStories() {
         </div>
       </div>
 
-      {/* Wide Premium Horizontal Carousel Navigation Track */}
-      <div className="product-stories-scrollbar-wrapper" aria-label="Product carousel horizontal navigation track">
-        <div
-          className={`product-stories-scrollbar-track ${isInteracting ? "is-dragging" : ""}`}
-          ref={scrollbarTrackRef}
-          onPointerDown={handleScrollbarPointerDown}
-          role="slider"
-          aria-valuemin={1}
-          aria-valuemax={totalOriginal}
-          aria-valuenow={normalizedActiveIndex + 1}
-          aria-label={`Horizontal Carousel Navigation: Story ${normalizedActiveIndex + 1} of ${totalOriginal}`}
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "ArrowRight") {
-              advanceOffset(1);
-            } else if (e.key === "ArrowLeft") {
-              advanceOffset(-1);
-            }
-          }}
-        >
-          <div
-            className={`product-stories-scrollbar-thumb ${isTransitioning ? "is-transitioning" : ""}`}
-            style={{
-              width: `${thumbWidthPercent}%`,
-              left: `${thumbLeftPercent}%`,
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Clean Bottom CTA Footer without helper clutter */}
+      {/* Clean Bottom CTA Footer without scrollbar */}
       <div className="product-stories-footer-note">
         <a href="#enquiry" className="button-primary">
           Consult on master finishes <ArrowRight size={14} />
@@ -667,4 +625,3 @@ export function ProductStories() {
     </section>
   );
 }
-
