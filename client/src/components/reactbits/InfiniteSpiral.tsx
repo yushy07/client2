@@ -146,9 +146,8 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       const half = count / 2;
       const width = Math.max(bounds.width, 1);
       const height = Math.max(bounds.height, 1);
-      const fit = Math.min(1, height / (cardHeight * 1.5));
-      const responsiveRadius = Math.max(radius, width * 0.62) * fit;
-      const fadeStart = clamp(1 - edgeFade, 0, 0.98);
+      const fit = Math.min(1, height / Math.max(cardHeight * 1.3, 1));
+      const responsiveRadius = Math.max(radius, Math.min(width * 0.48, 420)) * fit;
       const turnSize = Math.max(cardsPerTurn || count, 1);
 
       cardRefs.current.forEach((card, index) => {
@@ -156,18 +155,14 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
         let offset = index - progressRef.current;
         offset = modulo(offset + half, count) - half;
 
-        const edge = Math.min(Math.abs(offset) / Math.max(half, 1), 1);
-        const opacity = 1 - smoothstep(fadeStart, 1, edge);
-        const focus = 1 - Math.min(Math.abs(offset) / Math.max(turnSize * 0.65, 1), 1);
-        const scale = (1 + (centerScale - 1) * focus) * fit;
         const angle = offset * (360 / turnSize) + rotation;
         const angleRadians = (angle * Math.PI) / 180;
         const x = Math.sin(angleRadians) * responsiveRadius;
         const z = Math.cos(angleRadians) * responsiveRadius;
         const normalizedZ = z / Math.max(responsiveRadius, 1);
 
-        // Cull back-facing cards so they never overlap or ghost behind front cards
-        if (normalizedZ <= 0.02) {
+        // Cull cards that are deep in the back (beyond -0.2 normalized depth)
+        if (normalizedZ < -0.25) {
           card.style.opacity = '0';
           card.style.visibility = 'hidden';
           card.style.pointerEvents = 'none';
@@ -176,22 +171,23 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
         }
 
         card.style.visibility = 'visible';
-        const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.75, 1.35);
-        const visualScale = scale * depthScale;
         const depth = (normalizedZ + 1) / 2;
+        const focus = Math.max(0, 1 - Math.abs(offset) / 2.5);
+        const depthScale = 0.78 + 0.32 * Math.max(0, depth);
+        const visualScale = depthScale * (1 + (centerScale - 1) * focus) * fit;
 
-        // Smooth fade at the extreme horizontal edges (z close to 0)
-        const edgeT = Math.min(1, Math.max(0, normalizedZ / 0.18));
-        // Fade smoothly towards the outer horizontal boundaries so cards don't abruptly hit the edge
-        const edgeDistance = Math.abs(x) / (width * 0.48);
-        const horizontalFade = clamp(1 - Math.pow(edgeDistance, 3.5), 0, 1);
-        const finalOpacity = opacity * edgeT * horizontalFade;
+        // Smooth fade for cards moving to the back
+        const depthOpacity = clamp((normalizedZ + 0.25) / 0.75, 0.1, 1);
+        // Smooth horizontal boundary fade
+        const edgeDist = Math.abs(x) / (width * 0.52);
+        const horizontalFade = clamp(1 - Math.pow(edgeDist, 4), 0, 1);
+        const finalOpacity = depthOpacity * horizontalFade;
 
-        card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
+        card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale.toFixed(3)})`;
         card.style.opacity = finalOpacity.toFixed(3);
         card.style.filter = 'none';
-        card.style.zIndex = String(Math.round(depth * 100000) + index);
-        card.style.pointerEvents = edgeT > 0.5 && finalOpacity > 0.4 ? 'auto' : 'none';
+        card.style.zIndex = String(Math.round(depth * 10000));
+        card.style.pointerEvents = finalOpacity > 0.35 && normalizedZ > 0 ? 'auto' : 'none';
       });
 
       frameId = requestAnimationFrame(render);
