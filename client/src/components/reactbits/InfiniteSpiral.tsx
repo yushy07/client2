@@ -166,12 +166,21 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
         const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.72, 1.45);
         const visualScale = scale * depthScale;
         const depth = (z / Math.max(responsiveRadius, 1) + 1) / 2;
+        // Cards in foreground (depth close to 1) are sharp & bright; background cards fade softly
+        const depthOpacity = 0.22 + 0.78 * Math.pow(depth, 1.4);
+        const finalOpacity = opacity * depthOpacity;
+        const brightness = 0.55 + 0.45 * depth;
         const blur = edgeBlur * smoothstep(0.35, 1, edge);
+        const filterStr = [
+          blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : '',
+          brightness < 0.98 ? `brightness(${brightness.toFixed(2)})` : '',
+        ].filter(Boolean).join(' ') || 'none';
+
         card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
-        card.style.opacity = opacity.toFixed(3);
-        card.style.filter = blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : 'none';
+        card.style.opacity = finalOpacity.toFixed(3);
+        card.style.filter = filterStr;
         card.style.zIndex = String(Math.round(depth * 100000) + index);
-        card.style.pointerEvents = opacity > 0.25 ? 'auto' : 'none';
+        card.style.pointerEvents = depth > 0.45 && finalOpacity > 0.35 ? 'auto' : 'none';
       });
 
       frameId = requestAnimationFrame(render);

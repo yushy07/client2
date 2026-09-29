@@ -50,7 +50,7 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
           </div>
 
           {/* Panoramic Wide 3D Helical Ribbon Showcase */}
-          <div className="w-full flex-1 min-w-0 h-[220px] sm:h-[240px] lg:h-[250px] rounded-2xl sm:rounded-3xl overflow-hidden border border-border-teal bg-dark-surface/60 shadow-2xl relative group">
+          <div className="w-full flex-1 min-w-0 h-[220px] sm:h-[240px] lg:h-[260px] rounded-2xl sm:rounded-3xl overflow-hidden border border-border-teal bg-dark-surface/60 shadow-2xl relative group">
             <InfiniteSpiral
               items={WALLPAPER_GALLERY_ITEMS.map((wp) => ({
                 src: wp.url,
@@ -58,30 +58,22 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
                 label: wp.title,
                 id: wp.id,
               }))}
-              radius={260}
-              cardWidth={130}
-              cardHeight={92}
+              radius={270}
+              cardWidth={145}
+              cardHeight={102}
               cardRadius={12}
-              verticalSpacing={14}
-              cardsPerTurn={8}
-              speed={0.12}
+              verticalSpacing={8}
+              cardsPerTurn={6}
+              speed={0.11}
               edgeBlur={0}
-              edgeFade={0.12}
-              centerScale={1.14}
+              edgeFade={0.1}
+              centerScale={1.16}
               pauseOnHover={true}
               onItemClick={(item) => {
                 const found = WALLPAPER_GALLERY_ITEMS.find((w) => w.id === item.id || w.url === item.src);
                 if (found) setActiveWallpaper(found);
               }}
             />
-            {/* Contextual Badges */}
-            <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 text-[10px] uppercase font-mono tracking-wider text-amber-300 bg-black/75 px-2.5 py-1 rounded-full backdrop-blur-md border border-white/10 pointer-events-none shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>3D Wallpaper Swatches</span>
-            </div>
-            <div className="absolute bottom-2.5 right-3 z-10 text-[10px] text-white/60 font-sans pointer-events-none bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm">
-              Hover / Drag · Tap to view
-            </div>
           </div>
         </div>
 

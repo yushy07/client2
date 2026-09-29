@@ -24,14 +24,20 @@
   width: var(--infinite-spiral-card-width);
   height: var(--infinite-spiral-card-height);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.45);
   border-radius: var(--infinite-spiral-card-radius);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.4);
+  background: #09131d;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.6);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform, opacity, filter;
   text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.infinite-spiral__item:hover {
+  border-color: rgba(251, 191, 36, 0.95);
+  box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.9), 0 0 20px rgba(251, 191, 36, 0.4);
 }
 
 .infinite-spiral__image {
