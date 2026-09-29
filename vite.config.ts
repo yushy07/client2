@@ -308,8 +308,6 @@ export default defineConfig(({ command, mode }) => {
     ...(!isProd
       ? [
           jsxLocPlugin(),
-          vitePluginManusRuntime(),
-          vitePluginManusDebugCollector(),
         ]
       : []),
     vitePluginLocalStorageResolver(),

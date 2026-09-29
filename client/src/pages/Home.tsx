@@ -66,6 +66,14 @@ import { InsideJaymurti } from "@/components/experiences/InsideJaymurti";
 import { StepInside } from "@/components/experiences/StepInside";
 import { OwnerAndTeam } from "@/components/experiences/OwnerAndTeam";
 import {
+  BlurText,
+  RotatingText,
+  ShinyText,
+  TrueFocus,
+  ClickSpark,
+  SwipeToast,
+} from "@/components/reactbits";
+import {
   MotionReveal,
   MotionFade,
   MotionStagger,
@@ -546,6 +554,8 @@ export default function Home() {
   const [cartCustomer, setCartCustomer] = useState({ name: "", phone: "", areaLocation: "", pincode: "224129" });
   const [cartCustomerError, setCartCustomerError] = useState("");
   const [addedShadeCode, setAddedShadeCode] = useState<string | null>(null);
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastData, setToastData] = useState<{ title: string; desc: string }>({ title: "", desc: "" });
 
   const comparisonSlugsRef = useRef<string[]>([]);
   const supplementaryRailRef = useRef<HTMLDivElement>(null);
@@ -884,7 +894,7 @@ export default function Home() {
   }, []);
 
   // Cart operations
-  const addToCart = useCallback((item: CartItem, openDrawer = true) => {
+  const addToCart = useCallback((item: CartItem, openDrawer = false) => {
     setCartItems((prev) => {
       const exists = prev.find((i) => i.id === item.id);
       if (exists) {
@@ -892,10 +902,17 @@ export default function Home() {
       }
       return [...prev, item];
     });
+    setToastData({
+      title: item.title,
+      desc: `Added to your enquiry list · ${item.meta}`,
+    });
+    setToastOpen(true);
     if (openDrawer) {
       setIsCartOpen(true);
     }
   }, []);
+
+
 
   const removeFromCart = useCallback((id: string) => {
     setCartItems((prev) => prev.filter((i) => i.id !== id));
@@ -1071,14 +1088,15 @@ export default function Home() {
   }, [cartItems, cartCustomer]);
 
   return (
-    <div className="site-shell">
+    <ClickSpark sparkColor="rgba(217, 119, 6, 0.75)" sparkSize={10} sparkRadius={16} sparkCount={7} duration={380}>
+      <div className="site-shell">
       {/* 1. Global Scroll Progress Indicator */}
       <ScrollProgressBar />
 
       {/* Top Utility Bar */}
       <div className="utility-bar">
         <span>
-          Birla Opus Paint Dealer · <strong className="brand-name-text">JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)</strong>
+          Birla Opus Paint Dealer · <strong className="brand-name-text">JAYMURTI TRADERS &nbsp;·&nbsp; जयमूर्ति ट्रेडर्स</strong>
         </span>
         <span>Shukul Bazar, Baskhari · Call +91 87566 59035</span>
       </div>
@@ -1087,9 +1105,9 @@ export default function Home() {
       <header className={`nav ${isScrolled ? "nav--scrolled shadow-md backdrop-blur-md" : ""}`} style={{ transition: "background-color 0.28s ease, backdrop-filter 0.28s ease, box-shadow 0.28s ease" }}>
         <a className="brand group" href="#top" aria-label="Birla Opus Paint Jaymurti Traders">
           <img src="/storage/logo.webp" alt="Jaymurti Traders Logo" width={38} height={38} className="brand-logo transition-transform duration-300 group-hover:scale-105" />
-          <div className="brand-titles">
+          <div className="brand-titles flex items-baseline gap-3 sm:gap-3.5">
             <span className="brand-name-text">Jaymurti Traders</span>
-            <span className="brand-sub-text">जयमूर्ति ट्रेडर्स</span>
+            <span className="brand-sub-text font-sans text-xs sm:text-sm font-medium tracking-normal text-white/85">जयमूर्ति ट्रेडर्स</span>
           </div>
         </a>
 
@@ -1204,16 +1222,31 @@ export default function Home() {
                 <div className="hero-brand-lockup">
                   <img src="/storage/logo.webp" alt="Jaymurti Traders Logo" width={28} height={28} className="hero-brand-logo" />
                   <span className="hero-brand-title">JAYMURTI TRADERS</span>
-                  <span style={{ fontSize: "0.85rem", opacity: 0.8, marginLeft: "6px", fontFamily: "var(--sans)" }}>जयमूर्ति ट्रेडर्स</span>
+                  <span style={{ fontSize: "0.85rem", opacity: 0.8, marginLeft: "12px", fontFamily: "var(--sans)" }}>जयमूर्ति ट्रेडर्स</span>
                 </div>
 
                 {/* Eyebrow badge matching mockup */}
                 <div className="hero-eyebrow-pill">
-                  <span className="hero-eyebrow-dash">—</span> PAINT SYSTEMS &amp; EXPERT ADVICE
+                  <span className="hero-eyebrow-dash">—</span>{" "}
+                  <ShinyText text="PAINT SYSTEMS & EXPERT ADVICE" color="#71717a" shineColor="#d97706" speed={2.5} />
                 </div>
 
                 <h1 className="hero-headline">{activeCampaign.title}</h1>
-                <p className="hero-description">{activeCampaign.text}</p>
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400 font-medium mb-3">
+                  <span>Transforming:</span>
+                  <RotatingText
+                    texts={["Living Rooms", "Exterior Facades", "Designer Textures", "Waterproof Walls", "Bedrooms & Hallways"]}
+                    mainClassName="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 font-semibold border border-amber-500/20 text-xs sm:text-sm"
+                  />
+                </div>
+                <div className="hero-description">
+                  <BlurText
+                    key={`desc-${campaign}`}
+                    text={activeCampaign.text}
+                    delay={30}
+                    animateBy="words"
+                  />
+                </div>
 
                 {/* Hero Actions (Exploration & Navigation) */}
                 <div className="hero-actions">
@@ -1242,7 +1275,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="hero-notes">
+              <div className="hero-notes mt-6 sm:mt-8 pt-3 border-t border-white/5">
                 <span>{activeCampaign.note}</span>
                 <span>Scroll to explore ↓</span>
               </div>
@@ -1387,7 +1420,9 @@ export default function Home() {
           <div className="discovery-index-header">
             <div>
               <div className="eyebrow" style={{ color: "var(--color-accent)" }}>Visual Discovery Index</div>
-              <h2>What are you looking for?</h2>
+              <h2>
+                <TrueFocus sentence="What are you looking for?" borderColor="#d97706" glowColor="rgba(217, 119, 6, 0.45)" animationDuration={0.4} />
+              </h2>
             </div>
             <p>Direct architectural navigation to guide your colour curation, surface finishes, product formulations, and store consultation.</p>
           </div>
@@ -3447,7 +3482,7 @@ export default function Home() {
               <span className="brand-name-text">JAYMURTI TRADERS</span>
             </a>
             <p>
-              <strong>JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)</strong>
+              <strong>JAYMURTI TRADERS &nbsp;·&nbsp; जयमूर्ति ट्रेडर्स</strong>
               <br />
               Authorised Birla Opus Paint Dealer &amp; Experience Showroom
               <br />
@@ -3732,7 +3767,7 @@ export default function Home() {
                 onClick={handleSendWhatsAppEnquiry}
                 target={cartItems.length > 0 && cartCustomer.name.trim() && cartCustomer.phone.trim() && cartCustomer.areaLocation.trim() && /^\d{6}$/.test(cartCustomer.pincode.trim()) ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="button-primary"
+                className="button-primary !bg-emerald-600 hover:!bg-emerald-700 shadow-lg shadow-emerald-950/20"
                 style={{ width: "100%", textAlign: "center", justifyContent: "center", display: "inline-flex", gap: "8px" }}
               >
                 <MessageCircle size={16} />
@@ -3938,6 +3973,26 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+
+
+      {/* React Bits Live Swipe Toast for Cart & Enquiry updates */}
+      <SwipeToast
+        open={toastOpen}
+        onClose={() => setToastOpen(false)}
+        title={toastData.title}
+        description={toastData.desc}
+        actionLabel="View Cart"
+        onAction={() => {
+          setToastOpen(false);
+          setIsCartOpen(true);
+        }}
+        background="#18181b"
+        color="#f4f4f5"
+        fuseColor="#d97706"
+        duration={3500}
+      />
     </div>
+  </ClickSpark>
   );
 }

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { BookOpen, ChevronLeft, ChevronRight, Maximize2, Sparkles, ShoppingBag, X, Copy, Check } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { Aurora, ShinyText } from "@/components/reactbits";
 
 interface ColourCapsuleProps {
   onSelectShadeTone?: (tone: string) => void;
@@ -80,16 +81,17 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
 
   return (
     <section id="colour-capsule" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative overflow-hidden">
-      {/* Subtle architectural background gradients */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-secondary/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      {/* React Bits Raw WebGL Aurora Background Animation */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden">
+        <Aurora colorStops={["#d97706", "#0d9488", "#312e81"]} blend={0.6} amplitude={1.1} speed={0.4} />
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Editorial Masthead */}
         <div className="max-w-3xl mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface/90 text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal backdrop-blur-md">
             <BookOpen className="w-3.5 h-3.5" />
-            Birla Opus Archive · 50 Editorial Spreads
+            <ShinyText text="Birla Opus Archive · 50 Editorial Spreads" color="#d97706" shineColor="#fef08a" speed={2.8} />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-on-dark tracking-tight leading-tight">
             The Colour Capsule

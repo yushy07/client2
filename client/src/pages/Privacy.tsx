@@ -32,12 +32,12 @@ export default function Privacy() {
         <section>
           <h2>1. Who We Are</h2>
           <p>
-            <strong>JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)</strong> is an independent paint and colour
+            <strong>JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स</strong> is an independent paint and colour
             showroom and authorised Birla Opus Paint Dealer based in Ambedkar Nagar, Uttar Pradesh.
           </p>
           <ul>
             <li>
-              <strong>Business Name:</strong> JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)
+              <strong>Business Name:</strong> JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स
             </li>
             <li>
               <strong>Business Type:</strong> Birla Opus Paint Dealer / Paint &amp; Colour Showroom

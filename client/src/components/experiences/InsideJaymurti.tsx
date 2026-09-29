@@ -3,20 +3,28 @@ import { INSIDE_JAYMURTI_PHOTOS, type ShowroomPhoto } from "@shared/insideJaymur
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Building2, Maximize2, MapPin, Phone, Clock } from "lucide-react";
 import { businessProfile } from "@shared/businessProfile";
-import { MotionImageReveal } from "@/lib/motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { ShinyText, PulseHeart } from "@/components/reactbits";
 
 export const InsideJaymurti: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState<ShowroomPhoto | null>(null);
+  const [photoLikes, setPhotoLikes] = useState<Record<string, number>>({
+    "1": 42,
+    "2": 38,
+    "3": 56,
+    "4": 29,
+    "5": 61,
+    "6": 34
+  });
 
   return (
-    <section id="inside-jaymurti" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
+    <section id="inside-jaymurti" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Masthead */}
         <div className="max-w-3xl mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
             <Building2 className="w-3.5 h-3.5" />
-            Baskhari Showroom Gallery · On-Site Photography
+            <ShinyText text="Baskhari Showroom Gallery · On-Site Photography" color="#d97706" shineColor="#fef08a" speed={2.5} />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-on-dark tracking-tight leading-tight">
             Inside Jaymurti
@@ -27,40 +35,62 @@ export const InsideJaymurti: React.FC = () => {
           </p>
         </div>
 
-        {/* Showroom Photo Masonry / Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Showroom Photo Masonry Flow - Uncropped Full Natural Dimensions */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
           {INSIDE_JAYMURTI_PHOTOS.map((photo) => (
             <article
               key={photo.id}
-              onClick={() => setActivePhoto(photo)}
-              className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
+              className="break-inside-avoid group rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col shadow-lg hover:shadow-2xl"
             >
-              <div className={`relative ${photo.aspect === "tall" ? "aspect-[3/4]" : photo.aspect === "wide" ? "aspect-[16/9]" : "aspect-[4/3]"} w-full overflow-hidden bg-dark-surface`}>
+              <div
+                onClick={() => setActivePhoto(photo)}
+                className="relative w-full overflow-hidden bg-dark/40 cursor-pointer"
+              >
                 <ResponsiveImage
                   src={photo.image}
                   alt={photo.title}
                   loading="lazy"
                   decoding="async"
-                  width={photo.aspect === "tall" ? 300 : 400}
-                  height={photo.aspect === "tall" ? 400 : 300}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  className="w-full h-auto object-contain block group-hover:scale-102 transition-transform duration-500 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                   <span className="inline-flex items-center gap-1.5 text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
-                    <Maximize2 className="w-3.5 h-3.5" /> View Photo
+                    <Maximize2 className="w-3.5 h-3.5" /> View Full Photo
                   </span>
                 </div>
               </div>
 
-              <div className="p-5 flex flex-col justify-between flex-grow">
+              <div className="p-5 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-lg font-serif text-on-dark group-hover:text-accent transition-colors">
-                    {photo.title}
-                  </h3>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3
+                      onClick={() => setActivePhoto(photo)}
+                      className="text-lg font-serif text-on-dark group-hover:text-accent transition-colors cursor-pointer"
+                    >
+                      {photo.title}
+                    </h3>
+
+                    {/* React Bits PulseHeart Like Interaction */}
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <PulseHeart
+                        size={32}
+                        count={photoLikes[photo.id] || 30}
+                        showCount={true}
+                        likedColor="#f59e0b"
+                        idleColor="#71717a"
+                        pillColor="rgba(255, 255, 255, 0.05)"
+                        textColor="#d4d4d8"
+                        onChange={(_liked, count) => {
+                          setPhotoLikes((prev) => ({ ...prev, [photo.id]: count }));
+                        }}
+                      />
+                    </div>
+                  </div>
+
                   <span className="text-[11px] text-on-dark-muted block mt-0.5 font-medium">
                     {photo.subtitle}
                   </span>
-                  <p className="mt-2 text-xs text-on-dark-muted line-clamp-2 leading-relaxed">
+                  <p className="mt-2 text-xs text-on-dark-muted leading-relaxed">
                     {photo.description}
                   </p>
                 </div>
@@ -143,3 +173,4 @@ export const InsideJaymurti: React.FC = () => {
     </section>
   );
 };
+export default InsideJaymurti;

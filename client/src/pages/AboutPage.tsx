@@ -35,7 +35,7 @@ export const AboutPage: React.FC = () => {
               A Modern Paint & Architectural Colour Showroom in Ambedkar Nagar
             </h2>
             <p className="text-sm sm:text-base text-on-dark-muted leading-relaxed">
-              <strong>JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)</strong> is established in Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh as an authorized Birla Opus paint dealership.
+              <strong>JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स</strong> is established in Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh as an authorized Birla Opus paint dealership.
             </p>
             <p className="text-xs sm:text-sm text-on-dark-muted leading-relaxed">
               We bring Aditya Birla Group’s premier paint innovation — Birla Opus — directly to homeowners, architects, painters, and builders. Our mission is to combine authentic formulations, exact computerized tinting machines, and expert colour curation in a welcoming showroom environment.

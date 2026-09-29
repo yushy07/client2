@@ -13,10 +13,13 @@ import {
   ChevronRight,
   Check,
   Grid,
-  Columns
+  Columns,
+  Sun,
+  Moon
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { JellyRadio, ElasticSlider, ShinyText, TrueFocus } from "@/components/reactbits";
 
 interface RoomShadeStudioProps {
   onEnquire?: (title: string, details: string) => void;
@@ -169,6 +172,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
 
   // View Layout Modes: 'grid' (Lookbook Multi-Card) vs 'duo' (Direct 2-up Side-by-Side)
   const [layoutMode, setLayoutMode] = useState<"grid" | "duo">("grid");
+  const [lightingLevel, setLightingLevel] = useState<number>(100);
 
   // Dual side-by-side comparison indices
   const [leftVariantIndex, setLeftVariantIndex] = useState<number>(0);
@@ -249,40 +253,50 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface/90 text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal/60 backdrop-blur-md">
               <Layers className="w-3.5 h-3.5 text-accent" />
-              Same Room Studio · {totalVariantsCount} Variations Across {ROOM_SHADE_STUDIO_SCENES.length} Architectural Spaces
+              <ShinyText text={`Same Room Studio · ${totalVariantsCount} Variations Across ${ROOM_SHADE_STUDIO_SCENES.length} Architectural Spaces`} color="#2dd4bf" shineColor="#fbbf24" speed={3} />
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-white tracking-tight leading-tight">
-              Same Room, Different Shades
+              <TrueFocus sentence="Same Room, Different Shades" borderColor="#2dd4bf" glowColor="rgba(45, 212, 191, 0.45)" animationDuration={0.4} />
             </h2>
             <p className="mt-3 text-base sm:text-lg text-on-dark-muted font-sans leading-relaxed">
               Explore how altering wall hues shifts mood, light reflectance, and spatial depth in the exact same room. Browse variations in the lookbook grid, or compare two shades side-by-side.
             </p>
           </div>
 
-          {/* View Mode Switcher */}
-          <div className="flex items-center gap-2 bg-dark-surface/80 p-1.5 rounded-2xl border border-border-teal/60 backdrop-blur-md self-start lg:self-end">
-            <button
-              type="button"
-              onClick={() => setLayoutMode("grid")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all ${
-                layoutMode === "grid"
-                  ? "bg-accent text-dark font-bold shadow-md"
-                  : "text-on-dark-muted hover:text-white"
-              }`}
-            >
-              <Grid className="w-4 h-4" /> Lookbook Grid
-            </button>
-            <button
-              type="button"
-              onClick={() => setLayoutMode("duo")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all ${
-                layoutMode === "duo"
-                  ? "bg-accent text-dark font-bold shadow-md"
-                  : "text-on-dark-muted hover:text-white"
-              }`}
-            >
-              <Columns className="w-4 h-4" /> Dual Comparison
-            </button>
+          {/* View Mode & Daylight Simulation Controls */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-dark-surface/80 p-2.5 rounded-2xl border border-border-teal/60 backdrop-blur-md self-start lg:self-end">
+            <JellyRadio
+              name="room-studio-layout-mode"
+              value={layoutMode}
+              onChange={(val) => setLayoutMode(val as "grid" | "duo")}
+              items={[
+                { value: "grid", label: "Lookbook Grid", icon: <Grid className="w-3.5 h-3.5" /> },
+                { value: "duo", label: "Dual Comparison", icon: <Columns className="w-3.5 h-3.5" /> },
+              ]}
+              skinColor="#10181b"
+              activeColor="#2dd4bf"
+              textColor="#94a3b8"
+              activeTextColor="#090d0e"
+            />
+
+            {/* Daylight / Light Reflectance Elastic Slider */}
+            <div className="flex items-center gap-2 px-2 py-1 rounded-xl bg-black/30 border border-white/5">
+              <span className="text-[11px] text-zinc-400 font-medium flex items-center gap-1">
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                Light:
+              </span>
+              <div className="w-32">
+                <ElasticSlider
+                  defaultValue={lightingLevel}
+                  startingValue={75}
+                  maxValue={125}
+                  isStepped={false}
+                  leftIcon={<Moon className="w-3 h-3 text-zinc-500" />}
+                  rightIcon={<Sun className="w-3 h-3 text-amber-400" />}
+                  onChange={(val) => setLightingLevel(Math.round(val))}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -438,7 +452,8 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                         decoding="async"
                         width={400}
                         height={275}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                        style={{ filter: `brightness(${lightingLevel}%)` }}
                       />
 
                       {/* Ambient gradient overlay */}
@@ -536,7 +551,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                 </div>
 
                 <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-dark border border-white/10 group cursor-pointer" onClick={() => setActiveLightboxVariant(leftVariant)}>
-                  <ResponsiveImage src={leftVariant.url} alt={leftVariant.label} loading="lazy" decoding="async" width={600} height={375} className="w-full h-full object-cover" />
+                  <ResponsiveImage src={leftVariant.url} alt={leftVariant.label} loading="lazy" decoding="async" width={600} height={375} className="w-full h-full object-cover transition-all duration-300" style={{ filter: `brightness(${lightingLevel}%)` }} />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                     <span className="px-3 py-1.5 rounded-full bg-dark/90 text-white text-xs font-semibold border border-white/20 flex items-center gap-1.5">
                       <Maximize2 className="w-3.5 h-3.5 text-accent" /> Magnify
@@ -576,7 +591,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                 </div>
 
                 <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-dark border border-white/10 group cursor-pointer" onClick={() => setActiveLightboxVariant(rightVariant)}>
-                  <ResponsiveImage src={rightVariant.url} alt={rightVariant.label} loading="lazy" decoding="async" width={600} height={375} className="w-full h-full object-cover" />
+                  <ResponsiveImage src={rightVariant.url} alt={rightVariant.label} loading="lazy" decoding="async" width={600} height={375} className="w-full h-full object-cover transition-all duration-300" style={{ filter: `brightness(${lightingLevel}%)` }} />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                     <span className="px-3 py-1.5 rounded-full bg-dark/90 text-white text-xs font-semibold border border-white/20 flex items-center gap-1.5">
                       <Maximize2 className="w-3.5 h-3.5 text-accent" /> Magnify

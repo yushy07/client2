@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Palette, Maximize2, ShoppingBag, Sparkles, CheckCircle2 } from "lucide-react";
 import { MotionCursorLight, MotionImageReveal } from "@/lib/motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { InfiniteSpiral, ShinyText } from "@/components/reactbits";
 
 interface WallpaperGalleryProps {
   onEnquire?: (title: string, details: string) => void;
@@ -34,17 +35,49 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
     <section id="wallpaper-gallery" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Masthead */}
-        <div className="max-w-3xl mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
-            <Palette className="w-3.5 h-3.5" />
-            Visual Wallpaper Discovery · 13 Curated Design Families
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 sm:mb-12 gap-8">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
+              <Palette className="w-3.5 h-3.5" />
+              <ShinyText text="Visual Wallpaper Discovery · 13 Curated Design Families" color="#d97706" shineColor="#fef08a" speed={2.5} />
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-on-dark tracking-tight leading-tight">
+              Wallpaper Gallery
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-on-dark-muted font-sans leading-relaxed">
+              Move beyond solid colour into tactile patterned luxury. Discover authentic Birla Opus wallpaper collections spanning handloom heritage, intricate botanicals, and modern architectural stone textures.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-on-dark tracking-tight leading-tight">
-            Wallpaper Gallery
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-on-dark-muted font-sans leading-relaxed">
-            Move beyond solid colour into tactile patterned luxury. Discover authentic Birla Opus wallpaper collections spanning handloom heritage, intricate botanicals, and modern architectural stone textures.
-          </p>
+
+          {/* Responsive 3D Helical Spiral Showcase */}
+          <div className="flex flex-col w-full max-w-[340px] sm:max-w-[360px] h-[240px] sm:h-[280px] mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-border-teal bg-dark-surface/60 shadow-2xl relative group shrink-0">
+            <InfiniteSpiral
+              items={WALLPAPER_GALLERY_ITEMS.map((wp) => ({
+                src: wp.url,
+                alt: wp.title,
+                label: wp.title,
+                id: wp.id,
+              }))}
+              radius={120}
+              cardWidth={100}
+              cardHeight={85}
+              cardRadius={10}
+              speed={0.45}
+              pauseOnHover={true}
+              onItemClick={(item) => {
+                const found = WALLPAPER_GALLERY_ITEMS.find((w) => w.id === item.id || w.url === item.src);
+                if (found) setActiveWallpaper(found);
+              }}
+            />
+            {/* Contextual Badges */}
+            <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 text-[10px] uppercase font-mono tracking-wider text-amber-300 bg-black/75 px-2.5 py-1 rounded-full backdrop-blur-md border border-white/10 pointer-events-none shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>3D Wallpaper Swatches</span>
+            </div>
+            <div className="absolute bottom-2.5 right-3 z-10 text-[10px] text-white/60 font-sans pointer-events-none bg-black/60 px-2 py-0.5 rounded backdrop-blur-sm">
+              Hover / Drag · Tap to view
+            </div>
+          </div>
         </div>
 
         {/* Filter Tabs */}

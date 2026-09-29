@@ -2,9 +2,10 @@ import React, { useState, useMemo } from "react";
 import { ROOM_LIBRARY_PAGES, type RoomLibraryPage, type RoomCategory } from "@shared/roomLibraryData";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home } from "lucide-react";
+import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home, LayoutGrid, Layers } from "lucide-react";
 import { MotionImageReveal } from "@/lib/motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { Masonry, type MasonryItem, ShinyText } from "@/components/reactbits";
 
 interface RoomLibraryProps {
   onEnquire?: (title: string, details: string) => void;
@@ -24,6 +25,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
   const [activeCategory, setActiveCategory] = useState<string>("All Spaces");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [activeSpace, setActiveSpace] = useState<RoomLibraryPage | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "masonry">("grid");
   const itemsPerPage = 9;
 
   const filteredSpaces = useMemo(() => {
@@ -37,6 +39,16 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
     return filteredSpaces.slice(start, start + itemsPerPage);
   }, [filteredSpaces, currentPage]);
 
+  const masonryItems: MasonryItem[] = useMemo(() => {
+    return filteredSpaces.slice(0, 24).map((space, idx) => ({
+      id: space.index,
+      img: space.url,
+      title: space.title,
+      subtitle: `${space.category} · Page ${space.index}`,
+      height: (idx % 3 === 0 ? 320 : idx % 3 === 1 ? 260 : 380),
+    }));
+  }, [filteredSpaces]);
+
   const handleCategoryChange = (cat: string) => {
     setActiveCategory(cat);
     setCurrentPage(1);
@@ -49,7 +61,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
         <div className="max-w-3xl mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
             <Compass className="w-3.5 h-3.5" />
-            Complete Architectural Spatial Archive · 102 Scanned Rooms
+            <ShinyText text="ARCHITECTURAL ARCHIVE · 102 SCANNED ROOMS" speed={3.5} />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-on-dark tracking-tight leading-tight">
             The Room Library
@@ -60,25 +72,64 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
           </p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-10 no-scrollbar scroll-smooth">
-          {CATEGORIES.map((cat) => (
+        {/* View Mode & Category Filter Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-10">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar scroll-smooth">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
+                  activeCategory === cat
+                    ? "bg-accent text-dark font-semibold shadow-md"
+                    : "bg-dark-surface text-on-dark-muted hover:text-white border border-border-teal"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-dark-surface border border-border-teal self-start sm:self-auto shrink-0">
             <button
-              key={cat}
-              onClick={() => handleCategoryChange(cat)}
-              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] ${
-                activeCategory === cat
-                  ? "bg-dark-surface text-on-dark shadow-md shadow-dark-surface/40 font-semibold"
-                  : "bg-dark-surface text-on-dark-muted hover:bg-brand-secondary hover:text-surface border border-border-teal"
+              onClick={() => setViewMode("grid")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                viewMode === "grid"
+                  ? "bg-accent/20 text-accent font-semibold"
+                  : "text-on-dark-muted hover:text-white"
               }`}
             >
-              {cat}
+              <LayoutGrid className="w-3.5 h-3.5" /> Grid
             </button>
-          ))}
+            <button
+              onClick={() => setViewMode("masonry")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                viewMode === "masonry"
+                  ? "bg-accent/20 text-accent font-semibold"
+                  : "text-on-dark-muted hover:text-white"
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" /> Masonry Flow
+            </button>
+          </div>
         </div>
 
-        {/* Spatial Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Masonry View */}
+        {viewMode === "masonry" ? (
+          <div className="mb-12">
+            <Masonry
+              items={masonryItems}
+              duration={0.6}
+              stagger={0.06}
+              onItemClick={(item) => {
+                const space = filteredSpaces.find((s) => s.index === item.id);
+                if (space) setActiveSpace(space);
+              }}
+            />
+          </div>
+        ) : (
+          /* Spatial Cards Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {displayedSpaces.map((space) => (
             <article
               key={space.index}
@@ -130,6 +181,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
             </article>
           ))}
         </div>
+      )}
 
         {/* Pagination Bar */}
         {totalPages > 1 && (

@@ -207,7 +207,7 @@ export default function Terms() {
           </p>
           <ul>
             <li>
-              <strong>Business:</strong> JAYMURTI TRADERS (जयमूर्ति ट्रेडर्स)
+              <strong>Business:</strong> JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स
             </li>
             <li>
               <strong>Address:</strong> Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh - 224129, India

@@ -18,6 +18,7 @@ import {
   Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SlingButton, ShinyText } from "@/components/reactbits";
 
 export const ContactPage: React.FC = () => {
   const seo = SITE_ROUTES_SEO["/contact"];
@@ -47,8 +48,8 @@ export const ContactPage: React.FC = () => {
     }
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!form.name.trim() || !form.phone.trim()) {
       setStatusMessage("Please provide your name and phone number.");
       return;
@@ -63,6 +64,10 @@ export const ContactPage: React.FC = () => {
         {/* Left Col: Contact Info & Showroom Cards */}
         <div className="space-y-8">
           <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface border border-border-teal text-xs">
+              <Compass className="w-3.5 h-3.5 text-accent" />
+              <ShinyText text="DIRECT FACTORY & DEALER ADVICE" speed={3} />
+            </div>
             <h2 className="text-2xl sm:text-3xl font-serif text-white">
               Get in Touch with Our Showroom Team
             </h2>
@@ -264,14 +269,34 @@ export const ContactPage: React.FC = () => {
               </div>
             )}
 
-            <Button
-              type="submit"
-              disabled={enquiry.isPending}
-              className="w-full bg-accent text-dark font-bold hover:bg-accent/90 text-xs py-3 rounded-xl shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>{enquiry.isPending ? "Submitting..." : "Submit Consultation Request"}</span>
-            </Button>
+            <div className="flex items-center gap-3 pt-2">
+              <Button
+                type="submit"
+                disabled={enquiry.isPending}
+                className="flex-1 bg-accent text-dark font-bold hover:bg-accent/90 text-xs py-3 rounded-xl shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>{enquiry.isPending ? "Submitting..." : "Submit Consultation Request"}</span>
+              </Button>
+              
+              <div title="Tactile Slingshot Launch: Drag back and release to submit">
+                <SlingButton
+                  onSend={() => handleSubmit()}
+                  disabled={enquiry.isPending}
+                  padColor="#d97706"
+                  iconColor="#0f172a"
+                  accentColor="#f59e0b"
+                  wellColor="rgba(217, 119, 6, 0.15)"
+                  bandColor="rgba(217, 119, 6, 0.6)"
+                  size={46}
+                  tapSends={true}
+                  ariaLabel="Sling launch enquiry"
+                />
+              </div>
+            </div>
+            <p className="text-[10px] text-center text-on-dark-muted">
+              Tip: Click button or pull back the slingshot handle to launch your enquiry!
+            </p>
           </form>
         </div>
 

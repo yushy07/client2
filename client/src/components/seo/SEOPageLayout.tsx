@@ -86,7 +86,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
           <span>
             Authorized Birla Opus Paint Dealer · <strong className="text-white font-semibold">JAYMURTI TRADERS</strong>
           </span>
-          <span className="hidden md:inline text-white/40" lang="hi">(जयमूर्ति ट्रेडर्स)</span>
+          <span className="hidden md:inline text-white/70" lang="hi">· जयमूर्ति ट्रेडर्स</span>
         </div>
         <div className="flex items-center gap-4 text-[11px]">
           <span className="flex items-center gap-1 text-white/70">

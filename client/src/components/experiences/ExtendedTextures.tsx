@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Layers, Maximize2, ShoppingBag, Sparkles, Feather } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { ShinyText, TiltedCard, DecryptedText } from "@/components/reactbits";
 
 interface ExtendedTexturesProps {
   onEnquire?: (title: string, details: string) => void;
@@ -35,9 +36,9 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Masthead */}
         <div className="max-w-3xl mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
             <Feather className="w-3.5 h-3.5" />
-            Material &amp; Tactile Archive · 17 Architectural Nature Studies
+            <ShinyText text="Material & Tactile Archive · 17 Architectural Nature Studies" color="#d97706" shineColor="#fef08a" speed={3} />
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-on-dark tracking-tight leading-tight">
             Extended Texture Collections
@@ -73,22 +74,26 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
               className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
-                <ResponsiveImage
-                  src={tex.url}
-                  alt={tex.name}
-                  loading="lazy"
-                  decoding="async"
-                  width={400}
-                  height={300}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                <TiltedCard
+                  imageSrc={tex.url}
+                  altText={tex.name}
+                  captionText={tex.materialSensory}
+                  containerHeight="100%"
+                  containerWidth="100%"
+                  imageHeight="100%"
+                  imageWidth="100%"
+                  scaleOnHover={1.05}
+                  rotateAmplitude={10}
+                  showTooltip={false}
+                  showMobileWarning={false}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 pointer-events-none z-10">
                   <span className="inline-flex items-center gap-1.5 text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
                     <Maximize2 className="w-3.5 h-3.5" /> Inspect Texture Grain
                   </span>
                 </div>
-                <div className="absolute top-3 left-3 bg-dark/85 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider text-accent font-semibold border border-border-teal">
-                  {tex.category}
+                <div className="absolute top-3 left-3 bg-dark/85 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider text-accent font-semibold border border-border-teal z-10 pointer-events-none">
+                  <DecryptedText text={tex.category} animateOn="hover" speed={30} />
                 </div>
               </div>
 
