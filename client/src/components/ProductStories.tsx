@@ -174,9 +174,8 @@ const AUTO_ADVANCE_INTERVAL = 10000; // 10 seconds per product in the center
 
 interface ProductVideoCardProps {
   story: ProductVideoStory;
-  virtualIndex: number;
+  index: number;
   originalIndex: number;
-  isActive: boolean;
   isCentered: boolean;
   isNext: boolean;
   isSectionInView: boolean;
@@ -185,9 +184,8 @@ interface ProductVideoCardProps {
 
 function ProductVideoCard({
   story,
-  virtualIndex,
+  index,
   originalIndex,
-  isActive,
   isCentered,
   isNext,
   isSectionInView,
@@ -196,7 +194,7 @@ function ProductVideoCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Active centered video gets full stream; immediately upcoming video gets lightweight metadata prep
+  // Centered video gets stream source; adjacent gets metadata prep
   const shouldAttachSrc = isSectionInView && (isCentered || isNext);
   const preloadStrategy = isSectionInView
     ? isCentered
@@ -210,7 +208,6 @@ function ProductVideoCard({
     const video = videoRef.current;
     if (!video) return;
 
-    // Explicitly enforce silent playback at DOM level
     video.muted = true;
     video.defaultMuted = true;
     video.volume = 0;
@@ -222,7 +219,6 @@ function ProductVideoCard({
       return;
     }
 
-    // Centered card: rewind to beginning and play for 10 seconds
     const playCentered = () => {
       video.muted = true;
       video.defaultMuted = true;
@@ -262,13 +258,11 @@ function ProductVideoCard({
     const video = videoRef.current;
     if (!video) return;
 
-    // If card is not centered, clicking centers it
     if (!isCentered) {
       onFocusCard();
       return;
     }
 
-    // Always maintain strictly silent playback
     video.muted = true;
     video.volume = 0;
 
@@ -288,10 +282,9 @@ function ProductVideoCard({
 
   return (
     <article
-      className={`product-story-card ${isPlaying ? "is-playing" : "is-paused"} ${isCentered ? "is-centered ring-2 ring-accent/60 shadow-2xl scale-[1.02]" : "opacity-85 hover:opacity-100"}`}
+      className={`product-story-card ${isPlaying ? "is-playing" : "is-paused"} ${isCentered ? "is-centered ring-2 ring-accent/60 shadow-2xl" : "opacity-80 hover:opacity-100"}`}
       style={{
         "--card-accent": story.accentTone,
-        transform: `translateX(calc(${virtualIndex} * var(--story-step-width)))`,
       } as React.CSSProperties}
       onClick={handleCardClick}
     >
@@ -336,7 +329,7 @@ function ProductVideoCard({
         {isCentered && isPlaying && (
           <div className="absolute top-0 inset-x-0 h-1 bg-white/20 z-20 overflow-hidden">
             <div
-              key={`progress-${virtualIndex}`}
+              key={`progress-${index}`}
               className="h-full bg-accent"
               style={{
                 width: "100%",
@@ -365,23 +358,25 @@ function ProductVideoCard({
 }
 
 export function ProductStories() {
-  // Virtual continuous floating-point offset on the infinite belt
-  const [offset, setOffset] = useState<number>(0);
-  const [isInteracting, setIsInteracting] = useState<boolean>(false);
+  const totalOriginal = productVideoStories.length;
+  // 3x duplicated array for seamless infinite looping
+  const duplicatedStories = useMemo(() => [
+    ...productVideoStories,
+    ...productVideoStories,
+    ...productVideoStories,
+  ], []);
+
+  const [currentIndex, setCurrentIndex] = useState<number>(totalOriginal);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  const [autoTimerKey, setAutoTimerKey] = useState<number>(0);
-  const [centerShiftSteps, setCenterShiftSteps] = useState<number>(0);
+  const [isInteracting, setIsInteracting] = useState<boolean>(false);
   const [isSectionInView, setIsSectionInView] = useState<boolean>(false);
+  const [autoTimerKey, setAutoTimerKey] = useState<number>(0);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const dragStartRef = useRef<{ clientX: number; startOffset: number } | null>(null);
+  const touchStartRef = useRef<number | null>(null);
   const wheelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isInitializedRef = useRef<boolean>(false);
 
-  const totalOriginal = productVideoStories.length;
-
-  // Viewport visibility gating: load media only when section approaches viewport
+  // Viewport intersection observer
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -390,7 +385,7 @@ export function ProductStories() {
       ([entry]) => {
         setIsSectionInView(entry.isIntersecting);
       },
-      { rootMargin: "350px 0px" }
+      { rootMargin: "300px 0px" }
     );
 
     observer.observe(section);
@@ -401,60 +396,35 @@ export function ProductStories() {
     setAutoTimerKey((k) => k + 1);
   }, []);
 
-  // Compute the fractional steps needed so that a card is perfectly centered in viewport
-  const calculateCenterShiftSteps = useCallback(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return 0;
-    const viewportWidth = viewport.clientWidth;
-    if (!viewportWidth) return 0;
-
-    const cardEl = viewport.querySelector<HTMLElement>("article.product-story-card");
-    const cardWidth = cardEl ? cardEl.offsetWidth : 300;
-    const cardMarginLeft = cardEl ? parseFloat(window.getComputedStyle(cardEl).marginLeft) || 0 : 0;
-
-    const style = window.getComputedStyle(viewport);
-    const stepWidthVal = parseFloat(style.getPropertyValue("--story-step-width")) || (cardWidth + 20);
-
-    const viewportCenter = viewportWidth / 2;
-    const cardCenter = cardMarginLeft + cardWidth / 2;
-
-    return (viewportCenter - cardCenter) / stepWidthVal;
-  }, []);
-
-  // Initialize and handle responsive viewport resizing
-  useEffect(() => {
-    const updateCenterShift = () => {
-      const shift = calculateCenterShiftSteps();
-      setCenterShiftSteps(shift);
-
-      if (!isInitializedRef.current) {
-        setOffset(0 - shift);
-        isInitializedRef.current = true;
-      }
-    };
-
-    updateCenterShift();
-    window.addEventListener("resize", updateCenterShift);
-    return () => window.removeEventListener("resize", updateCenterShift);
-  }, [calculateCenterShiftSteps]);
-
-  // Center a specific virtual card in the viewport
-  const centerCard = useCallback((virtualIndex: number) => {
-    const shift = calculateCenterShiftSteps();
-    setCenterShiftSteps(shift);
+  const nextCard = useCallback(() => {
     setIsTransitioning(true);
-    setOffset(virtualIndex - shift);
-    resetAutoplayTimer();
-  }, [calculateCenterShiftSteps, resetAutoplayTimer]);
-
-  // Smooth step transition forward / backward
-  const advanceOffset = useCallback((deltaSteps: number) => {
-    setIsTransitioning(true);
-    setOffset((prev) => prev + deltaSteps);
+    setCurrentIndex((prev) => prev + 1);
     resetAutoplayTimer();
   }, [resetAutoplayTimer]);
 
-  // 10-Second Continuous Infinite Autoplay Loop
+  const prevCard = useCallback(() => {
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev - 1);
+    resetAutoplayTimer();
+  }, [resetAutoplayTimer]);
+
+  const focusCard = useCallback((idx: number) => {
+    setIsTransitioning(true);
+    setCurrentIndex(idx);
+    resetAutoplayTimer();
+  }, [resetAutoplayTimer]);
+
+  // Seamless infinite loop wrap on transition end
+  const handleTransitionEnd = () => {
+    setIsTransitioning(false);
+    if (currentIndex >= totalOriginal * 2) {
+      setCurrentIndex(currentIndex - totalOriginal);
+    } else if (currentIndex < totalOriginal) {
+      setCurrentIndex(currentIndex + totalOriginal);
+    }
+  };
+
+  // 10-Second Continuous Autoplay
   useEffect(() => {
     if (!isSectionInView || isInteracting) return;
 
@@ -462,82 +432,50 @@ export function ProductStories() {
     if (mediaQuery.matches) return;
 
     const timer = setInterval(() => {
-      advanceOffset(1);
+      nextCard();
     }, AUTO_ADVANCE_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [isSectionInView, isInteracting, advanceOffset, autoTimerKey]);
+  }, [isSectionInView, isInteracting, nextCard, autoTimerKey]);
 
-  // Touch Swipe for mobile infinite carousel
+  // Touch Swipe Handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     setIsInteracting(true);
-    setIsTransitioning(false);
-    dragStartRef.current = {
-      clientX: e.touches[0].clientX,
-      startOffset: offset,
-    };
+    touchStartRef.current = e.touches[0].clientX;
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!dragStartRef.current) return;
-    const diff = dragStartRef.current.clientX - e.touches[0].clientX;
-    const stepWidth = 280;
-    setOffset(dragStartRef.current.startOffset + diff / stepWidth);
-  };
-
-  const handleTouchEnd = () => {
-    if (dragStartRef.current) {
-      const shift = calculateCenterShiftSteps();
-      setIsTransitioning(true);
-      setOffset((prev) => Math.round(prev + shift) - shift);
-      dragStartRef.current = null;
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartRef.current !== null) {
+      const diff = touchStartRef.current - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) {
+          nextCard();
+        } else {
+          prevCard();
+        }
+      }
+      touchStartRef.current = null;
     }
     setIsInteracting(false);
-    resetAutoplayTimer();
   };
 
   // Horizontal Wheel / Trackpad listener
   const handleWheel = (e: React.WheelEvent) => {
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
-    if (Math.abs(delta) < 20) return;
+    if (Math.abs(delta) < 25) return;
 
     if (wheelTimeoutRef.current) return;
 
     if (delta > 0) {
-      advanceOffset(1);
+      nextCard();
     } else {
-      advanceOffset(-1);
+      prevCard();
     }
 
     wheelTimeoutRef.current = setTimeout(() => {
       wheelTimeoutRef.current = null;
     }, 450);
   };
-
-  // Dynamic sliding window of virtual cards centered around the active centered card
-  const virtualCenterPos = offset + centerShiftSteps;
-  const centerIdx = Math.floor(virtualCenterPos);
-
-  const visibleCards = useMemo(() => {
-    const cards = [];
-    for (let i = centerIdx - 4; i <= centerIdx + 5; i++) {
-      const prodIdx = ((i % totalOriginal) + totalOriginal) % totalOriginal;
-      const story = productVideoStories[prodIdx];
-      const diff = i - virtualCenterPos;
-      const isCentered = Math.abs(diff) < 0.5;
-      const isNext = diff >= 0.5 && diff < 1.5;
-      const isActive = isCentered;
-      cards.push({
-        virtualIndex: i,
-        originalIndex: prodIdx,
-        story,
-        isActive,
-        isCentered,
-        isNext,
-      });
-    }
-    return cards;
-  }, [centerIdx, virtualCenterPos, totalOriginal]);
 
   return (
     <section
@@ -561,7 +499,7 @@ export function ProductStories() {
         <div className="product-stories-side">
           <div className="flex items-center gap-2">
             <button
-              onClick={() => advanceOffset(-1)}
+              onClick={prevCard}
               className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/15 active:scale-95"
               aria-label="Previous product video"
               title="Previous video"
@@ -569,7 +507,7 @@ export function ProductStories() {
               <ChevronLeft size={18} />
             </button>
             <button
-              onClick={() => advanceOffset(1)}
+              onClick={nextCard}
               className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/15 active:scale-95"
               aria-label="Next product video"
               title="Next video"
@@ -585,9 +523,7 @@ export function ProductStories() {
 
       <div
         className="product-stories-viewport"
-        ref={viewportRef}
         onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         onWheel={handleWheel}
         role="region"
@@ -596,23 +532,28 @@ export function ProductStories() {
         <div
           className={`product-stories-track ${isTransitioning ? "is-transitioning" : ""}`}
           style={{
-            transform: `translateX(calc(-1 * ${offset} * var(--story-step-width)))`,
+            transform: `translateX(calc(50% - (var(--story-card-width) / 2) - (${currentIndex} * var(--story-step-width))))`,
           }}
-          onTransitionEnd={() => setIsTransitioning(false)}
+          onTransitionEnd={handleTransitionEnd}
         >
-          {visibleCards.map((card) => (
-            <ProductVideoCard
-              key={`${card.virtualIndex}-${card.story.id}`}
-              story={card.story}
-              virtualIndex={card.virtualIndex}
-              originalIndex={card.originalIndex}
-              isActive={card.isActive}
-              isCentered={card.isCentered}
-              isNext={card.isNext}
-              isSectionInView={isSectionInView}
-              onFocusCard={() => centerCard(card.virtualIndex)}
-            />
-          ))}
+          {duplicatedStories.map((story, idx) => {
+            const isCentered = idx === currentIndex;
+            const isNext = idx === currentIndex + 1;
+            const originalIndex = idx % totalOriginal;
+
+            return (
+              <ProductVideoCard
+                key={`${idx}-${story.id}`}
+                story={story}
+                index={idx}
+                originalIndex={originalIndex}
+                isCentered={isCentered}
+                isNext={isNext}
+                isSectionInView={isSectionInView}
+                onFocusCard={() => focusCard(idx)}
+              />
+            );
+          })}
         </div>
       </div>
 

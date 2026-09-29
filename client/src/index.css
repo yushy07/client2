@@ -6330,16 +6330,15 @@ a {
 
 
 
-/* Infinite Carousel Viewport & Virtual Belt Track */
+/* Infinite Carousel Viewport & Flex Track */
 .product-stories-viewport {
   overflow: hidden;
-  padding: 12px 0 24px;
+  padding: 16px 0 28px;
   position: relative;
   width: 100%;
   --story-card-width: clamp(270px, 24vw, 330px);
   --story-card-gap: clamp(16px, 2vw, 24px);
   --story-step-width: calc(var(--story-card-width) + var(--story-card-gap));
-  height: clamp(540px, 50vw, 650px);
   cursor: grab;
   user-select: none;
 }
@@ -6349,14 +6348,15 @@ a {
 }
 
 .product-stories-track {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: var(--story-card-gap);
+  width: max-content;
   will-change: transform;
 }
 
 .product-stories-track.is-transitioning {
-  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @keyframes storyProgress {
@@ -6370,11 +6370,10 @@ a {
 
 /* Video Card (9:16) */
 .product-story-card {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+  flex-shrink: 0;
   width: var(--story-card-width);
-  margin-left: max(var(--shell-gutter), calc((100vw - var(--shell-max)) / 2 + var(--shell-gutter)));
+  margin-left: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -6382,8 +6381,7 @@ a {
   border: 1px solid rgba(255, 255, 255, .1);
   border-radius: 14px;
   padding: 12px;
-  transition: border-color .32s var(--ease-out), box-shadow .32s var(--ease-out), background .32s var(--ease-out);
-  will-change: transform;
+  transition: border-color .32s var(--ease-out), box-shadow .32s var(--ease-out), background .32s var(--ease-out), transform .32s var(--ease-out);
   cursor: pointer;
 }
 
@@ -6393,9 +6391,10 @@ a {
 }
 
 .product-story-card.is-centered {
-  border-color: rgba(245, 203, 56, 0.4);
-  background: rgba(255, 255, 255, .045);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, .4), 0 0 0 1px rgba(245, 203, 56, 0.15);
+  border-color: rgba(245, 203, 56, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 203, 56, 0.25);
+  transform: translateY(-4px);
 }
 
 .product-story-media {
