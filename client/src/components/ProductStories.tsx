@@ -177,8 +177,7 @@ interface ProductVideoCardProps {
   index: number;
   originalIndex: number;
   isCentered: boolean;
-  isNext: boolean;
-  isSectionInView: boolean;
+  autoTimerKey: number;
   onFocusCard: () => void;
 }
 
@@ -187,22 +186,11 @@ function ProductVideoCard({
   index,
   originalIndex,
   isCentered,
-  isNext,
-  isSectionInView,
+  autoTimerKey,
   onFocusCard,
 }: ProductVideoCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  // Centered video gets stream source; adjacent gets metadata prep
-  const shouldAttachSrc = isSectionInView && (isCentered || isNext);
-  const preloadStrategy = isSectionInView
-    ? isCentered
-      ? "auto"
-      : isNext
-      ? "metadata"
-      : "none"
-    : "none";
 
   useEffect(() => {
     const video = videoRef.current;
@@ -212,46 +200,25 @@ function ProductVideoCard({
     video.defaultMuted = true;
     video.volume = 0;
 
-    if (!isSectionInView || !isCentered) {
-      video.pause();
-      video.currentTime = 0;
-      setIsPlaying(false);
-      return;
-    }
-
-    const playCentered = () => {
-      video.muted = true;
-      video.defaultMuted = true;
-      video.volume = 0;
+    if (isCentered) {
       video.currentTime = 0;
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch(() => setIsPlaying(false));
+          .catch(() => {
+            // If browser autoplay policies require interaction, fall back gracefully
+            setIsPlaying(true);
+          });
+      } else {
+        setIsPlaying(true);
       }
-    };
-
-    playCentered();
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-          playCentered();
-        } else {
-          video.pause();
-          setIsPlaying(false);
-        }
-      },
-      { threshold: [0, 0.2, 0.5] }
-    );
-
-    observer.observe(video);
-    return () => {
-      observer.disconnect();
+    } else {
       video.pause();
-    };
-  }, [isSectionInView, isCentered]);
+      video.currentTime = 0;
+      setIsPlaying(false);
+    }
+  }, [isCentered]);
 
   const togglePlayback = useCallback((e: React.MouseEvent | React.KeyboardEvent) => {
     e.stopPropagation();
@@ -282,7 +249,7 @@ function ProductVideoCard({
 
   return (
     <article
-      className={`product-story-card ${isPlaying ? "is-playing" : "is-paused"} ${isCentered ? "is-centered ring-2 ring-accent/60 shadow-2xl" : "opacity-80 hover:opacity-100"}`}
+      className={`product-story-card ${isCentered ? "is-centered is-playing ring-2 ring-amber-400/80 shadow-2xl" : "opacity-75 hover:opacity-100"}`}
       style={{
         "--card-accent": story.accentTone,
       } as React.CSSProperties}
@@ -303,12 +270,13 @@ function ProductVideoCard({
       >
         <video
           ref={videoRef}
-          src={shouldAttachSrc ? story.src : undefined}
+          src={story.src}
           poster={story.poster}
           muted
+          autoPlay={isCentered}
           loop
           playsInline
-          preload={preloadStrategy}
+          preload="auto"
           className="product-story-video"
           aria-label={`Silent video demonstration of ${story.title}`}
         />
@@ -325,12 +293,12 @@ function ProductVideoCard({
           <span>{isCentered ? "Now Playing (10s)" : "Motion Showcase"}</span>
         </div>
 
-        {/* 10-Second Progress Indicator on the active center card */}
-        {isCentered && isPlaying && (
-          <div className="absolute top-0 inset-x-0 h-1 bg-white/20 z-20 overflow-hidden">
+        {/* 10-Second Continuous Progress Indicator on the active center card */}
+        {isCentered && (
+          <div className="absolute top-0 inset-x-0 h-1 bg-white/25 z-20 overflow-hidden">
             <div
-              key={`progress-${index}`}
-              className="h-full bg-accent"
+              key={`progress-${index}-${autoTimerKey}`}
+              className="h-full bg-amber-400"
               style={{
                 width: "100%",
                 animation: "storyProgress 10s linear forwards",
@@ -369,28 +337,11 @@ export function ProductStories() {
   const [currentIndex, setCurrentIndex] = useState<number>(totalOriginal);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [isInteracting, setIsInteracting] = useState<boolean>(false);
-  const [isSectionInView, setIsSectionInView] = useState<boolean>(false);
   const [autoTimerKey, setAutoTimerKey] = useState<number>(0);
 
   const sectionRef = useRef<HTMLElement>(null);
   const touchStartRef = useRef<number | null>(null);
   const wheelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Viewport intersection observer
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsSectionInView(entry.isIntersecting);
-      },
-      { rootMargin: "300px 0px" }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
 
   const resetAutoplayTimer = useCallback(() => {
     setAutoTimerKey((k) => k + 1);
@@ -424,19 +375,16 @@ export function ProductStories() {
     }
   };
 
-  // 10-Second Continuous Autoplay
+  // 10-Second Continuous Automatic Infinite Horizontal Progression
   useEffect(() => {
-    if (!isSectionInView || isInteracting) return;
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mediaQuery.matches) return;
+    if (isInteracting) return;
 
     const timer = setInterval(() => {
       nextCard();
     }, AUTO_ADVANCE_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [isSectionInView, isInteracting, nextCard, autoTimerKey]);
+  }, [isInteracting, nextCard, autoTimerKey]);
 
   // Touch Swipe Handlers
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -538,7 +486,6 @@ export function ProductStories() {
         >
           {duplicatedStories.map((story, idx) => {
             const isCentered = idx === currentIndex;
-            const isNext = idx === currentIndex + 1;
             const originalIndex = idx % totalOriginal;
 
             return (
@@ -548,8 +495,7 @@ export function ProductStories() {
                 index={idx}
                 originalIndex={originalIndex}
                 isCentered={isCentered}
-                isNext={isNext}
-                isSectionInView={isSectionInView}
+                autoTimerKey={autoTimerKey}
                 onFocusCard={() => focusCard(idx)}
               />
             );
