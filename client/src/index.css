@@ -6348,6 +6348,8 @@ a {
 }
 
 .product-stories-track {
+  position: relative;
+  left: 50%;
   display: flex;
   align-items: stretch;
   gap: var(--story-card-gap);

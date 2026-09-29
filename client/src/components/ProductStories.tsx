@@ -480,7 +480,7 @@ export function ProductStories() {
         <div
           className={`product-stories-track ${isTransitioning ? "is-transitioning" : ""}`}
           style={{
-            transform: `translateX(calc(50% - (var(--story-card-width) / 2) - (${currentIndex} * var(--story-step-width))))`,
+            transform: `translateX(calc(-0.5 * var(--story-card-width) - (${currentIndex} * var(--story-step-width))))`,
           }}
           onTransitionEnd={handleTransitionEnd}
         >
