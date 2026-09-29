@@ -130,6 +130,7 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       const autoEnabled = animationMode === 'auto' || animationMode === 'all';
       const motionPaused = draggingRef.current;
       const hoverFactor = (pauseOnHover && hoveredRef.current) ? 0.3 : 1.0;
+      const directionMultiplier = direction === 'down' ? -1 : 1;
       const desiredAutoSpeed =
         autoEnabled && visibleRef.current && !reducedMotion.matches && !motionPaused
           ? speed * directionMultiplier * hoverFactor
