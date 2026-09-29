@@ -111,7 +111,7 @@ export const OwnerAndTeam: React.FC = () => {
           <div className="lg:col-span-6 flex flex-col justify-between">
             <div className="relative rounded-2xl overflow-hidden border border-teal-800/40 bg-[#101719] shadow-2xl group">
               {/* Main Owner Photo Display */}
-              <div className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden">
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <img
                   src={activePhoto.src}
                   alt="Founder & Dealer Principal, Jaymurti Traders"
@@ -120,23 +120,23 @@ export const OwnerAndTeam: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f11] via-transparent to-black/20 pointer-events-none" />
 
                 {/* Floating Authenticity Badge */}
-                <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-[#0c1417]/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-teal-700/50 text-xs font-semibold text-white">
-                  <ShieldCheck className="w-4 h-4 text-[var(--saffron,#e8a338)]" />
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 inline-flex items-center gap-1.5 sm:gap-2 bg-[#0c1417]/85 backdrop-blur-md px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-teal-700/50 text-[11px] sm:text-xs font-semibold text-white">
+                  <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--saffron,#e8a338)]" />
                   <span>Authorized Birla Opus Dealer Principal</span>
                 </div>
 
                 {/* Bottom Overlay Label */}
-                <div className="absolute bottom-4 left-4 right-4 z-10 p-4 rounded-xl bg-[#0c1417]/90 backdrop-blur-md border border-white/10">
-                  <span className="text-[10px] uppercase tracking-widest text-[var(--saffron,#e8a338)] font-mono font-bold block mb-1">
+                <div className="absolute inset-x-0 bottom-0 z-10 p-3.5 sm:p-5 bg-gradient-to-t from-[#0c1417] via-[#0c1417]/90 to-transparent pt-12 sm:pt-16">
+                  <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[var(--saffron,#e8a338)] font-mono font-bold block mb-0.5 sm:mb-1">
                     Showroom Desk · Shukul Bazar, Baskhari
                   </span>
                   <h3
                     style={{ fontFamily: "var(--serif)" }}
-                    className="text-xl sm:text-2xl text-white font-medium mb-1"
+                    className="text-lg sm:text-2xl text-white font-medium mb-0.5 sm:mb-1"
                   >
                     Jaymurti Traders Leadership
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+                  <p className="text-[11px] sm:text-sm text-slate-300 leading-snug sm:leading-relaxed font-sans">
                     {activePhoto.caption}
                   </p>
                 </div>

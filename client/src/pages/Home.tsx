@@ -1190,20 +1190,28 @@ export default function Home() {
                 <p className="hero-description">{activeCampaign.text}</p>
                 <div className="hero-actions">
                   <MotionMagnetic strength={10}>
-                    <a href="#colours" className="button-primary">
+                    <a href="#colours" className="button-primary hero-btn-main">
                       Explore Colours <ArrowRight size={15} />
                     </a>
                   </MotionMagnetic>
-                  <MotionMagnetic strength={8}>
-                    <a href="#products" className="button-ghost">
-                      Explore Products
-                    </a>
-                  </MotionMagnetic>
-                  <MotionMagnetic strength={8}>
-                    <a href="#finder" className="button-ghost">
-                      Visit Showroom
-                    </a>
-                  </MotionMagnetic>
+                  <div className="hero-secondary-actions">
+                    <MotionMagnetic strength={8}>
+                      <a href="#products" className="button-ghost hero-btn-sub">
+                        Explore Products
+                      </a>
+                    </MotionMagnetic>
+                    <MotionMagnetic strength={8}>
+                      <a href="#finder" className="button-ghost hero-btn-sub">
+                        Visit Showroom
+                      </a>
+                    </MotionMagnetic>
+                  </div>
+                </div>
+                {/* Mobile-Only Hero Trust Chips */}
+                <div className="hero-mobile-trust-chips">
+                  <span><ShieldCheck size={13} style={{ color: "var(--saffron, #e8a338)" }} /> 100% Genuine Paint</span>
+                  <span><Sparkles size={13} style={{ color: "#2dd4bf" }} /> Computerized Tinting</span>
+                  <span><MapPin size={13} style={{ color: "var(--coral, #e05a2b)" }} /> Shukul Bazar</span>
                 </div>
               </div>
               <div className="hero-notes">
@@ -1324,54 +1332,20 @@ export default function Home() {
               </button>
 
               {/* Bottom Integrated Status & Dots Bar */}
-              <div
-                className="hero-carousel-bottom-bar"
-                style={{
-                  position: "absolute",
-                  bottom: "20px",
-                  right: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  zIndex: 20,
-                  background: "rgba(12, 41, 47, 0.85)",
-                  backdropFilter: "blur(12px)",
-                  padding: "6px 16px",
-                  borderRadius: "999px",
-                  border: "1px solid rgba(255, 255, 255, 0.22)",
-                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.35)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--mono)",
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                    color: "rgba(255, 255, 255, 0.85)",
-                  }}
-                >
+              <div className="hero-carousel-bottom-bar">
+                <span className="hero-carousel-counter">
                   0{campaign + 1} / 0{campaigns.length}
                 </span>
 
-                <div style={{ width: "1px", height: "12px", background: "rgba(255, 255, 255, 0.25)" }} />
+                <div className="hero-carousel-divider" />
 
-                <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+                <div className="hero-carousel-dots">
                   {campaigns.map((_, i) => (
                     <button
                       key={`hero-dot-${i}`}
                       type="button"
                       onClick={() => setCampaign(i)}
-                      style={{
-                        width: campaign === i ? "24px" : "8px",
-                        height: "8px",
-                        borderRadius: "999px",
-                        background: campaign === i ? "var(--color-accent)" : "rgba(255, 255, 255, 0.45)",
-                        border: "none",
-                        cursor: "pointer",
-                        transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-                        padding: 0,
-                      }}
+                      className={`hero-dot-btn ${campaign === i ? "active" : ""}`}
                       aria-label={`Go to slide ${i + 1}`}
                     />
                   ))}
@@ -1513,8 +1487,11 @@ export default function Home() {
               </div>
             </div>
             <div className="colour-archive-specimen" aria-live="polite">
-              <span className="specimen-eyebrow">Active Selection</span>
-              <strong className="specimen-name">{activeShade.name}</strong>
+              <span className="specimen-swatch-dot" style={{ background: activeShade.hex }} aria-hidden="true" />
+              <div className="specimen-info">
+                <span className="specimen-eyebrow">Active Selection</span>
+                <strong className="specimen-name">{activeShade.name}</strong>
+              </div>
               <span className="specimen-code">{activeShade.code}</span>
             </div>
             <div
@@ -1573,13 +1550,13 @@ export default function Home() {
                   aria-label="Search verified Birla Opus shades"
                   style={{
                     width: "100%",
-                    padding: "11px 36px 11px 38px",
-                    background: "#ffffff",
-                    border: "1px solid var(--line)",
-                    borderRadius: "6px",
+                    padding: "12px 36px 12px 38px",
+                    background: "rgba(10, 18, 20, 0.8)",
+                    border: "1px solid rgba(45, 212, 191, 0.3)",
+                    borderRadius: "10px",
                     fontSize: "13px",
                     fontFamily: "var(--sans)",
-                    color: "var(--text-primary)",
+                    color: "#ffffff",
                     outline: "none",
                   }}
                 />
@@ -1678,9 +1655,9 @@ export default function Home() {
             </div>
 
             {/* Results Topbar Count Summary */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", paddingBottom: "12px", borderBottom: "1px solid var(--line)", flexWrap: "wrap", gap: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", paddingBottom: "12px", borderBottom: "1px solid rgba(255, 255, 255, 0.12)", flexWrap: "wrap", gap: "10px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "11.5px", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                <span style={{ fontFamily: "var(--mono)", fontSize: "11.5px", color: "rgba(255, 255, 255, 0.75)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                   {filteredVerifiedShadesList.length} {filteredVerifiedShadesList.length === 1 ? "shade" : "shades"} available {selectedShadeFamily !== "All" && `in ${selectedShadeFamily}`}
                 </span>
                 {selectedShadeFamily === "All" && visibleFamiliesOnCurrentPage.size > 0 && (
@@ -1688,19 +1665,19 @@ export default function Home() {
                     style={{
                       fontFamily: "var(--mono)",
                       fontSize: "11px",
-                      color: "var(--text-secondary)",
-                      background: "#ffffff",
-                      border: "1px solid var(--line)",
-                      padding: "2px 8px",
-                      borderRadius: "4px",
+                      color: "rgba(255, 255, 255, 0.85)",
+                      background: "rgba(255, 255, 255, 0.08)",
+                      border: "1px solid rgba(45, 212, 191, 0.25)",
+                      padding: "3px 10px",
+                      borderRadius: "999px",
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "6px",
                     }}
                   >
-                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--color-accent)" }} />
+                    <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--saffron, #e8a338)" }} />
                     Page {currentVerifiedShadePage} contains:{" "}
-                    <strong style={{ color: "var(--ink)" }}>{Array.from(visibleFamiliesOnCurrentPage).join(" · ")}</strong>
+                    <strong style={{ color: "#ffffff" }}>{Array.from(visibleFamiliesOnCurrentPage).join(" · ")}</strong>
                   </span>
                 )}
               </div>
@@ -1712,7 +1689,7 @@ export default function Home() {
                     setSelectedShadeFamily("All");
                     setShadePage(1);
                   }}
-                  style={{ background: "none", border: 0, padding: 0, color: "var(--coral)", fontFamily: "var(--mono)", fontSize: "11px", fontWeight: 700, cursor: "pointer", textTransform: "uppercase" }}
+                  style={{ background: "none", border: 0, padding: 0, color: "var(--coral, #e05a2b)", fontFamily: "var(--mono)", fontSize: "11px", fontWeight: 700, cursor: "pointer", textTransform: "uppercase" }}
                 >
                   Reset Filters
                 </button>
@@ -1842,9 +1819,9 @@ export default function Home() {
             )}
 
             {/* Mandatory Fan Deck Disclaimer Banner */}
-            <div style={{ marginTop: "24px", paddingTop: "16px", borderTop: "1px solid var(--line)" }}>
-              <p style={{ fontFamily: "var(--mono)", fontSize: "11px", color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
-                <strong style={{ color: "var(--text-secondary)" }}>Verification Notice:</strong> {SHADE_VARIATION_DISCLAIMER}
+            <div style={{ marginTop: "24px", paddingTop: "16px", borderTop: "1px solid rgba(255, 255, 255, 0.12)" }}>
+              <p style={{ fontFamily: "var(--mono)", fontSize: "11px", color: "rgba(255, 255, 255, 0.65)", margin: 0, lineHeight: 1.5 }}>
+                <strong style={{ color: "rgba(255, 255, 255, 0.9)" }}>Verification Notice:</strong> {SHADE_VARIATION_DISCLAIMER}
               </p>
             </div>
           </div>
@@ -2963,9 +2940,9 @@ export default function Home() {
         {/* =========================================================================
             10 — ENQUIRY (ANCHOR SECTION & SLIDE-OVER TRIGGER)
             ========================================================================= */}
-        <section className="scroll-chapter" id="enquiry" data-scroll-section data-section-label="Enquire" style={{ background: "var(--color-brand-primary)", color: "var(--color-text-on-dark)", padding: "80px var(--shell-gutter)" }}>
-          <div style={{ maxWidth: "var(--shell-max)", margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: "48px", alignItems: "center" }}>
-            <div>
+        <section className="scroll-chapter py-12 sm:py-20 px-4 sm:px-6 lg:px-8" id="enquiry" data-scroll-section data-section-label="Enquire" style={{ background: "var(--color-brand-primary)", color: "var(--color-text-on-dark)" }}>
+          <div className="max-w-[var(--shell-max)] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-7">
               <div className="eyebrow" style={{ color: "var(--color-accent)" }}>Direct Dealer Conversion</div>
               <h2 className="section-title" style={{ color: "#ffffff" }}>
                 Connected Enquiry Desk:
@@ -2975,53 +2952,55 @@ export default function Home() {
               <p className="section-lead" style={{ color: "rgba(255,255,255,0.8)" }}>
                 Whether you have selected specific Birla Opus formulations, shades, textures, or require a comprehensive quantity consultation, our direct WhatsApp desk is ready to assist.
               </p>
-              <div style={{ marginTop: "28px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
+              <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                 <button
                   type="button"
-                  className="button-primary"
+                  className="button-primary w-full sm:w-auto"
                   onClick={() => setIsCartOpen(true)}
-                  style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
+                  style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", minHeight: "44px" }}
                 >
                   <ShoppingBag size={16} />
                   Open Enquiry Cart ({cartItems.length} items)
                 </button>
                 <a
-                  className="button-ghost"
+                  className="button-ghost w-full sm:w-auto"
                   href={generateWhatsAppCartUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
+                  style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", minHeight: "44px" }}
                 >
                   <MessageCircle size={16} />
                   WhatsApp Showroom (+91 8756659035)
                 </a>
-                <a
-                  className="button-ghost"
-                  href={businessProfile.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-                >
-                  <Instagram size={16} />
-                  Instagram (@paintwalebhaiya45)
-                </a>
-                <a
-                  className="button-ghost"
-                  href={businessProfile.facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
-                >
-                  <Facebook size={16} />
-                  Facebook Page
-                </a>
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <a
+                    className="button-ghost flex-1 sm:flex-initial"
+                    href={businessProfile.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", minHeight: "44px" }}
+                  >
+                    <Instagram size={16} />
+                    Instagram
+                  </a>
+                  <a
+                    className="button-ghost flex-1 sm:flex-initial"
+                    href={businessProfile.facebookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", minHeight: "44px" }}
+                  >
+                    <Facebook size={16} />
+                    Facebook
+                  </a>
+                </div>
               </div>
             </div>
-            <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", padding: "32px", borderRadius: "8px" }}>
+            <div className="lg:col-span-5 w-full rounded-2xl p-5 sm:p-8" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)" }}>
               <span style={{ fontFamily: "var(--mono)", fontSize: "11px", color: "var(--color-accent)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                 Enquiry Summary
               </span>
-              <p style={{ fontSize: "15px", margin: "12px 0 20px", color: "#ffffff", lineHeight: 1.5 }}>
+              <p className="text-sm sm:text-[15px]" style={{ margin: "12px 0 16px", color: "#ffffff", lineHeight: 1.5 }}>
                 {cartItems.length === 0
                   ? "Your enquiry cart is empty. Browse products, shades, or the estimator above to add items."
                   : `You have ${cartItems.length} ${cartItems.length === 1 ? "item" : "items"} queued in your enquiry specification.`}
@@ -3029,8 +3008,8 @@ export default function Home() {
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {cartItems.slice(0, 3).map((item) => (
                   <div key={item.id} style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", padding: "8px 10px", background: "rgba(0,0,0,0.2)", borderRadius: "4px" }}>
-                    <span>{item.title}</span>
-                    <span style={{ color: "var(--color-accent)" }}>{item.type}</span>
+                    <span className="truncate mr-2">{item.title}</span>
+                    <span style={{ color: "var(--color-accent)" }} className="flex-shrink-0">{item.type}</span>
                   </div>
                 ))}
                 {cartItems.length > 3 && (
@@ -3768,52 +3747,39 @@ export default function Home() {
 
       {/* Mobile Bottom Fixed Bar */}
       <div className="mobile-sticky-bar" aria-label="Mobile quick actions">
-        <a href={`tel:${businessProfile.phoneHref}`} className="button-ghost" style={{ flex: 1, minHeight: "42px", fontSize: "11px", padding: 0 }}>
-          <PhoneCall size={14} style={{ marginRight: "4px" }} /> Call
+        <a
+          href={`tel:${businessProfile.phoneHref}`}
+          className="mobile-bar-btn mobile-bar-call"
+          aria-label="Call Showroom"
+        >
+          <PhoneCall size={15} />
+          <span>Call</span>
         </a>
         <a
           href={`https://wa.me/${businessProfile.whatsappHref}?text=${encodeURIComponent("Hello Jaymurti Traders, I would like to enquire about Birla Opus paints.")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="button-primary"
-          style={{ flex: 1.2, minHeight: "42px", fontSize: "11px", padding: 0, background: "#25d366", color: "#082b18" }}
+          className="mobile-bar-btn mobile-bar-whatsapp"
+          aria-label="Official WhatsApp Support"
         >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "4px" }} aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.36 7.35 9.08 7.41 8.84 7.67C8.6 7.93 7.92 8.57 7.92 9.87C7.92 11.17 8.87 12.43 9 12.6C9.13 12.78 10.84 15.42 13.45 16.55C14.07 16.82 14.56 16.98 14.93 17.1C15.56 17.3 16.12 17.27 16.57 17.2C17.07 17.13 18.12 16.56 18.34 15.95C18.56 15.33 18.56 14.81 18.49 14.7C18.43 14.59 18.26 14.53 18 14.4C17.74 14.27 16.44 13.63 16.2 13.54C15.96 13.45 15.79 13.41 15.62 13.67C15.45 13.93 14.95 14.53 14.8 14.7C14.65 14.87 14.5 14.9 14.24 14.77C13.98 14.64 12.89 14.28 11.6 13.13C10.59 12.23 9.91 11.12 9.71 10.78C9.51 10.43 9.69 10.25 9.82 10.12C9.94 10 10.08 9.81 10.22 9.65C10.36 9.49 10.4 9.36 10.5 9.19C10.6 9.01 10.55 8.87 10.48 8.74C10.41 8.61 9.84 7.22 9.61 6.66C9.38 6.13 9.15 6.2 8.98 6.19C8.82 6.19 8.63 6.19 8.44 6.19" />
           </svg>
-          WhatsApp
-        </a>
-        <a
-          href={businessProfile.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="button-ghost"
-          style={{ minWidth: "42px", width: "42px", minHeight: "42px", padding: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-          aria-label="Official Instagram Account"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-          </svg>
-        </a>
-        <a
-          href={businessProfile.facebookUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="button-ghost"
-          style={{ minWidth: "42px", width: "42px", minHeight: "42px", padding: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
-          aria-label="Official Facebook Account"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-          </svg>
+          <span>WhatsApp</span>
         </a>
         <button
           type="button"
           onClick={() => setIsCartOpen(true)}
-          className="button-primary"
-          style={{ flex: 1, minHeight: "42px", fontSize: "11px", padding: 0 }}
+          className="mobile-bar-btn mobile-bar-cart"
+          aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
         >
-          <ShoppingBag size={14} style={{ marginRight: "4px" }} /> Cart ({cartItems.length})
+          <div className="relative flex items-center">
+            <ShoppingBag size={15} />
+            {cartItems.length > 0 && (
+              <span className="mobile-cart-badge">{cartItems.length}</span>
+            )}
+          </div>
+          <span>Cart {cartItems.length > 0 ? `(${cartItems.length})` : ""}</span>
         </button>
       </div>
 

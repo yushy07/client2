@@ -602,12 +602,12 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
         )}
 
         {/* Global Bottom Actions */}
-        <div className="mt-12 p-6 rounded-2xl bg-dark-surface border border-border-teal/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 p-6 rounded-2xl bg-dark-surface border border-border-teal/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h4 className="text-base font-serif text-white">Need customized shade guidance for your exact home layout?</h4>
             <p className="text-xs text-on-dark-muted mt-1">Our certified Birla Opus colour consultants provide on-site digital sampling and daylight testing.</p>
           </div>
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto flex-shrink-0">
             <Button
               onClick={() => {
                 onEnquire?.(
