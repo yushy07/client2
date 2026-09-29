@@ -6,6 +6,7 @@ import CircularGallery, { type CircularGalleryItem } from "@/components/Circular
 import BorderGlow from "@/components/BorderGlow";
 import ServiceScrollStack, { ServiceScrollStackItem } from "@/components/ServiceScrollStack";
 import { ProductStories } from "@/components/ProductStories";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import {
   ArrowLeft,
@@ -2023,7 +2024,7 @@ export default function Home() {
                 {paletteStories.map((story) => (
                   <article className="colour-story-card" key={story.title}>
                     <div className="colour-story-image">
-                      <img 
+                      <ResponsiveImage 
                         src={story.imageUrl} 
                         alt={`${story.title} mood inspiration`} 
                         loading="lazy" 
@@ -2470,7 +2471,7 @@ export default function Home() {
                 {visibleIdeas.map((idea, index) => (
                   <article className="ideas-archive-card" role="listitem" key={idea.name}>
                     <a href={idea.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      <img src={idea.imageUrl} alt={idea.name} loading={index < 8 ? "eager" : "lazy"} decoding="async" width={300} height={220} />
+                      <ResponsiveImage src={idea.imageUrl} alt={idea.name} loading="lazy" decoding="async" width={300} height={220} />
                       <div>
                         <span>Curated concept · {String(index + 1).padStart(2, "0")}</span>
                         <h3>{idea.name}</h3>
@@ -2598,7 +2599,7 @@ export default function Home() {
                   <article className="texture-card h-full" onClick={() => setSelectedTextureDetail(texture)}>
                     <GlareHover className="texture-glare" glareColor="#fff6de" glareOpacity={0.24} glareAngle={-30} glareSize={270} transitionDuration={520}>
                       <div className="texture-card-image">
-                        <img src={texture.imageUrl} alt={texture.name} loading={index < 2 ? "eager" : "lazy"} decoding="async" width={600} height={index === 0 ? 468 : 571} />
+                        <ResponsiveImage src={texture.imageUrl} alt={texture.name} loading="lazy" decoding="async" width={600} height={index === 0 ? 468 : 571} />
                       </div>
                     </GlareHover>
                   <div className="texture-card-copy">

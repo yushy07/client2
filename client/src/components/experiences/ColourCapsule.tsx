@@ -3,6 +3,7 @@ import { COLOUR_CAPSULE_PAGES, type ColourCapsulePage } from "@shared/colourCaps
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { BookOpen, ChevronLeft, ChevronRight, Maximize2, Sparkles, ShoppingBag, X, Copy, Check } from "lucide-react";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 interface ColourCapsuleProps {
   onSelectShadeTone?: (tone: string) => void;
@@ -125,7 +126,7 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
               className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
             >
               <div className="relative aspect-[16/15] w-full overflow-hidden bg-black/40 flex items-center justify-center">
-                <img
+                <ResponsiveImage
                   src={page.url}
                   alt={page.title}
                   loading="lazy"
@@ -258,7 +259,7 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
 
                   {/* Image Presentation */}
                   <div className="relative w-full h-full flex items-center justify-center py-2">
-                    <img
+                    <ResponsiveImage
                       key={activeSpread.url}
                       src={activeSpread.url}
                       alt={activeSpread.title}

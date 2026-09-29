@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Palette, Maximize2, ShoppingBag, Sparkles, CheckCircle2 } from "lucide-react";
 import { MotionCursorLight, MotionImageReveal } from "@/lib/motion";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 interface WallpaperGalleryProps {
   onEnquire?: (title: string, details: string) => void;
@@ -73,15 +74,15 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
                 className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
-                  <img
-                    src={wp.url}
-                    alt={wp.title}
-                    loading="lazy"
-                    decoding="async"
-                    width={400}
-                    height={300}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  />
+                <ResponsiveImage
+                  src={wp.url}
+                  alt={wp.title}
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={300}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                   <span className="inline-flex items-center gap-1.5 text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
                     <Maximize2 className="w-3.5 h-3.5" /> Inspect Design Motif
@@ -123,7 +124,7 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
             {activeWallpaper && (
               <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
                 <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto">
-                  <img
+                  <ResponsiveImage
                     src={activeWallpaper.url}
                     alt={activeWallpaper.title}
                     className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"

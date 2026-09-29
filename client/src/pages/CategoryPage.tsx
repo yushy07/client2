@@ -5,6 +5,7 @@ import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
 import { birlaOpusProducts, birlaOpusCategories, type BirlaOpusCategory } from "@shared/birlaOpusCatalogue";
 import { textureLibrary } from "@shared/discoveryContent";
 import { Button } from "@/components/ui/button";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 import {
   ShoppingBag,
   MessageCircle,
@@ -214,10 +215,13 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                 className="rounded-2xl overflow-hidden bg-dark-surface border border-border-teal/60 flex flex-col justify-between hover:border-accent transition-all group shadow-lg"
               >
                 <div className="aspect-[4/3] bg-dark overflow-hidden relative">
-                  <img
+                  <ResponsiveImage
                     src={tex.imageUrl}
                     alt={`${tex.name} texture finish`}
                     loading="lazy"
+                    decoding="async"
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute top-2 left-2 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-accent font-semibold uppercase">

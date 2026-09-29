@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home } from "lucide-react";
 import { MotionImageReveal } from "@/lib/motion";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 interface RoomLibraryProps {
   onEnquire?: (title: string, details: string) => void;
@@ -85,7 +86,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
               className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
-                <img
+                <ResponsiveImage
                   src={space.url}
                   alt={space.title}
                   loading="lazy"
@@ -181,7 +182,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
             {activeSpace && (
               <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
                 <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto">
-                  <img
+                  <ResponsiveImage
                     src={activeSpace.url}
                     alt={activeSpace.title}
                     className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"

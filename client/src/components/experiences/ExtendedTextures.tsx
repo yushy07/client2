@@ -3,6 +3,7 @@ import { EXTENDED_TEXTURE_COLLECTIONS, type ExtendedTextureItem, type TextureCat
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Layers, Maximize2, ShoppingBag, Sparkles, Feather } from "lucide-react";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 
 interface ExtendedTexturesProps {
   onEnquire?: (title: string, details: string) => void;
@@ -72,7 +73,7 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
               className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
-                <img
+                <ResponsiveImage
                   src={tex.url}
                   alt={tex.name}
                   loading="lazy"
@@ -120,7 +121,7 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
             {activeTexture && (
               <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
                 <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto">
-                  <img
+                  <ResponsiveImage
                     src={activeTexture.url}
                     alt={activeTexture.name}
                     className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"
