@@ -58,16 +58,16 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
                 label: wp.title,
                 id: wp.id,
               }))}
-              radius={280}
-              cardWidth={125}
-              cardHeight={88}
-              cardRadius={12}
+              radius={340}
+              cardWidth={146}
+              cardHeight={104}
+              cardRadius={14}
               verticalSpacing={0}
               cardsPerTurn={13}
-              speed={0.25}
+              speed={0.22}
               edgeBlur={0}
               edgeFade={0.05}
-              centerScale={1.16}
+              centerScale={1.14}
               pauseOnHover={false}
               onItemClick={(item) => {
                 const found = WALLPAPER_GALLERY_ITEMS.find((w) => w.id === item.id || w.url === item.src);

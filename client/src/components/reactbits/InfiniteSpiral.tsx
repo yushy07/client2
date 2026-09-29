@@ -146,8 +146,8 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       const half = count / 2;
       const width = Math.max(bounds.width, 1);
       const height = Math.max(bounds.height, 1);
-      const fit = Math.min(1, height / (cardHeight * 1.8));
-      const responsiveRadius = Math.max(radius, width * 0.44) * fit;
+      const fit = Math.min(1, height / (cardHeight * 1.5));
+      const responsiveRadius = Math.max(radius, width * 0.62) * fit;
       const fadeStart = clamp(1 - edgeFade, 0, 0.98);
       const turnSize = Math.max(cardsPerTurn || count, 1);
 
@@ -180,9 +180,12 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
         const visualScale = scale * depthScale;
         const depth = (normalizedZ + 1) / 2;
 
-        // Smoothly fade in only at the far horizontal turning edges, solid 100% elsewhere
+        // Smooth fade at the extreme horizontal edges (z close to 0)
         const edgeT = Math.min(1, Math.max(0, normalizedZ / 0.18));
-        const finalOpacity = opacity * edgeT;
+        // Fade smoothly towards the outer horizontal boundaries so cards don't abruptly hit the edge
+        const edgeDistance = Math.abs(x) / (width * 0.48);
+        const horizontalFade = clamp(1 - Math.pow(edgeDistance, 3.5), 0, 1);
+        const finalOpacity = opacity * edgeT * horizontalFade;
 
         card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
         card.style.opacity = finalOpacity.toFixed(3);
