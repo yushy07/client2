@@ -35,14 +35,14 @@ export const InsideJaymurti: React.FC = () => {
               onClick={() => setActivePhoto(photo)}
               className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
+              <div className={`relative ${photo.aspect === "tall" ? "aspect-[3/4]" : photo.aspect === "wide" ? "aspect-[16/9]" : "aspect-[4/3]"} w-full overflow-hidden bg-dark-surface`}>
                 <ResponsiveImage
                   src={photo.image}
                   alt={photo.title}
                   loading="lazy"
                   decoding="async"
-                  width={400}
-                  height={300}
+                  width={photo.aspect === "tall" ? 300 : 400}
+                  height={photo.aspect === "tall" ? 400 : 300}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">

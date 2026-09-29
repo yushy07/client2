@@ -32,7 +32,7 @@ export const INSIDE_JAYMURTI_PHOTOS: ShowroomPhoto[] = [
     title: "Product Display",
     subtitle: "Birla Opus paint packs on display",
     image: "/storage/shopproductpyramid.webp",
-    aspect: "standard",
+    aspect: "tall",
     description: "In-store display of One, Calista, and Style paint packs.",
   },
   {
@@ -56,7 +56,7 @@ export const INSIDE_JAYMURTI_PHOTOS: ShowroomPhoto[] = [
     title: "Showroom Entrance",
     subtitle: "Shukul Bazar, Baskhari location",
     image: "/storage/storefront/shop.webp",
-    aspect: "standard",
+    aspect: "tall",
     description: "Street-level entrance of Jaymurti Traders on the main road in Shukul Bazar, Baskhari.",
   },
 ];

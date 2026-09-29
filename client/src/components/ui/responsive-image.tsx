@@ -17,6 +17,9 @@ export interface ResponsiveImageProps extends React.ImgHTMLAttributes<HTMLImageE
  * ResponsiveImage renders a semantic <picture> element delivering a lightweight
  * -mobile.webp source for mobile viewports (<= 640px) and full WebP for desktop screens.
  */
+// Cache buster version string to ensure mobile browsers immediately fetch updated upright image buffers
+const ASSET_VERSION = "v=20260929v2";
+
 export function ResponsiveImage({
   src,
   mobileSrc,
@@ -39,14 +42,23 @@ export function ResponsiveImage({
       ? src.replace(/\.webp$/i, "-mobile.webp")
       : undefined);
 
+  const withVersion = (url?: string) => {
+    if (!url) return undefined;
+    if (url.includes("?")) return url;
+    return `${url}?${ASSET_VERSION}`;
+  };
+
+  const versionedMobileSrc = withVersion(resolvedMobileSrc);
+  const versionedSrc = withVersion(src);
+
   return (
     <picture className="contents">
-      {resolvedMobileSrc && (
-        <source media={`(max-width: ${breakpoint}px)`} srcSet={resolvedMobileSrc} type="image/webp" />
+      {versionedMobileSrc && (
+        <source media={`(max-width: ${breakpoint}px)`} srcSet={versionedMobileSrc} type="image/webp" />
       )}
-      {src && src.endsWith(".webp") && <source srcSet={src} type="image/webp" />}
+      {versionedSrc && src.endsWith(".webp") && <source srcSet={versionedSrc} type="image/webp" />}
       <img
-        src={src}
+        src={versionedSrc || src}
         alt={alt}
         className={className}
         width={width}
