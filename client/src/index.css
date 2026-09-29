@@ -8276,14 +8276,14 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 15, 17, 0.94);
+  background: rgba(8, 16, 18, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
   z-index: 60;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
-  gap: 8px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+  gap: 6px;
   align-items: center;
 }
 
@@ -8291,55 +8291,84 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 0 10px;
   border-radius: 10px;
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.18s ease;
   touch-action: manipulation;
   user-select: none;
 }
 
+.mobile-bar-icon-btn {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  flex: 0 0 44px;
+  padding: 0;
+}
+
 .mobile-bar-call {
-  flex: 1;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #ffffff;
 }
 
 .mobile-bar-call:active {
-  background: rgba(255, 255, 255, 0.16);
-  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(0.95);
 }
 
 .mobile-bar-whatsapp {
-  flex: 1.4;
   background: #25d366;
   border: 1px solid #20ba5a;
   color: #042412;
-  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.25);
+  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3);
 }
 
 .mobile-bar-whatsapp:active {
   background: #20ba5a;
-  transform: scale(0.98);
+  transform: scale(0.95);
+}
+
+.mobile-bar-instagram {
+  background: rgba(225, 48, 108, 0.15);
+  border: 1px solid rgba(225, 48, 108, 0.35);
+  color: #f77737;
+}
+
+.mobile-bar-instagram:active {
+  background: rgba(225, 48, 108, 0.28);
+  transform: scale(0.95);
+}
+
+.mobile-bar-facebook {
+  background: rgba(24, 119, 242, 0.15);
+  border: 1px solid rgba(24, 119, 242, 0.35);
+  color: #1877f2;
+}
+
+.mobile-bar-facebook:active {
+  background: rgba(24, 119, 242, 0.28);
+  transform: scale(0.95);
 }
 
 .mobile-bar-cart {
-  flex: 1.1;
-  background: #111a1d;
+  flex: 1;
+  min-height: 44px;
+  height: 44px;
+  background: #111e22;
   border: 1px solid rgba(45, 212, 191, 0.35);
   color: var(--saffron, #e8a338);
+  gap: 6px;
+  padding: 0 12px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .mobile-bar-cart:active {
-  background: rgba(45, 212, 191, 0.15);
+  background: rgba(45, 212, 191, 0.18);
   transform: scale(0.98);
 }
 
@@ -8358,7 +8387,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid #0a0f11;
+  border: 1.5px solid #081012;
 }
 
 .floating-contact {

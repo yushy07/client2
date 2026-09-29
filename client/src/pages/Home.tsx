@@ -3788,23 +3788,43 @@ export default function Home() {
       <div className="mobile-sticky-bar" aria-label="Mobile quick actions">
         <a
           href={`tel:${businessProfile.phoneHref}`}
-          className="mobile-bar-btn mobile-bar-call"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-call"
           aria-label="Call Showroom"
         >
-          <PhoneCall size={15} />
-          <span>Call</span>
+          <PhoneCall size={17} />
         </a>
         <a
           href={`https://wa.me/${businessProfile.whatsappHref}?text=${encodeURIComponent("Hello Jaymurti Traders, I would like to enquire about Birla Opus paints.")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mobile-bar-btn mobile-bar-whatsapp"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-whatsapp"
           aria-label="Official WhatsApp Support"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.36 7.35 9.08 7.41 8.84 7.67C8.6 7.93 7.92 8.57 7.92 9.87C7.92 11.17 8.87 12.43 9 12.6C9.13 12.78 10.84 15.42 13.45 16.55C14.07 16.82 14.56 16.98 14.93 17.1C15.56 17.3 16.12 17.27 16.57 17.2C17.07 17.13 18.12 16.56 18.34 15.95C18.56 15.33 18.56 14.81 18.49 14.7C18.43 14.59 18.26 14.53 18 14.4C17.74 14.27 16.44 13.63 16.2 13.54C15.96 13.45 15.79 13.41 15.62 13.67C15.45 13.93 14.95 14.53 14.8 14.7C14.65 14.87 14.5 14.9 14.24 14.77C13.98 14.64 12.89 14.28 11.6 13.13C10.59 12.23 9.91 11.12 9.71 10.78C9.51 10.43 9.69 10.25 9.82 10.12C9.94 10 10.08 9.81 10.22 9.65C10.36 9.49 10.4 9.36 10.5 9.19C10.6 9.01 10.55 8.87 10.48 8.74C10.41 8.61 9.84 7.22 9.61 6.66C9.38 6.13 9.15 6.2 8.98 6.19C8.82 6.19 8.63 6.19 8.44 6.19" />
           </svg>
-          <span>WhatsApp</span>
+        </a>
+        <a
+          href={businessProfile.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-instagram"
+          aria-label="Official Instagram"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+        </a>
+        <a
+          href={businessProfile.facebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-facebook"
+          aria-label="Official Facebook"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          </svg>
         </a>
         <button
           type="button"
@@ -3813,7 +3833,7 @@ export default function Home() {
           aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
         >
           <div className="relative flex items-center">
-            <ShoppingBag size={15} />
+            <ShoppingBag size={16} />
             {cartItems.length > 0 && (
               <span className="mobile-cart-badge">{cartItems.length}</span>
             )}
