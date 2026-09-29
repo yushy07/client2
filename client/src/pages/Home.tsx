@@ -6,6 +6,7 @@ import CircularGallery, { type CircularGalleryItem } from "@/components/Circular
 import BorderGlow from "@/components/BorderGlow";
 import ServiceScrollStack, { ServiceScrollStackItem } from "@/components/ServiceScrollStack";
 import { ProductStories } from "@/components/ProductStories";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import {
   ArrowLeft,
   ArrowRight,
@@ -571,20 +572,11 @@ export default function Home() {
 
   const activeShade = colourTickerShades[selectedShadeIndex] ?? colourTickerShades[0];
 
-  useEffect(() => {
-    document.title = "Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Jaymurti Traders is a Birla Opus paint dealer and paint & colour showroom in Baskhari, Shukul Bazar, Ambedkar Nagar — offering interior and exterior paints, waterproofing, colour consultation, and painting supplies."
-      );
-    }
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", "https://jaymurtitraders.com/");
-    }
-  }, []);
+  usePageSEO({
+    title: "Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar",
+    description: "Jaymurti Traders is a Birla Opus paint dealer and paint & colour showroom in Baskhari, Shukul Bazar, Ambedkar Nagar — offering interior and exterior paints, waterproofing, colour consultation, and painting supplies.",
+    canonicalPath: "/",
+  });
 
   useEffect(() => {
     if (heroPaused) return;

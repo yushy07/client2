@@ -1,38 +1,17 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { businessProfile } from "../../../shared/businessProfile";
 
 export default function Terms() {
+  usePageSEO({
+    title: "Terms & Conditions | Jaymurti Traders",
+    description: "Terms and conditions for Jaymurti Traders website — Birla Opus paint dealer and showroom in Baskhari, Ambedkar Nagar, Uttar Pradesh.",
+    canonicalPath: "/terms",
+  });
+
   useEffect(() => {
-    const previousTitle = document.title;
-    document.title = "Terms & Conditions | Jaymurti Traders";
-
-    const metaDesc = document.querySelector('meta[name="description"]');
-    const previousDesc = metaDesc?.getAttribute("content") ?? "";
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Terms and conditions for Jaymurti Traders website — Birla Opus paint dealer and showroom in Baskhari, Ambedkar Nagar, Uttar Pradesh."
-      );
-    }
-
-    const canonical = document.querySelector('link[rel="canonical"]');
-    const previousCanonical = canonical?.getAttribute("href") ?? "";
-    if (canonical) {
-      canonical.setAttribute("href", "https://jaymurtitraders.com/terms");
-    }
-
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = previousTitle || "Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar";
-      if (metaDesc && previousDesc) {
-        metaDesc.setAttribute("content", previousDesc);
-      }
-      if (canonical && previousCanonical) {
-        canonical.setAttribute("href", previousCanonical);
-      }
-    };
   }, []);
 
   return (

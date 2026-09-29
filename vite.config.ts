@@ -330,12 +330,19 @@ export default defineConfig(({ command, mode }) => {
     build: {
       outDir: path.resolve(import.meta.dirname, "dist/public"),
       emptyOutDir: true,
+      sourcemap: false,
       cssCodeSplit: true,
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
           manualChunks(id: string) {
             if (id.includes("node_modules")) {
+              if (id.includes("three")) {
+                return "three";
+              }
+              if (id.includes("framer-motion")) {
+                return "motion";
+              }
               if (id.includes("react") || id.includes("wouter")) {
                 return "vendor";
               }
@@ -345,7 +352,7 @@ export default defineConfig(({ command, mode }) => {
               if (id.includes("lucide-react")) {
                 return "icons";
               }
-              if (id.includes("@tanstack")) {
+              if (id.includes("@tanstack") || id.includes("@trpc")) {
                 return "query";
               }
             }

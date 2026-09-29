@@ -1,38 +1,17 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { businessProfile } from "../../../shared/businessProfile";
 
 export default function Privacy() {
+  usePageSEO({
+    title: "Privacy Policy | Jaymurti Traders",
+    description: "Privacy policy and data handling practices for Jaymurti Traders, Birla Opus paint dealer and showroom in Baskhari, Ambedkar Nagar, Uttar Pradesh.",
+    canonicalPath: "/privacy",
+  });
+
   useEffect(() => {
-    const previousTitle = document.title;
-    document.title = "Privacy Policy | Jaymurti Traders";
-
-    const metaDesc = document.querySelector('meta[name="description"]');
-    const previousDesc = metaDesc?.getAttribute("content") ?? "";
-    if (metaDesc) {
-      metaDesc.setAttribute(
-        "content",
-        "Privacy policy and data handling practices for Jaymurti Traders, Birla Opus paint dealer and showroom in Baskhari, Ambedkar Nagar, Uttar Pradesh."
-      );
-    }
-
-    const canonical = document.querySelector('link[rel="canonical"]');
-    const previousCanonical = canonical?.getAttribute("href") ?? "";
-    if (canonical) {
-      canonical.setAttribute("href", "https://jaymurtitraders.com/privacy");
-    }
-
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = previousTitle || "Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar";
-      if (metaDesc && previousDesc) {
-        metaDesc.setAttribute("content", previousDesc);
-      }
-      if (canonical && previousCanonical) {
-        canonical.setAttribute("href", previousCanonical);
-      }
-    };
   }, []);
 
   return (
