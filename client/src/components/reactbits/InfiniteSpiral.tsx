@@ -128,11 +128,11 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       previousTime = time;
 
       const autoEnabled = animationMode === 'auto' || animationMode === 'all';
-      const motionPaused = draggingRef.current || (pauseOnHover && hoveredRef.current);
-      const directionMultiplier = direction === 'down' ? -1 : 1;
+      const motionPaused = draggingRef.current;
+      const hoverFactor = (pauseOnHover && hoveredRef.current) ? 0.3 : 1.0;
       const desiredAutoSpeed =
         autoEnabled && visibleRef.current && !reducedMotion.matches && !motionPaused
-          ? speed * directionMultiplier
+          ? speed * directionMultiplier * hoverFactor
           : 0;
       const speedBlend = 1 - Math.exp(-delta * 7);
       autoSpeedRef.current += (desiredAutoSpeed - autoSpeedRef.current) * speedBlend;
@@ -145,8 +145,8 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       const half = count / 2;
       const width = Math.max(bounds.width, 1);
       const height = Math.max(bounds.height, 1);
-      const fit = Math.min(1, width / (cardWidth * 2.5), height / (cardHeight * 2.2));
-      const responsiveRadius = Math.min(radius, Math.max(72, width * 0.40)) * fit;
+      const fit = Math.min(1, width / (cardWidth * 2.2), height / (cardHeight * 2.0));
+      const responsiveRadius = Math.min(radius, width * 0.26) * fit;
       const fadeStart = clamp(1 - edgeFade, 0, 0.98);
       const turnSize = Math.max(cardsPerTurn, 1);
 
@@ -170,23 +170,24 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
           card.style.opacity = '0';
           card.style.visibility = 'hidden';
           card.style.pointerEvents = 'none';
+          card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) scale(0.6)`;
           return;
         }
 
         card.style.visibility = 'visible';
-        const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.72, 1.45);
+        const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.75, 1.35);
         const visualScale = scale * depthScale;
         const depth = (normalizedZ + 1) / 2;
 
         // Smoothly fade in only at the far horizontal turning edges, solid 100% elsewhere
-        const edgeT = Math.min(1, Math.max(0, normalizedZ / 0.22));
+        const edgeT = Math.min(1, Math.max(0, normalizedZ / 0.18));
         const finalOpacity = opacity * edgeT;
 
         card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
         card.style.opacity = finalOpacity.toFixed(3);
         card.style.filter = 'none';
         card.style.zIndex = String(Math.round(depth * 100000) + index);
-        card.style.pointerEvents = edgeT > 0.6 && finalOpacity > 0.5 ? 'auto' : 'none';
+        card.style.pointerEvents = edgeT > 0.5 && finalOpacity > 0.4 ? 'auto' : 'none';
       });
 
       frameId = requestAnimationFrame(render);
