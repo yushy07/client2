@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { WALLPAPER_GALLERY_ITEMS, type WallpaperFamily } from "@shared/wallpaperData";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Palette, Maximize2, ShoppingBag, Sparkles, CheckCircle2 } from "lucide-react";
+import { Palette, Maximize2, ShoppingBag, Sparkles, CheckCircle2, X, Layers } from "lucide-react";
 import { MotionCursorLight, MotionImageReveal } from "@/lib/motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { InfiniteSpiral, ShinyText } from "@/components/reactbits";
@@ -148,50 +148,108 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
         </div>
       </MotionCursorLight>
 
-        {/* Wallpaper Lightbox Modal */}
+        {/* Luxury Wallpaper Lightbox Inspector Modal */}
         <Dialog open={!!activeWallpaper} onOpenChange={(open) => !open && setActiveWallpaper(null)}>
-          <DialogContent className="max-w-4xl bg-dark-surface border-border-teal text-on-dark p-0 overflow-hidden sm:rounded-2xl">
+          <DialogContent
+            showCloseButton={false}
+            className="w-[94vw] max-w-4xl max-h-[90vh] md:max-h-[82vh] bg-[#071d21] border border-border-teal/80 text-on-dark p-0 overflow-hidden rounded-2xl md:rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col md:flex-row"
+          >
             {activeWallpaper && (
-              <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
-                <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto">
-                  <ResponsiveImage
-                    src={activeWallpaper.url}
-                    alt={activeWallpaper.title}
-                    className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"
-                  />
-                  <div className="absolute top-4 left-4 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-xs text-accent font-medium">
-                    {activeWallpaper.category}
-                  </div>
-                </div>
+              <>
+                {/* Left Column: Architectural Swatch Presentation */}
+                <div className="relative w-full md:w-1/2 lg:w-[52%] bg-gradient-to-br from-[#041215] via-[#081e23] to-[#041215] flex items-center justify-center p-6 sm:p-8 overflow-hidden select-none border-b md:border-b-0 md:border-r border-border-teal/60 shrink-0">
+                  {/* Subtle ambient light */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(23,107,115,0.22)_0%,transparent_70%)] pointer-events-none" />
 
-                <div className="md:w-2/5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
-                  <div>
-                    <span className="text-xs uppercase tracking-widest text-accent font-semibold">
-                      Birla Opus Wallpaper Family
+                  {/* Category Pill */}
+                  <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
+                    <span className="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-amber-300 border border-white/10 shadow-sm flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      {activeWallpaper.category}
                     </span>
-                    <DialogTitle className="text-2xl font-serif text-on-dark mt-2 mb-3">
-                      {activeWallpaper.title}
-                    </DialogTitle>
-                    <p className="text-sm text-on-dark-muted leading-relaxed mb-6">
-                      {activeWallpaper.description}
-                    </p>
+                  </div>
 
-                    <div className="bg-dark-surface p-4 rounded-xl border border-border-teal mb-6">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-on-dark-muted block mb-2">
-                        Architectural Space Suitability
-                      </span>
-                      <ul className="space-y-1.5">
-                        {activeWallpaper.suggestedSpaces.map((space, i) => (
-                          <li key={i} className="text-xs text-surface flex items-center gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
-                            {space}
-                          </li>
-                        ))}
-                      </ul>
+                  {/* Swatch Display */}
+                  <div className="relative z-10 w-full max-w-[320px] aspect-square rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.6)] group/swatch">
+                    <ResponsiveImage
+                      src={activeWallpaper.url}
+                      alt={activeWallpaper.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/swatch:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/swatch:opacity-100 transition-opacity flex items-end p-3">
+                      <span className="text-[11px] text-white/90 font-mono">1:1 Roll Texture Reference</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3 pt-6 border-t border-border-teal">
+                  {/* Bottom texture label */}
+                  <div className="absolute bottom-3 left-0 right-0 text-center">
+                    <span className="text-[10px] uppercase font-mono tracking-widest text-white/40">
+                      Authentic Birla Opus Wallpaper Roll Spec
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right Column: Spec & Consultation Panel */}
+                <div className="relative w-full md:w-1/2 lg:w-[48%] p-6 sm:p-8 flex flex-col justify-between overflow-y-auto no-scrollbar bg-[#081e22]/90 backdrop-blur-md">
+                  {/* Custom Close Button */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveWallpaper(null)}
+                    className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center border border-white/15 backdrop-blur-sm transition-all"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+
+                  <div className="space-y-4">
+                    <div>
+                      <span className="text-[11px] uppercase tracking-widest text-amber-400 font-semibold font-mono block mb-1">
+                        Birla Opus Wallpaper Collection
+                      </span>
+                      <DialogTitle className="text-2xl sm:text-3xl font-serif text-white tracking-tight leading-snug">
+                        {activeWallpaper.title}
+                      </DialogTitle>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-on-dark-muted font-sans leading-relaxed">
+                      {activeWallpaper.description}
+                    </p>
+
+                    {/* Architectural Suitability Box */}
+                    <div className="bg-[#051518] p-4 rounded-xl border border-border-teal/80 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-semibold flex items-center gap-1.5">
+                          <Layers className="w-3.5 h-3.5" />
+                          Architectural Space Suitability
+                        </span>
+                        <span className="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                          Recommended
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 gap-1.5 pt-1">
+                        {activeWallpaper.suggestedSpaces.map((space, i) => (
+                          <div key={i} className="text-xs text-white/85 flex items-center gap-2">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <span>{space}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Features Strip */}
+                    <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-white/70">
+                      <div className="bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                        Washable Finish
+                      </div>
+                      <div className="bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                        Seamless Jointing
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-5 mt-5 border-t border-border-teal/60 space-y-2">
                     <Button
                       onClick={() => {
                         onEnquire?.(
@@ -200,16 +258,16 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
                         );
                         setActiveWallpaper(null);
                       }}
-                      className="w-full bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium py-2.5 rounded-xl flex items-center justify-center gap-2"
+                      className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold py-2.5 rounded-xl shadow-lg transition-transform active:scale-[0.99] flex items-center justify-center gap-2 text-sm"
                     >
                       <ShoppingBag className="w-4 h-4" /> Enquire This Wallpaper Design
                     </Button>
-                    <p className="text-[11px] text-center text-on-dark-muted">
-                      Patterns and application guidance can be enquired at Jaymurti Traders, Baskhari.
+                    <p className="text-[11px] text-center text-white/50 font-sans">
+                      Physical sample books & catalogues available at Jaymurti Traders, Baskhari.
                     </p>
                   </div>
                 </div>
-              </div>
+              </>
             )}
           </DialogContent>
         </Dialog>
