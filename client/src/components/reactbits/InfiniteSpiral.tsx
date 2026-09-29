@@ -163,24 +163,30 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
         const angleRadians = (angle * Math.PI) / 180;
         const x = Math.sin(angleRadians) * responsiveRadius;
         const z = Math.cos(angleRadians) * responsiveRadius;
+        const normalizedZ = z / Math.max(responsiveRadius, 1);
+
+        // Cull back-facing cards so they never overlap or ghost behind front cards
+        if (normalizedZ <= 0.02) {
+          card.style.opacity = '0';
+          card.style.visibility = 'hidden';
+          card.style.pointerEvents = 'none';
+          return;
+        }
+
+        card.style.visibility = 'visible';
         const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.72, 1.45);
         const visualScale = scale * depthScale;
-        const depth = (z / Math.max(responsiveRadius, 1) + 1) / 2;
-        // Cards in foreground (depth close to 1) are sharp & bright; background cards fade softly
-        const depthOpacity = 0.22 + 0.78 * Math.pow(depth, 1.4);
-        const finalOpacity = opacity * depthOpacity;
-        const brightness = 0.55 + 0.45 * depth;
-        const blur = edgeBlur * smoothstep(0.35, 1, edge);
-        const filterStr = [
-          blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : '',
-          brightness < 0.98 ? `brightness(${brightness.toFixed(2)})` : '',
-        ].filter(Boolean).join(' ') || 'none';
+        const depth = (normalizedZ + 1) / 2;
+
+        // Smoothly fade in only at the far horizontal turning edges, solid 100% elsewhere
+        const edgeT = Math.min(1, Math.max(0, normalizedZ / 0.22));
+        const finalOpacity = opacity * edgeT;
 
         card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
         card.style.opacity = finalOpacity.toFixed(3);
-        card.style.filter = filterStr;
+        card.style.filter = 'none';
         card.style.zIndex = String(Math.round(depth * 100000) + index);
-        card.style.pointerEvents = depth > 0.45 && finalOpacity > 0.35 ? 'auto' : 'none';
+        card.style.pointerEvents = edgeT > 0.6 && finalOpacity > 0.5 ? 'auto' : 'none';
       });
 
       frameId = requestAnimationFrame(render);
