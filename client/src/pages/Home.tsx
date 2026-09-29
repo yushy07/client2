@@ -1456,6 +1456,45 @@ export default function Home() {
         <section className="colours visual-colours-refinement reveal scroll-chapter" id="colours" data-scroll-section data-section-label="Colours" data-reveal>
           <div className="colour-archive-hero visual-archive-hero visual-archive-compact" style={{ "--active-banner-shade": activeShade.hex } as React.CSSProperties}>
             <div className="colour-archive-shade" />
+            {/* Mobile-First Prominent Hero Shade Display Stage */}
+            <div className="colour-archive-mobile-stage">
+              <div className="mobile-stage-topbar">
+                <span className="mobile-stage-pill">
+                  <span className="mobile-stage-live-dot" />
+                  Birla Opus Shade
+                </span>
+                <span className="mobile-stage-counter">
+                  {String(activeShade.position).padStart(2, "0")} / {String(colourTickerShades.length).padStart(2, "0")}
+                </span>
+              </div>
+
+              <div className="mobile-stage-body">
+                <div className="mobile-stage-headings">
+                  <span className="mobile-stage-eyebrow">Active Curated Selection</span>
+                  <h3 className="mobile-stage-shade-name">{activeShade.name}</h3>
+                </div>
+                <span className="mobile-stage-shade-code">{activeShade.code}</span>
+              </div>
+
+              {/* Prev / Next Quick Skip Buttons */}
+              <button
+                type="button"
+                className="mobile-stage-nav-btn prev"
+                onClick={() => setSelectedShadeIndex((current) => (current - 1 + colourTickerShades.length) % colourTickerShades.length)}
+                aria-label="Previous curated shade"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                className="mobile-stage-nav-btn next"
+                onClick={() => setSelectedShadeIndex((current) => (current + 1) % colourTickerShades.length)}
+                aria-label="Next curated shade"
+              >
+                ›
+              </button>
+            </div>
+
             <div className="colour-archive-hero-copy">
               <div className="eyebrow">The Definitive Colour Finder</div>
               <p className="colour-archive-label">Selected · {activeShade.name} ({activeShade.code})</p>
@@ -1479,7 +1518,7 @@ export default function Home() {
                     })
                   }
                 >
-                  + Add Shade to Enquiry <ArrowRight size={15} />
+                  + Add {activeShade.name} to Enquiry <ArrowRight size={15} />
                 </button>
                 <a className="colour-archive-link" href="https://www.birlaopus.com/colour-catalogue" target="_blank" rel="noopener noreferrer">
                   Official Birla Opus shade guide <ArrowRight size={14} />
