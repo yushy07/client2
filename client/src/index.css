@@ -9453,7 +9453,7 @@ a {
     min-height: auto !important;
     padding-top: 14px !important;
     padding-bottom: 24px !important;
-    background: radial-gradient(circle at 80% 0%, rgba(232, 163, 56, 0.12) 0%, transparent 60%), #07191c !important;
+    background: radial-gradient(circle at 85% 0%, rgba(232, 163, 56, 0.12) 0%, transparent 55%), #07191c !important;
     position: relative !important;
     overflow: hidden !important;
   }
@@ -9462,44 +9462,51 @@ a {
   .hero-top-accent-decor {
     display: block !important;
     position: absolute !important;
-    top: -12px !important;
-    right: -14px !important;
-    width: 175px !important;
-    height: 195px !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 145px !important;
+    height: 145px !important;
     pointer-events: none !important;
-    z-index: 3 !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
   }
 
   .hero-accent-img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
-    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45)) !important;
+    object-fit: cover !important;
+    object-position: top right !important;
+    border-bottom-left-radius: 40px !important;
+    mask-image: radial-gradient(circle at 80% 20%, black 50%, transparent 95%) !important;
+    -webkit-mask-image: radial-gradient(circle at 80% 20%, black 50%, transparent 95%) !important;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5)) !important;
   }
 
   .hero-accent-script {
     position: absolute !important;
-    bottom: 2px !important;
-    left: -12px !important;
+    top: 124px !important;
+    right: 12px !important;
     font-family: "Caveat", cursive, sans-serif !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     font-weight: 600 !important;
     line-height: 1.05 !important;
     color: #e8a338 !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
-    transform: rotate(-10deg) !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9) !important;
+    transform: rotate(-8deg) !important;
     white-space: nowrap !important;
     pointer-events: none !important;
+    text-align: right !important;
+    z-index: 2 !important;
   }
 
   .hero-accent-script span {
-    font-size: 13px !important;
+    font-size: 12px !important;
     opacity: 0.9 !important;
   }
 
   .hero-accent-script em {
     font-style: normal !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
   }
 
   .hero-inner {
@@ -9507,10 +9514,12 @@ a {
     flex-direction: column !important;
     min-height: auto !important;
     gap: 0 !important;
+    position: relative !important;
+    z-index: 3 !important;
   }
 
   .hero-copy {
-    padding: 8px 16px 14px !important;
+    padding: 6px 16px 14px !important;
     min-height: auto !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -9525,17 +9534,21 @@ a {
   .hero-eyebrow-pill {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 6px !important;
-    font-size: 10.5px !important;
+    gap: 5px !important;
+    font-size: 9.5px !important;
     font-weight: 700 !important;
     letter-spacing: 0.08em !important;
     color: #e8a338 !important;
     border: 1px solid rgba(232, 163, 56, 0.55) !important;
     background: rgba(232, 163, 56, 0.08) !important;
-    padding: 3.5px 12px !important;
+    padding: 3px 10px !important;
     border-radius: 999px !important;
-    margin-bottom: 12px !important;
+    margin-bottom: 10px !important;
     text-transform: uppercase !important;
+    max-width: 220px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .hero-eyebrow-dash {
@@ -9545,12 +9558,13 @@ a {
 
   .hero-headline {
     font-family: var(--serif, "Playfair Display", Georgia, serif) !important;
-    font-size: clamp(34px, 9.5vw, 44px) !important;
+    font-size: clamp(30px, 8.5vw, 38px) !important;
     letter-spacing: -0.035em !important;
-    line-height: 1.05 !important;
+    line-height: 1.08 !important;
     margin: 4px 0 12px !important;
-    max-width: 260px !important;
+    max-width: 220px !important;
     color: #ffffff !important;
+    word-break: normal !important;
   }
 
   .hero-headline em {
@@ -9708,17 +9722,19 @@ a {
 
   .hero-carousel-bottom-bar {
     position: absolute !important;
-    bottom: 12px !important;
-    left: 12px !important;
-    background: rgba(10, 24, 28, 0.85) !important;
-    backdrop-filter: blur(8px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    bottom: 10px !important;
+    left: 10px !important;
+    background: rgba(10, 24, 28, 0.88) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
     border-radius: 999px !important;
     padding: 4px 10px !important;
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
     z-index: 10 !important;
+    height: 26px !important;
+    box-sizing: border-box !important;
   }
 
   .hero-carousel-counter {
@@ -9726,37 +9742,57 @@ a {
     font-weight: 600 !important;
     font-family: var(--mono) !important;
     color: #ffffff !important;
+    line-height: 1 !important;
   }
 
   .hero-carousel-dots {
     display: flex !important;
+    flex-direction: row !important;
     align-items: center !important;
     gap: 5px !important;
+    height: auto !important;
   }
 
   .hero-dot-btn {
     width: 6px !important;
     height: 6px !important;
+    min-width: 6px !important;
+    max-width: 6px !important;
+    min-height: 6px !important;
+    max-height: 6px !important;
     border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.35) !important;
     border: none !important;
     padding: 0 !important;
+    margin: 0 !important;
     cursor: pointer !important;
+    flex: 0 0 6px !important;
+    display: inline-block !important;
+    box-sizing: border-box !important;
     transition: background-color 0.2s ease, transform 0.2s ease !important;
   }
 
   .hero-dot-btn.active {
     background: #e8a338 !important;
-    transform: scale(1.15) !important;
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px !important;
+    max-width: 8px !important;
+    min-height: 8px !important;
+    max-height: 8px !important;
+    flex: 0 0 8px !important;
+    border-radius: 50% !important;
   }
 
   /* Mobile Trust Bar Container (3 Columns + Dividers) */
   .hero-mobile-trust-container {
     display: flex !important;
     flex-direction: column !important;
-    padding: 18px 16px 6px !important;
+    padding: 16px 16px 6px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    position: relative !important;
+    z-index: 5 !important;
   }
 
   .hero-mobile-trust-chips-grid {
@@ -9811,8 +9847,8 @@ a {
     align-items: center !important;
     justify-content: center !important;
     gap: 12px !important;
-    margin-top: 18px !important;
-    margin-bottom: 8px !important;
+    margin-top: 16px !important;
+    margin-bottom: 6px !important;
   }
 
   .hero-auth-line {
