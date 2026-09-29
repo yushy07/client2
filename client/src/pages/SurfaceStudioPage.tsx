@@ -13,8 +13,8 @@ export const SurfaceStudioPage: React.FC = () => {
 
   const driftWallItems = useMemo(() => {
     return EXTENDED_TEXTURE_COLLECTIONS.slice(0, 16).map((texture) => ({
-      image: texture.image,
-      title: texture.title,
+      image: texture.url,
+      title: texture.name,
     }));
   }, []);
 
