@@ -140,12 +140,15 @@ export const Prism: React.FC<PrismProps> = ({
     const uColFreqLoc = gl.getUniformLocation(prog, 'uColorFreq');
     const uPointerLoc = gl.getUniformLocation(prog, 'uPointer');
 
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
+    let isVisible = false;
     let startTime = performance.now();
+    const isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -153,7 +156,7 @@ export const Prism: React.FC<PrismProps> = ({
     };
 
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true });
 
     const handlePointerMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
@@ -163,9 +166,9 @@ export const Prism: React.FC<PrismProps> = ({
       pointerRef.current.targetY = y;
     };
 
-    container.addEventListener('mousemove', handlePointerMove);
+    container.addEventListener('mousemove', handlePointerMove, { passive: true });
 
-    const render = () => {
+    const drawFrame = () => {
       const now = performance.now();
       const elapsed = ((now - startTime) / 1000) * timeScale;
 
@@ -183,13 +186,60 @@ export const Prism: React.FC<PrismProps> = ({
       gl.uniform2f(uPointerLoc, pointerRef.current.x, pointerRef.current.y);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    const loop = () => {
+      if (!isVisible || document.hidden) {
+        animationFrameId = null;
+        return;
+      }
+      drawFrame();
+      animationFrameId = requestAnimationFrame(loop);
+    };
+
+    const startAnimation = () => {
+      if (animationFrameId === null && isVisible && !document.hidden && !prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(loop);
+      }
+    };
+
+    const stopAnimation = () => {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    };
+
+    if (prefersReducedMotion) {
+      drawFrame();
+    }
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !document.hidden && !prefersReducedMotion) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0.01, rootMargin: '80px 0px' }
+    );
+    intersectionObserver.observe(container);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else if (isVisible) {
+        startAnimation();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopAnimation();
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', resize);
       container.removeEventListener('mousemove', handlePointerMove);
       gl.deleteProgram(prog);

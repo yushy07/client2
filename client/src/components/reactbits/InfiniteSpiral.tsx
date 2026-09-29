@@ -89,7 +89,7 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
     const root = rootRef.current;
     if (!root || normalizedItems.length === 0) return;
 
-    let frameId: number;
+    let frameId: number | null = null;
     let previousTime = performance.now();
     let bounds = root.getBoundingClientRect();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -102,28 +102,12 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
     });
     resizeObserver.observe(root);
 
-    const intersectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        visibleRef.current = entry.isIntersecting;
-      },
-      { threshold: 0.02 }
-    );
-    intersectionObserver.observe(root);
-
-    const handleScroll = () => {
-      const nextScrollY = window.scrollY;
-      const scrollDelta = nextScrollY - lastScrollY;
-      lastScrollY = nextScrollY;
-      if (!scrollEnabled || !visibleRef.current || scrollDelta === 0) return;
-      targetProgressRef.current += clamp(
-        (scrollDelta * scrollSpeedMultiplier) / Math.max(verticalSpacing * 2, 1),
-        -1.5,
-        1.5
-      );
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
     const render = (time: number) => {
+      if (!visibleRef.current || document.hidden) {
+        frameId = null;
+        return;
+      }
+
       const delta = Math.min((time - previousTime) / 1000, 0.05);
       previousTime = time;
 
@@ -193,12 +177,60 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       frameId = requestAnimationFrame(render);
     };
 
-    frameId = requestAnimationFrame(render);
+    const startAnimation = () => {
+      if (frameId === null && visibleRef.current && !document.hidden) {
+        previousTime = performance.now();
+        frameId = requestAnimationFrame(render);
+      }
+    };
+
+    const stopAnimation = () => {
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+    };
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting;
+        if (visibleRef.current && !document.hidden) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0.01, rootMargin: '80px 0px' }
+    );
+    intersectionObserver.observe(root);
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else if (visibleRef.current) {
+        startAnimation();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    const handleScroll = () => {
+      const nextScrollY = window.scrollY;
+      const scrollDelta = nextScrollY - lastScrollY;
+      lastScrollY = nextScrollY;
+      if (!scrollEnabled || !visibleRef.current || scrollDelta === 0) return;
+      targetProgressRef.current += clamp(
+        (scrollDelta * scrollSpeedMultiplier) / Math.max(verticalSpacing * 2, 1),
+        -1.5,
+        1.5
+      );
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      cancelAnimationFrame(frameId);
+      stopAnimation();
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [

@@ -8,8 +8,8 @@ void main() {
 }
 `;
 
-const FRAG = `#version 300 es
-precision highp float;
+const getFragShader = (isMobile: boolean) => `#version 300 es
+precision ${isMobile ? 'mediump' : 'highp'} float;
 
 uniform float uTime;
 uniform float uAmplitude;
@@ -159,21 +159,25 @@ export const Aurora: React.FC<AuroraProps> = ({
     const container = containerRef.current;
     if (!canvas || !container) return;
 
+    const isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const gl = canvas.getContext('webgl2', {
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true,
+      antialias: false,
+      powerPreference: 'low-power',
     });
 
     if (!gl) return;
 
-    // Create shader program
+    // Create shader program with mobile-optimized precision
     const vertShader = gl.createShader(gl.VERTEX_SHADER)!;
     gl.shaderSource(vertShader, VERT);
     gl.compileShader(vertShader);
 
     const fragShader = gl.createShader(gl.FRAGMENT_SHADER)!;
-    gl.shaderSource(fragShader, FRAG);
+    gl.shaderSource(fragShader, getFragShader(isMobile));
     gl.compileShader(fragShader);
 
     const program = gl.createProgram()!;
@@ -198,29 +202,38 @@ export const Aurora: React.FC<AuroraProps> = ({
     const uColorLoc = gl.getUniformLocation(program, 'uColorStops');
     const uLightLoc = gl.getUniformLocation(program, 'uLightMode');
 
-    let animationId: number;
+    let animationId: number | null = null;
+    let isVisible = false;
     let startTime = performance.now();
+    let accumulatedTime = 0;
+    let lastFrameTime = performance.now();
 
+    // Downscale canvas backing resolution for background ambient shader (dramatic GPU savings, identical visual blur)
     const resize = () => {
       const w = container.offsetWidth || 1;
       const h = container.offsetHeight || 1;
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-        gl.viewport(0, 0, w, h);
+      const targetWidth = isMobile ? Math.min(w, 360) : Math.min(w, 640);
+      const targetHeight = isMobile ? Math.min(h, 240) : Math.min(h, 400);
+
+      if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        gl.viewport(0, 0, targetWidth, targetHeight);
       }
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true });
 
     const rgbStops = colorStops.flatMap(hex => hexToRgb(hex));
 
-    const render = (time: number) => {
+    const drawFrame = (time: number) => {
       gl.useProgram(program);
 
-      const elapsed = (time - startTime) * 0.001 * speed;
+      const delta = Math.min((time - lastFrameTime) / 1000, 0.1);
+      lastFrameTime = time;
+      accumulatedTime += delta * speed;
 
-      gl.uniform1f(uTimeLoc, elapsed);
+      gl.uniform1f(uTimeLoc, accumulatedTime);
       gl.uniform1f(uAmpLoc, amplitude);
       gl.uniform1f(uBlendLoc, blend);
       gl.uniform2f(uResLoc, canvas.width, canvas.height);
@@ -231,13 +244,63 @@ export const Aurora: React.FC<AuroraProps> = ({
       gl.clear(gl.COLOR_BUFFER_BIT);
 
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-      animationId = requestAnimationFrame(render);
     };
 
-    animationId = requestAnimationFrame(render);
+    const loop = (time: number) => {
+      if (!isVisible) {
+        animationId = null;
+        return;
+      }
+      drawFrame(time);
+      animationId = requestAnimationFrame(loop);
+    };
+
+    const startAnimation = () => {
+      if (animationId === null && isVisible) {
+        lastFrameTime = performance.now();
+        animationId = requestAnimationFrame(loop);
+      }
+    };
+
+    const stopAnimation = () => {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    };
+
+    // If reduced motion is enabled, draw single static frame and do not loop
+    if (prefersReducedMotion) {
+      drawFrame(performance.now());
+    }
+
+    // Viewport-gating: Only animate when visible in viewport
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting && !document.hidden && !prefersReducedMotion;
+        if (isVisible) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      },
+      { threshold: 0.01, rootMargin: '100px 0px' }
+    );
+    intersectionObserver.observe(container);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopAnimation();
+      } else if (isVisible) {
+        startAnimation();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      cancelAnimationFrame(animationId);
+      stopAnimation();
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', resize);
       gl.deleteProgram(program);
       gl.deleteShader(vertShader);
