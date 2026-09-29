@@ -79,22 +79,22 @@ export const colourArchiveAssets = [
   {
     "name": "Colours Landing Banner",
     "role": "banner",
-    "imageUrl": "/storage/extracted/birlaopus_ideas/Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_ideas/Birla_Opus.webp"
   },
   {
     "name": "More",
     "role": "collection",
-    "imageUrl": "/storage/extracted/birlaopus_ideas/Dopamine_Home_Decor_Ideas_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_ideas/Dopamine_Home_Decor_Ideas_Birla_Opus.webp"
   },
   {
     "name": "Cozy composition of living room interior with gray armchair, dark pillow, beige sideboard, wooden coffee table, vase with branch, round pillow and personal accessories. Home decor. Template.",
     "role": "room-reference",
-    "imageUrl": "/storage/extracted/birlaopus_ideas/Experience_Store_Paint_Studio_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_ideas/Experience_Store_Paint_Studio_Birla_Opus.webp"
   },
   {
     "name": "In hands of palette with blue shades against blue wall. Selection of paint for walls and facades concept",
     "role": "swatch-reference",
-    "imageUrl": "/storage/extracted/birlaopus_ideas/Colour_Swatches_Paint_Project_Birla_Opus_.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_ideas/Colour_Swatches_Paint_Project_Birla_Opus_.webp"
   }
 ] as const;
 
@@ -164,107 +164,107 @@ export const textureLibrary = [
   {
     "group": "Forest",
     "name": "Bamboo Textured Wall: Birla Opus ",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Bamboo_Textured_Wall_Birla_Opus_.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Bamboo_Textured_Wall_Birla_Opus_.webp"
   },
   {
     "group": "Forest",
     "name": "Tree Rings texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tree_Rings_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tree_Rings_texture_interior_walls.webp"
   },
   {
     "group": "Forest",
     "name": "Marigold texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Marigold_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Marigold_texture_interior_walls.webp"
   },
   {
     "group": "Forest",
     "name": "Tree Bark texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tree_Bark_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tree_Bark_texture_interior_walls.webp"
   },
   {
     "group": "Water",
     "name": "The sight of million waves, the perpetual grains of sands, and the mesmerizing seashells are all reflected in our water-inspired wall textures.",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/The_sight_of_million_waves_the_perpetual_grains_of_sands_and_the_mesmerizing_seashells_are_all_reflected_in_our_water_inspired_wall_textures_.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/The_sight_of_million_waves_the_perpetual_grains_of_sands_and_the_mesmerizing_seashells_are_all_reflected_in_our_water_inspired_wall_textures_.webp"
   },
   {
     "group": "Land",
     "name": "Sanddune texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Sanddune_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Sanddune_texture_interior_walls.webp"
   },
   {
     "group": "Land",
     "name": "Marble Finish texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Marble_Finish_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Marble_Finish_texture_interior_walls.webp"
   },
   {
     "group": "Wildlife",
     "name": "Feathers texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Feathers_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Feathers_texture_interior_walls.webp"
   },
   {
     "group": "Wildlife",
     "name": "Mushroom texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Mushroom_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Mushroom_texture_interior_walls.webp"
   },
   {
     "group": "Sky",
     "name": "Cloud texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Cloud_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Cloud_texture_interior_walls.webp"
   },
   {
     "group": "Timeless",
     "name": "Mineral Rocks texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Grass_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Grass_texture_interior_walls.webp"
   },
   {
     "group": "Timeless",
     "name": "Cave stone texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tree_Husk_texture_interior_walls.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tree_Husk_texture_interior_walls.webp"
   },
   {
     "group": "Timeless",
     "name": "Onyx Marble texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Blow_Out_Candle_Seashell_Interior_Texture_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Blow_Out_Candle_Seashell_Interior_Texture_Birla_Opus.webp"
   },
   {
     "group": "Timeless",
     "name": "Sanstone texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Interior_Vapour_Finish_Texture_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Interior_Vapour_Finish_Texture_Birla_Opus.webp"
   },
   {
     "group": "Timeless",
     "name": "Clay Plaster texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Interior_Waves_Texture_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Interior_Waves_Texture_Birla_Opus.webp"
   },
   {
     "group": "Timeless",
     "name": "Trelis texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tropical_Flair_Wallpaper_Interior_Texture_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Tropical_Flair_Wallpaper_Interior_Texture_Birla_Opus.webp"
   },
   {
     "group": "Timeless",
     "name": "Fluid Clay texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Redefine_living_with_our_land_inspired_textures_for_your_walls_Our_patterns_offer_a_unique_blend_of_natural_beauty_and_contemporary_design_.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Redefine_living_with_our_land_inspired_textures_for_your_walls_Our_patterns_offer_a_unique_blend_of_natural_beauty_and_contemporary_design_.webp"
   },
   {
     "group": "Timeless",
     "name": "Metallic mirage texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Home_Paint_Interior_Wall_Paint_Birla_Opus_.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Home_Paint_Interior_Wall_Paint_Birla_Opus_.webp"
   },
   {
     "group": "Timeless",
     "name": "Pearl Marmorino texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Style_Colour_Smart_Interior_Wall_Paint_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Style_Colour_Smart_Interior_Wall_Paint_Birla_Opus.webp"
   },
   {
     "group": "Timeless",
     "name": "Metallic Moon texture interior walls",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Allwood_Interior_Exterior_Wood_Paint_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Allwood_Interior_Exterior_Wood_Paint_Birla_Opus.webp"
   },
   {
     "group": "Timeless",
     "name": "Trellis Wall Texture: Birla Opus Paints ",
-    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Textured_Bamboo_Wall_Paint_Birla_Opus.jpg"
+    "imageUrl": "/storage/extracted/birlaopus_interiortexture/Textured_Bamboo_Wall_Paint_Birla_Opus.webp"
   }
 ] as const;
 

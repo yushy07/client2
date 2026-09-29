@@ -117,6 +117,9 @@ const ThumbnailStrip: React.FC<ThumbnailStripProps> = ({
                   src={v.url}
                   alt={v.label}
                   loading="lazy"
+                  decoding="async"
+                  width={96}
+                  height={72}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover/item:scale-110"
                 />
                 <div className="absolute top-1 left-1">
@@ -431,6 +434,9 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                         src={variant.url}
                         alt={`${currentScene.name} - ${variant.label}`}
                         loading="lazy"
+                        decoding="async"
+                        width={400}
+                        height={275}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
 
@@ -529,7 +535,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                 </div>
 
                 <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-dark border border-white/10 group cursor-pointer" onClick={() => setActiveLightboxVariant(leftVariant)}>
-                  <img src={leftVariant.url} alt={leftVariant.label} className="w-full h-full object-cover" />
+                  <img src={leftVariant.url} alt={leftVariant.label} loading="lazy" decoding="async" width={600} height={375} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                     <span className="px-3 py-1.5 rounded-full bg-dark/90 text-white text-xs font-semibold border border-white/20 flex items-center gap-1.5">
                       <Maximize2 className="w-3.5 h-3.5 text-accent" /> Magnify
@@ -569,7 +575,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                 </div>
 
                 <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-dark border border-white/10 group cursor-pointer" onClick={() => setActiveLightboxVariant(rightVariant)}>
-                  <img src={rightVariant.url} alt={rightVariant.label} className="w-full h-full object-cover" />
+                  <img src={rightVariant.url} alt={rightVariant.label} loading="lazy" decoding="async" width={600} height={375} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                     <span className="px-3 py-1.5 rounded-full bg-dark/90 text-white text-xs font-semibold border border-white/20 flex items-center gap-1.5">
                       <Maximize2 className="w-3.5 h-3.5 text-accent" /> Magnify
@@ -735,7 +741,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                       isActive ? "border-accent scale-105 shadow-md" : "border-white/20 opacity-60 hover:opacity-100"
                     }`}
                   >
-                    <img src={v.url} alt={v.label} className="w-full h-full object-cover" />
+                    <img src={v.url} alt={v.label} loading="lazy" decoding="async" width={80} height={56} className="w-full h-full object-cover" />
                     <div className="absolute inset-x-0 bottom-0 bg-black/80 text-[8px] text-white px-1 py-0.5 truncate text-center">
                       {v.label}
                     </div>

@@ -68,10 +68,22 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  app.use(
+    express.static(distPath, {
+      maxAge: "1d",
+      setHeaders: (res, filePath) => {
+        if (/\/assets\//i.test(filePath) || /-[a-zA-Z0-9_-]{8,}\.(js|css|webp|png|jpg|woff2)$/i.test(filePath)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        } else if (/\.(webp|avif|jpg|jpeg|png|svg|ico|webmanifest|woff2)$/i.test(filePath)) {
+          res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+        }
+      },
+    })
+  );
 
   // fall through to index.html if the file doesn't exist
   app.use("*", staticSpaLimiter, (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache");
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

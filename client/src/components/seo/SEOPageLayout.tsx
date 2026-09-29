@@ -106,7 +106,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
         <div className="container mx-auto flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 group">
             <img
-              src="/storage/logo.png"
+              src="/storage/logo.webp"
               alt="Jaymurti Traders Logo"
               width={34}
               height={34}
@@ -301,7 +301,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
           {/* Col 1: Brand Info */}
           <div className="space-y-3">
             <Link href="/" className="flex items-center gap-2.5">
-              <img src="/storage/logo.png" alt="Jaymurti Traders" width={28} height={28} />
+              <img src="/storage/logo.webp" alt="Jaymurti Traders" width={28} height={28} />
               <span className="font-serif font-semibold text-white text-sm tracking-wider">JAYMURTI TRADERS</span>
             </Link>
             <p className="text-[11px] leading-relaxed">

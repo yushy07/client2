@@ -27,10 +27,19 @@ export function registerStorageProxy(app: Express) {
   const extractedPath = path.join(publicStoragePath, "extracted");
   const rootExtractedPath = path.resolve(process.cwd(), "storage", "extracted");
 
-  // Serve /storage directly from public storage or root storage
-  app.use("/storage", express.static(publicStoragePath));
+  const storageStaticOptions = {
+    maxAge: "7d",
+    setHeaders: (res: express.Response, filePath: string) => {
+      if (/\.(webp|avif|jpg|jpeg|png|svg|mp4|webm)$/i.test(filePath)) {
+        res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400");
+      }
+    },
+  };
+
+  // Serve /storage directly from public storage or root storage with caching
+  app.use("/storage", express.static(publicStoragePath, storageStaticOptions));
   if (fs.existsSync(rootExtractedPath)) {
-    app.use("/storage/extracted", express.static(rootExtractedPath));
+    app.use("/storage/extracted", express.static(rootExtractedPath, storageStaticOptions));
   }
 
   // Pre-index all files across all directories for O(1) matching

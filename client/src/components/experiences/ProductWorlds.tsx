@@ -57,6 +57,10 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                 <img
                   src={INTERIOR_PAINT_WORLD.heroImage}
                   alt={INTERIOR_PAINT_WORLD.title}
+                  loading="lazy"
+                  decoding="async"
+                  width={640}
+                  height={480}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
@@ -81,7 +85,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
               >
                 <div>
                   <div className="aspect-square w-full rounded-xl overflow-hidden bg-dark-surface mb-4">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={p.image} alt={p.name} loading="lazy" decoding="async" width={200} height={200} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <span className="text-[10px] uppercase font-semibold text-accent tracking-wider block mb-1">
                     {p.tier}
@@ -115,6 +119,10 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                 <img
                   src={EXTERIOR_PROTECTION_WORLD.heroImage}
                   alt={EXTERIOR_PROTECTION_WORLD.title}
+                  loading="lazy"
+                  decoding="async"
+                  width={640}
+                  height={480}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
@@ -171,7 +179,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
               >
                 <div>
                   <div className="aspect-square w-full rounded-xl overflow-hidden bg-dark-surface mb-4">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={p.image} alt={p.name} loading="lazy" decoding="async" width={200} height={200} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <span className="text-[10px] uppercase font-semibold text-accent tracking-wider block mb-1">
                     {p.tier}
@@ -237,6 +245,10 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                 <img
                   src={WOOD_FINISHES_WORLD.heroImage}
                   alt={WOOD_FINISHES_WORLD.title}
+                  loading="lazy"
+                  decoding="async"
+                  width={640}
+                  height={480}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
@@ -261,7 +273,7 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
               >
                 <div>
                   <div className="aspect-square w-full rounded-xl overflow-hidden bg-dark-surface mb-4">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={p.image} alt={p.name} loading="lazy" decoding="async" width={200} height={200} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                   <span className="text-[10px] uppercase font-semibold text-highlight tracking-wider block mb-1">
                     {p.tier}

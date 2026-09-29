@@ -136,8 +136,7 @@ const ProductCard = memo(function ProductCard({
                 alt={`${product.name} product pack`}
                 width={248}
                 height={226}
-                loading={index < 2 ? "eager" : "lazy"}
-                fetchPriority={index < 2 ? "high" : "auto"}
+                loading="lazy"
                 decoding="async"
                 onLoad={() => onImageLoad(product.slug)}
                 onError={() => onImageLoad(product.slug)}
@@ -216,7 +215,8 @@ const campaigns = [
     ),
     text: "Authentic Birla Opus paints, colours and finishes — with expert advice from Jaymurti Traders.",
     note: "Direct dealer desk · +91 87566 59035",
-    imageUrl: "/storage/storefront/shopreception.jpeg",
+    imageUrl: "/storage/storefront/shopreception.webp",
+    mobileUrl: "/storage/storefront/shopreception-mobile.webp",
     imageAlt: "Jaymurti Traders Birla Opus paint showroom counter in Baskhari, Ambedkar Nagar",
     tag: "Showroom • Baskhari",
     caption: "Jaymurti Traders Showroom & Colour Studio · Baskhari",
@@ -233,7 +233,8 @@ const campaigns = [
     ),
     text: "Explore authentic Birla Opus interior, exterior, waterproofing, and designer finishes with expert guidance in Shukul Bazar, Baskhari.",
     note: "Colour consultation · Technical guidance",
-    imageUrl: "/storage/storefront/shopwide.jpeg",
+    imageUrl: "/storage/storefront/shopwide.webp",
+    mobileUrl: "/storage/storefront/shopwide-mobile.webp",
     imageAlt: "Jaymurti Traders Birla Opus paint showroom in Baskhari, Ambedkar Nagar",
     tag: "Experience Studio",
     caption: "Jaymurti Traders Showroom & Colour Studio · Baskhari",
@@ -250,7 +251,8 @@ const campaigns = [
     ),
     text: "Compare calm neutrals, rich colour, and durable finishes chosen to work beautifully in your space and its natural light.",
     note: "Shukul Bazar · Baskhari · Ambedkar Nagar",
-    imageUrl: "/storage/storefront/shop.jpeg",
+    imageUrl: "/storage/storefront/shop.webp",
+    mobileUrl: "/storage/storefront/shop-mobile.webp",
     imageAlt: "Jaymurti Traders showroom entrance and colour consultation desk",
     tag: "Colour Calibration",
     caption: "Physical Fan Decks & Daylight Testing Consultation",
@@ -331,7 +333,7 @@ const paletteStories = [
     title: "Varanasi Morning",
     subtitle: "Ghats, Temple Stone & Dawn Light",
     description: "An evocative morning palette mirroring earthen terracotta steps, weathered lime wash, and the first golden warmth rising over tranquil water.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Experience_Store_Paint_Studio_Birla_Opus.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Experience_Store_Paint_Studio_Birla_Opus.webp",
     palette: ["#D98550", "#BE9345", "#E9E0CB", "#5B7FA4"],
     leadShade: "Clay Sun",
     leadCode: "C05-01",
@@ -340,7 +342,7 @@ const paletteStories = [
     title: "Terracotta Earth",
     subtitle: "Warm Clay & Sun-baked Substrates",
     description: "Rich mineral depth rooted in baked clay tiles and artisanal earthenware, bringing grounded tactile warmth to dining and family gathering spaces.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Birla_Opus.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Birla_Opus.webp",
     palette: ["#B96646", "#AD7B57", "#D98550", "#E6B650"],
     leadShade: "Terracotta",
     leadCode: "C06-01",
@@ -349,7 +351,7 @@ const paletteStories = [
     title: "Quiet Moss Sanctuary",
     subtitle: "Forest Shade & Restorative Serenity",
     description: "Subtle forest tones and soft chlorophyll hues that visually soften harsh exterior light and invite stillness into bedrooms and private study corners.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Colour_Swatches_Paint_Project_Birla_Opus_.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Colour_Swatches_Paint_Project_Birla_Opus_.webp",
     palette: ["#55725E", "#304B3E", "#AAB06B", "#D9D1BD"],
     leadShade: "Moss Path",
     leadCode: "C19-01",
@@ -358,7 +360,7 @@ const paletteStories = [
     title: "Afternoon Chai",
     subtitle: "Spice Warmth & Living Room Comfort",
     description: "Comforting aromatic tones reminiscent of cardamom tea, roasted spices, and hand-finished timber, creating spaces that feel naturally welcoming.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Dopamine_Home_Decor_Ideas_Birla_Opus.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Dopamine_Home_Decor_Ideas_Birla_Opus.webp",
     palette: ["#AD7B57", "#775744", "#D8CCB7", "#D4AA54"],
     leadShade: "Chai Spice",
     leadCode: "C28-01",
@@ -367,7 +369,7 @@ const paletteStories = [
     title: "Monsoon Mist",
     subtitle: "Rain Washed Air & Soft Indigo",
     description: "Cool, atmospheric blues and mineral greys that capture the quiet calm following a summer downpour, visually expanding compact rooms.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Home_Paint_Interior_Wall_Paint_Birla_Opus_.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Home_Paint_Interior_Wall_Paint_Birla_Opus_.webp",
     palette: ["#7889A9", "#A5C1D6", "#3E5E83", "#F1EEE6"],
     leadShade: "Rain Blue",
     leadCode: "C14-01",
@@ -376,7 +378,7 @@ const paletteStories = [
     title: "Awadh Heritage",
     subtitle: "Courtyard Ochre & Sandstone",
     description: "Timeless architectural yellows and deep stone shades inspired by historic monuments and palatial courtyards of Uttar Pradesh.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Franchise_Store_Paint_Gallery_Birla_Opus.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Franchise_Store_Paint_Gallery_Birla_Opus.webp",
     palette: ["#BE9345", "#D9A742", "#C6A78D", "#9E9C96"],
     leadShade: "Ochre Field",
     leadCode: "C42-01",
@@ -385,7 +387,7 @@ const paletteStories = [
     title: "Subtle Linen Minimal",
     subtitle: "Undyed Fibres & Clean Shadows",
     description: "An understated neutral base designed to reflect light without glare, allowing artwork, textured timber, and woven upholstery to take centre stage.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/Tropical_Flair_Wallpaper_Interior_Texture_Birla_Opus.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/Tropical_Flair_Wallpaper_Interior_Texture_Birla_Opus.webp",
     palette: ["#F1EEE6", "#E6E2D8", "#C9C7C2", "#7A766D"],
     leadShade: "Cloud White",
     leadCode: "C33-01",
@@ -394,7 +396,7 @@ const paletteStories = [
     title: "Royal Plum & Silk",
     subtitle: "Dusk Pigments & Sculptural Depth",
     description: "A commanding accent palette combining dusky mauve, plum velvet, and warm gold highlights for dramatic powder rooms and focal feature walls.",
-    imageUrl: "/storage/extracted/birlaopus_ideas/All_About_Paints_Birla_Opus.jpg",
+    imageUrl: "/storage/extracted/birlaopus_ideas/All_About_Paints_Birla_Opus.webp",
     palette: ["#876182", "#95475F", "#B19CBC", "#D4AA54"],
     leadShade: "Plum Light",
     leadCode: "C10-01",
@@ -1083,7 +1085,7 @@ export default function Home() {
       {/* Global Navigation */}
       <header className={`nav ${isScrolled ? "nav--scrolled shadow-md backdrop-blur-md" : ""}`} style={{ transition: "background-color 0.28s ease, backdrop-filter 0.28s ease, box-shadow 0.28s ease" }}>
         <a className="brand group" href="#top" aria-label="Birla Opus Paint Jaymurti Traders">
-          <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={38} height={38} className="brand-logo transition-transform duration-300 group-hover:scale-105" />
+          <img src="/storage/logo.webp" alt="Jaymurti Traders Logo" width={38} height={38} className="brand-logo transition-transform duration-300 group-hover:scale-105" />
           <div className="brand-titles">
             <span className="brand-name-text">Jaymurti Traders</span>
             <span className="brand-sub-text">जयमूर्ति ट्रेडर्स</span>
@@ -1182,7 +1184,7 @@ export default function Home() {
           {/* Top Right Decorative Flatlay & Artistic Script (Mockup match) */}
           <div className="hero-top-accent-decor" aria-hidden="true">
             <img
-              src="/storage/hero_paint_accent.png"
+              src="/storage/hero_paint_accent.webp"
               alt=""
               className="hero-accent-img"
               width={220}
@@ -1199,7 +1201,7 @@ export default function Home() {
             <div className="hero-copy">
               <div className="slide-fade" key={`copy-${campaign}`}>
                 <div className="hero-brand-lockup">
-                  <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={28} height={28} className="hero-brand-logo" />
+                  <img src="/storage/logo.webp" alt="Jaymurti Traders Logo" width={28} height={28} className="hero-brand-logo" />
                   <span className="hero-brand-title">JAYMURTI TRADERS</span>
                   <span style={{ fontSize: "0.85rem", opacity: 0.8, marginLeft: "6px", fontFamily: "var(--sans)" }}>जयमूर्ति ट्रेडर्स</span>
                 </div>
@@ -1273,16 +1275,20 @@ export default function Home() {
                     zIndex: campaign === idx ? 1 : 0,
                   }}
                 >
-                  <img
-                    src={camp.imageUrl}
-                    alt={camp.imageAlt}
-                    className="hero-image hero-image-ambient transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                    loading={idx === 0 ? "eager" : "lazy"}
-                    fetchPriority={idx === 0 ? "high" : "auto"}
-                    decoding="async"
-                    width={720}
-                    height={480}
-                  />
+                  <picture>
+                    <source media="(max-width: 640px)" srcSet={camp.mobileUrl || camp.imageUrl} type="image/webp" />
+                    <source srcSet={camp.imageUrl} type="image/webp" />
+                    <img
+                      src={camp.imageUrl}
+                      alt={camp.imageAlt}
+                      className="hero-image hero-image-ambient transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      loading={idx === 0 ? "eager" : "lazy"}
+                      fetchPriority={idx === 0 ? "high" : "auto"}
+                      decoding="async"
+                      width={720}
+                      height={480}
+                    />
+                  </picture>
                   <div className="hero-image-shade" />
                 </div>
               ))}
@@ -3436,7 +3442,7 @@ export default function Home() {
         <div className="footer-top">
           <div className="footer-intro">
             <a className="brand" href="#top" aria-label="Birla Opus Paint Jaymurti Traders">
-              <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={48} height={48} className="brand-logo" />
+              <img src="/storage/logo.webp" alt="Jaymurti Traders Logo" width={48} height={48} className="brand-logo" />
               <span className="brand-name-text">JAYMURTI TRADERS</span>
             </a>
             <p>

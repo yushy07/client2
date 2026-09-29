@@ -20,19 +20,19 @@ import { businessProfile } from "@shared/businessProfile";
 const OWNER_IMAGES = [
   {
     id: "owner-front",
-    src: "/storage/owner2.png",
+    src: "/storage/owner2.webp",
     label: "Showroom Desk",
     caption: "At the primary consultation counter with illuminated Birla Opus insignia",
   },
   {
     id: "owner-wide",
-    src: "/storage/owner3.png",
+    src: "/storage/owner3.webp",
     label: "Full Showroom",
     caption: "Overview of complete Birla Opus formulation and color galleries",
   },
   {
     id: "owner-portrait",
-    src: "/storage/owner4.png",
+    src: "/storage/owner4.webp",
     label: "Customer Reception",
     caption: "Welcoming homeowners, architects, and painting contractors in Baskhari",
   },
@@ -209,6 +209,8 @@ export const OwnerAndTeam: React.FC = () => {
                 <video
                   ref={videoRef}
                   src="/storage/jay-murti-traders-v4.mp4"
+                  poster="/storage/storefront/shopreception.webp"
+                  preload="none"
                   className="w-full h-full object-cover"
                   playsInline
                   loop

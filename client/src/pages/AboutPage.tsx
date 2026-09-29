@@ -68,9 +68,12 @@ export const AboutPage: React.FC = () => {
 
           <div className="relative rounded-3xl overflow-hidden border border-border-teal/60 bg-dark shadow-2xl">
             <img
-              src="/storage/storefront/shopwide.jpeg"
+              src="/storage/storefront/shopwide.webp"
               alt="Jaymurti Traders Birla Opus Paint Showroom storefront in Baskhari"
               loading="lazy"
+              decoding="async"
+              width={800}
+              height={500}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

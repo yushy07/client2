@@ -35,7 +35,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-22",
         "file": "img22.jpg",
-        "url": "/storage/same-room-shades/img22.jpg",
+        "url": "/storage/same-room-shades/img22.webp",
         "index": 1,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -46,7 +46,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-27",
         "file": "img27.jpg",
-        "url": "/storage/same-room-shades/img27.jpg",
+        "url": "/storage/same-room-shades/img27.webp",
         "index": 2,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -57,7 +57,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-30",
         "file": "img30.jpg",
-        "url": "/storage/same-room-shades/img30.jpg",
+        "url": "/storage/same-room-shades/img30.webp",
         "index": 3,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -68,7 +68,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-33",
         "file": "img33.jpg",
-        "url": "/storage/same-room-shades/img33.jpg",
+        "url": "/storage/same-room-shades/img33.webp",
         "index": 4,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -79,7 +79,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-36",
         "file": "img36.jpg",
-        "url": "/storage/same-room-shades/img36.jpg",
+        "url": "/storage/same-room-shades/img36.webp",
         "index": 5,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -90,7 +90,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-46",
         "file": "img46.jpg",
-        "url": "/storage/same-room-shades/img46.jpg",
+        "url": "/storage/same-room-shades/img46.webp",
         "index": 6,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -101,7 +101,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-49",
         "file": "img49.jpg",
-        "url": "/storage/same-room-shades/img49.jpg",
+        "url": "/storage/same-room-shades/img49.webp",
         "index": 7,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -112,7 +112,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-52",
         "file": "img52.jpg",
-        "url": "/storage/same-room-shades/img52.jpg",
+        "url": "/storage/same-room-shades/img52.webp",
         "index": 8,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -123,7 +123,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-55",
         "file": "img55.jpg",
-        "url": "/storage/same-room-shades/img55.jpg",
+        "url": "/storage/same-room-shades/img55.webp",
         "index": 9,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -134,7 +134,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-58",
         "file": "img58.jpg",
-        "url": "/storage/same-room-shades/img58.jpg",
+        "url": "/storage/same-room-shades/img58.webp",
         "index": 10,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -145,7 +145,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-61",
         "file": "img61.jpg",
-        "url": "/storage/same-room-shades/img61.jpg",
+        "url": "/storage/same-room-shades/img61.webp",
         "index": 11,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -156,7 +156,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-64",
         "file": "img64.jpg",
-        "url": "/storage/same-room-shades/img64.jpg",
+        "url": "/storage/same-room-shades/img64.webp",
         "index": 12,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -167,7 +167,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-67",
         "file": "img67.jpg",
-        "url": "/storage/same-room-shades/img67.jpg",
+        "url": "/storage/same-room-shades/img67.webp",
         "index": 13,
         "label": "Mulberry Plum",
         "tone": "Mulberry Plum",
@@ -178,7 +178,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-70",
         "file": "img70.jpg",
-        "url": "/storage/same-room-shades/img70.jpg",
+        "url": "/storage/same-room-shades/img70.webp",
         "index": 14,
         "label": "Royal Orchid",
         "tone": "Royal Orchid",
@@ -189,7 +189,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-73",
         "file": "img73.jpg",
-        "url": "/storage/same-room-shades/img73.jpg",
+        "url": "/storage/same-room-shades/img73.webp",
         "index": 15,
         "label": "Coastal Sky",
         "tone": "Coastal Sky",
@@ -200,7 +200,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-80",
         "file": "img80.jpg",
-        "url": "/storage/same-room-shades/img80.jpg",
+        "url": "/storage/same-room-shades/img80.webp",
         "index": 16,
         "label": "Lavender Mist",
         "tone": "Lavender Mist",
@@ -211,7 +211,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-83",
         "file": "img83.jpg",
-        "url": "/storage/same-room-shades/img83.jpg",
+        "url": "/storage/same-room-shades/img83.webp",
         "index": 17,
         "label": "Morning Mist",
         "tone": "Morning Mist",
@@ -222,7 +222,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-86",
         "file": "img86.jpg",
-        "url": "/storage/same-room-shades/img86.jpg",
+        "url": "/storage/same-room-shades/img86.webp",
         "index": 18,
         "label": "Pewter Slate",
         "tone": "Pewter Slate",
@@ -247,7 +247,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-89",
         "file": "img89.jpg",
-        "url": "/storage/same-room-shades/img89.jpg",
+        "url": "/storage/same-room-shades/img89.webp",
         "index": 1,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -258,7 +258,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-92",
         "file": "img92.jpg",
-        "url": "/storage/same-room-shades/img92.jpg",
+        "url": "/storage/same-room-shades/img92.webp",
         "index": 2,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -269,7 +269,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-95",
         "file": "img95.jpg",
-        "url": "/storage/same-room-shades/img95.jpg",
+        "url": "/storage/same-room-shades/img95.webp",
         "index": 3,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -280,7 +280,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-98",
         "file": "img98.jpg",
-        "url": "/storage/same-room-shades/img98.jpg",
+        "url": "/storage/same-room-shades/img98.webp",
         "index": 4,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -291,7 +291,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-101",
         "file": "img101.jpg",
-        "url": "/storage/same-room-shades/img101.jpg",
+        "url": "/storage/same-room-shades/img101.webp",
         "index": 5,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -302,7 +302,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-104",
         "file": "img104.jpg",
-        "url": "/storage/same-room-shades/img104.jpg",
+        "url": "/storage/same-room-shades/img104.webp",
         "index": 6,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -313,7 +313,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-107",
         "file": "img107.jpg",
-        "url": "/storage/same-room-shades/img107.jpg",
+        "url": "/storage/same-room-shades/img107.webp",
         "index": 7,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -324,7 +324,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-110",
         "file": "img110.jpg",
-        "url": "/storage/same-room-shades/img110.jpg",
+        "url": "/storage/same-room-shades/img110.webp",
         "index": 8,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -335,7 +335,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-113",
         "file": "img113.jpg",
-        "url": "/storage/same-room-shades/img113.jpg",
+        "url": "/storage/same-room-shades/img113.webp",
         "index": 9,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -346,7 +346,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-116",
         "file": "img116.jpg",
-        "url": "/storage/same-room-shades/img116.jpg",
+        "url": "/storage/same-room-shades/img116.webp",
         "index": 10,
         "label": "Dusty Rose Sand",
         "tone": "Dusty Rose Sand",
@@ -357,7 +357,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-119",
         "file": "img119.jpg",
-        "url": "/storage/same-room-shades/img119.jpg",
+        "url": "/storage/same-room-shades/img119.webp",
         "index": 11,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -368,7 +368,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-122",
         "file": "img122.jpg",
-        "url": "/storage/same-room-shades/img122.jpg",
+        "url": "/storage/same-room-shades/img122.webp",
         "index": 12,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -393,7 +393,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-125",
         "file": "img125.jpg",
-        "url": "/storage/same-room-shades/img125.jpg",
+        "url": "/storage/same-room-shades/img125.webp",
         "index": 1,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -404,7 +404,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-128",
         "file": "img128.jpg",
-        "url": "/storage/same-room-shades/img128.jpg",
+        "url": "/storage/same-room-shades/img128.webp",
         "index": 2,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -415,7 +415,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-131",
         "file": "img131.jpg",
-        "url": "/storage/same-room-shades/img131.jpg",
+        "url": "/storage/same-room-shades/img131.webp",
         "index": 3,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -426,7 +426,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-134",
         "file": "img134.jpg",
-        "url": "/storage/same-room-shades/img134.jpg",
+        "url": "/storage/same-room-shades/img134.webp",
         "index": 4,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -437,7 +437,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-137",
         "file": "img137.jpg",
-        "url": "/storage/same-room-shades/img137.jpg",
+        "url": "/storage/same-room-shades/img137.webp",
         "index": 5,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -448,7 +448,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-144",
         "file": "img144.jpg",
-        "url": "/storage/same-room-shades/img144.jpg",
+        "url": "/storage/same-room-shades/img144.webp",
         "index": 6,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -459,7 +459,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-147",
         "file": "img147.jpg",
-        "url": "/storage/same-room-shades/img147.jpg",
+        "url": "/storage/same-room-shades/img147.webp",
         "index": 7,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -470,7 +470,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-150",
         "file": "img150.jpg",
-        "url": "/storage/same-room-shades/img150.jpg",
+        "url": "/storage/same-room-shades/img150.webp",
         "index": 8,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -481,7 +481,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-153",
         "file": "img153.jpg",
-        "url": "/storage/same-room-shades/img153.jpg",
+        "url": "/storage/same-room-shades/img153.webp",
         "index": 9,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -506,7 +506,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-159",
         "file": "img159.jpg",
-        "url": "/storage/same-room-shades/img159.jpg",
+        "url": "/storage/same-room-shades/img159.webp",
         "index": 1,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -517,7 +517,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-162",
         "file": "img162.jpg",
-        "url": "/storage/same-room-shades/img162.jpg",
+        "url": "/storage/same-room-shades/img162.webp",
         "index": 2,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -528,7 +528,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-165",
         "file": "img165.jpg",
-        "url": "/storage/same-room-shades/img165.jpg",
+        "url": "/storage/same-room-shades/img165.webp",
         "index": 3,
         "label": "Vanilla Sand",
         "tone": "Vanilla Sand",
@@ -539,7 +539,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-168",
         "file": "img168.jpg",
-        "url": "/storage/same-room-shades/img168.jpg",
+        "url": "/storage/same-room-shades/img168.webp",
         "index": 4,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -550,7 +550,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-171",
         "file": "img171.jpg",
-        "url": "/storage/same-room-shades/img171.jpg",
+        "url": "/storage/same-room-shades/img171.webp",
         "index": 5,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -561,7 +561,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-174",
         "file": "img174.jpg",
-        "url": "/storage/same-room-shades/img174.jpg",
+        "url": "/storage/same-room-shades/img174.webp",
         "index": 6,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -572,7 +572,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-177",
         "file": "img177.jpg",
-        "url": "/storage/same-room-shades/img177.jpg",
+        "url": "/storage/same-room-shades/img177.webp",
         "index": 7,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -583,7 +583,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-180",
         "file": "img180.jpg",
-        "url": "/storage/same-room-shades/img180.jpg",
+        "url": "/storage/same-room-shades/img180.webp",
         "index": 8,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -594,7 +594,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-183",
         "file": "img183.jpg",
-        "url": "/storage/same-room-shades/img183.jpg",
+        "url": "/storage/same-room-shades/img183.webp",
         "index": 9,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -605,7 +605,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-186",
         "file": "img186.jpg",
-        "url": "/storage/same-room-shades/img186.jpg",
+        "url": "/storage/same-room-shades/img186.webp",
         "index": 10,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -616,7 +616,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-189",
         "file": "img189.jpg",
-        "url": "/storage/same-room-shades/img189.jpg",
+        "url": "/storage/same-room-shades/img189.webp",
         "index": 11,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -627,7 +627,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-192",
         "file": "img192.jpg",
-        "url": "/storage/same-room-shades/img192.jpg",
+        "url": "/storage/same-room-shades/img192.webp",
         "index": 12,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -638,7 +638,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-195",
         "file": "img195.jpg",
-        "url": "/storage/same-room-shades/img195.jpg",
+        "url": "/storage/same-room-shades/img195.webp",
         "index": 13,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -649,7 +649,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-198",
         "file": "img198.jpg",
-        "url": "/storage/same-room-shades/img198.jpg",
+        "url": "/storage/same-room-shades/img198.webp",
         "index": 14,
         "label": "Mulberry Plum",
         "tone": "Mulberry Plum",
@@ -660,7 +660,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-203",
         "file": "img203.jpg",
-        "url": "/storage/same-room-shades/img203.jpg",
+        "url": "/storage/same-room-shades/img203.webp",
         "index": 15,
         "label": "Royal Orchid",
         "tone": "Royal Orchid",
@@ -671,7 +671,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-206",
         "file": "img206.jpg",
-        "url": "/storage/same-room-shades/img206.jpg",
+        "url": "/storage/same-room-shades/img206.webp",
         "index": 16,
         "label": "Lavender Mist",
         "tone": "Lavender Mist",
@@ -682,7 +682,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-209",
         "file": "img209.jpg",
-        "url": "/storage/same-room-shades/img209.jpg",
+        "url": "/storage/same-room-shades/img209.webp",
         "index": 17,
         "label": "Morning Mist",
         "tone": "Morning Mist",
@@ -693,7 +693,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-212",
         "file": "img212.jpg",
-        "url": "/storage/same-room-shades/img212.jpg",
+        "url": "/storage/same-room-shades/img212.webp",
         "index": 18,
         "label": "Pewter Slate",
         "tone": "Pewter Slate",
@@ -704,7 +704,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-215",
         "file": "img215.jpg",
-        "url": "/storage/same-room-shades/img215.jpg",
+        "url": "/storage/same-room-shades/img215.webp",
         "index": 19,
         "label": "Charcoal Noir",
         "tone": "Charcoal Noir",
@@ -715,7 +715,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-218",
         "file": "img218.jpg",
-        "url": "/storage/same-room-shades/img218.jpg",
+        "url": "/storage/same-room-shades/img218.webp",
         "index": 20,
         "label": "Tuscan Ochre",
         "tone": "Tuscan Ochre",
@@ -726,7 +726,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-221",
         "file": "img221.jpg",
-        "url": "/storage/same-room-shades/img221.jpg",
+        "url": "/storage/same-room-shades/img221.webp",
         "index": 21,
         "label": "Ruby Vermillion",
         "tone": "Ruby Vermillion",
@@ -737,7 +737,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-224",
         "file": "img224.jpg",
-        "url": "/storage/same-room-shades/img224.jpg",
+        "url": "/storage/same-room-shades/img224.webp",
         "index": 22,
         "label": "Desert Dune",
         "tone": "Desert Dune",
@@ -748,7 +748,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-227",
         "file": "img227.jpg",
-        "url": "/storage/same-room-shades/img227.jpg",
+        "url": "/storage/same-room-shades/img227.webp",
         "index": 23,
         "label": "Coastal Sky",
         "tone": "Coastal Sky",
@@ -773,7 +773,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-230",
         "file": "img230.jpg",
-        "url": "/storage/same-room-shades/img230.jpg",
+        "url": "/storage/same-room-shades/img230.webp",
         "index": 1,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -784,7 +784,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-233",
         "file": "img233.jpg",
-        "url": "/storage/same-room-shades/img233.jpg",
+        "url": "/storage/same-room-shades/img233.webp",
         "index": 2,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -795,7 +795,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-236",
         "file": "img236.jpg",
-        "url": "/storage/same-room-shades/img236.jpg",
+        "url": "/storage/same-room-shades/img236.webp",
         "index": 3,
         "label": "Vanilla Sand",
         "tone": "Vanilla Sand",
@@ -806,7 +806,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-239",
         "file": "img239.jpg",
-        "url": "/storage/same-room-shades/img239.jpg",
+        "url": "/storage/same-room-shades/img239.webp",
         "index": 4,
         "label": "Ruby Vermillion",
         "tone": "Ruby Vermillion",
@@ -817,7 +817,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-242",
         "file": "img242.jpg",
-        "url": "/storage/same-room-shades/img242.jpg",
+        "url": "/storage/same-room-shades/img242.webp",
         "index": 5,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -828,7 +828,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-245",
         "file": "img245.jpg",
-        "url": "/storage/same-room-shades/img245.jpg",
+        "url": "/storage/same-room-shades/img245.webp",
         "index": 6,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -839,7 +839,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-248",
         "file": "img248.jpg",
-        "url": "/storage/same-room-shades/img248.jpg",
+        "url": "/storage/same-room-shades/img248.webp",
         "index": 7,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -850,7 +850,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-251",
         "file": "img251.jpg",
-        "url": "/storage/same-room-shades/img251.jpg",
+        "url": "/storage/same-room-shades/img251.webp",
         "index": 8,
         "label": "Dusty Rose Sand",
         "tone": "Dusty Rose Sand",
@@ -861,7 +861,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-254",
         "file": "img254.jpg",
-        "url": "/storage/same-room-shades/img254.jpg",
+        "url": "/storage/same-room-shades/img254.webp",
         "index": 9,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -872,7 +872,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-259",
         "file": "img259.jpg",
-        "url": "/storage/same-room-shades/img259.jpg",
+        "url": "/storage/same-room-shades/img259.webp",
         "index": 10,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -883,7 +883,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-262",
         "file": "img262.jpg",
-        "url": "/storage/same-room-shades/img262.jpg",
+        "url": "/storage/same-room-shades/img262.webp",
         "index": 11,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -894,7 +894,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-265",
         "file": "img265.jpg",
-        "url": "/storage/same-room-shades/img265.jpg",
+        "url": "/storage/same-room-shades/img265.webp",
         "index": 12,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -919,7 +919,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-268",
         "file": "img268.jpg",
-        "url": "/storage/same-room-shades/img268.jpg",
+        "url": "/storage/same-room-shades/img268.webp",
         "index": 1,
         "label": "Lavender Mist",
         "tone": "Lavender Mist",
@@ -930,7 +930,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-271",
         "file": "img271.jpg",
-        "url": "/storage/same-room-shades/img271.jpg",
+        "url": "/storage/same-room-shades/img271.webp",
         "index": 2,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -941,7 +941,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-274",
         "file": "img274.jpg",
-        "url": "/storage/same-room-shades/img274.jpg",
+        "url": "/storage/same-room-shades/img274.webp",
         "index": 3,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -952,7 +952,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-277",
         "file": "img277.jpg",
-        "url": "/storage/same-room-shades/img277.jpg",
+        "url": "/storage/same-room-shades/img277.webp",
         "index": 4,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -963,7 +963,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-280",
         "file": "img280.jpg",
-        "url": "/storage/same-room-shades/img280.jpg",
+        "url": "/storage/same-room-shades/img280.webp",
         "index": 5,
         "label": "Royal Orchid",
         "tone": "Royal Orchid",
@@ -988,7 +988,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-284",
         "file": "img284.jpg",
-        "url": "/storage/same-room-shades/img284.jpg",
+        "url": "/storage/same-room-shades/img284.webp",
         "index": 1,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -999,7 +999,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-302",
         "file": "img302.jpg",
-        "url": "/storage/same-room-shades/img302.jpg",
+        "url": "/storage/same-room-shades/img302.webp",
         "index": 2,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -1010,7 +1010,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-305",
         "file": "img305.jpg",
-        "url": "/storage/same-room-shades/img305.jpg",
+        "url": "/storage/same-room-shades/img305.webp",
         "index": 3,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -1021,7 +1021,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-308",
         "file": "img308.jpg",
-        "url": "/storage/same-room-shades/img308.jpg",
+        "url": "/storage/same-room-shades/img308.webp",
         "index": 4,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -1032,7 +1032,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-311",
         "file": "img311.jpg",
-        "url": "/storage/same-room-shades/img311.jpg",
+        "url": "/storage/same-room-shades/img311.webp",
         "index": 5,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -1043,7 +1043,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-314",
         "file": "img314.jpg",
-        "url": "/storage/same-room-shades/img314.jpg",
+        "url": "/storage/same-room-shades/img314.webp",
         "index": 6,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -1054,7 +1054,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-317",
         "file": "img317.jpg",
-        "url": "/storage/same-room-shades/img317.jpg",
+        "url": "/storage/same-room-shades/img317.webp",
         "index": 7,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -1065,7 +1065,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-320",
         "file": "img320.jpg",
-        "url": "/storage/same-room-shades/img320.jpg",
+        "url": "/storage/same-room-shades/img320.webp",
         "index": 8,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -1076,7 +1076,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-323",
         "file": "img323.jpg",
-        "url": "/storage/same-room-shades/img323.jpg",
+        "url": "/storage/same-room-shades/img323.webp",
         "index": 9,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -1087,7 +1087,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-326",
         "file": "img326.jpg",
-        "url": "/storage/same-room-shades/img326.jpg",
+        "url": "/storage/same-room-shades/img326.webp",
         "index": 10,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -1112,7 +1112,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-329",
         "file": "img329.jpg",
-        "url": "/storage/same-room-shades/img329.jpg",
+        "url": "/storage/same-room-shades/img329.webp",
         "index": 1,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -1123,7 +1123,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-332",
         "file": "img332.jpg",
-        "url": "/storage/same-room-shades/img332.jpg",
+        "url": "/storage/same-room-shades/img332.webp",
         "index": 2,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -1134,7 +1134,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-335",
         "file": "img335.jpg",
-        "url": "/storage/same-room-shades/img335.jpg",
+        "url": "/storage/same-room-shades/img335.webp",
         "index": 3,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -1145,7 +1145,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-338",
         "file": "img338.jpg",
-        "url": "/storage/same-room-shades/img338.jpg",
+        "url": "/storage/same-room-shades/img338.webp",
         "index": 4,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -1156,7 +1156,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-341",
         "file": "img341.jpg",
-        "url": "/storage/same-room-shades/img341.jpg",
+        "url": "/storage/same-room-shades/img341.webp",
         "index": 5,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -1167,7 +1167,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-344",
         "file": "img344.jpg",
-        "url": "/storage/same-room-shades/img344.jpg",
+        "url": "/storage/same-room-shades/img344.webp",
         "index": 6,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -1178,7 +1178,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-347",
         "file": "img347.jpg",
-        "url": "/storage/same-room-shades/img347.jpg",
+        "url": "/storage/same-room-shades/img347.webp",
         "index": 7,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -1189,7 +1189,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-350",
         "file": "img350.jpg",
-        "url": "/storage/same-room-shades/img350.jpg",
+        "url": "/storage/same-room-shades/img350.webp",
         "index": 8,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -1200,7 +1200,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-353",
         "file": "img353.jpg",
-        "url": "/storage/same-room-shades/img353.jpg",
+        "url": "/storage/same-room-shades/img353.webp",
         "index": 9,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -1211,7 +1211,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-356",
         "file": "img356.jpg",
-        "url": "/storage/same-room-shades/img356.jpg",
+        "url": "/storage/same-room-shades/img356.webp",
         "index": 10,
         "label": "Lavender Mist",
         "tone": "Lavender Mist",
@@ -1222,7 +1222,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-359",
         "file": "img359.jpg",
-        "url": "/storage/same-room-shades/img359.jpg",
+        "url": "/storage/same-room-shades/img359.webp",
         "index": 11,
         "label": "Vanilla Sand",
         "tone": "Vanilla Sand",
@@ -1233,7 +1233,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-362",
         "file": "img362.jpg",
-        "url": "/storage/same-room-shades/img362.jpg",
+        "url": "/storage/same-room-shades/img362.webp",
         "index": 12,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -1244,7 +1244,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-365",
         "file": "img365.jpg",
-        "url": "/storage/same-room-shades/img365.jpg",
+        "url": "/storage/same-room-shades/img365.webp",
         "index": 13,
         "label": "Coastal Sky",
         "tone": "Coastal Sky",
@@ -1255,7 +1255,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-368",
         "file": "img368.jpg",
-        "url": "/storage/same-room-shades/img368.jpg",
+        "url": "/storage/same-room-shades/img368.webp",
         "index": 14,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -1266,7 +1266,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-371",
         "file": "img371.jpg",
-        "url": "/storage/same-room-shades/img371.jpg",
+        "url": "/storage/same-room-shades/img371.webp",
         "index": 15,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -1291,7 +1291,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-374",
         "file": "img374.jpg",
-        "url": "/storage/same-room-shades/img374.jpg",
+        "url": "/storage/same-room-shades/img374.webp",
         "index": 1,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -1302,7 +1302,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-377",
         "file": "img377.jpg",
-        "url": "/storage/same-room-shades/img377.jpg",
+        "url": "/storage/same-room-shades/img377.webp",
         "index": 2,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -1313,7 +1313,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-380",
         "file": "img380.jpg",
-        "url": "/storage/same-room-shades/img380.jpg",
+        "url": "/storage/same-room-shades/img380.webp",
         "index": 3,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -1324,7 +1324,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-383",
         "file": "img383.jpg",
-        "url": "/storage/same-room-shades/img383.jpg",
+        "url": "/storage/same-room-shades/img383.webp",
         "index": 4,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -1335,7 +1335,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-386",
         "file": "img386.jpg",
-        "url": "/storage/same-room-shades/img386.jpg",
+        "url": "/storage/same-room-shades/img386.webp",
         "index": 5,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -1346,7 +1346,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-389",
         "file": "img389.jpg",
-        "url": "/storage/same-room-shades/img389.jpg",
+        "url": "/storage/same-room-shades/img389.webp",
         "index": 6,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -1357,7 +1357,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-392",
         "file": "img392.jpg",
-        "url": "/storage/same-room-shades/img392.jpg",
+        "url": "/storage/same-room-shades/img392.webp",
         "index": 7,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -1368,7 +1368,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-395",
         "file": "img395.jpg",
-        "url": "/storage/same-room-shades/img395.jpg",
+        "url": "/storage/same-room-shades/img395.webp",
         "index": 8,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -1379,7 +1379,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-398",
         "file": "img398.jpg",
-        "url": "/storage/same-room-shades/img398.jpg",
+        "url": "/storage/same-room-shades/img398.webp",
         "index": 9,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -1390,7 +1390,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-401",
         "file": "img401.jpg",
-        "url": "/storage/same-room-shades/img401.jpg",
+        "url": "/storage/same-room-shades/img401.webp",
         "index": 10,
         "label": "Tuscan Ochre",
         "tone": "Tuscan Ochre",
@@ -1401,7 +1401,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-404",
         "file": "img404.jpg",
-        "url": "/storage/same-room-shades/img404.jpg",
+        "url": "/storage/same-room-shades/img404.webp",
         "index": 11,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -1412,7 +1412,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-407",
         "file": "img407.jpg",
-        "url": "/storage/same-room-shades/img407.jpg",
+        "url": "/storage/same-room-shades/img407.webp",
         "index": 12,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -1423,7 +1423,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-410",
         "file": "img410.jpg",
-        "url": "/storage/same-room-shades/img410.jpg",
+        "url": "/storage/same-room-shades/img410.webp",
         "index": 13,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -1434,7 +1434,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-413",
         "file": "img413.jpg",
-        "url": "/storage/same-room-shades/img413.jpg",
+        "url": "/storage/same-room-shades/img413.webp",
         "index": 14,
         "label": "Mulberry Plum",
         "tone": "Mulberry Plum",
@@ -1445,7 +1445,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-416",
         "file": "img416.jpg",
-        "url": "/storage/same-room-shades/img416.jpg",
+        "url": "/storage/same-room-shades/img416.webp",
         "index": 15,
         "label": "Royal Orchid",
         "tone": "Royal Orchid",
@@ -1470,7 +1470,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-422",
         "file": "img422.jpg",
-        "url": "/storage/same-room-shades/img422.jpg",
+        "url": "/storage/same-room-shades/img422.webp",
         "index": 1,
         "label": "Ruby Vermillion",
         "tone": "Ruby Vermillion",
@@ -1481,7 +1481,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-425",
         "file": "img425.jpg",
-        "url": "/storage/same-room-shades/img425.jpg",
+        "url": "/storage/same-room-shades/img425.webp",
         "index": 2,
         "label": "Dusty Rose Sand",
         "tone": "Dusty Rose Sand",
@@ -1492,7 +1492,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-428",
         "file": "img428.jpg",
-        "url": "/storage/same-room-shades/img428.jpg",
+        "url": "/storage/same-room-shades/img428.webp",
         "index": 3,
         "label": "Tuscan Ochre",
         "tone": "Tuscan Ochre",
@@ -1503,7 +1503,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-431",
         "file": "img431.jpg",
-        "url": "/storage/same-room-shades/img431.jpg",
+        "url": "/storage/same-room-shades/img431.webp",
         "index": 4,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -1514,7 +1514,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-434",
         "file": "img434.jpg",
-        "url": "/storage/same-room-shades/img434.jpg",
+        "url": "/storage/same-room-shades/img434.webp",
         "index": 5,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -1525,7 +1525,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-437",
         "file": "img437.jpg",
-        "url": "/storage/same-room-shades/img437.jpg",
+        "url": "/storage/same-room-shades/img437.webp",
         "index": 6,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -1536,7 +1536,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-440",
         "file": "img440.jpg",
-        "url": "/storage/same-room-shades/img440.jpg",
+        "url": "/storage/same-room-shades/img440.webp",
         "index": 7,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -1547,7 +1547,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-443",
         "file": "img443.jpg",
-        "url": "/storage/same-room-shades/img443.jpg",
+        "url": "/storage/same-room-shades/img443.webp",
         "index": 8,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -1558,7 +1558,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-446",
         "file": "img446.jpg",
-        "url": "/storage/same-room-shades/img446.jpg",
+        "url": "/storage/same-room-shades/img446.webp",
         "index": 9,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -1569,7 +1569,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-449",
         "file": "img449.jpg",
-        "url": "/storage/same-room-shades/img449.jpg",
+        "url": "/storage/same-room-shades/img449.webp",
         "index": 10,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -1580,7 +1580,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-452",
         "file": "img452.jpg",
-        "url": "/storage/same-room-shades/img452.jpg",
+        "url": "/storage/same-room-shades/img452.webp",
         "index": 11,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -1591,7 +1591,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-455",
         "file": "img455.jpg",
-        "url": "/storage/same-room-shades/img455.jpg",
+        "url": "/storage/same-room-shades/img455.webp",
         "index": 12,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -1602,7 +1602,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-460",
         "file": "img460.jpg",
-        "url": "/storage/same-room-shades/img460.jpg",
+        "url": "/storage/same-room-shades/img460.webp",
         "index": 13,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -1613,7 +1613,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-463",
         "file": "img463.jpg",
-        "url": "/storage/same-room-shades/img463.jpg",
+        "url": "/storage/same-room-shades/img463.webp",
         "index": 14,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -1624,7 +1624,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-466",
         "file": "img466.jpg",
-        "url": "/storage/same-room-shades/img466.jpg",
+        "url": "/storage/same-room-shades/img466.webp",
         "index": 15,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -1635,7 +1635,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-469",
         "file": "img469.jpg",
-        "url": "/storage/same-room-shades/img469.jpg",
+        "url": "/storage/same-room-shades/img469.webp",
         "index": 16,
         "label": "Mulberry Plum",
         "tone": "Mulberry Plum",
@@ -1646,7 +1646,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-472",
         "file": "img472.jpg",
-        "url": "/storage/same-room-shades/img472.jpg",
+        "url": "/storage/same-room-shades/img472.webp",
         "index": 17,
         "label": "Royal Orchid",
         "tone": "Royal Orchid",
@@ -1671,7 +1671,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-475",
         "file": "img475.jpg",
-        "url": "/storage/same-room-shades/img475.jpg",
+        "url": "/storage/same-room-shades/img475.webp",
         "index": 1,
         "label": "Dusty Rose Sand",
         "tone": "Dusty Rose Sand",
@@ -1682,7 +1682,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-478",
         "file": "img478.jpg",
-        "url": "/storage/same-room-shades/img478.jpg",
+        "url": "/storage/same-room-shades/img478.webp",
         "index": 2,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -1693,7 +1693,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-481",
         "file": "img481.jpg",
-        "url": "/storage/same-room-shades/img481.jpg",
+        "url": "/storage/same-room-shades/img481.webp",
         "index": 3,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -1704,7 +1704,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-484",
         "file": "img484.jpg",
-        "url": "/storage/same-room-shades/img484.jpg",
+        "url": "/storage/same-room-shades/img484.webp",
         "index": 4,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -1715,7 +1715,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-487",
         "file": "img487.jpg",
-        "url": "/storage/same-room-shades/img487.jpg",
+        "url": "/storage/same-room-shades/img487.webp",
         "index": 5,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -1726,7 +1726,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-490",
         "file": "img490.jpg",
-        "url": "/storage/same-room-shades/img490.jpg",
+        "url": "/storage/same-room-shades/img490.webp",
         "index": 6,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -1737,7 +1737,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-493",
         "file": "img493.jpg",
-        "url": "/storage/same-room-shades/img493.jpg",
+        "url": "/storage/same-room-shades/img493.webp",
         "index": 7,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",
@@ -1748,7 +1748,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-496",
         "file": "img496.jpg",
-        "url": "/storage/same-room-shades/img496.jpg",
+        "url": "/storage/same-room-shades/img496.webp",
         "index": 8,
         "label": "Forest Moss",
         "tone": "Forest Moss",
@@ -1759,7 +1759,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-499",
         "file": "img499.jpg",
-        "url": "/storage/same-room-shades/img499.jpg",
+        "url": "/storage/same-room-shades/img499.webp",
         "index": 9,
         "label": "Desert Dune",
         "tone": "Desert Dune",
@@ -1770,7 +1770,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-502",
         "file": "img502.jpg",
-        "url": "/storage/same-room-shades/img502.jpg",
+        "url": "/storage/same-room-shades/img502.webp",
         "index": 10,
         "label": "Nilgiri Sage",
         "tone": "Nilgiri Sage",
@@ -1781,7 +1781,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-505",
         "file": "img505.jpg",
-        "url": "/storage/same-room-shades/img505.jpg",
+        "url": "/storage/same-room-shades/img505.webp",
         "index": 11,
         "label": "Cardamom Green",
         "tone": "Cardamom Green",
@@ -1792,7 +1792,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-508",
         "file": "img508.jpg",
-        "url": "/storage/same-room-shades/img508.jpg",
+        "url": "/storage/same-room-shades/img508.webp",
         "index": 12,
         "label": "Turquoise Breeze",
         "tone": "Turquoise Breeze",
@@ -1803,7 +1803,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-511",
         "file": "img511.jpg",
-        "url": "/storage/same-room-shades/img511.jpg",
+        "url": "/storage/same-room-shades/img511.webp",
         "index": 13,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -1814,7 +1814,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-514",
         "file": "img514.jpg",
-        "url": "/storage/same-room-shades/img514.jpg",
+        "url": "/storage/same-room-shades/img514.webp",
         "index": 14,
         "label": "Himalayan Frost",
         "tone": "Himalayan Frost",
@@ -1825,7 +1825,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-517",
         "file": "img517.jpg",
-        "url": "/storage/same-room-shades/img517.jpg",
+        "url": "/storage/same-room-shades/img517.webp",
         "index": 15,
         "label": "Mulberry Plum",
         "tone": "Mulberry Plum",
@@ -1850,7 +1850,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-520",
         "file": "img520.jpg",
-        "url": "/storage/same-room-shades/img520.jpg",
+        "url": "/storage/same-room-shades/img520.webp",
         "index": 1,
         "label": "Vanilla Sand",
         "tone": "Vanilla Sand",
@@ -1861,7 +1861,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-523",
         "file": "img523.jpg",
-        "url": "/storage/same-room-shades/img523.jpg",
+        "url": "/storage/same-room-shades/img523.webp",
         "index": 2,
         "label": "Tuscan Ochre",
         "tone": "Tuscan Ochre",
@@ -1872,7 +1872,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-526",
         "file": "img526.jpg",
-        "url": "/storage/same-room-shades/img526.jpg",
+        "url": "/storage/same-room-shades/img526.webp",
         "index": 3,
         "label": "Roasted Almond",
         "tone": "Roasted Almond",
@@ -1883,7 +1883,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-529",
         "file": "img529.jpg",
-        "url": "/storage/same-room-shades/img529.jpg",
+        "url": "/storage/same-room-shades/img529.webp",
         "index": 4,
         "label": "Warm Cashmere",
         "tone": "Warm Cashmere",
@@ -1894,7 +1894,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-532",
         "file": "img532.jpg",
-        "url": "/storage/same-room-shades/img532.jpg",
+        "url": "/storage/same-room-shades/img532.webp",
         "index": 5,
         "label": "Charcoal Noir",
         "tone": "Charcoal Noir",
@@ -1905,7 +1905,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-535",
         "file": "img535.jpg",
-        "url": "/storage/same-room-shades/img535.jpg",
+        "url": "/storage/same-room-shades/img535.webp",
         "index": 6,
         "label": "Pure Alabaster",
         "tone": "Pure Alabaster",
@@ -1916,7 +1916,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-538",
         "file": "img538.jpg",
-        "url": "/storage/same-room-shades/img538.jpg",
+        "url": "/storage/same-room-shades/img538.webp",
         "index": 7,
         "label": "Pewter Slate",
         "tone": "Pewter Slate",
@@ -1927,7 +1927,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-541",
         "file": "img541.jpg",
-        "url": "/storage/same-room-shades/img541.jpg",
+        "url": "/storage/same-room-shades/img541.webp",
         "index": 8,
         "label": "Dusty Rose Sand",
         "tone": "Dusty Rose Sand",
@@ -1938,7 +1938,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-544",
         "file": "img544.jpg",
-        "url": "/storage/same-room-shades/img544.jpg",
+        "url": "/storage/same-room-shades/img544.webp",
         "index": 9,
         "label": "Ivory Shimmer",
         "tone": "Ivory Shimmer",
@@ -1949,7 +1949,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-547",
         "file": "img547.jpg",
-        "url": "/storage/same-room-shades/img547.jpg",
+        "url": "/storage/same-room-shades/img547.webp",
         "index": 10,
         "label": "Deep Aegean Blue",
         "tone": "Deep Aegean Blue",
@@ -1960,7 +1960,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-550",
         "file": "img550.jpg",
-        "url": "/storage/same-room-shades/img550.jpg",
+        "url": "/storage/same-room-shades/img550.webp",
         "index": 11,
         "label": "Coastal Sky",
         "tone": "Coastal Sky",
@@ -1971,7 +1971,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-553",
         "file": "img553.jpg",
-        "url": "/storage/same-room-shades/img553.jpg",
+        "url": "/storage/same-room-shades/img553.webp",
         "index": 12,
         "label": "Morning Mist",
         "tone": "Morning Mist",
@@ -1982,7 +1982,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-556",
         "file": "img556.jpg",
-        "url": "/storage/same-room-shades/img556.jpg",
+        "url": "/storage/same-room-shades/img556.webp",
         "index": 13,
         "label": "Jaipur Terracotta",
         "tone": "Jaipur Terracotta",
@@ -1993,7 +1993,7 @@ export const ROOM_SHADE_STUDIO_SCENES: RoomScene[] = [
       {
         "id": "var-559",
         "file": "img559.jpg",
-        "url": "/storage/same-room-shades/img559.jpg",
+        "url": "/storage/same-room-shades/img559.webp",
         "index": 14,
         "label": "Gilded Amber",
         "tone": "Gilded Amber",

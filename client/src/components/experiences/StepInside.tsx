@@ -72,21 +72,21 @@ export const StepInside: React.FC = () => {
               <MotionParallaxImage intensity={4}>
                 <div className="relative aspect-[9/16] w-full bg-black overflow-hidden flex items-center justify-center">
                   {/* Ambient Backdrop */}
-                  <video
-                    src="/storage/promo-video.mp4"
+                  <img
+                    src="/storage/storefront/shopwide.webp"
+                    alt=""
                     className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
                     aria-hidden="true"
-                    muted
-                    loop
-                    playsInline
+                    loading="lazy"
+                    decoding="async"
                   />
 
                   {/* Main Crisp 9:16 Video */}
                   <video
                     ref={videoRef}
                     src="/storage/promo-video.mp4"
-                    poster="/storage/storefront/shopwide.jpeg"
-                    preload="metadata"
+                    poster="/storage/storefront/shopwide.webp"
+                    preload="none"
                     muted={isMuted}
                     playsInline
                     onEnded={() => setIsPlaying(false)}

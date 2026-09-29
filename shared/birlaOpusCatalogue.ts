@@ -22,7 +22,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Alpha_Ever_Wash.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Alpha_Ever_Wash.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/alpha-ever-wash"
   },
   {
@@ -33,7 +33,7 @@ export const birlaOpusProducts = [
     "copy": "High-performance washable interior emulsion delivering smooth radiance and scrub-resistant durability.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Clear.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Clear.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/calista-ever-clear"
   },
   {
@@ -44,7 +44,7 @@ export const birlaOpusProducts = [
     "copy": "High-performance washable interior emulsion delivering smooth radiance and scrub-resistant durability.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Clear_Matt.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Clear_Matt.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/calista-ever-clear-matt"
   },
   {
@@ -55,7 +55,7 @@ export const birlaOpusProducts = [
     "copy": "High-performance washable interior emulsion delivering smooth radiance and scrub-resistant durability.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Stay.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Stay.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/calista-ever-stay"
   },
   {
@@ -66,7 +66,7 @@ export const birlaOpusProducts = [
     "copy": "High-performance washable interior emulsion delivering smooth radiance and scrub-resistant durability.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Wash.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Wash.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/calista-ever-wash"
   },
   {
@@ -77,7 +77,7 @@ export const birlaOpusProducts = [
     "copy": "High-performance washable interior emulsion delivering smooth radiance and scrub-resistant durability.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Wash_Shine.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Ever_Wash_Shine.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/calista-ever-wash-shine"
   },
   {
@@ -88,7 +88,7 @@ export const birlaOpusProducts = [
     "copy": "Deep-penetrating substrate primer ensuring superior adhesion and uniform sheen across interior plaster.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Pro_White_Primer_Water_Thinnable_Premium_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Calista_Pro_White_Primer_Water_Thinnable_Premium_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/calista-pro-white-primer"
   },
   {
@@ -99,7 +99,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Dream_Duracoat.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Dream_Duracoat.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-dream-duracoat"
   },
   {
@@ -110,7 +110,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Dream_Marble.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Dream_Marble.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-dream-effects"
   },
   {
@@ -121,7 +121,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Dream_Texture.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Dream_Texture.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-dream-effects-metallic"
   },
   {
@@ -132,7 +132,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Putty_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Putty_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-dream-marble"
   },
   {
@@ -143,7 +143,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Interior_Acrylic_Putty_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Interior_Acrylic_Putty_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-dream-texture"
   },
   {
@@ -154,7 +154,7 @@ export const birlaOpusProducts = [
     "copy": "Deep-penetrating substrate primer ensuring superior adhesion and uniform sheen across interior plaster.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Interior_Primer_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Interior_Primer_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pro-putty-primer"
   },
   {
@@ -165,7 +165,7 @@ export const birlaOpusProducts = [
     "copy": "Deep-penetrating substrate primer ensuring superior adhesion and uniform sheen across interior plaster.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Primer_Water_Thinnable_Luxury_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Primer_Water_Thinnable_Luxury_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pro-smooth-primer"
   },
   {
@@ -176,7 +176,7 @@ export const birlaOpusProducts = [
     "copy": "Deep-penetrating substrate primer ensuring superior adhesion and uniform sheen across interior plaster.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Putty.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pro_Smooth_Putty.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pro-smooth-putty"
   },
   {
@@ -187,7 +187,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pure-elegance"
   },
   {
@@ -198,7 +198,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance_Matt.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance_Matt.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pure-elegance-matt"
   },
   {
@@ -209,7 +209,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance_Shine.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance_Shine.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pure-elegance-shine"
   },
   {
@@ -220,7 +220,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance_Soft.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Elegance_Soft.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pure-elegance-soft"
   },
   {
@@ -231,7 +231,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Legend.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Pure_Legend.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-pure-legend"
   },
   {
@@ -242,7 +242,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Clay.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Clay.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-timeless-clay"
   },
   {
@@ -253,7 +253,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Marmorino.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Marmorino.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-timeless-marmorino"
   },
   {
@@ -264,7 +264,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Marmorino_Metallic.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Marmorino_Metallic.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-timeless-marmorino-metallic"
   },
   {
@@ -275,7 +275,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Natura.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Natura.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-timeless-natura"
   },
   {
@@ -286,7 +286,7 @@ export const birlaOpusProducts = [
     "copy": "Ultra-luxury interior emulsion with active stain-repellent technology and rich velvet-matte finish.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Stone.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/One_Timeless_Stone.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/one-timeless-stone"
   },
   {
@@ -297,7 +297,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Alpha_Color_Smart.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Alpha_Color_Smart.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-alpha-color-smart"
   },
   {
@@ -308,7 +308,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Color_Fresh.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Color_Fresh.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-color-fresh"
   },
   {
@@ -319,7 +319,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Color_Smart.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Color_Smart.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-color-smart"
   },
   {
@@ -330,7 +330,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Color_Smart_Shine.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Color_Smart_Shine.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-color-smart-shine"
   },
   {
@@ -341,7 +341,7 @@ export const birlaOpusProducts = [
     "copy": "Deep-penetrating substrate primer ensuring superior adhesion and uniform sheen across interior plaster.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Pro_Fresh_Primer_Water_Thinnable_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Pro_Fresh_Primer_Water_Thinnable_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-pro-fresh-primer"
   },
   {
@@ -352,7 +352,7 @@ export const birlaOpusProducts = [
     "copy": "Deep-penetrating substrate primer ensuring superior adhesion and uniform sheen across interior plaster.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Pro_Hide_Primer_Water_Thinnable_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Pro_Hide_Primer_Water_Thinnable_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-pro-hide-primer"
   },
   {
@@ -363,7 +363,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Super_Bright.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Super_Bright.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-super-bright"
   },
   {
@@ -374,7 +374,7 @@ export const birlaOpusProducts = [
     "copy": "Rich, high-opacity interior formulation designed for bright, fresh living spaces and everyday comfort.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Super_Smooth.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Super_Smooth.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-super-smooth"
   },
   {
@@ -385,7 +385,7 @@ export const birlaOpusProducts = [
     "copy": "High-strength universal stainer tinting dispersion for custom shade enrichment and depth.",
     "colour": "#D6A4A0",
     "text": "#2A1820",
-    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Universal_Stainer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_interior/Style_Universal_Stainer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/interior-wall-paint/style-universal-stainers"
   },
   {
@@ -396,7 +396,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Pure_Elegance_Interior_Paint_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Pure_Elegance_Interior_Paint_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-pure-elegance-interior-paint-birla-opus"
   },
   {
@@ -407,7 +407,7 @@ export const birlaOpusProducts = [
     "copy": "Weather-resistant exterior masonry primer sealing porosity and anchoring exterior topcoats.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Pro_Smooth_Interior_Primer_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Pro_Smooth_Interior_Primer_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-pro-smooth-interior-primer-birla-opus"
   },
   {
@@ -418,7 +418,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Pro_Smooth_Interior_Acrylic_Putty_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Pro_Smooth_Interior_Acrylic_Putty_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-pro-smooth-interior-acrylic-putty-birla-opus"
   },
   {
@@ -429,7 +429,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability exterior wall protection guarding facades against heavy monsoons, dust, and solar heat.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Everclear_Emulsion_Paint_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Everclear_Emulsion_Paint_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/calista-everclear-emulsion-paint-birla-opus"
   },
   {
@@ -440,7 +440,7 @@ export const birlaOpusProducts = [
     "copy": "Weatherproof exterior acrylic formulation ensuring vibrant facade aesthetics and mold resistance.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Colour_Smart_Interior_Wall_Paint_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Colour_Smart_Interior_Wall_Paint_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/style-colour-smart-interior-wall-paint-birla-opus"
   },
   {
@@ -451,7 +451,7 @@ export const birlaOpusProducts = [
     "copy": "Weatherproof exterior acrylic formulation ensuring vibrant facade aesthetics and mold resistance.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Super_Bright_Exterior_Acrylic_Distemper_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Super_Bright_Exterior_Acrylic_Distemper_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/style-super-bright-exterior-acrylic-distemper-birla-opus"
   },
   {
@@ -462,7 +462,7 @@ export const birlaOpusProducts = [
     "copy": "Architectural exterior coating engineered to withstand extreme climates and environmental exposure.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/All_Drywall_Fix_Waterproofing_Solutions_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/All_Drywall_Fix_Waterproofing_Solutions_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/all-drywall-fix-waterproofing-solutions-birla-opus"
   },
   {
@@ -473,7 +473,7 @@ export const birlaOpusProducts = [
     "copy": "Weather-resistant exterior masonry primer sealing porosity and anchoring exterior topcoats.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/All_Dry_Salt_Seal_Waterproofing_Primer_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/All_Dry_Salt_Seal_Waterproofing_Primer_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/all-dry-salt-seal-waterproofing-primer-birla-opus"
   },
   {
@@ -484,7 +484,7 @@ export const birlaOpusProducts = [
     "copy": "Architectural exterior coating engineered to withstand extreme climates and environmental exposure.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/All_Dry_2K_Waterproof_Coating_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/All_Dry_2K_Waterproof_Coating_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/all-dry-2k-waterproof-coating-birla-opus"
   },
   {
@@ -495,7 +495,7 @@ export const birlaOpusProducts = [
     "copy": "Architectural exterior coating engineered to withstand extreme climates and environmental exposure.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Allwood_Interior_Wood_Melamine_Polish_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Allwood_Interior_Wood_Melamine_Polish_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/allwood-interior-wood-melamine-polish-birla-opus"
   },
   {
@@ -506,7 +506,7 @@ export const birlaOpusProducts = [
     "copy": "Architectural exterior coating engineered to withstand extreme climates and environmental exposure.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Allwood_Interior_Exterior_Wood_Paint_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Allwood_Interior_Exterior_Wood_Paint_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/allwood-interior-exterior-wood-paint-birla-opus"
   },
   {
@@ -517,7 +517,7 @@ export const birlaOpusProducts = [
     "copy": "Architectural exterior coating engineered to withstand extreme climates and environmental exposure.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Allwood_Italian_PU_Paint_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Allwood_Italian_PU_Paint_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/allwood-italian-pu-paint-birla-opus"
   },
   {
@@ -528,7 +528,7 @@ export const birlaOpusProducts = [
     "copy": "Weatherproof exterior acrylic formulation ensuring vibrant facade aesthetics and mold resistance.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Alpha_Power_Bright.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Alpha_Power_Bright.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/alpha-power-bright"
   },
   {
@@ -539,7 +539,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability exterior wall protection guarding facades against heavy monsoons, dust, and solar heat.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Floor_Shade.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Floor_Shade.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/calista-neo-floor-shade"
   },
   {
@@ -550,7 +550,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability exterior wall protection guarding facades against heavy monsoons, dust, and solar heat.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Star.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Star.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/calista-neo-star"
   },
   {
@@ -561,7 +561,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability exterior wall protection guarding facades against heavy monsoons, dust, and solar heat.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Star_Shine.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Star_Shine.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/calista-neo-star-shine"
   },
   {
@@ -572,7 +572,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability exterior wall protection guarding facades against heavy monsoons, dust, and solar heat.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Tile_Shade.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Neo_Tile_Shade.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/calista-neo-tile-shade"
   },
   {
@@ -583,7 +583,7 @@ export const birlaOpusProducts = [
     "copy": "Weather-resistant exterior masonry primer sealing porosity and anchoring exterior topcoats.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Perfect_Choice_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Calista_Perfect_Choice_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/calista-perfect-choice-primer"
   },
   {
@@ -594,7 +594,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Explore_15.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Explore_15.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-explore-15"
   },
   {
@@ -605,7 +605,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Explore_Roller.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Explore_Roller.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-explore-roller"
   },
   {
@@ -616,7 +616,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Inspire_Clear_Coat.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Inspire_Clear_Coat.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-inspire-clear-coat"
   },
   {
@@ -627,7 +627,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Inspire_Concrete.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_Inspire_Concrete.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-inspire-concrete"
   },
   {
@@ -638,7 +638,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Flex.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Flex.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-true-flex"
   },
   {
@@ -649,7 +649,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Life.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Life.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-true-life"
   },
   {
@@ -660,7 +660,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Look.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Look.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-true-look"
   },
   {
@@ -671,7 +671,7 @@ export const birlaOpusProducts = [
     "copy": "All-weather elastomeric exterior shield with crack-bridging elasticity, anti-algal shield, and UV reflection.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Vision.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/One_True_Vision.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/one-true-vision"
   },
   {
@@ -682,7 +682,7 @@ export const birlaOpusProducts = [
     "copy": "Weather-resistant exterior masonry primer sealing porosity and anchoring exterior topcoats.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Perfect_Start_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Perfect_Start_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/style-perfect-start-primer"
   },
   {
@@ -693,7 +693,7 @@ export const birlaOpusProducts = [
     "copy": "Weatherproof exterior acrylic formulation ensuring vibrant facade aesthetics and mold resistance.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Power_Bright.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Power_Bright.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/style-power-bright"
   },
   {
@@ -704,7 +704,7 @@ export const birlaOpusProducts = [
     "copy": "Weatherproof exterior acrylic formulation ensuring vibrant facade aesthetics and mold resistance.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Power_Bright_Shine.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Power_Bright_Shine.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/style-power-bright-shine"
   },
   {
@@ -715,7 +715,7 @@ export const birlaOpusProducts = [
     "copy": "Weatherproof exterior acrylic formulation ensuring vibrant facade aesthetics and mold resistance.",
     "colour": "#33584B",
     "text": "#F8F5E9",
-    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Power_Fit.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_exterior/Style_Power_Fit.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/exterior-wall-paint/style-power-fit"
   },
   {
@@ -726,7 +726,7 @@ export const birlaOpusProducts = [
     "copy": "High-strength polymer crack filler and joint sealant preventing moisture ingress through masonry.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Crack_Master_Paste.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Crack_Master_Paste.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-crack-master-paste"
   },
   {
@@ -737,7 +737,7 @@ export const birlaOpusProducts = [
     "copy": "Hydrophobic polymer barrier engineered for deep substrate sealing and long-term moisture defense.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Repair_Master.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Repair_Master.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-repair-master"
   },
   {
@@ -748,7 +748,7 @@ export const birlaOpusProducts = [
     "copy": "Hydrophobic polymer barrier engineered for deep substrate sealing and long-term moisture defense.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Salt_Seal.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Salt_Seal.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-salt-seal"
   },
   {
@@ -759,7 +759,7 @@ export const birlaOpusProducts = [
     "copy": "Hydrophobic polymer barrier engineered for deep substrate sealing and long-term moisture defense.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Total_2K_Flex.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Total_2K_Flex.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-total-2k-flex"
   },
   {
@@ -770,7 +770,7 @@ export const birlaOpusProducts = [
     "copy": "Hydrophobic polymer barrier engineered for deep substrate sealing and long-term moisture defense.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Total_2K.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Total_2K.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-total-2k"
   },
   {
@@ -781,7 +781,7 @@ export const birlaOpusProducts = [
     "copy": "Hydrophobic polymer barrier engineered for deep substrate sealing and long-term moisture defense.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Wall_Fix_4.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Wall_Fix_4.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-total-stop"
   },
   {
@@ -792,7 +792,7 @@ export const birlaOpusProducts = [
     "copy": "Hydrophobic polymer barrier engineered for deep substrate sealing and long-term moisture defense.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Wall_n_Roof_10.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Wall_n_Roof_10.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-total-win"
   },
   {
@@ -803,7 +803,7 @@ export const birlaOpusProducts = [
     "copy": "High-strength polymer crack filler and joint sealant preventing moisture ingress through masonry.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Wall_n_Roof_12.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Alldry_Wall_n_Roof_12.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-wall-fix-4"
   },
   {
@@ -814,7 +814,7 @@ export const birlaOpusProducts = [
     "copy": "Advanced elastomeric waterproofing membrane providing seamless protection for roofs and terraces.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/All_Drywall_Fix_Waterproofing_Solutions_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/All_Drywall_Fix_Waterproofing_Solutions_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-wall-n-roof-10"
   },
   {
@@ -825,7 +825,7 @@ export const birlaOpusProducts = [
     "copy": "Advanced elastomeric waterproofing membrane providing seamless protection for roofs and terraces.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/All_Dry_2K_Waterproof_Coating_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/All_Dry_2K_Waterproof_Coating_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-wall-n-roof-12"
   },
   {
@@ -836,7 +836,7 @@ export const birlaOpusProducts = [
     "copy": "Advanced elastomeric waterproofing membrane providing seamless protection for roofs and terraces.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/All_Dry_Salt_Seal_Waterproofing_Primer_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/All_Dry_Salt_Seal_Waterproofing_Primer_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-wall-n-roof-14"
   },
   {
@@ -847,7 +847,7 @@ export const birlaOpusProducts = [
     "copy": "Advanced elastomeric waterproofing membrane providing seamless protection for roofs and terraces.",
     "colour": "#759FBA",
     "text": "#152633",
-    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Home_Paint_Interior_Wall_Paint_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_waterproofing/Home_Paint_Interior_Wall_Paint_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/waterproofing/alldry-wall-n-roof-7"
   },
   {
@@ -858,7 +858,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Gloss.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Gloss.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-sparkle-gloss"
   },
   {
@@ -869,7 +869,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Gloss_Enamel_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Gloss_Enamel_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-sparkle-pu"
   },
   {
@@ -880,7 +880,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Red_Oxide_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Red_Oxide_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-sparkle-red-oxide-primer"
   },
   {
@@ -891,7 +891,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Satin.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Satin.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-sparkle-satin"
   },
   {
@@ -902,7 +902,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Pro_White_Cement_ST_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Pro_White_Cement_ST_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-sparkle-wood-primer-white"
   },
   {
@@ -913,7 +913,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Yellow_Metal_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Calista_Sparkle_Yellow_Metal_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-sparkle-yellow-metal-primer"
   },
   {
@@ -924,7 +924,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability solvent-thinnable enamel crafted for architectural trims, gates, grills, and woodwork.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Style_Pro_Hide_Cement_ST_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Style_Pro_Hide_Cement_ST_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/calista-pro-white-cement-st-primer"
   },
   {
@@ -935,7 +935,7 @@ export const birlaOpusProducts = [
     "copy": "Mirror-gloss polyurethane enamel delivering rich luster and corrosion resistance for wood and metal.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Style_Cover_Max_Gloss.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Style_Cover_Max_Gloss.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/style-cover-max-gloss"
   },
   {
@@ -946,7 +946,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability solvent-thinnable enamel crafted for architectural trims, gates, grills, and woodwork.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Style_Cover_Max_Red_Oxide_Primer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/Style_Cover_Max_Red_Oxide_Primer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/style-cover-max-red-oxide-primer"
   },
   {
@@ -957,7 +957,7 @@ export const birlaOpusProducts = [
     "copy": "High-durability solvent-thinnable enamel crafted for architectural trims, gates, grills, and woodwork.",
     "colour": "#E3C646",
     "text": "#2A2310",
-    "imageUrl": "/storage/extracted/birlaopus_products_enamels/One_Pro_Smooth_Interior_Primer_Birla_Opus_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_enamels/One_Pro_Smooth_Interior_Primer_Birla_Opus_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/enamels-paints/style-pro-hide-cement-st-primer"
   },
   {
@@ -968,7 +968,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Italian_PU.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Italian_PU.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-italian-pu"
   },
   {
@@ -979,7 +979,7 @@ export const birlaOpusProducts = [
     "copy": "Silky-touch protective wood finish preserving interior timber texture and resisting heat stains.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Interior_Wood_Melamine_Polish_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Interior_Wood_Melamine_Polish_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-melamine"
   },
   {
@@ -990,7 +990,7 @@ export const birlaOpusProducts = [
     "copy": "Silky-touch protective wood finish preserving interior timber texture and resisting heat stains.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Melamine_Ultra_Clear.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Melamine_Ultra_Clear.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-melamine-ultra-clear"
   },
   {
@@ -1001,7 +1001,7 @@ export const birlaOpusProducts = [
     "copy": "Specialist timber finish protecting architectural woodwork and furniture with rich depth of grain.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_NC_Sanding_Sealer.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_NC_Sanding_Sealer.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-nc-sanding-sealer"
   },
   {
@@ -1012,7 +1012,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Color_Exterior.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Color_Exterior.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-pu-color-exterior"
   },
   {
@@ -1023,7 +1023,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Color_Interior.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Color_Interior.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-pu-color-interior"
   },
   {
@@ -1034,7 +1034,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Color_Metallic.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Color_Metallic.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-pu-color-metallic"
   },
   {
@@ -1045,7 +1045,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Interior_Exterior_Wood_Paint_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Interior_Exterior_Wood_Paint_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-pu-exterior"
   },
   {
@@ -1056,7 +1056,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Interior.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Interior.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-pu-interior"
   },
   {
@@ -1067,7 +1067,7 @@ export const birlaOpusProducts = [
     "copy": "Italian-grade polyurethane coating delivering crystal clarity, grain enhancement, and scratch resistance.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Thinner.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_PU_Thinner.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-pu-thinner"
   },
   {
@@ -1078,7 +1078,7 @@ export const birlaOpusProducts = [
     "copy": "Specialist timber finish protecting architectural woodwork and furniture with rich depth of grain.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_SFX_Special_Effects_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_SFX_Special_Effects_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-sfx"
   },
   {
@@ -1089,7 +1089,7 @@ export const birlaOpusProducts = [
     "copy": "Silky-touch protective wood finish preserving interior timber texture and resisting heat stains.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_SoftTouch_1K_PU.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_SoftTouch_1K_PU.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-softtouch"
   },
   {
@@ -1100,7 +1100,7 @@ export const birlaOpusProducts = [
     "copy": "Specialist timber finish protecting architectural woodwork and furniture with rich depth of grain.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Wood_Filler.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Wood_Filler.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-wood-filler"
   },
   {
@@ -1111,7 +1111,7 @@ export const birlaOpusProducts = [
     "copy": "Specialist timber finish protecting architectural woodwork and furniture with rich depth of grain.",
     "colour": "#AD7048",
     "text": "#2B1C13",
-    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Wood_Stain.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_woodfinishes/Allwood_Wood_Stain.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wood-paint/allwood-wood-stain"
   },
   {
@@ -1122,7 +1122,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Tropical_Flair_Wallpaper_Interior_Texture_Birla_Opus.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Tropical_Flair_Wallpaper_Interior_Texture_Birla_Opus.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/tropical-flair-wallpaper-interior-texture-birla-opus"
   },
   {
@@ -1133,7 +1133,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Animal_Bird_Insect.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Animal_Bird_Insect.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-animal-bird-insect"
   },
   {
@@ -1144,7 +1144,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Heritage_collection.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Heritage_collection.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-heritage-collection"
   },
   {
@@ -1155,7 +1155,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Florals.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Florals.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-florals"
   },
   {
@@ -1166,7 +1166,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Food.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Food.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-food"
   },
   {
@@ -1177,7 +1177,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Ethnic.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Ethnic.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-ethnic"
   },
   {
@@ -1188,7 +1188,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Bricks_Stones.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Bricks_Stones.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-bricks-stones"
   },
   {
@@ -1199,7 +1199,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Woods.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Woods.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-woods"
   },
   {
@@ -1210,7 +1210,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Natural_Imitations.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Natural_Imitations.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-natural-imitations"
   },
   {
@@ -1221,7 +1221,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Damask.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Damask.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-damask"
   },
   {
@@ -1232,7 +1232,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Signature_collection.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Signature_collection.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-signature-collection"
   },
   {
@@ -1243,7 +1243,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Geometric_Retreat.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Geometric_Retreat.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-geometric-retreat"
   },
   {
@@ -1254,7 +1254,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Timeless_Damask.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Timeless_Damask.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-timeless-damask"
   },
   {
@@ -1265,7 +1265,7 @@ export const birlaOpusProducts = [
     "copy": "Bespoke designer wallcovering featuring intricate relief textures and tactile artisan patterns.",
     "colour": "#D7A7B5",
     "text": "#2B1D26",
-    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Garden_Charms.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_wallpaper/Birla_Opus_Garden_Charms.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/wallpapers/birla-opus-garden-charms"
   },
   {
@@ -1276,7 +1276,7 @@ export const birlaOpusProducts = [
     "copy": "Precision microfibre paint roller designed for smooth, streak-free emulsion and texture application.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_DF_Cloud_Roller.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_DF_Cloud_Roller.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/birla-opus-artist-df-cloud-roller"
   },
   {
@@ -1287,7 +1287,7 @@ export const birlaOpusProducts = [
     "copy": "Master-grade application tool engineered for professional precision and effortless handling.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Waterproof_Sandpaper.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Waterproof_Sandpaper.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/artist-waterproof-sandpaper"
   },
   {
@@ -1298,7 +1298,7 @@ export const birlaOpusProducts = [
     "copy": "Professional painter masking tape providing razor-sharp edge lines with residue-free removal.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Painter_s_Masking_Tape_1_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Painter_s_Masking_Tape_1_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/artist-painters-masking-tape-2"
   },
   {
@@ -1309,7 +1309,7 @@ export const birlaOpusProducts = [
     "copy": "Professional painter masking tape providing razor-sharp edge lines with residue-free removal.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Painter_s_Masking_Tape_1_5_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Painter_s_Masking_Tape_1_5_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/artist-painters-masking-tape-1-5"
   },
   {
@@ -1320,7 +1320,7 @@ export const birlaOpusProducts = [
     "copy": "Professional painter masking tape providing razor-sharp edge lines with residue-free removal.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Painter_s_Masking_Tape_2_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Artist_Painter_s_Masking_Tape_2_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/artist-painters-masking-tape-1"
   },
   {
@@ -1331,7 +1331,7 @@ export const birlaOpusProducts = [
     "copy": "Precision microfibre paint roller designed for smooth, streak-free emulsion and texture application.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Exterior_Felt_Roller_9_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Exterior_Felt_Roller_9_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/birla-opus-artist-exterior-felt-roller-9"
   },
   {
@@ -1342,7 +1342,7 @@ export const birlaOpusProducts = [
     "copy": "Precision microfibre paint roller designed for smooth, streak-free emulsion and texture application.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Interior_Felt_Roller_6_4_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Interior_Felt_Roller_6_4_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/birla-opus-artist-interior-felt-roller-9"
   },
   {
@@ -1353,7 +1353,7 @@ export const birlaOpusProducts = [
     "copy": "Precision microfibre paint roller designed for smooth, streak-free emulsion and texture application.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Interior_Felt_Roller_9_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Interior_Felt_Roller_9_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/birla-opus-artist-interior-felt-roller-6-4"
   },
   {
@@ -1364,7 +1364,7 @@ export const birlaOpusProducts = [
     "copy": "Precision microfibre paint roller designed for smooth, streak-free emulsion and texture application.",
     "colour": "#8FA7C8",
     "text": "#172333",
-    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Interior_Foam_Roller_6_4_.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_tools/Birla_Opus_Artist_Interior_Foam_Roller_6_4_.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/tools/birla-opus-artist-interior-foam-roller-6-4"
   },
   {
@@ -1375,7 +1375,7 @@ export const birlaOpusProducts = [
     "copy": "Fast-drying, high-atomization acrylic spray paint for seamless touch-ups, metallic crafts, and trims.",
     "colour": "#D5CD55",
     "text": "#262600",
-    "imageUrl": "/storage/extracted/birlaopus_products_aerosols/Birla_Opus_One_Aero_Spray_Paint.jpg",
+    "imageUrl": "/storage/extracted/birlaopus_products_aerosols/Birla_Opus_One_Aero_Spray_Paint.webp",
     "sourceUrl": "https://www.birlaopus.com/paint-products/aerosols/birla-opus-one-aero-spray-paint"
   }
 ] as const;
