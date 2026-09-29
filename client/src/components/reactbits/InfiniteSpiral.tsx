@@ -146,10 +146,10 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       const half = count / 2;
       const width = Math.max(bounds.width, 1);
       const height = Math.max(bounds.height, 1);
-      const fit = Math.min(1, width / (cardWidth * 2.2), height / (cardHeight * 2.0));
-      const responsiveRadius = Math.min(radius, width * 0.26) * fit;
+      const fit = Math.min(1, height / (cardHeight * 1.8));
+      const responsiveRadius = Math.max(radius, width * 0.44) * fit;
       const fadeStart = clamp(1 - edgeFade, 0, 0.98);
-      const turnSize = Math.max(cardsPerTurn, 1);
+      const turnSize = Math.max(cardsPerTurn || count, 1);
 
       cardRefs.current.forEach((card, index) => {
         if (!card) return;

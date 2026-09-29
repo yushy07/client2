@@ -58,13 +58,13 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
                 label: wp.title,
                 id: wp.id,
               }))}
-              radius={180}
-              cardWidth={130}
-              cardHeight={92}
+              radius={280}
+              cardWidth={125}
+              cardHeight={88}
               cardRadius={12}
               verticalSpacing={0}
-              cardsPerTurn={5}
-              speed={0.28}
+              cardsPerTurn={13}
+              speed={0.25}
               edgeBlur={0}
               edgeFade={0.05}
               centerScale={1.16}
