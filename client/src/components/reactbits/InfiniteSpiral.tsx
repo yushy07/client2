@@ -144,6 +144,7 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
       const count = normalizedItems.length;
       const half = count / 2;
       const width = Math.max(bounds.width, 1);
+      const height = Math.max(bounds.height, 1);
       const fit = Math.min(1, width / (cardWidth * 2.5), height / (cardHeight * 2.2));
       const responsiveRadius = Math.min(radius, Math.max(72, width * 0.40)) * fit;
       const fadeStart = clamp(1 - edgeFade, 0, 0.98);
