@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { ROOM_LIBRARY_PAGES, type RoomLibraryPage, type RoomCategory } from "@shared/roomLibraryData";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home, LayoutGrid, Layers } from "lucide-react";
+import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home, LayoutGrid, Layers, X, CheckCircle2 } from "lucide-react";
 import { MotionImageReveal } from "@/lib/motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { Masonry, type MasonryItem, ShinyText } from "@/components/reactbits";
@@ -230,43 +230,98 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
 
         {/* Space Modal Lightbox */}
         <Dialog open={!!activeSpace} onOpenChange={(open) => !open && setActiveSpace(null)}>
-          <DialogContent className="max-w-4xl bg-dark-surface border-border-teal text-on-dark p-0 overflow-hidden sm:rounded-2xl">
+          <DialogContent
+            showCloseButton={false}
+            className="w-[95vw] sm:max-w-3xl md:max-w-4xl lg:max-w-5xl max-h-[88vh] bg-[#07191d] border border-border-teal/80 text-on-dark p-0 overflow-hidden rounded-2xl md:rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] flex flex-col md:flex-row"
+          >
             {activeSpace && (
-              <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
-                <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto">
-                  <ResponsiveImage
-                    src={activeSpace.url}
-                    alt={activeSpace.title}
-                    className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"
-                  />
-                  <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded text-xs text-white/90">
-                    Catalogue Page {activeSpace.index} / 102
+              <>
+                {/* Left Column: Full-Height Immersive Room Showcase */}
+                <div className="relative w-full md:w-[52%] lg:w-[55%] min-h-[260px] md:min-h-[460px] bg-[#051417] flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden select-none border-b md:border-b-0 md:border-r border-border-teal/60 shrink-0">
+                  {/* Ambient Light */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(23,107,115,0.25)_0%,transparent_70%)] pointer-events-none" />
+
+                  {/* Top Category Badge */}
+                  <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
+                    <span className="bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-mono text-amber-300 border border-white/15 shadow-md flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      {activeSpace.category}
+                    </span>
+                    <span className="bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-white/80 border border-white/10 shadow-xs">
+                      Page {activeSpace.index} / 102
+                    </span>
+                  </div>
+
+                  {/* Mobile Close Button on Top Right */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveSpace(null)}
+                    className="md:hidden absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-black/70 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 backdrop-blur-md shadow-lg"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+
+                  {/* High-Resolution Framed Room Image */}
+                  <div className="relative z-10 w-full max-w-[380px] md:max-w-[420px] aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden border border-white/20 shadow-[0_20px_45px_rgba(0,0,0,0.7)] group/swatch">
+                    <ResponsiveImage
+                      src={activeSpace.url}
+                      alt={activeSpace.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover/swatch:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/swatch:opacity-100 transition-opacity flex items-end p-4">
+                      <span className="text-xs text-white/90 font-mono flex items-center gap-1.5">
+                        <Maximize2 className="w-3.5 h-3.5 text-amber-300" /> Whole-House Portfolio Concept
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="md:w-2/5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
-                  <div>
-                    <span className="text-xs uppercase tracking-widest text-accent font-semibold">
-                      {activeSpace.category}
-                    </span>
-                    <DialogTitle className="text-2xl font-serif text-on-dark mt-2 mb-3">
-                      {activeSpace.title}
-                    </DialogTitle>
-                    <p className="text-sm text-on-dark-muted leading-relaxed mb-6">
+                {/* Right Column: Spec & Consultation Panel */}
+                <div className="relative w-full md:w-[48%] lg:w-[45%] p-6 sm:p-8 lg:p-10 flex flex-col justify-between overflow-y-auto no-scrollbar bg-[#081e22]/95 backdrop-blur-md">
+                  {/* Desktop Close Button */}
+                  <button
+                    type="button"
+                    onClick={() => setActiveSpace(null)}
+                    className="hidden md:flex absolute top-5 right-5 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white items-center justify-center border border-white/15 backdrop-blur-sm transition-all shadow-sm"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+
+                  <div className="space-y-5">
+                    <div className="pr-8">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface text-amber-400 text-[11px] font-mono font-semibold uppercase tracking-wider mb-2 border border-border-teal">
+                        <Home className="w-3.5 h-3.5" />
+                        Birla Opus 102 Room Library
+                      </div>
+                      <DialogTitle className="text-2xl sm:text-3xl lg:text-4xl font-serif text-white tracking-tight leading-tight">
+                        {activeSpace.title}
+                      </DialogTitle>
+                    </div>
+
+                    <p className="text-sm text-on-dark-muted font-sans leading-relaxed">
                       {activeSpace.styleContext}. Archival architectural reference captured in the Birla Opus whole-house portfolio, illustrating harmonious trim, flooring, and wall interaction.
                     </p>
 
-                    <div className="bg-dark-surface p-4 rounded-xl border border-border-teal mb-6">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-on-dark-muted block mb-1">
-                        Recommended Coating Solution
-                      </span>
-                      <p className="text-sm font-medium text-surface">
+                    {/* Recommended Coating Solution Box */}
+                    <div className="bg-[#051518] p-4 sm:p-5 rounded-2xl border border-border-teal/80 space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono uppercase tracking-wider text-amber-400 font-semibold flex items-center gap-1.5">
+                          <Compass className="w-3.5 h-3.5" />
+                          Recommended Coating Solution
+                        </span>
+                        <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                          Curated Finish
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm font-medium text-white/95 font-sans leading-relaxed">
                         {activeSpace.suggestedFinish}
                       </p>
                     </div>
                   </div>
 
-                  <div className="space-y-3 pt-6 border-t border-border-teal">
+                  <div className="pt-6 mt-6 border-t border-border-teal/70 space-y-2.5">
                     <Button
                       onClick={() => {
                         onEnquire?.(
@@ -275,7 +330,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                         );
                         setActiveSpace(null);
                       }}
-                      className="w-full bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium py-2.5 rounded-xl flex items-center justify-center gap-2"
+                      className="w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-semibold py-3 rounded-xl shadow-lg transition-all active:scale-[0.99] flex items-center justify-center gap-2 text-sm"
                     >
                       <ShoppingBag className="w-4 h-4" /> Enquire This Room Concept
                     </Button>
@@ -286,14 +341,17 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                           onExploreProducts();
                           setActiveSpace(null);
                         }}
-                        className="w-full bg-dark-surface border-border-teal text-surface hover:bg-brand-secondary py-2 rounded-xl text-xs flex items-center justify-center gap-1.5"
+                        className="w-full bg-dark-surface hover:bg-dark border border-border-teal text-white/80 hover:text-white py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors"
                       >
-                        <Home className="w-3.5 h-3.5 text-accent" /> Browse Associated Products in Catalogue
+                        <Home className="w-3.5 h-3.5 text-amber-400" /> Browse Associated Products in Catalogue
                       </Button>
                     )}
+                    <p className="text-[11px] text-center text-white/50 font-sans">
+                      Consultation &amp; estimates provided by Jaymurti Traders, Baskhari.
+                    </p>
                   </div>
                 </div>
-              </div>
+              </>
             )}
           </DialogContent>
         </Dialog>
