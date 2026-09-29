@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { ArrowRight, Play, Pause, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Play, Pause, Sparkles } from "lucide-react";
 
 export interface ProductVideoStory {
   id: string;
@@ -445,26 +445,12 @@ export function ProductStories() {
         </div>
 
         <div className="product-stories-side">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={prevCard}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/15 active:scale-95"
-              aria-label="Previous product video"
-              title="Previous video"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              onClick={nextCard}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/15 active:scale-95"
-              aria-label="Next product video"
-              title="Next video"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
-          <a href="#products" className="arrow-link">
-            View master catalogue <ArrowRight size={15} />
+          <a
+            href="#products"
+            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-400/40 text-amber-300 hover:text-amber-200 transition-all text-xs font-mono tracking-wider uppercase backdrop-blur-sm shadow-sm"
+          >
+            <span>View Master Catalogue</span>
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1 text-amber-400" />
           </a>
         </div>
       </div>
