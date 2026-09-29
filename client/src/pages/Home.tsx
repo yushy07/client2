@@ -22,6 +22,7 @@ import {
   Info,
   Instagram,
   Layers,
+  LayoutGrid,
   MapPin,
   Menu,
   MessageCircle,
@@ -205,6 +206,23 @@ const getInitialProductFilter = () => {
 
 const campaigns = [
   {
+    eyebrow: "Paint Systems & Expert Advice",
+    title: (
+      <>
+        Surfaces made
+        <br />
+        to <em>last well.</em>
+      </>
+    ),
+    text: "Authentic Birla Opus paints, colours and finishes — with expert advice from Jaymurti Traders.",
+    note: "Direct dealer desk · +91 87566 59035",
+    imageUrl: "/storage/storefront/shopreception.jpeg",
+    imageAlt: "Jaymurti Traders Birla Opus paint showroom counter in Baskhari, Ambedkar Nagar",
+    tag: "Showroom • Baskhari",
+    caption: "Jaymurti Traders Showroom & Colour Studio · Baskhari",
+    featureBadge: "Authorized Birla Opus Partner",
+  },
+  {
     eyebrow: "Birla Opus Paint Dealer · Paint & Colour Showroom",
     title: (
       <>
@@ -232,28 +250,11 @@ const campaigns = [
     ),
     text: "Compare calm neutrals, rich colour, and durable finishes chosen to work beautifully in your space and its natural light.",
     note: "Shukul Bazar · Baskhari · Ambedkar Nagar",
-    imageUrl: "/storage/storefront/shopreception.jpeg",
+    imageUrl: "/storage/storefront/shop.jpeg",
     imageAlt: "Jaymurti Traders showroom entrance and colour consultation desk",
     tag: "Colour Calibration",
     caption: "Physical Fan Decks & Daylight Testing Consultation",
     featureBadge: "159 Verified Birla Opus Shades",
-  },
-  {
-    eyebrow: "Paint Systems & Expert Advice",
-    title: (
-      <>
-        Surfaces made
-        <br />
-        to <em>last well.</em>
-      </>
-    ),
-    text: "Find authentic Birla Opus interior, exterior, and specialty finishes with clear advice from the Jaymurti Traders team.",
-    note: "Direct dealer desk · +91 87566 59035",
-    imageUrl: "/storage/storefront/shop.jpeg",
-    imageAlt: "Jaymurti Traders Birla Opus paint showroom and product display",
-    tag: "Direct Supply",
-    caption: "Computerized Tinting & Complete Paint Inventory",
-    featureBadge: "Genuine 100% Paint Systems",
   },
 ];
 
@@ -1082,8 +1083,11 @@ export default function Home() {
       {/* Global Navigation */}
       <header className={`nav ${isScrolled ? "nav--scrolled shadow-md backdrop-blur-md" : ""}`} style={{ transition: "background-color 0.28s ease, backdrop-filter 0.28s ease, box-shadow 0.28s ease" }}>
         <a className="brand group" href="#top" aria-label="Birla Opus Paint Jaymurti Traders">
-          <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={36} height={36} className="brand-logo transition-transform duration-300 group-hover:scale-105" />
-          <span className="brand-name-text">JAYMURTI TRADERS</span>
+          <img src="/storage/logo.png" alt="Jaymurti Traders Logo" width={38} height={38} className="brand-logo transition-transform duration-300 group-hover:scale-105" />
+          <div className="brand-titles">
+            <span className="brand-name-text">Jaymurti Traders</span>
+            <span className="brand-sub-text">जयमूर्ति ट्रेडर्स</span>
+          </div>
         </a>
 
         {/* Desktop Navigation Links */}
@@ -1110,17 +1114,15 @@ export default function Home() {
           </button>
         </nav>
 
-        {/* Mobile Nav Toggle */}
+        {/* Mobile Nav Actions (Search & Gold Menu Button) */}
         <div className="nav-mobile-actions">
-          <button
-            type="button"
-            className="nav-enquiry-btn mobile-cart-btn"
-            onClick={() => setIsCartOpen(true)}
-            aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
+          <a
+            href="#colours"
+            className="nav-mobile-search-btn"
+            aria-label="Search and Explore Colours"
           >
-            <ShoppingBag size={14} />
-            {cartItems.length > 0 && <span className="nav-enquiry-count">{cartItems.length}</span>}
-          </button>
+            <Search size={20} />
+          </a>
           <button
             type="button"
             className="nav-hamburger"
@@ -1177,6 +1179,22 @@ export default function Home() {
             01 — HERO
             ========================================================================= */}
         <section className="hero scroll-chapter" id="top" data-scroll-section data-section-label="Home" aria-label="Featured colour collection">
+          {/* Top Right Decorative Flatlay & Artistic Script (Mockup match) */}
+          <div className="hero-top-accent-decor" aria-hidden="true">
+            <img
+              src="/storage/hero_paint_accent.png"
+              alt=""
+              className="hero-accent-img"
+              width={220}
+              height={220}
+            />
+            <span className="hero-accent-script">
+              Colours<br />
+              <span>for a better</span><br />
+              <em>tomorrow</em>
+            </span>
+          </div>
+
           <div className="hero-inner relative">
             <div className="hero-copy">
               <div className="slide-fade" key={`copy-${campaign}`}>
@@ -1185,56 +1203,59 @@ export default function Home() {
                   <span className="hero-brand-title">JAYMURTI TRADERS</span>
                   <span style={{ fontSize: "0.85rem", opacity: 0.8, marginLeft: "6px", fontFamily: "var(--sans)" }}>जयमूर्ति ट्रेडर्स</span>
                 </div>
-                <div className="eyebrow">{activeCampaign.eyebrow}</div>
+
+                {/* Eyebrow badge matching mockup */}
+                <div className="hero-eyebrow-pill">
+                  <span className="hero-eyebrow-dash">—</span> PAINT SYSTEMS &amp; EXPERT ADVICE
+                </div>
+
                 <h1 className="hero-headline">{activeCampaign.title}</h1>
                 <p className="hero-description">{activeCampaign.text}</p>
+
+                {/* Hero Actions (Exploration & Navigation) */}
                 <div className="hero-actions">
                   <MotionMagnetic strength={10}>
                     <a href="#colours" className="button-primary hero-btn-main">
-                      Explore Colours <ArrowRight size={15} />
+                      <Palette size={18} className="hero-btn-icon shrink-0" />
+                      <span>EXPLORE COLOURS</span>
+                      <ArrowRight size={16} className="hero-btn-icon shrink-0" />
                     </a>
                   </MotionMagnetic>
+
                   <div className="hero-secondary-actions">
                     <MotionMagnetic strength={8}>
                       <a href="#products" className="button-ghost hero-btn-sub">
-                        Explore Products
+                        <LayoutGrid size={15} className="hero-btn-icon shrink-0" />
+                        <span>EXPLORE PRODUCTS</span>
                       </a>
                     </MotionMagnetic>
                     <MotionMagnetic strength={8}>
                       <a href="#finder" className="button-ghost hero-btn-sub">
-                        Visit Showroom
+                        <MapPin size={15} className="hero-btn-icon shrink-0" />
+                        <span>VISIT SHOWROOM</span>
                       </a>
                     </MotionMagnetic>
                   </div>
                 </div>
-                {/* Mobile-Only Hero Trust Chips */}
-                <div className="hero-mobile-trust-chips">
-                  <span><ShieldCheck size={13} style={{ color: "var(--saffron, #e8a338)" }} /> 100% Genuine Paint</span>
-                  <span><Sparkles size={13} style={{ color: "#2dd4bf" }} /> Computerized Tinting</span>
-                  <span><MapPin size={13} style={{ color: "var(--coral, #e05a2b)" }} /> Shukul Bazar</span>
-                </div>
               </div>
+
               <div className="hero-notes">
                 <span>{activeCampaign.note}</span>
                 <span>Scroll to explore ↓</span>
               </div>
             </div>
+
+            {/* Hero Showroom Carousel Card */}
             <div 
               className="hero-visual relative group" 
               aria-label="Hero Showroom Gallery"
               onMouseEnter={() => setHeroPaused(true)}
               onMouseLeave={() => setHeroPaused(false)}
             >
-              {/* Top-Left Floating Live Status Pill */}
+              {/* Top-Left Floating Live Status Pill (Mockup: SHOWROOM • BASKHARI) */}
               <div className="hero-floating-badge hero-floating-badge--top-left">
                 <span className="hero-live-dot" />
-                <span>Showroom · Baskhari</span>
-              </div>
-
-              {/* Top-Right Floating Authorized Dealer Badge */}
-              <div className="hero-floating-badge hero-floating-badge--top-right">
-                <ShieldCheck size={13} style={{ color: "var(--saffron)" }} />
-                <span>{activeCampaign.featureBadge || "Authorized Birla Opus Partner"}</span>
+                <span>SHOWROOM • BASKHARI</span>
               </div>
 
               {campaigns.map((camp, idx) => (
@@ -1266,37 +1287,11 @@ export default function Home() {
                 </div>
               ))}
 
-              {/* Bottom-Left Floating Editorial Insight Card */}
-              <div className="hero-floating-caption-card" key={`hero-caption-${campaign}`}>
-                <span className="hero-caption-tag">{activeCampaign.tag}</span>
-                <h4 className="hero-caption-title">{activeCampaign.caption}</h4>
-              </div>
-
               {/* Side Navigation Arrows */}
               <button
                 type="button"
                 onClick={() => setCampaign((prev) => (prev - 1 + campaigns.length) % campaigns.length)}
                 className="hero-nav-arrow hero-nav-arrow--prev"
-                style={{
-                  position: "absolute",
-                  left: "16px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  zIndex: 20,
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "50%",
-                  background: "rgba(12, 41, 47, 0.82)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255, 255, 255, 0.22)",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease-out",
-                  boxShadow: "0 6px 18px rgba(0, 0, 0, 0.35)",
-                }}
                 aria-label="Previous Slide"
               >
                 <ArrowLeft size={16} />
@@ -1306,26 +1301,6 @@ export default function Home() {
                 type="button"
                 onClick={() => setCampaign((prev) => (prev + 1) % campaigns.length)}
                 className="hero-nav-arrow hero-nav-arrow--next"
-                style={{
-                  position: "absolute",
-                  right: "16px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  zIndex: 20,
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "50%",
-                  background: "rgba(12, 41, 47, 0.82)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255, 255, 255, 0.22)",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease-out",
-                  boxShadow: "0 6px 18px rgba(0, 0, 0, 0.35)",
-                }}
                 aria-label="Next Slide"
               >
                 <ArrowRight size={16} />
@@ -1336,8 +1311,6 @@ export default function Home() {
                 <span className="hero-carousel-counter">
                   0{campaign + 1} / 0{campaigns.length}
                 </span>
-
-                <div className="hero-carousel-divider" />
 
                 <div className="hero-carousel-dots">
                   {campaigns.map((_, i) => (
@@ -1351,6 +1324,41 @@ export default function Home() {
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Mobile-Only Trust Bar & Showroom Banner below Carousel Card */}
+          <div className="hero-mobile-trust-container">
+            <div className="hero-mobile-trust-chips-grid">
+              <div className="hero-trust-chip">
+                <ShieldCheck size={22} className="hero-trust-icon hero-trust-icon--gold" />
+                <div className="hero-trust-text">
+                  <span className="hero-trust-bold">100%</span>
+                  <span>Genuine Paint</span>
+                </div>
+              </div>
+              <div className="hero-trust-divider" />
+              <div className="hero-trust-chip">
+                <Sparkles size={22} className="hero-trust-icon hero-trust-icon--gold" />
+                <div className="hero-trust-text">
+                  <span>Computerized</span>
+                  <span className="hero-trust-bold">Tinting</span>
+                </div>
+              </div>
+              <div className="hero-trust-divider" />
+              <div className="hero-trust-chip">
+                <MapPin size={22} className="hero-trust-icon hero-trust-icon--coral" />
+                <div className="hero-trust-text">
+                  <span>Shukul Bazar</span>
+                  <span className="hero-trust-bold">Baskhari</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="hero-authorised-banner">
+              <span className="hero-auth-line" />
+              <span className="hero-auth-title">AUTHORISED BIRLA OPUS SHOWROOM</span>
+              <span className="hero-auth-line" />
             </div>
           </div>
         </section>
