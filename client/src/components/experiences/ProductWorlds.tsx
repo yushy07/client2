@@ -6,7 +6,7 @@ import {
 } from "@shared/productWorldsData";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Sparkles, ShoppingBag, ArrowUpRight, CheckCircle2, Trees, Home } from "lucide-react";
-import { Prism, ShinyText } from "@/components/reactbits";
+import { ShinyText } from "@/components/reactbits";
 
 interface ProductWorldsProps {
   onEnquire?: (title: string, details: string) => void;
@@ -267,12 +267,6 @@ export const ProductWorlds: React.FC<ProductWorldsProps> = ({ onEnquire, onExplo
                   height={480}
                   className="w-full h-full object-cover"
                 />
-                
-                {/* React Bits WebGL Prism Iridescence Accent for Polyurethane Sheen */}
-                <div className="absolute top-4 right-4 w-28 h-28 rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/40 backdrop-blur-md pointer-events-none">
-                  <Prism glow={1.4} noise={0.2} hueShift={0.2} colorFrequency={1.2} />
-                  <span className="absolute bottom-1.5 inset-x-0 text-center text-[9px] font-mono text-white/80">Crystal Gloss</span>
-                </div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5 sm:p-8">
                   <div>
