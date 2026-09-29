@@ -2131,7 +2131,7 @@ export default function Home() {
             ========================================================================= */}
         <section className="catalogue visual-catalogue-refinement reveal scroll-chapter" id="products" data-scroll-section data-section-label="Products" data-reveal>
           {/* Product Universe Intro */}
-          <div style={{ marginBottom: "24px" }}>
+          <div className="product-universe-section" style={{ marginBottom: "24px" }}>
             <span className="eyebrow" style={{ color: "var(--color-highlight)", marginBottom: "10px", display: "inline-block" }}>Explore Formulation Universes</span>
             <div className="product-universe-strip" role="tablist" aria-label="Product universe categories">
               {productUniverses.map((uni) => (

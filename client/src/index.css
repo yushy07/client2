@@ -10405,24 +10405,9 @@ a {
     font-size: 10.5px;
   }
 
+  .product-universe-section,
   .product-universe-strip {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-    padding: 8px;
-  }
-
-  .product-universe-item {
-    min-height: 48px;
-    padding: 8px 6px;
-  }
-
-  .product-universe-title {
-    font-size: 13px;
-  }
-
-  .product-universe-count {
-    font-size: 9.5px;
+    display: none !important;
   }
 
   .catalogue-tools {
