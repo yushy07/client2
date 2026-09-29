@@ -6641,13 +6641,13 @@ a {
   }
 
   .product-stories-viewport {
-    --story-card-width: clamp(240px, 72vw, 290px);
-    --story-card-gap: 16px;
-    height: clamp(480px, 125vw, 560px);
+    --story-card-width: clamp(230px, 70vw, 280px);
+    --story-card-gap: 14px;
+    --story-step-width: calc(var(--story-card-width) + var(--story-card-gap));
   }
 
   .product-story-card {
-    margin-left: var(--shell-gutter);
+    margin-left: 0;
   }
 
   .product-stories-footer-note {
