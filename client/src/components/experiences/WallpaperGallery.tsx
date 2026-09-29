@@ -34,9 +34,9 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
   return (
     <section id="wallpaper-gallery" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Masthead */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 sm:mb-12 gap-8">
-          <div className="max-w-2xl">
+        {/* Masthead & Panoramic 3D Wallpaper Spiral Showcase */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 sm:mb-12 gap-8 lg:gap-10">
+          <div className="w-full lg:max-w-md xl:max-w-lg shrink-0">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface text-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-border-teal">
               <Palette className="w-3.5 h-3.5" />
               <ShinyText text="Visual Wallpaper Discovery · 13 Curated Design Families" color="#d97706" shineColor="#fef08a" speed={2.5} />
@@ -49,8 +49,8 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
             </p>
           </div>
 
-          {/* Responsive 3D Helical Spiral Showcase */}
-          <div className="flex flex-col w-full max-w-[340px] sm:max-w-[360px] h-[240px] sm:h-[280px] mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-border-teal bg-dark-surface/60 shadow-2xl relative group shrink-0">
+          {/* Panoramic Wide 3D Helical Ribbon Showcase */}
+          <div className="w-full flex-1 min-w-0 h-[220px] sm:h-[240px] lg:h-[250px] rounded-2xl sm:rounded-3xl overflow-hidden border border-border-teal bg-dark-surface/60 shadow-2xl relative group">
             <InfiniteSpiral
               items={WALLPAPER_GALLERY_ITEMS.map((wp) => ({
                 src: wp.url,
@@ -58,16 +58,16 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
                 label: wp.title,
                 id: wp.id,
               }))}
-              radius={110}
-              cardWidth={120}
-              cardHeight={95}
+              radius={260}
+              cardWidth={130}
+              cardHeight={92}
               cardRadius={12}
-              verticalSpacing={22}
-              cardsPerTurn={6}
-              speed={0.14}
+              verticalSpacing={14}
+              cardsPerTurn={8}
+              speed={0.12}
               edgeBlur={0}
               edgeFade={0.12}
-              centerScale={1.12}
+              centerScale={1.14}
               pauseOnHover={true}
               onItemClick={(item) => {
                 const found = WALLPAPER_GALLERY_ITEMS.find((w) => w.id === item.id || w.url === item.src);
