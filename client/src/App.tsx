@@ -22,7 +22,18 @@ const AboutPage = lazyNamed(() => import("./pages/AboutPage"), "AboutPage");
 const ContactPage = lazyNamed(() => import("./pages/ContactPage"), "ContactPage");
 
 function RouteFallback() {
-  return <main aria-busy="true" aria-label="Loading page" style={{ minHeight: "100vh" }} />;
+  return (
+    <main
+      aria-busy="true"
+      aria-label="Loading page"
+      className="min-h-screen flex items-center justify-center bg-[#071311] text-white"
+    >
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-10 h-10 rounded-full border-2 border-[#D4AF37]/30 border-t-[#D4AF37] animate-spin" />
+        <span className="text-xs uppercase tracking-widest text-[#D4AF37]/80 font-sans font-medium">Jaymurti Traders</span>
+      </div>
+    </main>
+  );
 }
 
 function Router() {

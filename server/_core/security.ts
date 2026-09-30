@@ -27,5 +27,17 @@ export const securityHeaders: RequestHandler = (_req, res, next) => {
 
 export const genericErrorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   console.error("[Server] Request failed", error);
-  if (!res.headersSent) res.status(500).json({ error: { message: "Internal server error" } });
+  if (!res.headersSent) {
+    const status = typeof error === "object" && error !== null && ("status" in error || "statusCode" in error)
+      ? Number((error as any).status || (error as any).statusCode || 500)
+      : 500;
+    const validStatus = status >= 400 && status < 600 ? status : 500;
+    const rawMessage = typeof error === "object" && error !== null && "message" in error && typeof (error as any).message === "string"
+      ? (error as any).message
+      : typeof error === "string"
+      ? error
+      : "Internal server error";
+    const message = validStatus >= 500 ? "Internal server error" : rawMessage;
+    res.status(validStatus).json({ error: { message } });
+  }
 };
