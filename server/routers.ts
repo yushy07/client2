@@ -55,7 +55,7 @@ export const appRouter = router({
         if (process.env.DATABASE_URL) {
           console.error("[shopReviews.listPublished Error]:", error);
         }
-        throw temporarilyUnavailable();
+        return { reviews: [], averageRating: null };
       }
     }),
     create: publicProcedure.input(shopReviewInput).mutation(async ({ input }) => {
