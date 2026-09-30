@@ -6751,73 +6751,104 @@ a {
 }
 
 .visual-catalogue-refinement .products-grid {
-  gap: 20px;
+  gap: 14px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
 .visual-catalogue-refinement .product-card {
   background: #ffffff;
   border-color: var(--color-border);
-  min-height: 470px;
+  min-height: auto;
 }
 
 .visual-catalogue-refinement .product-card:hover {
   border-color: #c89488;
-  box-shadow: 0 16px 30px rgba(83, 49, 43, .11);
+  box-shadow: 0 12px 24px rgba(83, 49, 43, .10);
 }
 
 .visual-catalogue-refinement .product-image-stage {
   background: var(--color-bg-soft);
-  min-height: 265px;
+  min-height: 155px;
+  padding: 30px 14px 8px;
+}
+
+.visual-catalogue-refinement .product-can.with-image {
+  height: 120px;
+  width: min(100%, 140px);
 }
 
 .visual-catalogue-refinement .product-utility {
   background: var(--color-surface);
   border-color: var(--color-border);
+  min-height: 36px;
+}
+
+.visual-catalogue-refinement .product-utility button {
+  font-size: 11px;
+  padding: 0 6px;
 }
 
 .visual-catalogue-refinement .product-card-copy {
   background: #ffffff;
-  padding: 20px 18px 18px;
+  padding: 12px 14px 14px;
 }
 
-.visual-catalogue-refinement .product-card h3 { color: #2c2523; }
+.visual-catalogue-refinement .product-card h3 {
+  color: #2c2523;
+  font-size: 14px;
+  margin: 3px 0 4px;
+}
+
+.visual-catalogue-refinement .product-card p {
+  font-size: 11.5px;
+  line-height: 1.38;
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .visual-catalogue-refinement .product-card-action,
 .visual-catalogue-refinement .product-utility button svg { color: var(--color-brand-primary); }
 
 @media (max-width: 1100px) and (min-width: 769px) {
   .visual-catalogue-refinement .products-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
   }
 }
 
 @media (max-width: 768px) and (min-width: 521px) {
   .visual-catalogue-refinement .products-grid {
-    gap: 16px;
+    gap: 12px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 520px) {
   .visual-catalogue-refinement .products-grid {
-    gap: 18px;
-    grid-template-columns: 1fr;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .visual-catalogue-refinement .product-card {
     min-height: auto;
   }
   .visual-catalogue-refinement .product-image-stage {
-    min-height: 230px;
-    padding: 36px 16px 14px;
+    min-height: 140px;
+    padding: 26px 10px 8px;
+  }
+  .visual-catalogue-refinement .product-can.with-image {
+    height: 105px;
+    width: min(100%, 120px);
   }
   .visual-catalogue-refinement .product-card-copy {
-    padding: 16px 16px 18px;
+    padding: 10px 10px 12px;
   }
   .visual-catalogue-refinement .product-utility button {
-    font-size: 11.5px;
-    padding: 0 10px;
-    white-space: nowrap;
+    font-size: 10.5px;
+    padding: 0 4px;
   }
 }
 
@@ -8708,33 +8739,43 @@ a {
 }
 
 .shade-grid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 20px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  gap: 14px;
+  padding: 8px 4px 16px;
+  margin-top: 14px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 163, 56, 0.45) rgba(255, 255, 255, 0.05);
 }
 
-@media (max-width: 1200px) {
-  .shade-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+.shade-grid::-webkit-scrollbar {
+  height: 6px;
 }
 
-@media (max-width: 800px) {
-  .shade-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-  }
+.shade-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
 }
 
-@media (max-width: 520px) {
-  .shade-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
+.shade-grid::-webkit-scrollbar-thumb {
+  background: rgba(232, 163, 56, 0.45);
+  border-radius: 999px;
+}
+
+.shade-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--saffron, #e8a338);
 }
 
 .shade-card {
+  flex: 0 0 190px !important;
+  min-width: 190px !important;
+  max-width: 190px !important;
+  scroll-snap-align: start;
   background: #111e22;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;

@@ -443,6 +443,7 @@ export default function Home() {
 
   const comparisonSlugsRef = useRef<string[]>([]);
   const supplementaryRailRef = useRef<HTMLDivElement>(null);
+  const shadeRailRef = useRef<HTMLDivElement>(null);
   const imageLoadQueue = useRef<Set<string>>(new Set());
   const imageLoadFrame = useRef<number | null>(null);
 
@@ -1575,7 +1576,7 @@ export default function Home() {
             </div>
             <div className="supplementary-grid" ref={supplementaryRailRef} role="list" aria-label="Explore more Birla Opus product categories" tabIndex={0}>
               {supplementaryProductCategories.map((category) => (
-                <a href="https://www.birlaopus.com/paint-products" target="_blank" rel="noopener noreferrer" className="supplementary-card" key={category.name} role="listitem">
+                <a href="/paint-products" className="supplementary-card" key={category.name} role="listitem">
                   <span>{category.name}</span>
                   <p>{category.note}</p>
                   <ArrowRight size={16} />
@@ -1720,7 +1721,7 @@ export default function Home() {
                 >
                   + Add {activeShade.name} to Enquiry <ArrowRight size={15} />
                 </button>
-                <a className="colour-archive-link" href="https://www.birlaopus.com/colour-catalogue" target="_blank" rel="noopener noreferrer">
+                <a className="colour-archive-link" href="/colour-finder">
                   Official Birla Opus shade guide <ArrowRight size={14} />
                 </a>
               </div>
@@ -1956,7 +1957,7 @@ export default function Home() {
                 </button>
               </div>
             ) : (
-              <div className="shade-grid" role="region" aria-label="Birla Opus Shades">
+              <div className="shade-grid" ref={shadeRailRef} role="region" aria-label="Birla Opus Shades" tabIndex={0}>
                 {pagedVerifiedShades.map((shade) => {
                   const isJustAdded = addedShadeCode === shade.code;
                   return (
@@ -2351,7 +2352,7 @@ export default function Home() {
                 Explore curated architectural ideas, dopamine home aesthetics, and Scandinavian minimalism from Birla Opus design studios.
               </p>
             </div>
-            <a className="arrow-link" href="https://www.birlaopus.com/blog" target="_blank" rel="noopener noreferrer">
+            <a className="arrow-link" href="/room-inspiration">
               Open official ideas <ArrowRight size={16} />
             </a>
           </div>

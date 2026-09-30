@@ -353,20 +353,20 @@ export const OwnerAndTeam: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden border border-teal-700/40 aspect-[9/16] sm:aspect-[3/4] bg-black shadow-xl">
                 <img
                   src="/storage/teammember.jpeg"
-                  alt="Jaymurti Traders Showroom Team Member"
-                  className="w-full h-full object-cover object-top"
+                  alt="Ravi Madeshiy - Trade Sales Manager"
+                  className="w-full h-full object-cover object-[center_18%]"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-4 left-4 right-4">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0c1417]/90 text-[var(--saffron,#e8a338)] text-xs font-mono font-bold border border-teal-800/50 mb-1">
-                    <Award className="w-3.5 h-3.5" /> Birla Opus Specialist
+                    <Award className="w-3.5 h-3.5" /> Team Member
                   </span>
                   <h4 className="text-lg font-serif text-white font-medium">
-                    Showroom Consultation Desk
+                    Ravi Madeshiy
                   </h4>
-                  <span className="text-xs text-slate-300 font-sans block">
-                    Product Specialist & Tinting Expert
+                  <span className="text-xs text-[var(--saffron,#e8a338)] font-mono font-semibold block">
+                    Trade Sales Manager
                   </span>
                 </div>
               </div>
@@ -379,7 +379,7 @@ export const OwnerAndTeam: React.FC = () => {
                   style={{ fontFamily: "var(--serif)" }}
                   className="text-xl sm:text-2xl text-white font-medium mb-3"
                 >
-                  Dedicated Paint & Finish Advisory in Baskhari
+                  Ravi Madeshiy · Trade Sales Manager
                 </h4>
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans mb-6">
                   Walk in to our showroom to consult on authentic Birla Opus formulations. Our team member is physically present at the desk to walk you through texture cards, examine your room photos, and calibrate exact tints.
