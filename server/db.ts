@@ -181,7 +181,9 @@ export async function listPublishedShopReviews(): Promise<PublicShopReview[]> {
 
     return rawDbReviews.map(normalizeReview);
   } catch (error) {
-    console.error("[Database] Failed to query published reviews:", error);
+    if (process.env.DATABASE_URL) {
+      console.error("[Database] Failed to query published reviews:", error);
+    }
     if (error instanceof DatabaseUnavailableError) throw error;
     throw new DatabaseUnavailableError("Unable to load reviews", { cause: error });
   }

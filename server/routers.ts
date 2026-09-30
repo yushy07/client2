@@ -52,7 +52,9 @@ export const appRouter = router({
         const averageRating = reviews.length === 0 ? null : reviews.reduce((total, review) => total + review.rating, 0) / reviews.length;
         return { reviews, averageRating };
       } catch (error) {
-        console.error("[shopReviews.listPublished Error]:", error);
+        if (process.env.DATABASE_URL) {
+          console.error("[shopReviews.listPublished Error]:", error);
+        }
         throw temporarilyUnavailable();
       }
     }),
