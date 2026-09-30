@@ -4,6 +4,7 @@ const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "base-uri 'self'",
   "frame-ancestors 'self'",
+  "frame-src 'self' https://www.google.com https://maps.google.com https://*.google.com",
   "form-action 'self' https://wa.me https://api.whatsapp.com",
   "object-src 'none'",
   "script-src 'self' 'unsafe-inline'",

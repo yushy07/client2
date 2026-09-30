@@ -454,7 +454,10 @@ export default function Home() {
   });
 
   const reviewUtils = trpc.useUtils();
-  const publishedReviewsQuery = trpc.shopReviews.listPublished.useQuery();
+  const publishedReviewsQuery = trpc.shopReviews.listPublished.useQuery(undefined, {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
   const reviewSubmission = trpc.shopReviews.create.useMutation({
     onSuccess: (result) => {
       setReviewForm({ displayName: "", rating: 0, reviewText: "" });
