@@ -36,6 +36,10 @@ export interface JellyRadioProps {
   defaultValue?: string;
   onChange?: (value: string, index: number) => void;
   chipColor?: string;
+  /** Alias used by studio controls for the inactive chip surface. */
+  skinColor?: string;
+  /** Applied to each radio button for native form compatibility. */
+  name?: string;
   activeColor?: string;
   textColor?: string;
   activeTextColor?: string;
@@ -59,7 +63,9 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
   value,
   defaultValue,
   onChange,
-  chipColor = 'rgba(255, 255, 255, 0.08)',
+  chipColor,
+  skinColor,
+  name,
   activeColor = '#d97706',
   textColor = '#e4e4e7',
   activeTextColor = '#ffffff',
@@ -90,6 +96,7 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
   const cfg = useRef<any>({});
   cfg.current = { swell, barge, shrink, jelly, bounce, stagger, stiffness, reduce, count: list.length };
   const [h, font, px] = SIZES[size] ?? SIZES.md;
+  const resolvedChipColor = chipColor ?? skinColor ?? 'rgba(255, 255, 255, 0.08)';
   const itemsKey = list.map(it => it.value).join('|');
 
   const mvFor = (i: number) => {
@@ -143,7 +150,9 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
   };
 
   useLayoutEffect(() => {
+    let active = true;
     const settle = () => {
+      if (!active) return;
       measure();
       apply(applied.current, true);
     };
@@ -151,7 +160,10 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
     const observer = new ResizeObserver(settle);
     if (groupRef.current) observer.observe(groupRef.current);
     document.fonts?.ready.then(settle);
-    return () => observer.disconnect();
+    return () => {
+      active = false;
+      observer.disconnect();
+    };
   }, [itemsKey, size, gap, swell, barge, shrink]);
 
   useEffect(() => {
@@ -210,7 +222,7 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
       className={`jelly-radio ${className}`}
       style={
         {
-          '--jr-chip': chipColor,
+          '--jr-chip': resolvedChipColor,
           '--jr-active': activeColor,
           '--jr-text': textColor,
           '--jr-active-text': activeTextColor,
@@ -230,14 +242,15 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
             chipRefs.current[i] = el;
           }}
           type="button"
+          name={name}
           role="radio"
           aria-checked={i === at}
           tabIndex={i === at ? 0 : -1}
           disabled={disabled || !!it.disabled}
           className="jelly-radio__chip"
           data-on={i === at ? 'true' : 'false'}
-          onClick={e => commit(i, e.detail === 0)}
-          onKeyDown={e => onKeyDown(e, i)}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => commit(i, e.detail === 0)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => onKeyDown(e, i)}
         >
           <span className="jelly-radio__skin">
             {it.icon ? <span className="jelly-radio__icon">{it.icon}</span> : null}

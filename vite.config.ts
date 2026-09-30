@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import { resolveContainedPath, safeDecodeUriComponent } from "./server/_core/safePath.ts";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -199,10 +200,18 @@ function vitePluginLocalStorageResolver(): Plugin {
         const url = req.url?.split("?")[0] || "";
 
         if (url.startsWith("/storage/")) {
-          const relPath = decodeURIComponent(url.replace(/^\/storage\//, ""));
-          const directPublic = path.resolve(PROJECT_ROOT, "client", "public", "storage", relPath);
-          const directRoot = path.resolve(PROJECT_ROOT, "storage", relPath);
-          const target = fs.existsSync(directPublic) ? directPublic : fs.existsSync(directRoot) ? directRoot : null;
+          const relPath = safeDecodeUriComponent(url.replace(/^\/storage\//, ""));
+          if (relPath === null) {
+            res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+            return res.end("Invalid storage path");
+          }
+          const publicStorage = path.resolve(PROJECT_ROOT, "client", "public", "storage");
+          const rootStorage = path.resolve(PROJECT_ROOT, "storage");
+          const directPublic = resolveContainedPath(publicStorage, relPath);
+          const directRoot = resolveContainedPath(rootStorage, relPath);
+          const target = directPublic && fs.existsSync(directPublic)
+            ? directPublic
+            : directRoot && fs.existsSync(directRoot) ? directRoot : null;
           if (target && fs.existsSync(target) && fs.statSync(target).isFile()) {
             const ext = path.extname(target).toLowerCase();
             const mimeTypes: Record<string, string> = {
@@ -223,7 +232,12 @@ function vitePluginLocalStorageResolver(): Plugin {
         }
 
         if (url.startsWith("/manus-storage/")) {
-          const rawKey = decodeURIComponent(url.replace(/^\/manus-storage\//, ""));
+          const decodedKey = safeDecodeUriComponent(url.replace(/^\/manus-storage\//, ""));
+          if (decodedKey === null) {
+            res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+            return res.end("Invalid storage key");
+          }
+          const rawKey = decodedKey.replace(/\\/g, "/");
           const rawFileName = path.basename(rawKey);
           const cleanFileName = rawFileName.replace(/_[a-f0-9]{8}(\.[a-zA-Z0-9]+)$/i, "$1");
           const baseName = cleanFileName.replace(/\.[^/.]+$/, "");

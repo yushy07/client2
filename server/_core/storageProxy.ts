@@ -4,6 +4,7 @@ import path from "path";
 import express from "express";
 import { ENV } from "./env";
 import { storageProxyLimiter } from "./rateLimiter";
+import { safeDecodeUriComponent } from "./safePath";
 
 type IndexedFile = { filePath: string; fileName: string; alpha: string; tokens: string[] };
 
@@ -85,7 +86,12 @@ export function registerStorageProxy(app: Express) {
       return;
     }
 
-    const key = decodeURIComponent(rawParam).replace(/\\/g, "/");
+    const decoded = safeDecodeUriComponent(rawParam);
+    if (decoded === null || decoded.includes("\0")) {
+      res.status(400).send("Invalid storage key");
+      return;
+    }
+    const key = decoded.replace(/\\/g, "/");
     const rawFileName = path.basename(key);
     const cleanFileName = rawFileName.replace(/_[a-f0-9]{8}(\.[a-zA-Z0-9]+)$/i, "$1");
     const baseName = cleanFileName.replace(/\.[^/.]+$/, "");

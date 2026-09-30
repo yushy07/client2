@@ -1,18 +1,29 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
+import { lazy, Suspense, type ComponentType } from "react";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import { CategoryPage } from "./pages/CategoryPage";
-import { ColourFinderPage } from "./pages/ColourFinderPage";
-import { RoomInspirationPage } from "./pages/RoomInspirationPage";
-import { SurfaceStudioPage } from "./pages/SurfaceStudioPage";
-import { AboutPage } from "./pages/AboutPage";
-import { ContactPage } from "./pages/ContactPage";
+
+const Home = lazy(() => import("./pages/Home"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const AdminReviewsPage = lazy(() => import("./pages/AdminReviewsPage"));
+const lazyNamed = <T extends Record<K, ComponentType<any>>, K extends keyof T>(
+  loader: () => Promise<T>,
+  name: K,
+) => lazy(() => loader().then((module) => ({ default: module[name] })));
+const CategoryPage = lazyNamed(() => import("./pages/CategoryPage"), "CategoryPage");
+const ColourFinderPage = lazyNamed(() => import("./pages/ColourFinderPage"), "ColourFinderPage");
+const RoomInspirationPage = lazyNamed(() => import("./pages/RoomInspirationPage"), "RoomInspirationPage");
+const SurfaceStudioPage = lazyNamed(() => import("./pages/SurfaceStudioPage"), "SurfaceStudioPage");
+const AboutPage = lazyNamed(() => import("./pages/AboutPage"), "AboutPage");
+const ContactPage = lazyNamed(() => import("./pages/ContactPage"), "ContactPage");
+
+function RouteFallback() {
+  return <main aria-busy="true" aria-label="Loading page" style={{ minHeight: "100vh" }} />;
+}
 
 function Router() {
   return (
@@ -61,6 +72,7 @@ function Router() {
       {/* Legal & 404 */}
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/admin/reviews" component={AdminReviewsPage} />
       <Route path="/404" component={NotFound} />
 
       {/* Final Fallback Route */}
@@ -75,7 +87,9 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <Suspense fallback={<RouteFallback />}>
+            <Router />
+          </Suspense>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

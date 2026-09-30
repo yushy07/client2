@@ -92,6 +92,8 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeIdRef = useRef<string | null>(null);
   const [reduced, setReduced] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(() => typeof document === 'undefined' || !document.hidden);
 
   useEffect(() => {
     setReduced(prefersReducedMotion());
@@ -99,6 +101,19 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { rootMargin: '100px' });
+    observer.observe(container);
+    const onVisibility = () => setPageVisible(!document.hidden);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, []);
 
   const columnItems = useMemo(() => {
@@ -151,6 +166,10 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   );
 
   useEffect(() => {
+    if (reduced || !inView || !pageVisible) {
+      applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
+      return;
+    }
     const animate = (ts: number) => {
       if (lastTsRef.current === null) lastTsRef.current = ts;
       const dt = Math.min(0.05, Math.max(0, ts - lastTsRef.current) / 1000);
@@ -164,8 +183,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       pointerDampedRef.current.y += (targetY - pointerDampedRef.current.y) * damp;
       applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
 
-      if (!reduced) {
-        for (let c = 0; c < trackRefs.current.length; c++) {
+      for (let c = 0; c < trackRefs.current.length; c++) {
           const meta = columnMeta[c];
           if (!meta) continue;
           const paused = wallHoveredRef.current && pauseOnHover;
@@ -180,13 +198,6 @@ export const DriftWall: React.FC<DriftWallProps> = ({
 
           const el = trackRefs.current[c];
           if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
-        }
-      } else {
-        for (let c = 0; c < trackRefs.current.length; c++) {
-          const el = trackRefs.current[c];
-          const meta = columnMeta[c];
-          if (el && meta) el.style.transform = `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
-        }
       }
 
       rafRef.current = requestAnimationFrame(animate);
@@ -198,7 +209,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       rafRef.current = null;
       lastTsRef.current = null;
     };
-  }, [baseVelocities, columnMeta, pauseOnHover, parallax, reduced, applyPlaneTransform]);
+  }, [baseVelocities, columnMeta, pauseOnHover, parallax, reduced, inView, pageVisible, applyPlaneTransform]);
 
   const activate = useCallback((id: string, index: number) => {
     activeIdRef.current = id;
@@ -306,7 +317,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
           const copies = Array.from({ length: meta.copies });
           return (
             <div className="drift-wall__col" key={`col-${c}`}>
-              <div className="drift-wall__track" ref={el => (trackRefs.current[c] = el)}>
+              <div className="drift-wall__track" ref={el => { trackRefs.current[c] = el; }}>
                 {copies.map((_, copyIndex) =>
                   col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c))
                 )}

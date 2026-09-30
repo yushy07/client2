@@ -1,9 +1,15 @@
 import { COOKIE_NAME } from "../shared/const";
 import { z } from "zod";
-import { createServiceEnquiry, createShopReview, listPublishedShopReviews } from "./db";
+import { TRPCError } from "@trpc/server";
+import { createServiceEnquiry, createShopReview, listPublishedShopReviews, listShopReviewsForModeration, moderateShopReview } from "./db";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { adminProcedure, publicProcedure, router } from "./_core/trpc";
+
+const temporarilyUnavailable = () => new TRPCError({
+  code: "INTERNAL_SERVER_ERROR",
+  message: "This service is temporarily unavailable. Please try again.",
+});
 
 export const serviceEnquiryInput = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(120),
@@ -31,8 +37,12 @@ export const appRouter = router({
   }),
   enquiries: router({
     create: publicProcedure.input(serviceEnquiryInput).mutation(async ({ input }) => {
-      const saved = await createServiceEnquiry(input);
-      return { success: true, enquiryId: saved.id } as const;
+      try {
+        const saved = await createServiceEnquiry(input);
+        return { success: true, enquiryId: saved.id } as const;
+      } catch {
+        throw temporarilyUnavailable();
+      }
     }),
   }),
   shopReviews: router({
@@ -43,13 +53,38 @@ export const appRouter = router({
         return { reviews, averageRating };
       } catch (error) {
         console.error("[shopReviews.listPublished Error]:", error);
-        return { reviews: [], averageRating: null };
+        throw temporarilyUnavailable();
       }
     }),
     create: publicProcedure.input(shopReviewInput).mutation(async ({ input }) => {
-      const saved = await createShopReview(input);
-      return { success: true, reviewId: saved.id, published: saved.published } as const;
+      try {
+        const saved = await createShopReview(input);
+        return { success: true, reviewId: saved.id, published: false } as const;
+      } catch {
+        throw temporarilyUnavailable();
+      }
     }),
+    listForModeration: adminProcedure
+      .input(z.object({ page: z.number().int().min(1).max(10_000).default(1), pageSize: z.number().int().min(1).max(50).default(20) }))
+      .query(async ({ input }) => {
+        try {
+          return await listShopReviewsForModeration(input.page, input.pageSize);
+        } catch {
+          throw temporarilyUnavailable();
+        }
+      }),
+    moderate: adminProcedure
+      .input(z.object({ reviewId: z.number().int().positive(), action: z.enum(["approve", "hide"]) }))
+      .mutation(async ({ input }) => {
+        try {
+          const result = await moderateShopReview(input.reviewId, input.action);
+          if (!result) throw new TRPCError({ code: "NOT_FOUND", message: "Review not found." });
+          return { success: true, ...result } as const;
+        } catch (error) {
+          if (error instanceof TRPCError) throw error;
+          throw temporarilyUnavailable();
+        }
+      }),
   }),
 });
 

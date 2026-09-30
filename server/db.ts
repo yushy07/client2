@@ -1,4 +1,4 @@
-import { desc, eq, or } from "drizzle-orm";
+import { desc, eq, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2";
 import {
@@ -45,7 +45,7 @@ export async function getDb() {
       try {
         _pool?.end();
       } catch {
-        // Ignore cleanup errors while falling back to memory storage.
+        // Ignore cleanup errors; callers will receive an unavailable error.
       }
       _pool = null;
       _db = null;
@@ -91,20 +91,31 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
-const memoryReviews: PublicShopReview[] = [];
-let nextMemoryReviewId = 1000;
+export class DatabaseUnavailableError extends Error {
+  constructor(message = "Database is temporarily unavailable", options?: ErrorOptions) {
+    super(message, options);
+    this.name = "DatabaseUnavailableError";
+  }
+}
+
+async function requireDb() {
+  const db = await getDb();
+  if (!db) throw new DatabaseUnavailableError();
+  return db;
+}
 
 export async function createServiceEnquiry(enquiry: InsertServiceEnquiry) {
   try {
-    const db = await getDb();
-    if (db) {
-      const result = await db.insert(serviceEnquiries).values(enquiry);
-      return { id: Number(result[0].insertId) };
-    }
+    const db = await requireDb();
+    const result = await db.insert(serviceEnquiries).values(enquiry);
+    const id = Number(result[0].insertId);
+    if (!Number.isSafeInteger(id) || id < 1) throw new Error("Database did not return an enquiry ID");
+    return { id };
   } catch (error) {
-    console.warn("[Database] Failed to insert enquiry into database:", error);
+    console.error("[Database] Failed to persist enquiry:", error);
+    if (error instanceof DatabaseUnavailableError) throw error;
+    throw new DatabaseUnavailableError("Unable to persist enquiry", { cause: error });
   }
-  return { id: Date.now() };
 }
 
 export type PublicShopReview = {
@@ -114,22 +125,6 @@ export type PublicShopReview = {
   reviewText: string;
   createdAt: Date;
 };
-
-export function isShopReviewPublished(rating: number) {
-  return rating >= 3;
-}
-
-function safeTimestamp(date: Date | string | number | unknown): number {
-  if (date instanceof Date) {
-    const time = date.getTime();
-    return Number.isNaN(time) ? 0 : time;
-  }
-  if (typeof date === "string" || typeof date === "number") {
-    const parsed = new Date(date).getTime();
-    return Number.isNaN(parsed) ? 0 : parsed;
-  }
-  return 0;
-}
 
 function normalizeReview(review: {
   id: number;
@@ -151,42 +146,22 @@ function normalizeReview(review: {
 }
 
 export async function createShopReview(review: Pick<InsertShopReview, "displayName" | "rating" | "reviewText">) {
-  const published = isShopReviewPublished(review.rating);
-  let id = nextMemoryReviewId++;
-
   try {
-    const db = await getDb();
-    if (db) {
-      const result = await db.insert(shopReviews).values({ ...review, status: published ? "published" : "private" });
-      id = Number(result[0].insertId);
-    } else {
-      console.warn("[Database] Database unavailable, persisting review to memory store");
-    }
+    const db = await requireDb();
+    const result = await db.insert(shopReviews).values({ ...review, status: "private" });
+    const id = Number(result[0].insertId);
+    if (!Number.isSafeInteger(id) || id < 1) throw new Error("Database did not return a review ID");
+    return { id, published: false as const };
   } catch (error) {
-    console.warn("[Database] Failed to insert review into database, falling back to memory store:", error);
+    console.error("[Database] Failed to persist review:", error);
+    if (error instanceof DatabaseUnavailableError) throw error;
+    throw new DatabaseUnavailableError("Unable to persist review", { cause: error });
   }
-
-  if (published) {
-    memoryReviews.push({
-      id,
-      displayName: review.displayName,
-      rating: review.rating,
-      reviewText: review.reviewText,
-      createdAt: new Date(),
-    });
-  }
-
-  return { id, published };
 }
 
 export async function listPublishedShopReviews(): Promise<PublicShopReview[]> {
   try {
-    const db = await getDb();
-    if (!db) {
-      return [...memoryReviews]
-        .map(normalizeReview)
-        .sort((a, b) => safeTimestamp(b.createdAt) - safeTimestamp(a.createdAt));
-    }
+    const db = await requireDb();
 
     const rawDbReviews = await withTimeout(
       db
@@ -204,14 +179,40 @@ export async function listPublishedShopReviews(): Promise<PublicShopReview[]> {
       "Published reviews query",
     );
 
-    const dbReviews = rawDbReviews.map(normalizeReview);
-    const dbIds = new Set(dbReviews.map((r) => r.id));
-    const uniqueMemory = memoryReviews.filter((r) => !dbIds.has(r.id)).map(normalizeReview);
-    return [...dbReviews, ...uniqueMemory].sort((a, b) => safeTimestamp(b.createdAt) - safeTimestamp(a.createdAt));
+    return rawDbReviews.map(normalizeReview);
   } catch (error) {
-    console.warn("[Database] Failed to query published reviews from database, using memory fallback:", error);
-    return [...memoryReviews]
-      .map(normalizeReview)
-      .sort((a, b) => safeTimestamp(b.createdAt) - safeTimestamp(a.createdAt));
+    console.error("[Database] Failed to query published reviews:", error);
+    if (error instanceof DatabaseUnavailableError) throw error;
+    throw new DatabaseUnavailableError("Unable to load reviews", { cause: error });
+  }
+}
+
+export async function listShopReviewsForModeration(page: number, pageSize: number) {
+  try {
+    const db = await requireDb();
+    const offset = (page - 1) * pageSize;
+    const [reviews, countRows] = await Promise.all([
+      db.select().from(shopReviews).orderBy(desc(shopReviews.createdAt)).limit(pageSize).offset(offset),
+      db.select({ count: sql<number>`count(*)` }).from(shopReviews),
+    ]);
+    return { reviews, total: Number(countRows[0]?.count ?? 0), page, pageSize };
+  } catch (error) {
+    console.error("[Database] Failed to list reviews for moderation:", error);
+    if (error instanceof DatabaseUnavailableError) throw error;
+    throw new DatabaseUnavailableError("Unable to load reviews for moderation", { cause: error });
+  }
+}
+
+export async function moderateShopReview(id: number, action: "approve" | "hide") {
+  try {
+    const db = await requireDb();
+    const status = action === "approve" ? "published" as const : "private" as const;
+    const result = await db.update(shopReviews).set({ status }).where(eq(shopReviews.id, id));
+    if (Number(result[0].affectedRows) === 0) return null;
+    return { id, status, published: status === "published" };
+  } catch (error) {
+    console.error("[Database] Failed to moderate review:", error);
+    if (error instanceof DatabaseUnavailableError) throw error;
+    throw new DatabaseUnavailableError("Unable to moderate review", { cause: error });
   }
 }

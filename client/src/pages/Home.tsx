@@ -14,9 +14,7 @@ import {
   BadgeCheck,
   Check,
   Compass,
-  Copy,
   ExternalLink,
-  Eye,
   Facebook,
   Heart,
   HelpCircle,
@@ -38,7 +36,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { FormEvent, Fragment, memo, PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, Fragment, lazy, PointerEvent as ReactPointerEvent, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { calculatePaintEstimate, findStoreByPincode, storeDirectory, type SpaceType, type SurfaceType } from "../../../shared/paintTools";
 import { businessProfile } from "../../../shared/businessProfile";
 import { birlaOpusCategories, birlaOpusProductCount, birlaOpusProducts } from "../../../shared/birlaOpusCatalogue";
@@ -56,15 +54,6 @@ import {
   type ColourFamily,
 } from "../../../shared/verifiedBirlaOpusShades";
 import { calculatePaintRequirements, PRESET_HOME_CONFIGS } from "@/lib/paintCalculator";
-import { ColourCapsule } from "@/components/experiences/ColourCapsule";
-import { RoomShadeStudio } from "@/components/experiences/RoomShadeStudio";
-import { RoomLibrary } from "@/components/experiences/RoomLibrary";
-import { WallpaperGallery } from "@/components/experiences/WallpaperGallery";
-import { ExtendedTextures } from "@/components/experiences/ExtendedTextures";
-import { ProductWorlds } from "@/components/experiences/ProductWorlds";
-import { InsideJaymurti } from "@/components/experiences/InsideJaymurti";
-import { StepInside } from "@/components/experiences/StepInside";
-import { OwnerAndTeam } from "@/components/experiences/OwnerAndTeam";
 import {
   BlurText,
   RotatingText,
@@ -87,123 +76,18 @@ import {
   MotionCursorLight,
 } from "@/lib/motion";
 import { motion, AnimatePresence } from "framer-motion";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { ProductCard, type CartItem, type CatalogueProduct } from "@/components/home/ProductCard";
 
-type CatalogueProduct = (typeof birlaOpusProducts)[number];
-
-// Unified Enquiry Cart Item
-interface CartItem {
-  id: string;
-  type: "product" | "shade" | "texture" | "estimate";
-  title: string;
-  meta: string;
-  quantity?: number;
-  colourHex?: string;
-  notes?: string;
-}
-
-type ProductCardProps = {
-  product: CatalogueProduct;
-  index: number;
-  isImageLoaded: boolean;
-  isCompared: boolean;
-  onImageLoad: (slug: string) => void;
-  onCompare: (slug: string) => void;
-  onQuickView: (product: CatalogueProduct) => void;
-  onAddCart: (item: CartItem) => void;
-  onPointerMove: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerLeave: (event: ReactPointerEvent<HTMLElement>) => void;
-};
-
-const ProductCard = memo(function ProductCard({
-  product,
-  index,
-  isImageLoaded,
-  isCompared,
-  onImageLoad,
-  onCompare,
-  onQuickView,
-  onAddCart,
-  onPointerMove,
-  onPointerLeave,
-}: ProductCardProps) {
-  return (
-    <article className="product-card" onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
-      <div className="product-image-stage">
-        <div className="product-topline">
-          <span className="product-topline-family">{product.family} · {product.category}</span>
-          <span className="product-topline-num">{String(index + 1).padStart(2, "0")}</span>
-        </div>
-        <div
-          className={`product-can ${product.imageUrl ? "with-image" : ""} ${isImageLoaded ? "image-ready" : ""}`}
-          style={{ "--can-colour": product.colour, "--can-text": product.text } as React.CSSProperties}
-        >
-          {product.imageUrl ? (
-            <>
-              <span className="product-image-skeleton" aria-hidden="true" />
-              <img
-                src={product.imageUrl}
-                alt={`${product.name} product pack`}
-                width={248}
-                height={226}
-                loading="lazy"
-                decoding="async"
-                onLoad={() => onImageLoad(product.slug)}
-                onError={() => onImageLoad(product.slug)}
-              />
-            </>
-          ) : (
-            <span className="can-label">
-              Birla
-              <br />
-              Opus
-            </span>
-          )}
-        </div>
-      </div>
-      <div className="product-utility" aria-label="Product utilities">
-        <button type="button" onClick={() => onQuickView(product)} aria-label={`Quick view ${product.name}`}>
-          <Eye size={16} aria-hidden="true" />
-          Quick View
-        </button>
-        <button
-          type="button"
-          className={isCompared ? "active" : ""}
-          aria-pressed={isCompared}
-          onClick={() => onCompare(product.slug)}
-        >
-          <Copy size={16} aria-hidden="true" />
-          {isCompared ? "Added" : "Compare"}
-        </button>
-      </div>
-      <div className="product-card-copy">
-        <div className="product-family-tag">{product.family} Series</div>
-        <h3>{product.name}</h3>
-        <p>{product.copy}</p>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "14px", gap: "8px" }}>
-          <button
-            type="button"
-            className="button-primary"
-            style={{ minHeight: "40px", padding: "0 14px", fontSize: "11px", flex: 1, justifyContent: "center" }}
-            onClick={() =>
-              onAddCart({
-                id: `prod-${product.slug}`,
-                type: "product",
-                title: product.name,
-                meta: `${product.category} · ${product.family}`,
-                quantity: 1,
-              })
-            }
-          >
-            + Add to Enquiry
-          </button>
-          <a className="product-card-action" href={product.sourceUrl} target="_blank" rel="noreferrer" style={{ padding: "0 4px", whiteSpace: "nowrap" }}>
-            Details <ArrowRight size={12} />
-          </a>
-        </div>
-      </div>
-    </article>
-  );
-});
+const ColourCapsule = lazy(() => import("@/components/experiences/ColourCapsule").then((m) => ({ default: m.ColourCapsule })));
+const RoomShadeStudio = lazy(() => import("@/components/experiences/RoomShadeStudio").then((m) => ({ default: m.RoomShadeStudio })));
+const RoomLibrary = lazy(() => import("@/components/experiences/RoomLibrary").then((m) => ({ default: m.RoomLibrary })));
+const WallpaperGallery = lazy(() => import("@/components/experiences/WallpaperGallery").then((m) => ({ default: m.WallpaperGallery })));
+const ExtendedTextures = lazy(() => import("@/components/experiences/ExtendedTextures").then((m) => ({ default: m.ExtendedTextures })));
+const ProductWorlds = lazy(() => import("@/components/experiences/ProductWorlds").then((m) => ({ default: m.ProductWorlds })));
+const InsideJaymurti = lazy(() => import("@/components/experiences/InsideJaymurti").then((m) => ({ default: m.InsideJaymurti })));
+const StepInside = lazy(() => import("@/components/experiences/StepInside").then((m) => ({ default: m.StepInside })));
+const OwnerAndTeam = lazy(() => import("@/components/experiences/OwnerAndTeam").then((m) => ({ default: m.OwnerAndTeam })));
 
 const getInitialProductFilter = () => {
   const requestedCategory = new URLSearchParams(window.location.search).get("category");
@@ -577,7 +461,7 @@ export default function Home() {
       setReviewFormMessage(
         result.published
           ? "Thank you. Your review is now visible in the shop reviews."
-          : "Thank you. Your feedback has been submitted successfully."
+          : "Thank you. Your review is awaiting moderation before it appears publicly."
       );
       if (result.published) void reviewUtils.shopReviews.listPublished.invalidate();
     },
@@ -634,20 +518,6 @@ export default function Home() {
   useEffect(() => () => {
     if (imageLoadFrame.current !== null) window.cancelAnimationFrame(imageLoadFrame.current);
   }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (selectedModalShade) {
-          setSelectedModalShade(null);
-        } else if (isCartOpen) {
-          setIsCartOpen(false);
-        }
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedModalShade, isCartOpen]);
 
   useEffect(() => {
     const reveals = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -1406,12 +1276,12 @@ export default function Home() {
         {/* =========================================================================
             SHOWROOM EXPERIENCE: INSIDE JAYMURTI (PHOTOGRAPHIC GALLERY)
             ========================================================================= */}
-        <InsideJaymurti />
+        <Suspense fallback={<div aria-busy="true" style={{ minHeight: 640 }} />}><InsideJaymurti /></Suspense>
 
         {/* =========================================================================
             SHOWROOM EXPERIENCE: STEP INSIDE (CINEMATIC SHOWROOM VIDEO)
             ========================================================================= */}
-        <StepInside />
+        <Suspense fallback={<div aria-busy="true" style={{ minHeight: 560 }} />}><StepInside /></Suspense>
 
         {/* =========================================================================
             02 — WHAT ARE YOU LOOKING FOR? (DISCOVERY INDEX)
@@ -2107,7 +1977,7 @@ export default function Home() {
         {/* =========================================================================
             PART 2 EXPERIENCE 01: THE COLOUR CAPSULE (50 SCANNED PAGES)
             ========================================================================= */}
-        <ColourCapsule
+        <Suspense fallback={<div aria-busy="true" style={{ minHeight: 600 }} />}><ColourCapsule
           onSelectShadeTone={(hex) => {
             const el = document.getElementById("colours");
             el?.scrollIntoView({ behavior: "smooth" });
@@ -2121,12 +1991,12 @@ export default function Home() {
             });
             setIsCartOpen(true);
           }}
-        />
+        /></Suspense>
 
         {/* =========================================================================
             PART 2 EXPERIENCE 02: ROOM SHADE STUDIO (173 VARIANTS ACROSS 8 ROOMS)
             ========================================================================= */}
-        <RoomShadeStudio
+        <Suspense fallback={<div id="room-shade-studio" aria-busy="true" style={{ minHeight: 720 }} />}><RoomShadeStudio
           onEnquire={(title, details) => {
             addToCart({
               id: `room-shade-${Date.now()}`,
@@ -2140,12 +2010,12 @@ export default function Home() {
             const el = document.getElementById("colours");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-        />
+        /></Suspense>
 
         {/* =========================================================================
             STAGE 3: THE ROOM LIBRARY (102 SCANNED ARCHITECTURAL SPACES)
             ========================================================================= */}
-        <RoomLibrary
+        <Suspense fallback={<div id="room-library" aria-busy="true" style={{ minHeight: 680 }} />}><RoomLibrary
           onEnquire={(title, details) => {
             addToCart({
               id: `room-lib-${Date.now()}`,
@@ -2159,7 +2029,7 @@ export default function Home() {
             const el = document.getElementById("products");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-        />
+        /></Suspense>
 
         {/* =========================================================================
             05 — PRODUCT COLLECTION
@@ -2374,15 +2244,16 @@ export default function Home() {
         </section>
 
         {/* Product Quick View Modal */}
-        {quickViewProduct && (
-          <div className="enquiry-drawer-overlay" onClick={() => setQuickViewProduct(null)}>
-            <div className="enquiry-drawer" style={{ maxWidth: "540px" }} onClick={(e) => e.stopPropagation()}>
+        <DialogPrimitive.Root open={Boolean(quickViewProduct)} onOpenChange={(open) => !open && setQuickViewProduct(null)}>
+          {quickViewProduct && <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="enquiry-drawer-overlay" />
+            <DialogPrimitive.Content className="enquiry-drawer" style={{ maxWidth: "540px" }} aria-describedby={undefined}>
               <div className="enquiry-drawer-header">
                 <div>
                   <span style={{ fontFamily: "var(--mono)", fontSize: "10px", textTransform: "uppercase", color: "var(--saffron)", display: "block" }}>
                     {quickViewProduct.category}
                   </span>
-                  <h3>{quickViewProduct.name}</h3>
+                  <DialogPrimitive.Title asChild><h3>{quickViewProduct.name}</h3></DialogPrimitive.Title>
                 </div>
                 <button type="button" className="enquiry-drawer-close" onClick={() => setQuickViewProduct(null)} aria-label="Close Quick View">
                   <X size={20} />
@@ -2433,15 +2304,15 @@ export default function Home() {
                   Official Details <ExternalLink size={14} />
                 </a>
               </div>
-            </div>
-          </div>
-        )}
+            </DialogPrimitive.Content>
+          </DialogPrimitive.Portal>}
+        </DialogPrimitive.Root>
 
         {/* =========================================================================
             PART 2 EXPERIENCES 06, 07, 08: PRODUCT WORLDS
             (Interior Paint World, Exterior & Protection World, Wood & Finishes World)
             ========================================================================= */}
-        <ProductWorlds
+        <Suspense fallback={<div aria-busy="true" style={{ minHeight: 900 }} />}><ProductWorlds
           onEnquire={(title, details) => {
             addToCart({
               id: `world-prod-${Date.now()}`,
@@ -2459,7 +2330,7 @@ export default function Home() {
             const el = document.getElementById("products");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-        />
+        /></Suspense>
 
         {/* =========================================================================
             06 — IDEAS (FEATURED INSPIRATION)
@@ -2682,15 +2553,16 @@ export default function Home() {
         </section>
 
         {/* Texture Modal Detail */}
-        {selectedTextureDetail && (
-          <div className="enquiry-drawer-overlay" onClick={() => setSelectedTextureDetail(null)}>
-            <div className="enquiry-drawer" style={{ maxWidth: "540px" }} onClick={(e) => e.stopPropagation()}>
+        <DialogPrimitive.Root open={Boolean(selectedTextureDetail)} onOpenChange={(open) => !open && setSelectedTextureDetail(null)}>
+          {selectedTextureDetail && <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="enquiry-drawer-overlay" />
+            <DialogPrimitive.Content className="enquiry-drawer" style={{ maxWidth: "540px" }} aria-describedby={undefined}>
               <div className="enquiry-drawer-header">
                 <div>
                   <span style={{ fontFamily: "var(--mono)", fontSize: "10px", textTransform: "uppercase", color: "var(--saffron)", display: "block" }}>
                     {selectedTextureDetail.group} Finish Series
                   </span>
-                  <h3>{selectedTextureDetail.name}</h3>
+                  <DialogPrimitive.Title asChild><h3>{selectedTextureDetail.name}</h3></DialogPrimitive.Title>
                 </div>
                 <button type="button" className="enquiry-drawer-close" onClick={() => setSelectedTextureDetail(null)} aria-label="Close Texture Detail">
                   <X size={20} />
@@ -2738,14 +2610,14 @@ export default function Home() {
                   WhatsApp Query
                 </a>
               </div>
-            </div>
-          </div>
-        )}
+            </DialogPrimitive.Content>
+          </DialogPrimitive.Portal>}
+        </DialogPrimitive.Root>
 
         {/* =========================================================================
             PART 2 EXPERIENCE 04: WALLPAPER GALLERY (13 DESIGN FAMILIES)
             ========================================================================= */}
-        <WallpaperGallery
+        <Suspense fallback={<div aria-busy="true" style={{ minHeight: 720 }} />}><WallpaperGallery
           onEnquire={(title, details) => {
             addToCart({
               id: `wallpaper-${Date.now()}`,
@@ -2755,12 +2627,12 @@ export default function Home() {
             });
             setIsCartOpen(true);
           }}
-        />
+        /></Suspense>
 
         {/* =========================================================================
             PART 2 EXPERIENCE 05: EXTENDED TEXTURE COLLECTIONS (17 SENSORY STUDIES)
             ========================================================================= */}
-        <ExtendedTextures
+        <Suspense fallback={<div id="extended-textures" aria-busy="true" style={{ minHeight: 720 }} />}><ExtendedTextures
           onEnquire={(title, details) => {
             addToCart({
               id: `ext-tex-${Date.now()}`,
@@ -2774,7 +2646,7 @@ export default function Home() {
             const el = document.getElementById("textures");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-        />
+        /></Suspense>
 
         {/* =========================================================================
             08 — PAINT ESTIMATOR
@@ -3024,7 +2896,7 @@ export default function Home() {
         {/* =========================================================================
             LEADERSHIP & SHOWROOM TEAM: FOUNDER & SPECIALISTS
             ========================================================================= */}
-        <OwnerAndTeam />
+        <Suspense fallback={<div aria-busy="true" style={{ minHeight: 560 }} />}><OwnerAndTeam /></Suspense>
 
         {/* =========================================================================
             10 — ENQUIRY (ANCHOR SECTION & SLIDE-OVER TRIGGER)
@@ -3315,6 +3187,13 @@ export default function Home() {
 
               {publishedReviewsQuery.isLoading ? (
                 <p className="review-empty">Loading showroom reviews…</p>
+              ) : publishedReviewsQuery.isError ? (
+                <div className="review-empty" role="alert">
+                  <p>We couldn’t load showroom reviews. Please check your connection and try again.</p>
+                  <button type="button" className="button-ghost" onClick={() => void publishedReviewsQuery.refetch()}>
+                    Retry reviews
+                  </button>
+                </div>
               ) : publishedReviewsQuery.data?.reviews.length ? (
                 <div className="approved-review-list" role="list">
                   {publishedReviewsQuery.data.reviews.map((review) => (
@@ -3344,7 +3223,7 @@ export default function Home() {
               <div className="review-form-heading">
                 <span className="review-summary-label">Leave a review</span>
                 <h3>Share your project experience</h3>
-                <p>Let future homeowners know how Jaymurti Traders and Birla Opus elevated your space. Ratings of 3 stars or higher appear on this page automatically. Lower ratings are received privately.</p>
+                <p>Let future homeowners know how Jaymurti Traders and Birla Opus elevated your space. Every review is checked by our team before it is published.</p>
               </div>
               <label className="review-name-label">
                 Your name
@@ -3576,16 +3455,10 @@ export default function Home() {
       </footer>
 
       {/* Slide-over Enquiry Drawer */}
-      <AnimatePresence>
-        {isCartOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.24 }}
-            className="enquiry-drawer-overlay"
-            onClick={() => setIsCartOpen(false)}
-          >
+      <DialogPrimitive.Root open={isCartOpen} onOpenChange={setIsCartOpen}>
+        {isCartOpen && <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="enquiry-drawer-overlay" />
+          <DialogPrimitive.Content asChild aria-describedby={undefined}>
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -3598,7 +3471,7 @@ export default function Home() {
               <div className="enquiry-drawer-header">
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <ShoppingBag size={20} />
-                  <h3>Enquiry Cart ({cartItems.length})</h3>
+                  <DialogPrimitive.Title asChild><h3>Enquiry Cart ({cartItems.length})</h3></DialogPrimitive.Title>
                 </div>
                 <button type="button" className="enquiry-drawer-close" onClick={() => setIsCartOpen(false)} aria-label="Close Enquiry Drawer">
                   <X size={20} />
@@ -3778,9 +3651,9 @@ export default function Home() {
               </p>
             </div>
           </motion.aside>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>}
+      </DialogPrimitive.Root>
 
       {/* Floating Desktop Contact Bar */}
       <div className="floating-contact" aria-label="Quick contact actions">
@@ -3893,19 +3766,10 @@ export default function Home() {
       </div>
 
       {/* In-Site Birla Opus Shade Detail Modal */}
-      <AnimatePresence>
-        {selectedModalShade && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="shade-modal-overlay"
-            onClick={() => setSelectedModalShade(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${selectedModalShade.name} Shade Details`}
-          >
+      <DialogPrimitive.Root open={Boolean(selectedModalShade)} onOpenChange={(open) => !open && setSelectedModalShade(null)}>
+        {selectedModalShade && <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="shade-modal-overlay" />
+          <DialogPrimitive.Content asChild aria-describedby={undefined}>
             <motion.div
               initial={{ scale: 0.94, opacity: 0, y: 12 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -3931,7 +3795,7 @@ export default function Home() {
                 <div className="shade-modal-family">
                   Birla Opus · {selectedModalShade.family}
                 </div>
-                <h3 className="shade-modal-title">{selectedModalShade.name}</h3>
+                <DialogPrimitive.Title asChild><h3 className="shade-modal-title">{selectedModalShade.name}</h3></DialogPrimitive.Title>
 
                 <div className="shade-modal-disclaimer">
                   <strong>Verification Notice:</strong> {SHADE_VARIATION_DISCLAIMER}
@@ -3970,9 +3834,9 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>}
+      </DialogPrimitive.Root>
 
 
 

@@ -2,23 +2,37 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist/public",
+  "cleanUrls": true,
   "functions": {
-    "api/index.ts": {
-      "maxDuration": 10
-    }
+    "api/index.ts": { "maxDuration": 10 }
   },
-  "rewrites": [
-    {
-      "source": "/api/trpc/(.*)",
-      "destination": "/api"
-    },
-    {
-      "source": "/manus-storage/(.*)",
-      "destination": "/api"
-    },
+  "headers": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://wa.me https://api.whatsapp.com; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https:; upgrade-insecure-requests" }
+      ]
+    },
+    {
+      "source": "/admin/reviews",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }]
+    },
+    {
+      "source": "/404.html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
     }
+  ],
+  "routes": [
+    { "src": "/api(?:/.*)?", "dest": "/api/index.ts" },
+    { "src": "/trpc(?:/.*)?", "dest": "/api/index.ts" },
+    { "src": "/manus-storage(?:/.*)?", "dest": "/api/index.ts" },
+    { "handle": "filesystem" },
+    { "src": "/admin/reviews/?", "dest": "/admin/reviews/index.html" },
+    { "src": "/(paint-products|interior-paints|exterior-paints|waterproofing|enamels|wood-finishes|wall-textures|wallpapers|paint-tools|colour-finder|room-inspiration|surface-studio|about|contact|privacy|terms)/?", "dest": "/$1/index.html" },
+    { "src": "/.*", "status": 404, "dest": "/404.html", "headers": { "X-Robots-Tag": "noindex, nofollow" } }
   ]
 }
