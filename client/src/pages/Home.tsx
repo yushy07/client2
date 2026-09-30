@@ -1297,9 +1297,19 @@ export default function Home() {
             <p>Direct architectural navigation to guide your colour curation, surface finishes, product formulations, and store consultation.</p>
           </div>
           <div className="discovery-grid">
-            <a href="#colours" className="discovery-card">
+            <a href="#products" className="discovery-card">
               <div className="discovery-card-top">
                 <span>01</span>
+                <Layers size={18} />
+              </div>
+              <div>
+                <h3 className="discovery-card-title">Products</h3>
+                <p className="discovery-card-desc">Master formulations across 8 categories</p>
+              </div>
+            </a>
+            <a href="#colours" className="discovery-card">
+              <div className="discovery-card-top">
+                <span>02</span>
                 <Palette size={18} />
               </div>
               <div>
@@ -1309,22 +1319,12 @@ export default function Home() {
             </a>
             <a href="#room-shade-studio" className="discovery-card">
               <div className="discovery-card-top">
-                <span>02</span>
+                <span>03</span>
                 <Compass size={18} />
               </div>
               <div>
                 <h3 className="discovery-card-title">Room Studio</h3>
                 <p className="discovery-card-desc">Interactive living room & bedroom try-on</p>
-              </div>
-            </a>
-            <a href="#products" className="discovery-card">
-              <div className="discovery-card-top">
-                <span>03</span>
-                <Layers size={18} />
-              </div>
-              <div>
-                <h3 className="discovery-card-title">Products</h3>
-                <p className="discovery-card-desc">Master formulations across 8 categories</p>
               </div>
             </a>
             <a href="#textures" className="discovery-card">
@@ -1369,6 +1369,283 @@ export default function Home() {
             </button>
           </div>
         </section>
+
+        {/* =========================================================================
+            05 — PRODUCT COLLECTION
+            ========================================================================= */}
+        <section className="catalogue visual-catalogue-refinement reveal scroll-chapter" id="products" data-scroll-section data-section-label="Products" data-reveal>
+          {/* Product Universe Intro */}
+          <div className="product-universe-section" style={{ marginBottom: "24px" }}>
+            <span className="eyebrow" style={{ color: "var(--color-highlight)", marginBottom: "10px", display: "inline-block" }}>Explore Formulation Universes</span>
+            <div className="product-universe-strip" role="tablist" aria-label="Product universe categories">
+              {productUniverses.map((uni) => (
+                <button
+                  type="button"
+                  key={uni.name}
+                  className={`product-universe-item ${filter === uni.query ? "active" : ""}`}
+                  onClick={() => {
+                    setFilter(uni.query);
+                    setProductPage(1);
+                  }}
+                  title={uni.desc}
+                >
+                  <span className="product-universe-title">{uni.name}</span>
+                  <span className="product-universe-count">{uni.count} products</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="catalogue-header visual-catalogue-header">
+            <div>
+              <div className="eyebrow">Master Formulation Catalogue</div>
+              <h2 className="section-title">
+                Formulations Engineered
+                <br />
+                for Distinction.
+              </h2>
+              <p className="section-lead">
+                Explore {birlaOpusProductCount} mastercrafted Birla Opus formulations spanning Ultra-Luxury Interior Emulsions, All-Weather Exterior Shields, Waterproofing Barriers, and Designer Enamels.
+              </p>
+            </div>
+            <div className="filter-pills" aria-label="Filter products">
+              {["All products", ...birlaOpusCategories].map((item) => (
+                <button
+                  onClick={() => {
+                    setFilter(item);
+                    setProductPage(1);
+                  }}
+                  className={filter === item ? "active" : ""}
+                  key={item}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="catalogue-summary">
+            <span>{filter === "All products" ? "All official master formulations" : filter}</span>
+            <span>{filteredProducts.length} products</span>
+          </div>
+
+          <div className="catalogue-tools">
+            <span>
+              <SlidersHorizontal size={14} /> Sort formulations
+            </span>
+            <select
+              value={productSort}
+              onChange={(event) => {
+                setProductSort(event.target.value as "featured" | "az");
+                setProductPage(1);
+              }}
+              aria-label="Sort products"
+            >
+              <option value="featured">Featured curation</option>
+              <option value="az">A–Z Alphabetical</option>
+            </select>
+            <em>Direct dealer supply from Shukul Bazar, Baskhari.</em>
+          </div>
+
+          {comparisonProducts.length > 0 && (
+            <aside className="comparison-tray" aria-label="Selected product comparison">
+              <div className="comparison-heading">
+                <div>
+                  <span>Compare formulations</span>
+                  <strong>
+                    {comparisonProducts.length} of {maxComparisonProducts} selected
+                  </strong>
+                </div>
+                <p>
+                  {comparisonProducts.length < 2
+                    ? "Select one more product to compare specifications side by side."
+                    : "Review the selected formulations at a glance."}
+                </p>
+                <button onClick={clearProductComparison}>Clear selection</button>
+              </div>
+              <div className="comparison-grid">
+                {comparisonProducts.map((product) => (
+                  <article key={product.slug}>
+                    <div className="comparison-product-image">
+                      {product.imageUrl ? (
+                        <img src={product.imageUrl} alt={`${product.name} product pack`} width={120} height={96} loading="lazy" decoding="async" />
+                      ) : (
+                        <span>Birla<br />Opus</span>
+                      )}
+                    </div>
+                    <div>
+                      <span>{product.category}</span>
+                      <h3>{product.name}</h3>
+                      <p>{product.family} range</p>
+                      <button
+                        type="button"
+                        style={{ fontSize: "11px", fontWeight: 700, color: "var(--moss)", background: "none", border: 0, padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "4px" }}
+                        onClick={() =>
+                          addToCart({
+                            id: `prod-${product.slug}`,
+                            type: "product",
+                            title: product.name,
+                            meta: product.category,
+                            quantity: 1,
+                          })
+                        }
+                      >
+                        + Add to Enquiry
+                      </button>
+                    </div>
+                    <button className="comparison-remove" onClick={() => toggleProductComparison(product.slug)} aria-label={`Remove ${product.name} from comparison`}>
+                      <X size={15} />
+                    </button>
+                  </article>
+                ))}
+              </div>
+            </aside>
+          )}
+
+          {comparisonLimitMessage && <p className="comparison-message" role="status">{comparisonLimitMessage}</p>}
+
+          <div className="products-grid">
+            {visibleProducts.map((product, index) => {
+              const prevProduct = index > 0 ? visibleProducts[index - 1] : null;
+              const isNewFamily = !prevProduct || prevProduct.family !== product.family;
+              return (
+                <Fragment key={product.sourceUrl}>
+                  {isNewFamily && (
+                    <div className="product-family-divider" role="presentation">
+                      <span className="product-family-divider-label">
+                        <span className="family-badge-dot" /> {product.family} Series · {product.category}
+                      </span>
+                      <span className="product-family-divider-line" />
+                    </div>
+                  )}
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    isImageLoaded={Boolean(loadedProductImages[product.slug])}
+                    isCompared={comparisonSlugs.includes(product.slug)}
+                    onImageLoad={markProductImageLoaded}
+                    onCompare={toggleProductComparison}
+                    onQuickView={setQuickViewProduct}
+                    onAddCart={addToCart}
+                    onPointerMove={handleProductTilt}
+                    onPointerLeave={resetProductTilt}
+                  />
+                </Fragment>
+              );
+            })}
+          </div>
+
+          {productPagination.pageCount > 1 && (
+            <nav className="catalogue-pagination" aria-label="Product pages">
+              <button type="button" onClick={() => setProductPage((current) => Math.max(1, current - 1))} disabled={productPagination.page === 1}>
+                <ArrowLeft size={14} />Previous page
+              </button>
+              <span>
+                <strong>Page {productPagination.page} of {productPagination.pageCount}</strong>
+                <em>Showing {productPagination.startIndex + 1}–{productPagination.endIndex} of {sortedProducts.length}</em>
+              </span>
+              <button
+                type="button"
+                onClick={() => setProductPage((current) => Math.min(productPagination.pageCount, current + 1))}
+                disabled={productPagination.page === productPagination.pageCount}
+              >
+                Next page<ArrowRight size={14} />
+              </button>
+            </nav>
+          )}
+
+          <div className="supplementary-products visual-supplementary visual-coral-discovery">
+            <div className="supplementary-heading">
+              <div className="eyebrow">Substrate & Specialized Systems</div>
+              <h3>Beyond wall paint.</h3>
+              <div className="supplementary-rail-tools">
+                <p className="supplementary-scroll-cue"> <ArrowRight size={14} aria-hidden="true" /></p>
+                <div className="supplementary-rail-controls" aria-label="Discovery path controls">
+                  <button type="button" onClick={() => scrollSupplementaryRail(-1)} aria-label="Show previous discovery path">
+                    <ArrowLeft size={16} aria-hidden="true" />
+                  </button>
+                  <button type="button" onClick={() => scrollSupplementaryRail(1)} aria-label="Show next discovery path">
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="supplementary-grid" ref={supplementaryRailRef} role="list" aria-label="Explore more Birla Opus product categories" tabIndex={0}>
+              {supplementaryProductCategories.map((category) => (
+                <a href="https://www.birlaopus.com/paint-products" target="_blank" rel="noopener noreferrer" className="supplementary-card" key={category.name} role="listitem">
+                  <span>{category.name}</span>
+                  <p>{category.note}</p>
+                  <ArrowRight size={16} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Product Quick View Modal */}
+        <DialogPrimitive.Root open={Boolean(quickViewProduct)} onOpenChange={(open) => !open && setQuickViewProduct(null)}>
+          {quickViewProduct && <DialogPrimitive.Portal>
+          <DialogPrimitive.Overlay className="enquiry-drawer-overlay" />
+            <DialogPrimitive.Content className="enquiry-drawer" style={{ maxWidth: "540px" }} aria-describedby={undefined}>
+              <div className="enquiry-drawer-header">
+                <div>
+                  <span style={{ fontFamily: "var(--mono)", fontSize: "10px", textTransform: "uppercase", color: "var(--saffron)", display: "block" }}>
+                    {quickViewProduct.category}
+                  </span>
+                  <DialogPrimitive.Title asChild><h3>{quickViewProduct.name}</h3></DialogPrimitive.Title>
+                </div>
+                <button type="button" className="enquiry-drawer-close" onClick={() => setQuickViewProduct(null)} aria-label="Close Quick View">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="enquiry-drawer-body">
+                <div style={{ textAlign: "center", background: "var(--surface-soft)", padding: "24px", borderRadius: "8px", marginBottom: "20px" }}>
+                  {quickViewProduct.imageUrl ? (
+                    <img src={quickViewProduct.imageUrl} alt={quickViewProduct.name} style={{ maxHeight: "220px", objectFit: "contain", margin: "0 auto" }} />
+                  ) : (
+                    <span>Birla Opus</span>
+                  )}
+                </div>
+                <h4 style={{ fontFamily: "var(--serif)", fontSize: "18px", margin: "0 0 8px" }}>Formulation Overview</h4>
+                <p style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.6, margin: "0 0 16px" }}>
+                  {quickViewProduct.copy}
+                </p>
+                <div style={{ background: "var(--surface-paper)", padding: "14px", border: "1px solid var(--line)", borderRadius: "6px", marginBottom: "20px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px", fontSize: "12.5px" }}>
+                    <span>Product Family:</span>
+                    <strong>{quickViewProduct.family}</strong>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12.5px" }}>
+                    <span>Showroom Location:</span>
+                    <strong>Jaymurti Traders, Baskhari</strong>
+                  </div>
+                </div>
+              </div>
+              <div className="enquiry-drawer-footer" style={{ display: "flex", gap: "10px" }}>
+                <button
+                  type="button"
+                  className="button-primary"
+                  style={{ flex: 1 }}
+                  onClick={() => {
+                    addToCart({
+                      id: `prod-${quickViewProduct.slug}`,
+                      type: "product",
+                      title: quickViewProduct.name,
+                      meta: `${quickViewProduct.category} · ${quickViewProduct.family}`,
+                      quantity: 1,
+                    });
+                    setQuickViewProduct(null);
+                  }}
+                >
+                  + Add to Enquiry
+                </button>
+                <a className="button-ghost" href={quickViewProduct.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                  Official Details <ExternalLink size={14} />
+                </a>
+              </div>
+            </DialogPrimitive.Content>
+          </DialogPrimitive.Portal>}
+        </DialogPrimitive.Root>
 
         {/* =========================================================================
             03 — COLOUR FINDER
@@ -2030,283 +2307,6 @@ export default function Home() {
             el?.scrollIntoView({ behavior: "smooth" });
           }}
         /></Suspense>
-
-        {/* =========================================================================
-            05 — PRODUCT COLLECTION
-            ========================================================================= */}
-        <section className="catalogue visual-catalogue-refinement reveal scroll-chapter" id="products" data-scroll-section data-section-label="Products" data-reveal>
-          {/* Product Universe Intro */}
-          <div className="product-universe-section" style={{ marginBottom: "24px" }}>
-            <span className="eyebrow" style={{ color: "var(--color-highlight)", marginBottom: "10px", display: "inline-block" }}>Explore Formulation Universes</span>
-            <div className="product-universe-strip" role="tablist" aria-label="Product universe categories">
-              {productUniverses.map((uni) => (
-                <button
-                  type="button"
-                  key={uni.name}
-                  className={`product-universe-item ${filter === uni.query ? "active" : ""}`}
-                  onClick={() => {
-                    setFilter(uni.query);
-                    setProductPage(1);
-                  }}
-                  title={uni.desc}
-                >
-                  <span className="product-universe-title">{uni.name}</span>
-                  <span className="product-universe-count">{uni.count} products</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="catalogue-header visual-catalogue-header">
-            <div>
-              <div className="eyebrow">Master Formulation Catalogue</div>
-              <h2 className="section-title">
-                Formulations Engineered
-                <br />
-                for Distinction.
-              </h2>
-              <p className="section-lead">
-                Explore {birlaOpusProductCount} mastercrafted Birla Opus formulations spanning Ultra-Luxury Interior Emulsions, All-Weather Exterior Shields, Waterproofing Barriers, and Designer Enamels.
-              </p>
-            </div>
-            <div className="filter-pills" aria-label="Filter products">
-              {["All products", ...birlaOpusCategories].map((item) => (
-                <button
-                  onClick={() => {
-                    setFilter(item);
-                    setProductPage(1);
-                  }}
-                  className={filter === item ? "active" : ""}
-                  key={item}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="catalogue-summary">
-            <span>{filter === "All products" ? "All official master formulations" : filter}</span>
-            <span>{filteredProducts.length} products</span>
-          </div>
-
-          <div className="catalogue-tools">
-            <span>
-              <SlidersHorizontal size={14} /> Sort formulations
-            </span>
-            <select
-              value={productSort}
-              onChange={(event) => {
-                setProductSort(event.target.value as "featured" | "az");
-                setProductPage(1);
-              }}
-              aria-label="Sort products"
-            >
-              <option value="featured">Featured curation</option>
-              <option value="az">A–Z Alphabetical</option>
-            </select>
-            <em>Direct dealer supply from Shukul Bazar, Baskhari.</em>
-          </div>
-
-          {comparisonProducts.length > 0 && (
-            <aside className="comparison-tray" aria-label="Selected product comparison">
-              <div className="comparison-heading">
-                <div>
-                  <span>Compare formulations</span>
-                  <strong>
-                    {comparisonProducts.length} of {maxComparisonProducts} selected
-                  </strong>
-                </div>
-                <p>
-                  {comparisonProducts.length < 2
-                    ? "Select one more product to compare specifications side by side."
-                    : "Review the selected formulations at a glance."}
-                </p>
-                <button onClick={clearProductComparison}>Clear selection</button>
-              </div>
-              <div className="comparison-grid">
-                {comparisonProducts.map((product) => (
-                  <article key={product.slug}>
-                    <div className="comparison-product-image">
-                      {product.imageUrl ? (
-                        <img src={product.imageUrl} alt={`${product.name} product pack`} width={120} height={96} loading="lazy" decoding="async" />
-                      ) : (
-                        <span>Birla<br />Opus</span>
-                      )}
-                    </div>
-                    <div>
-                      <span>{product.category}</span>
-                      <h3>{product.name}</h3>
-                      <p>{product.family} range</p>
-                      <button
-                        type="button"
-                        style={{ fontSize: "11px", fontWeight: 700, color: "var(--moss)", background: "none", border: 0, padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "4px" }}
-                        onClick={() =>
-                          addToCart({
-                            id: `prod-${product.slug}`,
-                            type: "product",
-                            title: product.name,
-                            meta: product.category,
-                            quantity: 1,
-                          })
-                        }
-                      >
-                        + Add to Enquiry
-                      </button>
-                    </div>
-                    <button className="comparison-remove" onClick={() => toggleProductComparison(product.slug)} aria-label={`Remove ${product.name} from comparison`}>
-                      <X size={15} />
-                    </button>
-                  </article>
-                ))}
-              </div>
-            </aside>
-          )}
-
-          {comparisonLimitMessage && <p className="comparison-message" role="status">{comparisonLimitMessage}</p>}
-
-          <div className="products-grid">
-            {visibleProducts.map((product, index) => {
-              const prevProduct = index > 0 ? visibleProducts[index - 1] : null;
-              const isNewFamily = !prevProduct || prevProduct.family !== product.family;
-              return (
-                <Fragment key={product.sourceUrl}>
-                  {isNewFamily && (
-                    <div className="product-family-divider" role="presentation">
-                      <span className="product-family-divider-label">
-                        <span className="family-badge-dot" /> {product.family} Series · {product.category}
-                      </span>
-                      <span className="product-family-divider-line" />
-                    </div>
-                  )}
-                  <ProductCard
-                    product={product}
-                    index={index}
-                    isImageLoaded={Boolean(loadedProductImages[product.slug])}
-                    isCompared={comparisonSlugs.includes(product.slug)}
-                    onImageLoad={markProductImageLoaded}
-                    onCompare={toggleProductComparison}
-                    onQuickView={setQuickViewProduct}
-                    onAddCart={addToCart}
-                    onPointerMove={handleProductTilt}
-                    onPointerLeave={resetProductTilt}
-                  />
-                </Fragment>
-              );
-            })}
-          </div>
-
-          {productPagination.pageCount > 1 && (
-            <nav className="catalogue-pagination" aria-label="Product pages">
-              <button type="button" onClick={() => setProductPage((current) => Math.max(1, current - 1))} disabled={productPagination.page === 1}>
-                <ArrowLeft size={14} />Previous page
-              </button>
-              <span>
-                <strong>Page {productPagination.page} of {productPagination.pageCount}</strong>
-                <em>Showing {productPagination.startIndex + 1}–{productPagination.endIndex} of {sortedProducts.length}</em>
-              </span>
-              <button
-                type="button"
-                onClick={() => setProductPage((current) => Math.min(productPagination.pageCount, current + 1))}
-                disabled={productPagination.page === productPagination.pageCount}
-              >
-                Next page<ArrowRight size={14} />
-              </button>
-            </nav>
-          )}
-
-          <div className="supplementary-products visual-supplementary visual-coral-discovery">
-            <div className="supplementary-heading">
-              <div className="eyebrow">Substrate & Specialized Systems</div>
-              <h3>Beyond wall paint.</h3>
-              <div className="supplementary-rail-tools">
-                <p className="supplementary-scroll-cue"> <ArrowRight size={14} aria-hidden="true" /></p>
-                <div className="supplementary-rail-controls" aria-label="Discovery path controls">
-                  <button type="button" onClick={() => scrollSupplementaryRail(-1)} aria-label="Show previous discovery path">
-                    <ArrowLeft size={16} aria-hidden="true" />
-                  </button>
-                  <button type="button" onClick={() => scrollSupplementaryRail(1)} aria-label="Show next discovery path">
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="supplementary-grid" ref={supplementaryRailRef} role="list" aria-label="Explore more Birla Opus product categories" tabIndex={0}>
-              {supplementaryProductCategories.map((category) => (
-                <a href="https://www.birlaopus.com/paint-products" target="_blank" rel="noopener noreferrer" className="supplementary-card" key={category.name} role="listitem">
-                  <span>{category.name}</span>
-                  <p>{category.note}</p>
-                  <ArrowRight size={16} />
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Product Quick View Modal */}
-        <DialogPrimitive.Root open={Boolean(quickViewProduct)} onOpenChange={(open) => !open && setQuickViewProduct(null)}>
-          {quickViewProduct && <DialogPrimitive.Portal>
-          <DialogPrimitive.Overlay className="enquiry-drawer-overlay" />
-            <DialogPrimitive.Content className="enquiry-drawer" style={{ maxWidth: "540px" }} aria-describedby={undefined}>
-              <div className="enquiry-drawer-header">
-                <div>
-                  <span style={{ fontFamily: "var(--mono)", fontSize: "10px", textTransform: "uppercase", color: "var(--saffron)", display: "block" }}>
-                    {quickViewProduct.category}
-                  </span>
-                  <DialogPrimitive.Title asChild><h3>{quickViewProduct.name}</h3></DialogPrimitive.Title>
-                </div>
-                <button type="button" className="enquiry-drawer-close" onClick={() => setQuickViewProduct(null)} aria-label="Close Quick View">
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="enquiry-drawer-body">
-                <div style={{ textAlign: "center", background: "var(--surface-soft)", padding: "24px", borderRadius: "8px", marginBottom: "20px" }}>
-                  {quickViewProduct.imageUrl ? (
-                    <img src={quickViewProduct.imageUrl} alt={quickViewProduct.name} style={{ maxHeight: "220px", objectFit: "contain", margin: "0 auto" }} />
-                  ) : (
-                    <span>Birla Opus</span>
-                  )}
-                </div>
-                <h4 style={{ fontFamily: "var(--serif)", fontSize: "18px", margin: "0 0 8px" }}>Formulation Overview</h4>
-                <p style={{ fontSize: "14px", color: "var(--text-secondary)", lineHeight: 1.6, margin: "0 0 16px" }}>
-                  {quickViewProduct.copy}
-                </p>
-                <div style={{ background: "var(--surface-paper)", padding: "14px", border: "1px solid var(--line)", borderRadius: "6px", marginBottom: "20px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px", fontSize: "12.5px" }}>
-                    <span>Product Family:</span>
-                    <strong>{quickViewProduct.family}</strong>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12.5px" }}>
-                    <span>Showroom Location:</span>
-                    <strong>Jaymurti Traders, Baskhari</strong>
-                  </div>
-                </div>
-              </div>
-              <div className="enquiry-drawer-footer" style={{ display: "flex", gap: "10px" }}>
-                <button
-                  type="button"
-                  className="button-primary"
-                  style={{ flex: 1 }}
-                  onClick={() => {
-                    addToCart({
-                      id: `prod-${quickViewProduct.slug}`,
-                      type: "product",
-                      title: quickViewProduct.name,
-                      meta: `${quickViewProduct.category} · ${quickViewProduct.family}`,
-                      quantity: 1,
-                    });
-                    setQuickViewProduct(null);
-                  }}
-                >
-                  + Add to Enquiry
-                </button>
-                <a className="button-ghost" href={quickViewProduct.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  Official Details <ExternalLink size={14} />
-                </a>
-              </div>
-            </DialogPrimitive.Content>
-          </DialogPrimitive.Portal>}
-        </DialogPrimitive.Root>
 
         {/* =========================================================================
             PART 2 EXPERIENCES 06, 07, 08: PRODUCT WORLDS
