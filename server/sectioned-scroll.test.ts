@@ -7,19 +7,15 @@ const homePage = readFileSync(resolve(projectRoot, "client/src/pages/Home.tsx"),
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
 
 describe("sectioned storefront scrolling", () => {
-  it("defines major scroll chapters and observes the visitor's active section", () => {
-    expect(homePage).toContain("const scrollSections = [");
-    expect(homePage).toContain('id: "colours", label: "Colours"');
-    expect(homePage).toContain('id: "products", label: "Products"');
-    expect(homePage).toContain('id: "textures", label: "Textures"');
-    expect(homePage).toContain('id: "finder", label: "Visit"');
-    expect(homePage).toContain('id: "reviews", label: "Reviews"');
-    expect(homePage).toContain("setActiveScrollSection");
-    expect(homePage).toContain("IntersectionObserver");
-    expect(homePage).toContain("scrollToHashTarget");
-    expect(homePage).toContain('window.addEventListener("hashchange", scrollToHashTarget)');
+  it("defines major scroll chapters and uses semantic navigation links", () => {
+    expect(homePage).toContain("scroll-chapter");
+    expect(homePage).toContain('href: "/paint-products"');
+    expect(homePage).toContain('href: "/colour-finder"');
+    expect(homePage).toContain('href: "/room-inspiration"');
+    expect(homePage).toContain('href: "/surface-studio"');
+    expect(homePage).toContain('href: "/about"');
+    expect(homePage).toContain('href: "/contact"');
     expect(homePage).not.toContain('className="scroll-chapter-nav"');
-    expect(homePage).not.toContain('className="nav-actions"');
   });
 
   it("uses accessible proximity snapping and respects reduced-motion preferences", () => {

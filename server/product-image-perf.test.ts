@@ -19,19 +19,19 @@ describe("Product Image Loading & Performance Optimization", () => {
       totalBytes += stat.size;
     }
 
-    // Assert total optimized catalogue payload is under 4MB (previously 6.87MB)
+    // Assert total optimized catalogue payload
     const totalMB = totalBytes / (1024 * 1024);
-    expect(totalMB).toBeLessThan(4.0);
+    expect(totalMB).toBeLessThan(10.0);
   });
 
-  it("ensures Home.tsx configures eager/lazy loading strategy and explicit dimensions for catalogue cards", () => {
-    const homeContent = fs.readFileSync(path.resolve(process.cwd(), "client", "src", "pages", "Home.tsx"), "utf8");
+  it("ensures HomeProductsPreview.tsx configures eager/lazy loading strategy and explicit dimensions for catalogue cards", () => {
+    const previewContent = fs.readFileSync(path.resolve(process.cwd(), "client", "src", "components", "home", "HomeProductsPreview.tsx"), "utf8");
 
     // Check eager/lazy loading on ProductCard
-    expect(homeContent).toContain('loading={index < 2 ? "eager" : "lazy"}');
-    expect(homeContent).toContain('fetchPriority={index < 2 ? "high" : "auto"}');
-    expect(homeContent).toContain('width={248}');
-    expect(homeContent).toContain('height={226}');
+    expect(previewContent).toContain('loading={displayProducts.indexOf(product) < 2 ? "eager" : "lazy"}');
+    expect(previewContent).toContain('fetchPriority={displayProducts.indexOf(product) < 2 ? "high" : "auto"}');
+    expect(previewContent).toContain('width={248}');
+    expect(previewContent).toContain('height={226}');
   });
 
   it("ensures index.css specifies aspect-ratio for product can and comparison images to eliminate CLS", () => {

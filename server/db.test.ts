@@ -51,38 +51,24 @@ describe("createServiceEnquiry", () => {
     expect(mockValues).toHaveBeenCalledWith(testEnquiry);
   });
 
-  it("handles database insertion error, logs warning, and returns fallback ID", async () => {
-    const { createServiceEnquiry } = await import("./db");
-    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+  it("handles database insertion error and throws DatabaseUnavailableError", async () => {
+    const { createServiceEnquiry, DatabaseUnavailableError } = await import("./db");
     const dbError = new Error("Connection failed or query timeout");
     mockValues.mockRejectedValueOnce(dbError);
 
-    const result = await createServiceEnquiry(testEnquiry);
-
-    expect(result).toHaveProperty("id");
-    expect(typeof result.id).toBe("number");
-    expect(warnSpy).toHaveBeenCalledWith(
-      "[Database] Failed to insert enquiry into database:",
-      dbError,
-    );
-
-    warnSpy.mockRestore();
+    await expect(createServiceEnquiry(testEnquiry)).rejects.toThrow(DatabaseUnavailableError);
   });
 
-  it("falls back to generated timestamp ID when database is not configured/available", async () => {
+  it("throws DatabaseUnavailableError when database is not configured/available", async () => {
     vi.resetModules();
     delete process.env.DATABASE_URL;
 
-    const { createServiceEnquiry } = await import("./db");
+    const { createServiceEnquiry, DatabaseUnavailableError } = await import("./db");
 
-    const result = await createServiceEnquiry(testEnquiry);
-
-    expect(result).toHaveProperty("id");
-    expect(typeof result.id).toBe("number");
-    expect(mockInsert).not.toHaveBeenCalled();
+    await expect(createServiceEnquiry(testEnquiry)).rejects.toThrow(DatabaseUnavailableError);
   });
 
-  it("falls back to generated timestamp ID when mysql.createPool throws during connection", async () => {
+  it("throws DatabaseUnavailableError when mysql.createPool throws during connection", async () => {
     vi.resetModules();
     process.env.DATABASE_URL = "mysql://invalid-url";
 
@@ -91,15 +77,8 @@ describe("createServiceEnquiry", () => {
       throw new Error("Pool creation failure");
     });
 
-    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { createServiceEnquiry, DatabaseUnavailableError } = await import("./db");
 
-    const { createServiceEnquiry } = await import("./db");
-
-    const result = await createServiceEnquiry(testEnquiry);
-
-    expect(result).toHaveProperty("id");
-    expect(typeof result.id).toBe("number");
-
-    warnSpy.mockRestore();
+    await expect(createServiceEnquiry(testEnquiry)).rejects.toThrow(DatabaseUnavailableError);
   });
 });

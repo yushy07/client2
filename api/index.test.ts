@@ -60,7 +60,7 @@ describe("API index and error handler", () => {
     errorHandler(new Error("Test error message"), req, res, next);
 
     expect(statusCode).toBe(500);
-    expect(jsonPayload).toEqual({ error: { message: "Test error message" } });
+    expect(jsonPayload).toEqual({ error: { message: "Internal server error" } });
 
     consoleSpy.mockRestore();
   });
@@ -135,7 +135,7 @@ describe("API index and error handler", () => {
 
     errorHandler("String error thrown", {} as express.Request, res, vi.fn());
     expect(statusCode).toBe(500);
-    expect(jsonPayload).toEqual({ error: { message: "String error thrown" } });
+    expect(jsonPayload).toEqual({ error: { message: "Internal server error" } });
 
     // Fallback for null / undefined / empty object
     res = {

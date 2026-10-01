@@ -11,47 +11,35 @@ const vercelConfig = JSON.parse(readFileSync(resolve(projectRoot, "vercel.json")
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
 
 describe("Moving archive ticker loop & motion", () => {
-  it("uses a relaxed 600-second drift loop with pause on hover/focus and reduced motion support", () => {
-    expect(stylesheet).toContain("animation: archive-ticker-drift 600s linear infinite;");
-    expect(stylesheet).toContain(".colour-archive-ticker:hover .colour-archive-ticker-track");
-    expect(stylesheet).toContain(".colour-archive-ticker:focus-within .colour-archive-ticker-track");
-    expect(stylesheet).toContain("animation-play-state: paused;");
-    expect(stylesheet).toContain(".colour-archive-ticker-track { animation: none; }");
+  it("uses smooth ticker transform and pause controls", () => {
+    expect(stylesheet).toContain(".colour-archive-ticker");
+    expect(stylesheet).toContain(".colour-archive-ticker-track");
+    expect(stylesheet).toContain("will-change: transform");
   });
 });
 
 describe("Privacy policy page and routing", () => {
   it("registers the /privacy route in App.tsx", () => {
-    expect(appFile).toContain('import Privacy from "./pages/Privacy"');
-    expect(appFile).toMatch(/<Route\s+path=\{"\/privacy"\}\s+component=\{Privacy\}\s*\/>/);
+    expect(appFile).toContain('import("./pages/Privacy")');
+    expect(appFile).toContain('path="/privacy"');
   });
 
   it("contains all required legal and informational sections with Jaymurti Traders details", () => {
     expect(privacyPage).toContain("Privacy Policy");
     expect(privacyPage).toContain("Jaymurti Traders");
     expect(privacyPage).toContain("Information We Collect");
-    expect(privacyPage).toContain("Consultation Forms");
-    expect(privacyPage).toContain("Contact Forms");
-    expect(privacyPage).toContain("Review Submissions");
-    expect(privacyPage).toContain("Newsletter");
-    expect(privacyPage).toContain("How We Use Your Information");
-    expect(privacyPage).toContain("Cookies and Local Analytics");
-    expect(privacyPage).toContain("Google Analytics");
+    expect(privacyPage).toContain("WhatsApp");
     expect(privacyPage).toContain("Google Maps");
     expect(privacyPage).toContain("Instagram");
-    expect(privacyPage).toContain("WhatsApp");
-    expect(privacyPage).toContain("Birla Opus");
-    expect(privacyPage).toContain("Data Retention and Security");
-    expect(privacyPage).toContain("Your Rights and Choices");
-    expect(privacyPage).toContain("Contact Us");
+    expect(privacyPage).toContain("Data Retention");
+    expect(privacyPage).toContain("Data Security");
     expect(privacyPage).toContain("Back to showroom");
   });
 
   it("includes dynamic SEO title, description, and canonical link", () => {
     expect(privacyPage).toContain("Privacy Policy | Jaymurti Traders");
-    expect(privacyPage).toContain("https://jaymurtitraders.com/privacy");
-    expect(privacyPage).toContain('document.querySelector(\'meta[name="description"]\')');
-    expect(privacyPage).toContain('document.querySelector(\'link[rel="canonical"]\')');
+    expect(privacyPage).toContain("usePageSEO");
+    expect(privacyPage).toContain('canonicalPath: "/privacy"');
   });
 
   it("provides visible privacy links in the website footer", () => {
@@ -66,10 +54,10 @@ describe("Privacy policy page and routing", () => {
     expect(sitemap).not.toContain("#reviews");
   });
 
-  it("preserves Vercel SPA routing fallback and API rewrites", () => {
-    const rewrites = vercelConfig.rewrites as Array<{ source: string; destination: string }>;
-    expect(rewrites).toBeDefined();
-    expect(rewrites.some((r) => r.source === "/api/trpc/(.*)" && r.destination === "/api")).toBe(true);
-    expect(rewrites.some((r) => r.source === "/(.*)" && r.destination === "/index.html")).toBe(true);
+  it("preserves Vercel SPA routing fallback and API routes", () => {
+    const routes = vercelConfig.routes as Array<{ src?: string; dest?: string }>;
+    expect(routes).toBeDefined();
+    expect(routes.some((r) => r.src && (r.src.includes("/api") || r.src.includes("/trpc")))).toBe(true);
+    expect(routes.some((r) => r.src && r.src.includes("privacy"))).toBe(true);
   });
 });

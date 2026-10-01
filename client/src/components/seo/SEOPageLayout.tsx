@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "wouter";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { type RouteSEOConfig, CANONICAL_HOST } from "@shared/seoKeywordMap";
+import { businessProfile } from "@shared/businessProfile";
+import { useCart } from "@/contexts/CartContext";
 import {
   Home,
   MapPin,
@@ -12,6 +14,7 @@ import {
   ArrowRight,
   Clock,
   Instagram,
+  Facebook,
   Compass,
   Layers,
   Palette,
@@ -33,6 +36,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
   children,
   showFAQ = true,
 }) => {
+  const { cartItems, setIsCartOpen } = useCart();
   usePageSEO({
     title: seo.title,
     description: seo.description,
@@ -134,6 +138,20 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
           </nav>
 
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
+              className="inline-flex items-center gap-1.5 bg-dark-surface/90 hover:bg-dark-surface text-accent border border-border-teal/60 text-xs font-semibold px-3 py-2 rounded-xl transition-all shadow-md"
+              aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>Enquire</span>
+              {cartItems.length > 0 && (
+                <span className="bg-accent text-dark text-[10px] font-bold px-1.5 py-0.2 rounded-full font-mono">
+                  {cartItems.length}
+                </span>
+              )}
+            </button>
             <a
               href="https://wa.me/918756659035?text=Hello%20Jaymurti%20Traders,%20I%20am%20enquiring%20about%20Birla%20Opus%20paints%20and%20shades."
               target="_blank"
@@ -329,7 +347,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
           <div className="space-y-2">
             <h4 className="font-serif text-white text-xs uppercase tracking-wider">Colour & Finishes</h4>
             <ul className="space-y-1.5">
-              <li><Link href="/colour-finder" className="hover:text-white transition-colors">Birla Opus Colour Finder</Link></li>
+              <li><Link href="/colour-finder" className="hover:text-white transition-colors">Colour Guide & Shade Finder</Link></li>
               <li><Link href="/room-inspiration" className="hover:text-white transition-colors">Room Shade Studio</Link></li>
               <li><Link href="/surface-studio" className="hover:text-white transition-colors">Surface Studio</Link></li>
               <li><Link href="/wall-textures" className="hover:text-white transition-colors">Wall Textures</Link></li>
@@ -354,6 +372,16 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
                   className="hover:text-white transition-colors inline-flex items-center gap-1"
                 >
                   <Instagram className="w-3 h-3 text-pink-400" /> Instagram @paintwalebhaiya45
+                </a>
+              </li>
+              <li>
+                <a
+                  href={businessProfile.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors inline-flex items-center gap-1"
+                >
+                  <Facebook className="w-3 h-3 text-blue-400" /> Facebook Page
                 </a>
               </li>
             </ul>

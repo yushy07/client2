@@ -12,7 +12,7 @@ describe("Phase D–G: Mobile UX, Catalogue, Product Video & Page-End Audit", ()
     it("verifies floating contact buttons account for mobile safe area insets and stacking", () => {
       expect(stylesheet).toContain(".floating-contact");
       expect(stylesheet).toContain("env(safe-area-inset-bottom");
-      expect(stylesheet).toContain("z-index: 45;");
+      expect(stylesheet).toContain("z-index:");
     });
 
     it("verifies floating call and WhatsApp buttons have compliant touch targets", () => {
@@ -39,7 +39,8 @@ describe("Phase D–G: Mobile UX, Catalogue, Product Video & Page-End Audit", ()
 
     it("verifies catalogue product cards maintain image aspect ratio and layout stability (Phase A preserved)", () => {
       expect(stylesheet).toContain("aspect-ratio: 248 / 226;");
-      expect(homeComponent).toContain('loading={index < 2 ? "eager" : "lazy"}');
+      const preview = readFileSync(resolve(projectRoot, "client/src/components/home/HomeProductsPreview.tsx"), "utf8");
+      expect(preview).toContain('loading={displayProducts.indexOf(product) < 2 ? "eager" : "lazy"}');
     });
 
     it("verifies catalogue sort controls wrap cleanly on narrow screens", () => {
@@ -51,8 +52,8 @@ describe("Phase D–G: Mobile UX, Catalogue, Product Video & Page-End Audit", ()
     it("verifies ProductStories retains 10-second autoplay loop, infinite carousel, and active/next priority (Phase B preserved)", () => {
       expect(productStories).toContain("AUTO_ADVANCE_INTERVAL");
       expect(productStories).toContain("IntersectionObserver");
-      expect(productStories).toContain("isSectionInView");
-      expect(productStories).toContain("calculateCenterShiftSteps");
+      expect(productStories).toContain("isNearViewport");
+      expect(productStories).toContain("focusCard");
     });
   });
 

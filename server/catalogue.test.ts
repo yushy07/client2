@@ -103,7 +103,7 @@ describe("Birla Opus catalogue", () => {
   it("updates only exact-name Interior records with the verified uploaded packshots", () => {
     const importedArchiveImages = Object.fromEntries(
       birlaOpusProducts
-        .filter((product) => product.category === "Interior Paints" && product.imageUrl?.endsWith(".jpg"))
+        .filter((product) => product.category === "Interior Paints" && (product.imageUrl?.endsWith(".jpg") || product.imageUrl?.endsWith(".webp")))
         .map((product) => [product.name, product.imageUrl]),
     );
 

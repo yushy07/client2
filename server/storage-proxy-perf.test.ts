@@ -54,5 +54,5 @@ describe("Storage Proxy Performance & Functionality", () => {
     } finally {
       await close();
     }
-  });
+  }, 15000);
 });

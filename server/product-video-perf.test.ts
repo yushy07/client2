@@ -74,16 +74,13 @@ describe("Product Video Performance & Strategy (Phase B)", () => {
 
   it("enforces section-level viewport gating and active+next video loading strategy in component", () => {
     // Section-level intersection observer
-    expect(productStoriesComponent).toContain("isSectionInView");
+    expect(productStoriesComponent).toContain("isNearViewport");
     expect(productStoriesComponent).toContain("rootMargin");
     expect(productStoriesComponent).toContain("ref={sectionRef}");
 
     // Active + Next loading priority
-    expect(productStoriesComponent).toContain("isNext");
-    expect(productStoriesComponent).toContain("shouldAttachSrc = isSectionInView && (isCentered || isNext)");
-    expect(productStoriesComponent).toContain('preloadStrategy');
-    expect(productStoriesComponent).toContain('preload={preloadStrategy}');
-    expect(productStoriesComponent).toContain("src={shouldAttachSrc ? story.src : undefined}");
+    expect(productStoriesComponent).toContain("shouldLoad = isNearViewport && (isCentered || idx === currentIndex + 1)");
+    expect(productStoriesComponent).toContain("src={shouldLoad ? story.src : undefined}");
 
     // Strict silence enforcement
     expect(productStoriesComponent).toContain("video.muted = true");

@@ -22,12 +22,15 @@ import {
   X,
   Layers,
   ArrowRight,
-  Info
+  Info,
+  ShoppingBag
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "@/contexts/CartContext";
 
 export const ColourFinderPage: React.FC = () => {
   const seo = SITE_ROUTES_SEO["/colour-finder"];
+  const { addToCart, setIsCartOpen } = useCart();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFamily, setSelectedFamily] = useState<ColourFamily | "All">("All");
@@ -278,6 +281,24 @@ export const ColourFinderPage: React.FC = () => {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <Button
+                  type="button"
+                  onClick={() => {
+                    addToCart({
+                      id: `shade-${selectedModalShade.code.replace(/\s+/g, "-")}`,
+                      type: "shade",
+                      title: selectedModalShade.name,
+                      meta: `Code: ${selectedModalShade.code} · Family: ${selectedModalShade.family}`,
+                      colourHex: selectedModalShade.digitalColor,
+                    }, true);
+                    setSelectedModalShade(null);
+                  }}
+                  className="bg-accent text-dark font-bold text-xs py-2.5 px-4 rounded-xl w-full sm:flex-1 shadow-lg hover:bg-accent/90 flex items-center justify-center gap-2"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>+ Add to Enquiry</span>
+                </Button>
+
+                <Button
                   asChild
                   className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl w-full sm:flex-1 shadow-lg"
                 >
@@ -288,7 +309,7 @@ export const ColourFinderPage: React.FC = () => {
                     className="flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Enquire on WhatsApp</span>
+                    <span>WhatsApp Shade</span>
                   </a>
                 </Button>
 

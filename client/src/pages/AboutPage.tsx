@@ -3,6 +3,9 @@ import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
 import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
 import { businessProfile } from "@shared/businessProfile";
+import { InsideJaymurti } from "@/components/experiences/InsideJaymurti";
+import { StepInside } from "@/components/experiences/StepInside";
+import { OwnerAndTeam } from "@/components/experiences/OwnerAndTeam";
 import {
   MapPin,
   Clock,
@@ -14,7 +17,8 @@ import {
   CheckCircle2,
   Layers,
   Palette,
-  Store
+  Store,
+  Video
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -29,13 +33,13 @@ export const AboutPage: React.FC = () => {
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-5">
             <div className="inline-flex items-center gap-2 text-xs text-accent font-semibold uppercase tracking-wider">
-              <BadgeCheck className="w-4 h-4" /> Authorized Dealership · Baskhari
+              <BadgeCheck className="w-4 h-4" /> Authorised Dealership · Baskhari
             </div>
             <h2 className="text-3xl sm:text-4xl font-serif text-white leading-tight">
               A Modern Paint & Architectural Colour Showroom in Ambedkar Nagar
             </h2>
             <p className="text-sm sm:text-base text-on-dark-muted leading-relaxed">
-              <strong>JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स</strong> is established in Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh as an authorized Birla Opus paint dealership.
+              <strong>JAYMURTI TRADERS · जयमूर्ति ट्रेडर्स</strong> is established in Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh as an authorised Birla Opus paint dealership.
             </p>
             <p className="text-xs sm:text-sm text-on-dark-muted leading-relaxed">
               We bring Aditya Birla Group’s premier paint innovation — Birla Opus — directly to homeowners, architects, painters, and builders. Our mission is to combine authentic formulations, exact computerized tinting machines, and expert colour curation in a welcoming showroom environment.
@@ -131,6 +135,45 @@ export const AboutPage: React.FC = () => {
                 Expert consultation on moisture proofing, surface preparation, coat estimation, and painter recommendations.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Step Inside: Cinematic Showroom Video Experience */}
+        <section id="step-inside" className="space-y-6 pt-4">
+          <div className="border-b border-border-teal/40 pb-3 flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <h2 className="text-2xl font-serif text-white flex items-center gap-2">
+                <Video className="w-5 h-5 text-accent" /> Step Inside: Cinematic Showroom Tour
+              </h2>
+              <p className="text-xs text-on-dark-muted mt-1">
+                Experience our Baskhari store environment, color fandeck counter, and automated tinting bar.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-3xl overflow-hidden border border-border-teal/40">
+            <StepInside />
+          </div>
+        </section>
+
+        {/* Inside Jaymurti: Photographic Gallery */}
+        <section id="showroom" className="space-y-6 pt-4">
+          <div className="border-b border-border-teal/40 pb-3">
+            <h2 className="text-2xl font-serif text-white">Inside Our Showroom (Photo Gallery)</h2>
+            <p className="text-xs text-on-dark-muted mt-1">
+              Explore high-resolution captures of our paint stock, display walls, and consultation area.
+            </p>
+          </div>
+
+          <div className="rounded-3xl overflow-hidden border border-border-teal/40">
+            <InsideJaymurti />
+          </div>
+        </section>
+
+        {/* Founder & Showroom Team Section */}
+        <section id="team" className="space-y-6 pt-4">
+          <div className="rounded-3xl overflow-hidden border border-border-teal/40">
+            <OwnerAndTeam />
           </div>
         </section>
 

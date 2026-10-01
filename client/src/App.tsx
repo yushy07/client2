@@ -4,6 +4,8 @@ import { lazy, Suspense, type ComponentType } from "react";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { CartProvider } from "./contexts/CartContext";
+import { EnquiryDrawer } from "./components/cart/EnquiryDrawer";
 
 const Home = lazy(() => import("./pages/Home"));
 const Privacy = lazy(() => import("./pages/Privacy"));
@@ -96,12 +98,15 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <Suspense fallback={<RouteFallback />}>
-            <Router />
-          </Suspense>
-        </TooltipProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <EnquiryDrawer />
+            <Suspense fallback={<RouteFallback />}>
+              <Router />
+            </Suspense>
+          </TooltipProvider>
+        </CartProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

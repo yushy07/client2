@@ -18,11 +18,14 @@ import {
   Palette
 } from "lucide-react";
 
+import { useCart } from "@/contexts/CartContext";
+
 interface CategoryPageProps {
   routePath: string;
 }
 
 export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
+  const { addToCart, setIsCartOpen } = useCart();
   const seo = SITE_ROUTES_SEO[routePath] || SITE_ROUTES_SEO["/paint-products"];
   const targetCategory = seo.category;
 
@@ -315,15 +318,32 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-2">
+                    <div className="pt-2 border-t border-white/5 flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          addToCart({
+                            id: `prod-${product.slug}`,
+                            type: "product",
+                            title: product.name,
+                            meta: `${product.category} · ${product.family}`,
+                            quantity: 1,
+                          }, true);
+                        }}
+                        className="inline-flex items-center gap-1.5 bg-accent/15 hover:bg-accent text-accent hover:text-dark border border-accent/40 text-xs px-3 py-1.5 rounded-lg transition-all flex-1 justify-center font-semibold"
+                      >
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>+ Enquiry</span>
+                      </button>
                       <a
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs px-3 py-1.5 rounded-lg transition-all w-full justify-center font-medium"
+                        className="inline-flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs px-3 py-1.5 rounded-lg transition-all justify-center font-medium"
+                        title="Direct WhatsApp"
+                        aria-label="Direct WhatsApp"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
-                        <span>Enquire on WhatsApp</span>
                       </a>
                     </div>
                   </div>

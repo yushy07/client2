@@ -7,13 +7,10 @@ const homePage = readFileSync(resolve(projectRoot, "client/src/pages/Home.tsx"),
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
 
 describe("mobile discovery paths", () => {
-  it("provides a labeled, keyboard-reachable horizontal category rail", () => {
-    expect(homePage).toContain('className="supplementary-grid" ref={supplementaryRailRef} role="list"');
-    expect(homePage).toContain('aria-label="Explore more Birla Opus product categories" tabIndex={0}');
-    expect(homePage).toContain('className="supplementary-scroll-cue"');
-    expect(homePage).toContain('className="supplementary-rail-controls"');
-    expect(homePage).toContain('scrollSupplementaryRail(-1)');
-    expect(homePage).toContain('scrollSupplementaryRail(1)');
+  it("provides accessible category filtering controls", () => {
+    const productsPreview = readFileSync(resolve(projectRoot, "client/src/components/home/HomeProductsPreview.tsx"), "utf8");
+    expect(productsPreview).toContain('aria-label="Filter featured products"');
+    expect(productsPreview).toContain('className="filter-pills"');
   });
 
   it("uses touch scrolling, snap points, and full-width cards before the phone breakpoint", () => {

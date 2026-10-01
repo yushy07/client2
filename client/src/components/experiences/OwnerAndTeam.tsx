@@ -6,14 +6,11 @@ import {
   VolumeX,
   Maximize2,
   ShieldCheck,
-  PhoneCall,
   MessageCircle,
-  MapPin,
   Sparkles,
   Award,
   Users,
   CheckCircle2,
-  Layers,
 } from "lucide-react";
 import { businessProfile } from "@shared/businessProfile";
 
@@ -75,7 +72,7 @@ export const OwnerAndTeam: React.FC = () => {
   return (
     <section
       id="leadership"
-      className="py-12 sm:py-16 lg:py-24 bg-[#0a0f11] text-white border-t border-teal-900/40 relative overflow-hidden"
+      className="py-10 sm:py-14 lg:py-16 bg-[#0a0f11] text-white border-t border-teal-900/40 relative overflow-hidden"
     >
       {/* Ambient background glows */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
@@ -83,7 +80,7 @@ export const OwnerAndTeam: React.FC = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mb-10 sm:mb-16">
+        <div className="max-w-3xl mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111a1d] text-[var(--saffron,#e8a338)] text-xs font-semibold uppercase tracking-wider mb-4 border border-teal-800/50 backdrop-blur-md">
             <Users className="w-3.5 h-3.5" />
             Founder & Showroom Leadership · Baskhari
@@ -104,10 +101,10 @@ export const OwnerAndTeam: React.FC = () => {
         </div>
 
         {/* =========================================================================
-            PART 1: THE FOUNDER & SHOWROOM VIDEO SHOWCASE
+            FOUNDER & SHOWROOM SHOWCASE WITH INTEGRATED TEAM SUPPORT
             ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12 sm:mb-24">
-          {/* Left Column: Owner Profile & Photos */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column: Owner Profile & Photos + Secondary Team Support */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <div className="relative rounded-2xl overflow-hidden border border-teal-800/40 bg-[#101719] shadow-2xl group">
               {/* Main Owner Photo Display */}
@@ -172,14 +169,14 @@ export const OwnerAndTeam: React.FC = () => {
             </div>
 
             {/* Founder Note / Quote */}
-            <div className="mt-6 p-6 rounded-2xl bg-[#0e1619] border border-teal-800/30">
+            <div className="mt-5 p-5 sm:p-6 rounded-2xl bg-[#0e1619] border border-teal-800/30">
               <blockquote
                 style={{ fontFamily: "var(--serif)" }}
-                className="text-lg sm:text-xl text-slate-200 font-normal italic leading-relaxed mb-4"
+                className="text-base sm:text-lg text-slate-200 font-normal italic leading-relaxed mb-4"
               >
                 “Every home in Ambedkar Nagar deserves authentic, factory-calibrated finishes that endure through summer sun and monsoon rains. When you walk into our showroom, we personally guide you through every swatch, every formulation, and every litre calculation.”
               </blockquote>
-              <div className="flex items-center justify-between flex-wrap gap-4 pt-4 border-t border-white/10">
+              <div className="flex items-center justify-between flex-wrap gap-4 pt-3.5 border-t border-white/10">
                 <div>
                   <strong className="text-sm text-white block font-sans font-semibold">
                     Direct Showroom Desk
@@ -197,6 +194,29 @@ export const OwnerAndTeam: React.FC = () => {
                   <MessageCircle className="w-3.5 h-3.5" />
                   Connect on WhatsApp
                 </a>
+              </div>
+            </div>
+
+            {/* Integrated Team Support Profile (Ravi Madeshiy) */}
+            <div className="mt-4 p-4 rounded-2xl bg-[#0c1417] border border-teal-800/40 flex items-center gap-4 shadow-lg">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden border border-teal-700/50 flex-shrink-0 bg-black shadow-md">
+                <img
+                  src="/storage/teammember.webp"
+                  alt="Ravi Madeshiy - Trade Sales Manager"
+                  className="w-full h-full object-cover object-[center_18%]"
+                  loading="lazy"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono text-[var(--saffron,#e8a338)] uppercase tracking-wider font-semibold mb-0.5">
+                  <Award className="w-3 h-3" /> Team Support
+                </span>
+                <h4 className="text-sm sm:text-base font-medium text-white leading-snug">
+                  Ravi Madeshiy
+                </h4>
+                <span className="text-xs text-slate-300 font-sans block mt-0.5">
+                  Trade Sales Manager
+                </span>
               </div>
             </div>
           </div>
@@ -324,131 +344,6 @@ export const OwnerAndTeam: React.FC = () => {
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                 Filmed on-site at Jaymurti Traders, Shukul Bazar, Baskhari · Featuring the Birla Opus Experience Centre.
               </p>
-            </div>
-          </div>
-        </div>
-
-        {/* =========================================================================
-            PART 2: THE SHOWROOM TEAM & SPECIALISTS
-            ========================================================================= */}
-        <div className="pt-12 border-t border-teal-900/40">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs font-mono text-[var(--saffron,#e8a338)] uppercase tracking-widest font-semibold block mb-2">
-              Expert Guidance On-Site
-            </span>
-            <h3
-              style={{ fontFamily: "var(--serif)" }}
-              className="text-2xl sm:text-3xl lg:text-4xl text-white font-medium"
-            >
-              Meet Our Showroom Specialist.
-            </h3>
-            <p className="text-slate-300 text-sm sm:text-base mt-2 font-sans">
-              From calculating exact paint litres to demonstrating physical wood and texture panels, our certified team ensures your painting project runs smoothly from start to finish.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#0d1416] border border-teal-800/40 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl">
-            {/* Team Member Photo */}
-            <div className="md:col-span-5 lg:col-span-4">
-              <div className="relative rounded-2xl overflow-hidden border border-teal-700/40 aspect-[9/16] sm:aspect-[3/4] bg-black shadow-xl">
-                <img
-                  src="/storage/teammember.jpeg"
-                  alt="Ravi Madeshiy - Trade Sales Manager"
-                  className="w-full h-full object-cover object-[center_18%]"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0c1417]/90 text-[var(--saffron,#e8a338)] text-xs font-mono font-bold border border-teal-800/50 mb-1">
-                    <Award className="w-3.5 h-3.5" /> Team Member
-                  </span>
-                  <h4 className="text-lg font-serif text-white font-medium">
-                    Ravi Madeshiy
-                  </h4>
-                  <span className="text-xs text-[var(--saffron,#e8a338)] font-mono font-semibold block">
-                    Trade Sales Manager
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Team Member Responsibilities & Strengths */}
-            <div className="md:col-span-7 lg:col-span-8 flex flex-col justify-between">
-              <div>
-                <h4
-                  style={{ fontFamily: "var(--serif)" }}
-                  className="text-xl sm:text-2xl text-white font-medium mb-3"
-                >
-                  Ravi Madeshiy · Trade Sales Manager
-                </h4>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans mb-6">
-                  Walk in to our showroom to consult on authentic Birla Opus formulations. Our team member is physically present at the desk to walk you through texture cards, examine your room photos, and calibrate exact tints.
-                </p>
-
-                {/* 4 Core Pillars of Service */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  <div className="p-4 rounded-xl bg-[#111c1f] border border-teal-900/50">
-                    <div className="flex items-center gap-2 text-[var(--saffron,#e8a338)] font-semibold text-xs uppercase tracking-wider mb-1 font-mono">
-                      <Layers className="w-4 h-4" />
-                      1. Formulation Guidance
-                    </div>
-                    <p className="text-xs text-slate-300 leading-normal font-sans">
-                      Choosing between One, Calista, and Style emulsions tailored to room light and washable durability.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-[#111c1f] border border-teal-900/50">
-                    <div className="flex items-center gap-2 text-[var(--saffron,#e8a338)] font-semibold text-xs uppercase tracking-wider mb-1 font-mono">
-                      <Sparkles className="w-4 h-4" />
-                      2. Texture & Wood Panels
-                    </div>
-                    <p className="text-xs text-slate-300 leading-normal font-sans">
-                      Touch physical samples of Allwood PU finishes, metallic textures, and designer wallpaper books.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-[#111c1f] border border-teal-900/50">
-                    <div className="flex items-center gap-2 text-[var(--saffron,#e8a338)] font-semibold text-xs uppercase tracking-wider mb-1 font-mono">
-                      <CheckCircle2 className="w-4 h-4" />
-                      3. Computerized Tinting
-                    </div>
-                    <p className="text-xs text-slate-300 leading-normal font-sans">
-                      Precision color tinting for all 159 Birla Opus verified shades right in front of your eyes.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-[#111c1f] border border-teal-900/50">
-                    <div className="flex items-center gap-2 text-[var(--saffron,#e8a338)] font-semibold text-xs uppercase tracking-wider mb-1 font-mono">
-                      <Award className="w-4 h-4" />
-                      4. Accurate Quantity Estimates
-                    </div>
-                    <p className="text-xs text-slate-300 leading-normal font-sans">
-                      Clear estimates of topcoats, primer liters, and putty kilograms to avoid costly over-purchasing.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Call to Action Footer */}
-              <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-teal-900/40">
-                <a
-                  href="#finder"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-brand-primary,#0c292f)] hover:bg-[#113a42] text-white text-xs font-semibold tracking-wider uppercase border border-teal-700/40 transition-colors"
-                >
-                  <MapPin className="w-4 h-4 text-[var(--saffron,#e8a338)]" />
-                  Visit Showroom Counter
-                </a>
-                <a
-                  href={`tel:${businessProfile.phoneHref}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold tracking-wider uppercase transition-colors"
-                >
-                  <PhoneCall className="w-4 h-4 text-emerald-400" />
-                  Call {businessProfile.phoneDisplay}
-                </a>
-                <span className="text-xs text-slate-400 font-mono ml-auto">
-                  Open Daily · 8:00 AM – 9:00 PM
-                </span>
-              </div>
             </div>
           </div>
         </div>
