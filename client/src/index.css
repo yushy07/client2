@@ -239,22 +239,16 @@ a {
   }
 }
 
-.scroll-chapter { scroll-margin-top: 0; scroll-snap-align: start; scroll-snap-stop: normal; }
-.scroll-chapter:not(:first-of-type) {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 700px;
-}
-
+.scroll-chapter { scroll-margin-top: 0; }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(26px);
+  opacity: 1;
+  transform: none;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity .68s var(--ease-out), transform .68s var(--ease-out);
+  transform: none;
 }
 
 .site-shell {
