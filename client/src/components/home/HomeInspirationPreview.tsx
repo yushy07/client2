@@ -12,6 +12,7 @@ export const HomeInspirationPreview: React.FC = () => {
       image: "/storage/same-room-shades/img22.webp",
       desc: "Simulate natural north daylight on warm earthen neutrals for welcoming living spaces.",
       tag: "Living Room Studio",
+      href: "/room-inspiration?tab=studio&scene=0&shade=BO-1240#room-shade-studio",
     },
     {
       title: "Tranquil Master Sanctuary",
@@ -21,6 +22,7 @@ export const HomeInspirationPreview: React.FC = () => {
       image: "/storage/same-room-shades/img104.webp",
       desc: "Calming low-sheen matt textures tailored for restful bedroom retreats with soft morning light.",
       tag: "Bedroom Sanctuary",
+      href: "/room-inspiration?tab=studio&scene=1&shade=BO-1280#room-shade-studio",
     },
     {
       title: "Contemporary Dining & Gallery",
@@ -30,6 +32,7 @@ export const HomeInspirationPreview: React.FC = () => {
       image: "/storage/same-room-shades/img101.webp",
       desc: "Warm ambient evening lighting enhancing architectural depth, masonry arches, and feature walls.",
       tag: "Dining & Accent Hall",
+      href: "/room-inspiration?tab=studio&scene=6&shade=BO-1422#room-shade-studio",
     },
   ];
 
@@ -57,9 +60,10 @@ export const HomeInspirationPreview: React.FC = () => {
       {/* 3 Spatial Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
         {previewSpaces.map((space) => (
-          <article
+          <Link
             key={space.title}
-            className="group rounded-3xl overflow-hidden bg-gradient-to-b from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-accent/60 transition-all duration-300 hover:shadow-[0_16px_36px_rgba(12,41,47,0.6)] hover:-translate-y-1.5 flex flex-col justify-between"
+            href={space.href}
+            className="group rounded-3xl overflow-hidden bg-gradient-to-b from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-accent/60 transition-all duration-300 hover:shadow-[0_16px_36px_rgba(12,41,47,0.6)] hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer block"
           >
             <div className="aspect-[16/10] w-full bg-[#0C292F] overflow-hidden relative">
               <img
@@ -104,16 +108,15 @@ export const HomeInspirationPreview: React.FC = () => {
               </div>
 
               <div className="pt-3 border-t border-[#176B73]/30 flex items-center justify-between">
-                <Link
-                  href="/room-inspiration"
-                  className="inline-flex items-center gap-1.5 text-xs text-accent hover:text-amber-300 font-semibold transition-colors"
+                <span
+                  className="inline-flex items-center gap-1.5 text-xs text-accent group-hover:text-amber-300 font-semibold transition-colors"
                 >
                   <Eye size={14} />
                   <span>Try Shades in Room Studio &rarr;</span>
-                </Link>
+                </span>
               </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
 

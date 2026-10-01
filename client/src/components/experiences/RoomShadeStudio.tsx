@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ROOM_SHADE_STUDIO_SCENES, type RoomScene, type RoomVariant } from "@shared/roomShadeStudioData";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +31,8 @@ import { ScrollableRow } from "@/components/ui/ScrollableRow";
 interface RoomShadeStudioProps {
   onEnquire?: (title: string, details: string) => void;
   onExploreShades?: () => void;
+  initialSceneIndex?: number;
+  initialShadeCode?: string;
 }
 
 interface ThumbnailStripProps {
@@ -307,8 +310,8 @@ export const LIGHTING_ENVIRONMENTS: LightingEnvironment[] = [
   }
 ];
 
-export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onExploreShades }) => {
-  const [selectedSceneIndex, setSelectedSceneIndex] = useState<number>(0);
+export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onExploreShades, initialSceneIndex, initialShadeCode }) => {
+  const [selectedSceneIndex, setSelectedSceneIndex] = useState<number>(initialSceneIndex ?? 0);
   const currentScene: RoomScene = ROOM_SHADE_STUDIO_SCENES[selectedSceneIndex] ?? ROOM_SHADE_STUDIO_SCENES[0]!;
 
   // Tone family filter
@@ -321,6 +324,18 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
   // Dual side-by-side comparison indices
   const [leftVariantIndex, setLeftVariantIndex] = useState<number>(0);
   const [rightVariantIndex, setRightVariantIndex] = useState<number>(1 % currentScene.variants.length);
+
+  // Deep-link: select the matching shade variant on first mount
+  useEffect(() => {
+    if (!initialShadeCode) return;
+    const scene = ROOM_SHADE_STUDIO_SCENES[initialSceneIndex ?? 0];
+    if (!scene) return;
+    const idx = scene.variants.findIndex((v) => v.shadeCode === initialShadeCode);
+    if (idx !== -1) {
+      setLeftVariantIndex(idx);
+      setRightVariantIndex(idx === 0 ? Math.min(1, scene.variants.length - 1) : 0);
+    }
+  }, []); // run once on mount
 
   // Active Lightbox Modal for quick-tap magnification & detail studio
   const [activeLightboxVariant, setActiveLightboxVariant] = useState<RoomVariant | null>(null);
@@ -396,10 +411,46 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
     }
   };
 
+  // Viewport nav offset calculation so the modal is never cut off or overlapped by the fixed/sticky navbar
+  const [navOffset, setNavOffset] = useState<number>(72);
+
+  useEffect(() => {
+    if (!activeLightboxVariant) return;
+
+    const updateNavOffset = () => {
+      const header = document.querySelector("header.sticky") || document.querySelector("header");
+      if (header) {
+        const rect = header.getBoundingClientRect();
+        // The navbar's bottom edge in viewport coordinates represents the exact line where site navigation ends
+        const bottomEdge = Math.max(0, Math.round(rect.bottom));
+        setNavOffset(bottomEdge || (window.innerWidth < 640 ? 65 : 71));
+      } else {
+        setNavOffset(window.innerWidth < 640 ? 65 : 71);
+      }
+    };
+
+    updateNavOffset();
+    window.addEventListener("resize", updateNavOffset);
+    return () => window.removeEventListener("resize", updateNavOffset);
+  }, [activeLightboxVariant]);
+
+  // Lock background body scroll when modal is open
+  useEffect(() => {
+    if (!activeLightboxVariant) return;
+    const origOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = origOverflow;
+    };
+  }, [activeLightboxVariant]);
+
   useEffect(() => {
     if (!activeLightboxVariant) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setActiveLightboxVariant(null);
+      } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         const currIdx = currentScene.variants.findIndex((v) => v.id === activeLightboxVariant.id);
         const prevIdx = (currIdx - 1 + currentScene.variants.length) % currentScene.variants.length;
@@ -840,40 +891,54 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
       </div>
 
       {/* QUICK-TAP MAGNIFY LIGHTBOX / DETAIL MODAL WITH LIGHTING & MOTIF CONTROLS */}
-      <AnimatePresence>
-        {activeLightboxVariant && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col p-3 sm:p-6 md:p-8"
-            onClick={() => setActiveLightboxVariant(null)}
-          >
-            <div
-              className="bg-[#0b1114] border border-border-teal/60 rounded-3xl w-full max-w-6xl mx-auto flex-1 flex flex-col shadow-2xl overflow-hidden relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Top Header */}
-              <div className="flex items-center justify-between p-4 sm:p-5 border-b border-border-teal/40 bg-[#0e1619] flex-shrink-0">
-                <div className="flex items-center gap-3 min-w-0">
-                  <span
-                    className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-white/40 shadow-md flex-shrink-0"
-                    style={{ backgroundColor: activeLightboxVariant.hex }}
-                  />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] sm:text-xs font-mono font-bold text-accent tracking-wider uppercase">
-                        {activeLightboxVariant.shadeCode}
-                      </span>
-                      <span className="text-[10px] text-zinc-400 font-sans hidden xs:inline">
-                        · {activeLightboxVariant.family}
-                      </span>
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {activeLightboxVariant && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="lightbox-shade-title"
+                style={{
+                  position: "fixed",
+                  top: `${navOffset}px`,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: `calc(100dvh - ${navOffset}px)`,
+                  zIndex: 1000000,
+                }}
+                className="bg-black/95 backdrop-blur-xl flex flex-col p-2 sm:p-4 md:p-6 overflow-hidden"
+                onClick={() => setActiveLightboxVariant(null)}
+              >
+                <div
+                  className="bg-[#0b1114] border border-border-teal/60 rounded-2xl sm:rounded-3xl w-full max-w-6xl mx-auto flex-1 flex flex-col shadow-2xl overflow-hidden relative min-h-0"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Modal Top Header */}
+                  <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-border-teal/40 bg-[#0e1619] flex-shrink-0">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span
+                        className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-white/40 shadow-md flex-shrink-0"
+                        style={{ backgroundColor: activeLightboxVariant.hex }}
+                      />
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] sm:text-xs font-mono font-bold text-accent tracking-wider uppercase">
+                            {activeLightboxVariant.shadeCode}
+                          </span>
+                          <span className="text-[10px] text-zinc-400 font-sans hidden xs:inline">
+                            · {activeLightboxVariant.family}
+                          </span>
+                        </div>
+                        <h3 id="lightbox-shade-title" className="text-base sm:text-lg font-serif text-white truncate font-medium">
+                          {activeLightboxVariant.label} · <span className="text-zinc-400 text-xs font-sans">{currentScene.name}</span>
+                        </h3>
+                      </div>
                     </div>
-                    <h3 className="text-base sm:text-lg font-serif text-white truncate font-medium">
-                      {activeLightboxVariant.label} · <span className="text-zinc-400 text-xs font-sans">{currentScene.name}</span>
-                    </h3>
-                  </div>
-                </div>
 
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <Button
@@ -1074,9 +1139,9 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
               </div>
 
               {/* Main Visual Display Stage */}
-              <div className="flex-1 relative flex items-center justify-center overflow-hidden bg-black/80">
+              <div className="flex-1 min-h-0 relative flex items-center justify-center overflow-hidden bg-black/80">
                 {lightboxTab !== "motifs" ? (
-                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-4">
+                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-4 min-h-0">
                     {/* The Room Image Container with Layered Spatial Compositing Stack */}
                     <div className="relative max-h-full max-w-full rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
                       {/* Base Room Photograph */}
@@ -1328,7 +1393,9 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </section>
-  );
+      </AnimatePresence>,
+      document.body
+    )}
+  </section>
+);
 };

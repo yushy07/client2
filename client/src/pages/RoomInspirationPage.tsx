@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
 import { getRouteSEO } from "@shared/seoKeywordMap";
@@ -12,6 +12,38 @@ export const RoomInspirationPage: React.FC = () => {
   const seo = getRouteSEO("/room-inspiration");
   const { addToCart, setIsCartOpen } = useCart();
   const [activeTab, setActiveTab] = useState<"studio" | "library" | "capsule">("studio");
+
+  // Deep-link support: parse ?tab=studio&scene=0&shade=BO-1240 from URL
+  const urlParams = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search);
+  }, []);
+
+  const initialSceneIndex = useMemo(() => {
+    const s = urlParams?.get("scene");
+    if (s != null) {
+      const n = parseInt(s, 10);
+      if (!isNaN(n) && n >= 0) return n;
+    }
+    return undefined;
+  }, [urlParams]);
+
+  const initialShadeCode = useMemo(() => {
+    return urlParams?.get("shade") || undefined;
+  }, [urlParams]);
+
+  useEffect(() => {
+    const tab = urlParams?.get("tab");
+    if (tab === "studio" || tab === "library" || tab === "capsule") {
+      setActiveTab(tab);
+    }
+    // Scroll to the studio section if hash is present
+    if (window.location.hash === "#room-shade-studio") {
+      setTimeout(() => {
+        document.getElementById("room-shade-studio")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 400);
+    }
+  }, [urlParams]);
 
   return (
     <SEOPageLayout seo={seo}>
@@ -72,6 +104,8 @@ export const RoomInspirationPage: React.FC = () => {
       {activeTab === "studio" && (
         <section aria-label="Room Shade Studio Interactive" className="rounded-3xl overflow-hidden border border-border-teal/40">
           <RoomShadeStudio
+            initialSceneIndex={initialSceneIndex}
+            initialShadeCode={initialShadeCode}
             onEnquire={(title, details) => {
               addToCart({
                 id: `room-shade-${Date.now()}`,

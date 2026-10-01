@@ -306,7 +306,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       </section>
 
       {/* 4. Main Page Content */}
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 flex-1 relative z-10">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 flex-1 relative">
         {children}
       </main>
 
