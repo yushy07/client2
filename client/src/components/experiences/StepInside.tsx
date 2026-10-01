@@ -163,7 +163,7 @@ export const StepInside: React.FC = () => {
                     <button
                       type="button"
                       onClick={togglePlay}
-                      className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center transition-colors"
+                      className="w-9 h-9 rounded-full bg-teal-900/80 hover:bg-teal-850 hover:text-amber-300 backdrop-blur-md text-teal-100 border border-teal-700/40 hover:border-amber-400/50 flex items-center justify-center transition-all"
                       aria-label={isPlaying ? "Pause" : "Play"}
                     >
                       {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current pl-0.5" />}
@@ -171,8 +171,8 @@ export const StepInside: React.FC = () => {
                     <button
                       type="button"
                       onClick={toggleMute}
-                      className={`w-9 h-9 rounded-full backdrop-blur-md flex items-center justify-center transition-colors ${
-                        isMuted ? "bg-amber-500 text-black hover:bg-amber-400" : "bg-white/20 hover:bg-white/30 text-white"
+                      className={`w-9 h-9 rounded-full backdrop-blur-md flex items-center justify-center transition-all ${
+                        isMuted ? "bg-amber-500 text-teal-950 font-bold hover:bg-amber-400" : "bg-teal-900/80 hover:bg-teal-850 hover:text-amber-300 text-teal-100 border border-teal-700/40 hover:border-amber-400/50"
                       }`}
                       aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
                     >
@@ -182,7 +182,7 @@ export const StepInside: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleFullscreen}
-                    className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md text-white flex items-center justify-center transition-colors"
+                    className="w-9 h-9 rounded-full bg-teal-900/80 hover:bg-teal-850 hover:text-amber-300 backdrop-blur-md text-teal-100 border border-teal-700/40 hover:border-amber-400/50 flex items-center justify-center transition-all"
                     aria-label="Fullscreen"
                   >
                     <Maximize2 className="w-4 h-4" />
@@ -298,7 +298,7 @@ export const StepInside: React.FC = () => {
                 </a>
                 <a
                   href={`tel:${businessProfile.phoneHref}`}
-                  className="flex-1 sm:flex-initial bg-dark-surface hover:bg-white/10 text-white/90 hover:text-white border border-border-teal py-3 px-4 rounded-xl transition-all inline-flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider"
+                  className="flex-1 sm:flex-initial bg-dark-surface hover:bg-brand-secondary/40 text-white/90 hover:text-accent border border-border-teal hover:border-accent/40 py-3 px-4 rounded-xl transition-all inline-flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-wider"
                 >
                   <Phone className="w-3.5 h-3.5 text-amber-400" />
                   <span>Call Store</span>

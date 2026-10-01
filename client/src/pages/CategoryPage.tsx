@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from "react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
-import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
-import { birlaOpusProducts, birlaOpusCategories, type BirlaOpusCategory } from "@shared/birlaOpusCatalogue";
+import { getRouteSEO } from "@shared/seoKeywordMap";
+import { birlaOpusProducts } from "@shared/birlaOpusCatalogue";
 import { textureLibrary } from "@shared/discoveryContent";
 import { Button } from "@/components/ui/button";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
@@ -11,8 +11,6 @@ import {
   MessageCircle,
   Search,
   Filter,
-  CheckCircle2,
-  ArrowRight,
   Sparkles,
   Layers,
   Palette
@@ -25,8 +23,8 @@ interface CategoryPageProps {
 }
 
 export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
-  const { addToCart, setIsCartOpen } = useCart();
-  const seo = SITE_ROUTES_SEO[routePath] || SITE_ROUTES_SEO["/paint-products"];
+  const { addToCart } = useCart();
+  const seo = getRouteSEO(routePath);
   const targetCategory = seo.category;
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -74,7 +72,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/paint-products"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             All Products ({birlaOpusProducts.length})
@@ -84,7 +82,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/interior-paints"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Interior Paints
@@ -94,7 +92,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/exterior-paints"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Exterior Paints
@@ -104,7 +102,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/waterproofing"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Waterproofing
@@ -114,7 +112,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/enamels"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Enamels
@@ -124,7 +122,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/wood-finishes"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Wood Finishes
@@ -134,7 +132,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/wall-textures"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Wall Textures
@@ -144,7 +142,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/wallpapers"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Wallpapers
@@ -154,7 +152,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
               routePath === "/paint-tools"
                 ? "bg-accent text-dark border-accent font-bold shadow-md"
-                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-white"
+                : "bg-dark-surface/60 border-border-teal/50 text-on-dark-muted hover:text-accent hover:border-accent/50"
             }`}
           >
             Paint Tools
@@ -189,7 +187,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                 className={`text-[11px] px-3 py-1 rounded-lg border transition-all flex-shrink-0 ${
                   selectedFamily === fam
                     ? "bg-accent text-dark border-accent font-bold shadow-sm"
-                    : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-white"
+                    : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
                 }`}
               >
                 {fam}
@@ -339,7 +337,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs px-3 py-1.5 rounded-lg transition-all justify-center font-medium"
+                        className="inline-flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-emerald-950 border border-emerald-500/30 text-xs px-3 py-1.5 rounded-lg transition-all justify-center font-bold"
                         title="Direct WhatsApp"
                         aria-label="Direct WhatsApp"
                       >

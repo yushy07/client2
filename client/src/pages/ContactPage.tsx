@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
-import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
+import { getRouteSEO } from "@shared/seoKeywordMap";
 import { businessProfile } from "@shared/businessProfile";
 import { trpc } from "@/lib/trpc";
 import {
@@ -11,7 +10,6 @@ import {
   MessageCircle,
   Compass,
   Instagram,
-  Mail,
   Send,
   CheckCircle2,
   AlertCircle,
@@ -21,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { SlingButton, ShinyText } from "@/components/reactbits";
 
 export const ContactPage: React.FC = () => {
-  const seo = SITE_ROUTES_SEO["/contact"];
+  const seo = getRouteSEO("/contact");
 
   const [form, setForm] = useState({
     name: "",
@@ -146,7 +144,7 @@ export const ContactPage: React.FC = () => {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-border-teal text-white hover:bg-white/5 text-xs px-5 py-2.5 rounded-xl"
+                  className="border-border-teal text-white hover:bg-teal-900/60 hover:text-accent hover:border-accent/40 text-xs px-5 py-2.5 rounded-xl transition-all"
                 >
                   <a href={businessProfile.googleProfileUrl} target="_blank" rel="noopener noreferrer">
                     View Google Profile
@@ -156,7 +154,7 @@ export const ContactPage: React.FC = () => {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-border-teal text-white hover:bg-white/5 text-xs px-5 py-2.5 rounded-xl"
+                  className="border-border-teal text-white hover:bg-teal-900/60 hover:text-accent hover:border-accent/40 text-xs px-5 py-2.5 rounded-xl transition-all"
                 >
                   <a href={businessProfile.instagramUrl} target="_blank" rel="noopener noreferrer">
                     <Instagram className="w-4 h-4 mr-1.5 text-pink-400" /> Instagram

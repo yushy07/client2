@@ -1,29 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
-import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
+import { getRouteSEO } from "@shared/seoKeywordMap";
 import { businessProfile } from "@shared/businessProfile";
 import { InsideJaymurti } from "@/components/experiences/InsideJaymurti";
 import { StepInside } from "@/components/experiences/StepInside";
 import { OwnerAndTeam } from "@/components/experiences/OwnerAndTeam";
+import { ShowroomVideoModal, VideoModalItem } from "@/components/ShowroomVideoModal";
 import {
   MapPin,
-  Clock,
-  PhoneCall,
   MessageCircle,
   BadgeCheck,
-  Sparkles,
   ShieldCheck,
-  CheckCircle2,
   Layers,
   Palette,
   Store,
-  Video
+  Video,
+  Play,
+  ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const AboutPage: React.FC = () => {
-  const seo = SITE_ROUTES_SEO["/about"];
+  const seo = getRouteSEO("/about");
+
+  const [videoModalData, setVideoModalData] = useState<{
+    isOpen: boolean;
+    title: string;
+    subtitle: string;
+    videos: VideoModalItem[];
+  }>({
+    isOpen: false,
+    title: "",
+    subtitle: "",
+    videos: []
+  });
+
+  const handleAuthorisedDealershipClick = () => {
+    setVideoModalData({
+      isOpen: true,
+      title: "Authorised Birla Opus Dealership · Jaymurti Traders",
+      subtitle: "Official showroom walkthrough & genuine paint inventory in Baskhari, Ambedkar Nagar",
+      videos: [
+        {
+          title: "Authorised Dealership Showroom Tour",
+          src: "/storage/jay-murti-traders-v4.mp4",
+          badge: "Full Tour"
+        }
+      ]
+    });
+  };
+
+  const handleComputerisedTintingClick = () => {
+    setVideoModalData({
+      isOpen: true,
+      title: "Computerized Tinting & Showroom Stock",
+      subtitle: "Automated high-precision shade dispensing & 100% genuine Birla Opus paint formulations",
+      videos: [
+        {
+          title: "Computerized Tinting Machine",
+          src: "/storage/tiniting machine.mp4",
+          badge: "Tinting Unit"
+        },
+        {
+          title: "Showroom Materials & Formulations",
+          src: "/storage/shopmaterial2.mp4",
+          badge: "Inventory & Stock"
+        }
+      ]
+    });
+  };
 
   return (
     <SEOPageLayout seo={seo}>
@@ -57,7 +103,7 @@ export const AboutPage: React.FC = () => {
               <Button
                 asChild
                 variant="outline"
-                className="border-border-teal text-white hover:bg-white/5 text-xs px-5 py-2.5 rounded-xl"
+                className="border-border-teal text-white hover:bg-teal-900/60 hover:text-accent hover:border-accent/40 text-xs px-5 py-2.5 rounded-xl transition-all"
               >
                 <a
                   href={`https://wa.me/${businessProfile.whatsappHref}?text=Hello%20Jaymurti%20Traders,%20I%20would%20like%20to%20know%20more%20about%20your%20services.`}
@@ -92,49 +138,111 @@ export const AboutPage: React.FC = () => {
         <section className="space-y-6">
           <div className="border-b border-border-teal/40 pb-3">
             <h2 className="text-2xl font-serif text-white">Why Homeowners & Painters Choose Jaymurti Traders</h2>
-            <p className="text-xs text-on-dark-muted mt-1">Verified offerings and showroom standards in Ambedkar Nagar district.</p>
+            <p className="text-xs text-on-dark-muted mt-1">Verified offerings and showroom standards in Ambedkar Nagar district. Tap to explore videos and shade galleries.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center">
-                <Store className="w-5 h-5" />
+            {/* Card 1: 100% Genuine Birla Opus / Authorised Dealership -> Plays Showroom Tour Video */}
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={handleAuthorisedDealershipClick}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleAuthorisedDealershipClick(); }}
+              className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent/70 hover:shadow-xl transition-all space-y-3 cursor-pointer group flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Store className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-semibold text-white group-hover:text-accent transition-colors">
+                  100% Genuine Birla Opus
+                </h3>
+                <p className="text-xs text-on-dark-muted leading-relaxed">
+                  Direct authorized inventory of interior luxury emulsions, exterior all-weather coats, and All Dry waterproofing.
+                </p>
               </div>
-              <h3 className="text-base font-semibold text-white">100% Genuine Birla Opus</h3>
-              <p className="text-xs text-on-dark-muted leading-relaxed">
-                Direct authorized inventory of interior luxury emulsions, exterior all-weather coats, and All Dry waterproofing.
-              </p>
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-accent font-semibold">
+                <span className="flex items-center gap-1.5 group-hover:underline">
+                  <Play className="w-3.5 h-3.5 fill-current" /> Watch Tour Video
+                </span>
+                <span className="text-[10px] font-mono text-teal-300/80 uppercase">Play</span>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center">
-                <Palette className="w-5 h-5" />
+            {/* Card 2: Computerized Tinting -> Plays Tinting Machine & Materials Videos */}
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={handleComputerisedTintingClick}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleComputerisedTintingClick(); }}
+              className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent/70 hover:shadow-xl transition-all space-y-3 cursor-pointer group flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Palette className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-semibold text-white group-hover:text-accent transition-colors">
+                  Computerized Tinting
+                </h3>
+                <p className="text-xs text-on-dark-muted leading-relaxed">
+                  Precision automated shade dispensers ensuring consistent batch-to-batch color reproduction for all 159 shades.
+                </p>
               </div>
-              <h3 className="text-base font-semibold text-white">Computerized Tinting</h3>
-              <p className="text-xs text-on-dark-muted leading-relaxed">
-                Precision automated shade dispensers ensuring consistent batch-to-batch color reproduction for all 159 shades.
-              </p>
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-accent font-semibold">
+                <span className="flex items-center gap-1.5 group-hover:underline">
+                  <Play className="w-3.5 h-3.5 fill-current" /> Watch Machine & Stock
+                </span>
+                <span className="text-[10px] font-mono text-teal-300/80 uppercase">2 Videos</span>
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center">
-                <Layers className="w-5 h-5" />
+            {/* Card 3: Live Sample Displays / Physical Sampling -> Navigates to Colour Finder */}
+            <Link
+              href="/colour-finder"
+              className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent/70 hover:shadow-xl transition-all space-y-3 cursor-pointer group flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-semibold text-white group-hover:text-accent transition-colors">
+                  Live Sample Displays
+                </h3>
+                <p className="text-xs text-on-dark-muted leading-relaxed">
+                  Inspect physical fan decks, applied wall texture boards, and wallpaper swatches in person under true lighting.
+                </p>
               </div>
-              <h3 className="text-base font-semibold text-white">Live Sample Displays</h3>
-              <p className="text-xs text-on-dark-muted leading-relaxed">
-                Inspect physical fan decks, applied wall texture boards, and wallpaper swatches in person under true lighting.
-              </p>
-            </div>
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-accent font-semibold">
+                <span className="flex items-center gap-1.5 group-hover:underline">
+                  <span>Explore 159 Shades</span> <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+                <span className="text-[10px] font-mono text-teal-300/80 uppercase">Explore</span>
+              </div>
+            </Link>
 
-            <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5" />
+            {/* Card 4: On-Site Guidance */}
+            <Link
+              href="/contact"
+              className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent/70 hover:shadow-xl transition-all space-y-3 cursor-pointer group flex flex-col justify-between"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-semibold text-white group-hover:text-accent transition-colors">
+                  On-Site Guidance
+                </h3>
+                <p className="text-xs text-on-dark-muted leading-relaxed">
+                  Expert consultation on moisture proofing, surface preparation, coat estimation, and painter recommendations.
+                </p>
               </div>
-              <h3 className="text-base font-semibold text-white">On-Site Guidance</h3>
-              <p className="text-xs text-on-dark-muted leading-relaxed">
-                Expert consultation on moisture proofing, surface preparation, coat estimation, and painter recommendations.
-              </p>
-            </div>
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-accent font-semibold">
+                <span className="flex items-center gap-1.5 group-hover:underline">
+                  <span>Contact Showroom</span> <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+                <span className="text-[10px] font-mono text-teal-300/80 uppercase">Visit</span>
+              </div>
+            </Link>
           </div>
         </section>
 
@@ -178,6 +286,15 @@ export const AboutPage: React.FC = () => {
         </section>
 
       </div>
+
+      {/* Showroom Video Modal for Dealership & Tinting Videos */}
+      <ShowroomVideoModal
+        isOpen={videoModalData.isOpen}
+        onClose={() => setVideoModalData(prev => ({ ...prev, isOpen: false }))}
+        title={videoModalData.title}
+        subtitle={videoModalData.subtitle}
+        videos={videoModalData.videos}
+      />
     </SEOPageLayout>
   );
 };

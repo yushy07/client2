@@ -1,4 +1,17 @@
 import { COOKIE_NAME } from "../shared/const";
+import {
+  isValidPhone,
+  PHONE_ERROR_MESSAGE,
+  REVIEW_NAME_MAX,
+  REVIEW_NAME_MIN,
+  REVIEW_NAME_ERROR,
+  REVIEW_RATING_ERROR,
+  REVIEW_RATING_MAX,
+  REVIEW_RATING_MIN,
+  REVIEW_TEXT_ERROR,
+  REVIEW_TEXT_MAX,
+  REVIEW_TEXT_MIN,
+} from "../shared/validation";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createServiceEnquiry, createShopReview, listPublishedShopReviews, listShopReviewsForModeration, moderateShopReview } from "./db";
@@ -13,16 +26,18 @@ const temporarilyUnavailable = () => new TRPCError({
 
 export const serviceEnquiryInput = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(120),
-  phone: z.string().trim().regex(/^[0-9+()\-\s]{7,30}$/, "Please enter a valid phone number."),
+  // A character-class check alone accepts digit-free input such as "+++++++",
+  // so the shared rule also requires a real digit count.
+  phone: z.string().trim().refine(isValidPhone, PHONE_ERROR_MESSAGE),
   email: z.string().trim().email("Please enter a valid email address.").max(320),
   serviceType: z.string().trim().min(2, "Please select a service.").max(120),
   pincode: z.string().trim().regex(/^\d{6}$/, "Enter a valid 6-digit pincode."),
 });
 
 export const shopReviewInput = z.object({
-  displayName: z.string().trim().min(2, "Please enter your name.").max(80),
-  rating: z.number().int().min(1, "Choose a rating from 1 to 5.").max(5, "Choose a rating from 1 to 5."),
-  reviewText: z.string().trim().min(20, "Please share at least 20 characters of feedback.").max(800),
+  displayName: z.string().trim().min(REVIEW_NAME_MIN, REVIEW_NAME_ERROR).max(REVIEW_NAME_MAX),
+  rating: z.number().int().min(REVIEW_RATING_MIN, REVIEW_RATING_ERROR).max(REVIEW_RATING_MAX, REVIEW_RATING_ERROR),
+  reviewText: z.string().trim().min(REVIEW_TEXT_MIN, REVIEW_TEXT_ERROR).max(REVIEW_TEXT_MAX),
 });
 
 export const appRouter = router({

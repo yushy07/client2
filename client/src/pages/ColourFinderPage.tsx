@@ -1,12 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
-import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
+import { getRouteSEO } from "@shared/seoKeywordMap";
 import {
   VERIFIED_BIRLA_OPUS_SHADES,
   COLOUR_FAMILIES,
   filterVerifiedShades,
-  SHADE_VARIATION_DISCLAIMER,
   type BirlaOpusShade,
   type ColourFamily
 } from "@shared/verifiedBirlaOpusShades";
@@ -18,19 +17,18 @@ import {
   Check,
   Sparkles,
   MessageCircle,
-  Eye,
   X,
   Layers,
-  ArrowRight,
-  Info,
-  ShoppingBag
+  ShoppingBag,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 
 export const ColourFinderPage: React.FC = () => {
-  const seo = SITE_ROUTES_SEO["/colour-finder"];
-  const { addToCart, setIsCartOpen } = useCart();
+  const seo = getRouteSEO("/colour-finder");
+  const { addToCart } = useCart();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFamily, setSelectedFamily] = useState<ColourFamily | "All">("All");
@@ -44,6 +42,42 @@ export const ColourFinderPage: React.FC = () => {
       family: selectedFamily,
     });
   }, [searchQuery, selectedFamily]);
+
+  const currentModalIndex = useMemo(() => {
+    if (!selectedModalShade) return -1;
+    return filteredShades.findIndex((s) => s.code === selectedModalShade.code);
+  }, [selectedModalShade, filteredShades]);
+
+  const handlePrevShade = () => {
+    if (filteredShades.length === 0) return;
+    const prev = currentModalIndex > 0
+      ? filteredShades[currentModalIndex - 1]
+      : filteredShades[filteredShades.length - 1];
+    if (prev) setSelectedModalShade(prev);
+  };
+
+  const handleNextShade = () => {
+    if (filteredShades.length === 0) return;
+    const next = (currentModalIndex >= 0 && currentModalIndex < filteredShades.length - 1)
+      ? filteredShades[currentModalIndex + 1]
+      : filteredShades[0];
+    if (next) setSelectedModalShade(next);
+  };
+
+  useEffect(() => {
+    if (!selectedModalShade) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handlePrevShade();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNextShade();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedModalShade, currentModalIndex, filteredShades]);
 
   const SHADES_PER_PAGE = 30;
   const totalPages = Math.max(1, Math.ceil(filteredShades.length / SHADES_PER_PAGE));
@@ -111,7 +145,7 @@ export const ColourFinderPage: React.FC = () => {
               className={`text-xs px-3.5 py-1.5 rounded-full border transition-all whitespace-nowrap font-medium flex-shrink-0 ${
                 selectedFamily === "All"
                   ? "bg-accent text-dark border-accent font-bold shadow-md"
-                  : "bg-dark/70 text-on-dark-muted border-border-teal/50 hover:text-white"
+                  : "bg-dark/70 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
               }`}
             >
               All Tone Families ({VERIFIED_BIRLA_OPUS_SHADES.length})
@@ -128,7 +162,7 @@ export const ColourFinderPage: React.FC = () => {
                   className={`text-xs px-3.5 py-1.5 rounded-full border transition-all whitespace-nowrap font-medium flex-shrink-0 flex items-center gap-1.5 ${
                     selectedFamily === family
                       ? "bg-accent text-dark border-accent font-bold shadow-md"
-                      : "bg-dark/70 text-on-dark-muted border-border-teal/50 hover:text-white"
+                      : "bg-dark/70 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
                   }`}
                 >
                   <span>{family}</span>
@@ -233,6 +267,39 @@ export const ColourFinderPage: React.FC = () => {
         )}
       </div>
 
+      {/* Cross-linking navigation cards to prevent dead end */}
+      <div className="mt-14 pt-8 border-t border-border-teal/40">
+        <h3 className="text-lg font-serif text-white mb-4">Explore More Inspiration &amp; Tools</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Link
+            href="/room-inspiration"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <Layers className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Room Shade Studio</h4>
+            <p className="text-xs text-on-dark-muted mt-1">12 architectural spaces with real wall shade variations.</p>
+          </Link>
+
+          <Link
+            href="/surface-studio"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <Sparkles className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Surface Studio</h4>
+            <p className="text-xs text-on-dark-muted mt-1">Metallic finishes, stucco textures, and tactile swatches.</p>
+          </Link>
+
+          <Link
+            href="/paint-products"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <ShoppingBag className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Paint Products Catalog</h4>
+            <p className="text-xs text-on-dark-muted mt-1">Interior, exterior, waterproofing, enamels &amp; wood finishes.</p>
+          </Link>
+        </div>
+      </div>
+
       {/* Shade Modal Quick View */}
       <AnimatePresence>
         {selectedModalShade && (
@@ -248,27 +315,57 @@ export const ColourFinderPage: React.FC = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-dark-surface border border-accent/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-6"
+              className="bg-dark-surface border border-accent/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-6 relative"
             >
               {/* Header */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-[10px] font-mono text-accent uppercase tracking-wider font-semibold">
-                    Birla Opus Verified Shade
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono text-accent uppercase tracking-wider font-semibold">
+                      Birla Opus Verified Shade
+                    </span>
+                    {currentModalIndex >= 0 && (
+                      <span className="text-[10px] font-mono text-teal-300/80 bg-teal-950/60 px-2 py-0.2 rounded-full border border-teal-700/40">
+                        {currentModalIndex + 1} of {filteredShades.length}
+                      </span>
+                    )}
+                  </div>
                   <h3 className="text-2xl font-serif text-white">{selectedModalShade.name}</h3>
                 </div>
-                <button
-                  onClick={() => setSelectedModalShade(null)}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+
+                <div className="flex items-center gap-1.5">
+                  {/* Prev / Next Header Arrows */}
+                  <button
+                    type="button"
+                    onClick={handlePrevShade}
+                    className="w-8 h-8 rounded-full bg-dark/80 hover:bg-teal-900/80 text-white/80 hover:text-accent border border-border-teal/60 flex items-center justify-center transition-all"
+                    aria-label="Previous Shade"
+                    title="Previous Shade (Left Arrow)"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextShade}
+                    className="w-8 h-8 rounded-full bg-dark/80 hover:bg-teal-900/80 text-white/80 hover:text-accent border border-border-teal/60 flex items-center justify-center transition-all"
+                    aria-label="Next Shade"
+                    title="Next Shade (Right Arrow)"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setSelectedModalShade(null)}
+                    className="w-8 h-8 rounded-full bg-teal-900/70 hover:bg-teal-800 text-teal-200 hover:text-accent border border-teal-700/40 hover:border-accent/40 flex items-center justify-center transition-all ml-1"
+                    aria-label="Close modal"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               {/* Big Swatch Surface */}
               <div
-                className="aspect-[16/9] w-full rounded-2xl shadow-inner border border-white/10 flex items-center justify-center p-6 text-center"
+                className="aspect-[16/9] w-full rounded-2xl shadow-inner border border-white/10 flex items-center justify-center p-6 text-center relative group"
                 style={{ backgroundColor: selectedModalShade.digitalColor }}
               >
                 <div className="bg-black/80 backdrop-blur-md p-4 rounded-xl text-white space-y-1 shadow-lg">
@@ -316,7 +413,7 @@ export const ColourFinderPage: React.FC = () => {
                 <Button
                   variant="outline"
                   onClick={() => handleCopyHex(selectedModalShade)}
-                  className="border-border-teal text-xs text-white hover:bg-white/5 w-full sm:w-auto"
+                  className="border-border-teal text-xs text-white hover:bg-teal-900/60 hover:text-accent hover:border-accent/40 w-full sm:w-auto transition-all"
                 >
                   {copiedCode === selectedModalShade.code ? (
                     <span className="text-emerald-400 flex items-center gap-1"><Check className="w-3.5 h-3.5" /> Copied Hex</span>

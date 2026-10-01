@@ -1,3 +1,4 @@
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
 import path from "path";
 
@@ -5,6 +6,10 @@ const templateRoot = path.resolve(import.meta.dirname);
 
 export default defineConfig({
   root: templateRoot,
+  // The root tsconfig sets `jsx: "preserve"` for the app build, which leaves
+  // JSX untouched for direct transforms. Component tests import .tsx sources
+  // and use JSX themselves, so they need the React transform here.
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(templateRoot, "client", "src"),
@@ -14,6 +19,13 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["api/**/*.test.ts", "api/**/*.spec.ts", "server/**/*.test.ts", "server/**/*.spec.ts", "shared/**/*.test.ts", "shared/**/*.spec.ts"],
+    include: [
+      "client/**/*.test.ts",
+      "client/**/*.test.tsx",
+      "server/**/*.test.ts",
+      "server/**/*.test.tsx",
+      "shared/**/*.test.ts",
+      "shared/**/*.test.tsx",
+    ],
   },
 });

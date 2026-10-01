@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "wouter";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { type RouteSEOConfig, CANONICAL_HOST } from "@shared/seoKeywordMap";
@@ -11,7 +11,6 @@ import {
   MessageCircle,
   ChevronRight,
   Sparkles,
-  ArrowRight,
   Clock,
   Instagram,
   Facebook,
@@ -19,8 +18,9 @@ import {
   Layers,
   Palette,
   ShoppingBag,
-  CheckCircle2,
-  HelpCircle
+  HelpCircle,
+  Menu,
+  X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -36,7 +36,8 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
   children,
   showFAQ = true,
 }) => {
-  const { cartItems, setIsCartOpen } = useCart();
+  const { cartItems, setIsCartOpen, generateWhatsAppCartUrl } = useCart();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   usePageSEO({
     title: seo.title,
     description: seo.description,
@@ -70,7 +71,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
   } : null;
 
   return (
-    <div className="min-h-screen bg-[#0c1214] text-white flex flex-col justify-between font-sans selection:bg-accent/30 selection:text-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0C292F] via-[#123F46] to-[#0C292F] text-[#F7F6F1] flex flex-col justify-between font-sans selection:bg-[#F3D36B]/30 selection:text-[#182426]">
       {/* Structured Data Scripts */}
       <script
         type="application/ld+json"
@@ -84,70 +85,70 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       )}
 
       {/* 1. Top Utility Announcement Bar */}
-      <div className="bg-[#080d0e] border-b border-white/5 py-2 px-4 sm:px-8 text-xs text-on-dark-muted flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div className="bg-[#081F24] border-b border-[#176B73]/40 py-2 px-4 sm:px-8 text-xs text-[#B9C8C8] flex flex-col sm:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-2 text-center sm:text-left">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>
-            Authorized Birla Opus Paint Dealer · <strong className="text-white font-semibold">JAYMURTI TRADERS</strong>
+            Authorized Birla Opus Paint Dealer · <strong className="text-[#F7F6F1] font-bold">JAYMURTI TRADERS</strong>
           </span>
-          <span className="hidden md:inline text-white/70" lang="hi">· जयमूर्ति ट्रेडर्स</span>
+          <span className="hidden md:inline text-[#F3D36B] font-medium" lang="hi">· जयमूर्ति ट्रेडर्स</span>
         </div>
         <div className="flex items-center gap-4 text-[11px]">
-          <span className="flex items-center gap-1 text-white/70">
-            <MapPin className="w-3 h-3 text-accent" /> Shukul Bazar, Baskhari (UP 224129)
+          <span className="flex items-center gap-1 text-[#B9C8C8]">
+            <MapPin className="w-3.5 h-3.5 text-[#F3D36B]" /> Shukul Bazar, Baskhari (UP 224129)
           </span>
           <a
             href="tel:+918756659035"
-            className="flex items-center gap-1 text-accent hover:underline font-semibold"
+            className="flex items-center gap-1 text-[#F3D36B] hover:text-[#E4C45A] font-bold transition-colors"
           >
-            <PhoneCall className="w-3 h-3" /> +91 87566 59035
+            <PhoneCall className="w-3.5 h-3.5" /> +91 87566 59035
           </a>
         </div>
       </div>
 
-      {/* 2. Global Navigation Header */}
-      <header className="sticky top-0 z-40 bg-[#0c1214]/95 backdrop-blur-md border-b border-border-teal/40 py-3.5 px-4 sm:px-8">
+      {/* 2. Global Navigation Header — Bold Eye-Catching Luxury Design */}
+      <header className="sticky top-0 z-40 bg-[#0C292F]/95 backdrop-blur-md border-b border-[#F3D36B]/30 py-3.5 px-4 sm:px-8 shadow-xl shadow-black/25">
         <div className="container mx-auto flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3 group">
             <img
               src="/storage/logo.webp"
               alt="Jaymurti Traders Logo"
-              width={34}
-              height={34}
-              className="transition-transform duration-300 group-hover:scale-105"
+              width={38}
+              height={38}
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-[#F3D36B] p-0.5 shadow-md shadow-[#F3D36B]/20 transition-transform duration-300 group-hover:scale-105"
             />
             <div className="flex flex-col">
-              <span className="font-serif tracking-wider text-sm sm:text-base font-semibold text-white">
+              <span className="font-serif tracking-wider text-sm sm:text-base font-bold text-[#F7F6F1] group-hover:text-[#F3D36B] transition-colors">
                 JAYMURTI TRADERS
               </span>
-              <span className="text-[10px] text-accent tracking-widest uppercase font-mono" lang="hi">
+              <span className="text-[10px] sm:text-[11px] text-[#F3D36B] tracking-widest uppercase font-mono font-semibold" lang="hi">
                 जयमूर्ति ट्रेडर्स · Baskhari
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-on-dark-muted" aria-label="Main Navigation">
-            <Link href="/" className="hover:text-white transition-colors">Showroom</Link>
-            <Link href="/paint-products" className="hover:text-white transition-colors">Products</Link>
-            <Link href="/colour-finder" className="hover:text-white transition-colors">Colour Finder</Link>
-            <Link href="/room-inspiration" className="hover:text-white transition-colors">Room Studio</Link>
-            <Link href="/surface-studio" className="hover:text-white transition-colors">Surface Studio</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+          <nav className="hidden lg:flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider" aria-label="Main Navigation">
+            <Link href="/" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Showroom</Link>
+            <Link href="/paint-products" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Products</Link>
+            <Link href="/colour-finder" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Colours</Link>
+            <Link href="/room-inspiration" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Inspiration</Link>
+            <Link href="/surface-studio" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Surfaces</Link>
+            <Link href="/about" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">About</Link>
+            <Link href="/contact" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Contact</Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={() => setIsCartOpen(true)}
-              className="inline-flex items-center gap-1.5 bg-dark-surface/90 hover:bg-dark-surface text-accent border border-border-teal/60 text-xs font-semibold px-3 py-2 rounded-xl transition-all shadow-md"
+              className="inline-flex items-center gap-1.5 bg-[#F3D36B] hover:bg-[#E4C45A] text-[#0C292F] text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-xl transition-all shadow-md shadow-[#F3D36B]/20 active:scale-95"
               aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
             >
               <ShoppingBag className="w-3.5 h-3.5" />
-              <span>Enquire</span>
+              <span className="hidden xs:inline">Enquire</span>
               {cartItems.length > 0 && (
-                <span className="bg-accent text-dark text-[10px] font-bold px-1.5 py-0.2 rounded-full font-mono">
+                <span className="bg-[#0C292F] text-[#F3D36B] text-[10px] font-bold px-1.5 py-0.2 rounded-full font-mono">
                   {cartItems.length}
                 </span>
               )}
@@ -156,35 +157,103 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
               href="https://wa.me/918756659035?text=Hello%20Jaymurti%20Traders,%20I%20am%20enquiring%20about%20Birla%20Opus%20paints%20and%20shades."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition-all shadow-md"
+              className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20ba5a] text-[#042412] text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-xl transition-all shadow-md shadow-emerald-950/20 active:scale-95"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp Showroom</span>
+              <span className="hidden sm:inline">WhatsApp</span>
             </a>
+            {/* Mobile Hamburger Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="lg:hidden w-9 h-9 rounded-xl bg-[#123F46] hover:bg-[#176B73] border border-[#F3D36B]/30 text-[#F7F6F1] flex items-center justify-center transition-all shadow-sm"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-[#F3D36B]" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden mt-3 pt-3 border-t border-[#176B73]/60 bg-[#081F24]/95 backdrop-blur-md rounded-2xl p-4 shadow-2xl space-y-2">
+            <nav className="grid grid-cols-2 gap-2 text-xs font-bold uppercase tracking-wider" aria-label="Mobile Navigation">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center gap-2"
+              >
+                <Home className="w-3.5 h-3.5 text-[#F3D36B]" /> Showroom
+              </Link>
+              <Link
+                href="/paint-products"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center gap-2"
+              >
+                <ShoppingBag className="w-3.5 h-3.5 text-[#F3D36B]" /> Products
+              </Link>
+              <Link
+                href="/colour-finder"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center gap-2"
+              >
+                <Palette className="w-3.5 h-3.5 text-[#F3D36B]" /> Colours
+              </Link>
+              <Link
+                href="/room-inspiration"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center gap-2"
+              >
+                <Layers className="w-3.5 h-3.5 text-[#F3D36B]" /> Inspiration
+              </Link>
+              <Link
+                href="/surface-studio"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center gap-2"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#F3D36B]" /> Surfaces
+              </Link>
+              <Link
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center gap-2"
+              >
+                <Compass className="w-3.5 h-3.5 text-[#F3D36B]" /> About
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="col-span-2 px-3 py-2.5 rounded-xl bg-[#0C292F] text-[#E7ECEA] hover:text-[#F3D36B] hover:bg-[#123F46] border border-[#176B73]/40 flex items-center justify-center gap-2 text-center"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-[#F3D36B]" /> Contact Showroom
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
 
-      {/* 3. Hero Header with Semantic Breadcrumbs */}
-      <section className="bg-gradient-to-b from-[#101b1e] via-[#0c1214] to-[#0c1214] border-b border-border-teal/30 py-8 sm:py-14 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
+      {/* 3. Hero Header with Semantic Breadcrumbs & Architectural Teal Theme */}
+      <section className="bg-gradient-to-r from-[#0C292F] via-[#123F46] to-[#176B73] border-b border-[#F3D36B]/30 py-10 sm:py-16 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#176B73]/35 rounded-full blur-[110px] pointer-events-none" />
+        <div className="absolute -bottom-10 left-1/4 w-[400px] h-[400px] bg-[#F3D36B]/12 rounded-full blur-[90px] pointer-events-none" />
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="mb-6">
-            <ol className="flex items-center flex-wrap gap-2 text-xs text-on-dark-muted font-medium">
+          <nav aria-label="Breadcrumb" className="mb-6 inline-block bg-[#081F24]/75 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#176B73]/50 shadow-inner">
+            <ol className="flex items-center flex-wrap gap-2 text-xs text-[#B9C8C8] font-medium">
               {seo.breadcrumb.map((item, idx) => {
                 const isLast = idx === seo.breadcrumb.length - 1;
                 return (
                   <li key={item.path} className="flex items-center gap-2">
-                    {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-white/30" />}
+                    {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-[#176B73]" />}
                     {isLast ? (
-                      <span className="text-accent font-semibold" aria-current="page">
+                      <span className="text-[#F3D36B] font-bold" aria-current="page">
                         {item.name}
                       </span>
                     ) : (
-                      <Link href={item.path} className="hover:text-white transition-colors">
+                      <Link href={item.path} className="hover:text-[#F3D36B] transition-colors">
                         {item.name}
                       </Link>
                     )}
@@ -196,16 +265,16 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
 
           {/* Page Headline & Description */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-dark-surface/90 text-accent text-xs font-semibold uppercase tracking-wider border border-border-teal/60 backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0C292F]/90 text-[#F3D36B] text-xs font-bold uppercase tracking-wider border border-[#F3D36B]/50 backdrop-blur-md shadow-md">
+              <Sparkles className="w-3.5 h-3.5 text-[#F3D36B]" />
               <span>{seo.eyebrow}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#F7F6F1] font-medium tracking-tight leading-tight drop-shadow-md">
               {seo.h1}
             </h1>
 
-            <p className="text-base sm:text-lg text-on-dark-muted leading-relaxed font-sans">
+            <p className="text-base sm:text-lg text-[#E7ECEA]/95 leading-relaxed font-sans max-w-3xl">
               {seo.description}
             </p>
           </div>
@@ -213,20 +282,20 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       </section>
 
       {/* 4. Main Page Content */}
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex-1">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 flex-1 relative z-10">
         {children}
       </main>
 
       {/* 5. FAQs Section (if provided) */}
       {showFAQ && seo.faq && seo.faq.length > 0 && (
-        <section className="bg-[#0e1619] border-t border-border-teal/40 py-12 sm:py-16" aria-label="Frequently Asked Questions">
+        <section className="bg-gradient-to-b from-[#0C292F] via-[#0E333B] to-[#081F24] border-t border-[#176B73]/50 py-14 sm:py-20" aria-label="Frequently Asked Questions">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <div className="text-center space-y-3 mb-10">
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent uppercase tracking-wider">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F3D36B] uppercase tracking-wider">
                 <HelpCircle className="w-4 h-4" /> Clear Answers for Your Project
               </div>
-              <h2 className="text-2xl sm:text-3xl font-serif text-white">Frequently Asked Questions</h2>
-              <p className="text-xs sm:text-sm text-on-dark-muted max-w-xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-serif text-[#F7F6F1]">Frequently Asked Questions</h2>
+              <p className="text-xs sm:text-sm text-[#B9C8C8] max-w-xl mx-auto">
                 Helpful details about Birla Opus paint products, computerized shade tinting, and showroom services at Baskhari.
               </p>
             </div>
@@ -236,12 +305,12 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
                 <AccordionItem
                   key={idx}
                   value={`faq-${idx}`}
-                  className="bg-dark-surface/80 border border-border-teal/50 rounded-2xl px-5 py-1 overflow-hidden"
+                  className="bg-[#123F46] border border-[#176B73]/70 hover:border-[#F3D36B]/40 rounded-2xl px-6 py-1 overflow-hidden transition-all shadow-md"
                 >
-                  <AccordionTrigger className="text-sm sm:text-base font-semibold text-white hover:text-accent transition-colors py-4 text-left">
+                  <AccordionTrigger className="text-sm sm:text-base font-semibold text-[#F7F6F1] hover:text-[#F3D36B] transition-colors py-4 text-left">
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-xs sm:text-sm text-on-dark-muted leading-relaxed pb-4">
+                  <AccordionContent className="text-xs sm:text-sm text-[#B9C8C8] leading-relaxed pb-4">
                     {item.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -252,26 +321,26 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       )}
 
       {/* 6. Local Showroom Visit & Direct Contact CTA */}
-      <section className="bg-gradient-to-r from-[#0e1c1f] via-[#0f2225] to-[#0e1c1f] border-t border-border-teal/50 py-12 sm:py-16">
+      <section className="bg-gradient-to-b from-[#0C292F] to-[#081F24] border-t border-[#176B73]/50 py-14 sm:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto bg-dark-surface/90 border border-accent/40 rounded-3xl p-6 sm:p-10 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#123F46] via-[#176B73]/90 to-[#0C292F] border-2 border-[#F3D36B]/50 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-black/50 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="space-y-3 max-w-2xl">
-              <div className="inline-flex items-center gap-2 text-xs text-accent font-semibold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 text-xs text-[#F3D36B] font-semibold uppercase tracking-wider">
                 <MapPin className="w-4 h-4" /> Shukul Bazar, Baskhari Showroom
               </div>
-              <h3 className="text-2xl sm:text-3xl font-serif text-white">
+              <h3 className="text-2xl sm:text-3xl font-serif text-[#F7F6F1]">
                 Visit Jaymurti Traders or Message Us for Expert Shade Sampling
               </h3>
-              <p className="text-xs sm:text-sm text-on-dark-muted leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#B9C8C8] leading-relaxed">
                 Consult our Birla Opus colour experts in person, explore physical fan decks, and receive custom paint estimates for homes across Ambedkar Nagar.
               </p>
               
-              <div className="flex flex-wrap items-center gap-4 text-xs text-white/80 pt-2">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-[#E7ECEA] pt-2">
                 <span className="flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-accent" /> 8:00 AM – 9:00 PM (Daily)
+                  <Clock className="w-3.5 h-3.5 text-[#F3D36B]" /> 8:00 AM – 9:00 PM (Daily)
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <PhoneCall className="w-3.5 h-3.5 text-accent" /> +91 87566 59035
+                  <PhoneCall className="w-3.5 h-3.5 text-[#F3D36B]" /> +91 87566 59035
                 </span>
               </div>
             </div>
@@ -279,7 +348,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
             <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto flex-shrink-0">
               <Button
                 asChild
-                className="bg-accent text-dark font-bold hover:bg-accent/90 text-xs px-6 py-3 rounded-xl shadow-lg shadow-accent/20"
+                className="bg-[#F3D36B] text-[#0C292F] font-bold hover:bg-[#E4C45A] text-xs px-6 py-3 rounded-xl shadow-lg shadow-[#F3D36B]/20"
               >
                 <a
                   href="https://wa.me/918756659035?text=Hello%20Jaymurti%20Traders,%20I%20would%20like%20to%20consult%20about%20paint%20shades."
@@ -295,7 +364,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
               <Button
                 asChild
                 variant="outline"
-                className="border-border-teal text-white hover:bg-white/5 text-xs px-5 py-3 rounded-xl"
+                className="border-[#176B73] text-[#F7F6F1] hover:border-[#F3D36B] hover:text-[#F3D36B] hover:bg-[#123F46]/50 text-xs px-5 py-3 rounded-xl"
               >
                 <a
                   href="https://maps.app.goo.gl/V1wvtKAGnH5RUG1cA"
@@ -303,7 +372,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2"
                 >
-                  <Compass className="w-4 h-4 text-accent" />
+                  <Compass className="w-4 h-4 text-[#F3D36B]" />
                   <span>Get Store Directions</span>
                 </a>
               </Button>
@@ -313,65 +382,65 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       </section>
 
       {/* 7. Comprehensive Footer with Internal Linking */}
-      <footer className="bg-[#080d0e] border-t border-white/5 py-12 px-4 sm:px-8 text-xs text-on-dark-muted">
+      <footer className="bg-[#081F24] border-t border-[#176B73]/40 py-12 px-4 sm:px-8 text-xs text-[#B9C8C8]">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           
           {/* Col 1: Brand Info */}
           <div className="space-y-3">
-            <Link href="/" className="flex items-center gap-2.5">
-              <img src="/storage/logo.webp" alt="Jaymurti Traders" width={28} height={28} />
-              <span className="font-serif font-semibold text-white text-sm tracking-wider">JAYMURTI TRADERS</span>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <img src="/storage/logo.webp" alt="Jaymurti Traders" width={30} height={30} className="rounded-full border border-[#F3D36B]/60 p-0.5" />
+              <span className="font-serif font-bold text-[#F7F6F1] group-hover:text-[#F3D36B] text-sm tracking-wider transition-colors">JAYMURTI TRADERS</span>
             </Link>
             <p className="text-[11px] leading-relaxed">
               Authorized Birla Opus paint showroom in Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh - 224129.
             </p>
-            <p className="text-[10px] text-accent font-mono" lang="hi">
+            <p className="text-[11px] text-[#F3D36B] font-mono font-semibold" lang="hi">
               जयमूर्ति ट्रेडर्स · पेंट की दुकान बस्कहरी
             </p>
           </div>
 
           {/* Col 2: Paint Products Links */}
           <div className="space-y-2">
-            <h4 className="font-serif text-white text-xs uppercase tracking-wider">Paint Portfolio</h4>
+            <h4 className="font-serif text-[#F7F6F1] text-xs uppercase tracking-wider font-bold">Paint Portfolio</h4>
             <ul className="space-y-1.5">
-              <li><Link href="/paint-products" className="hover:text-white transition-colors">All Paint Products</Link></li>
-              <li><Link href="/interior-paints" className="hover:text-white transition-colors">Interior Paints</Link></li>
-              <li><Link href="/exterior-paints" className="hover:text-white transition-colors">Exterior Paints</Link></li>
-              <li><Link href="/waterproofing" className="hover:text-white transition-colors">Waterproofing Solutions</Link></li>
-              <li><Link href="/enamels" className="hover:text-white transition-colors">Enamel Paints</Link></li>
-              <li><Link href="/wood-finishes" className="hover:text-white transition-colors">Wood Finishes</Link></li>
+              <li><Link href="/paint-products" className="hover:text-[#F3D36B] transition-colors">All Paint Products</Link></li>
+              <li><Link href="/interior-paints" className="hover:text-[#F3D36B] transition-colors">Interior Paints</Link></li>
+              <li><Link href="/exterior-paints" className="hover:text-[#F3D36B] transition-colors">Exterior Paints</Link></li>
+              <li><Link href="/waterproofing" className="hover:text-[#F3D36B] transition-colors">Waterproofing Solutions</Link></li>
+              <li><Link href="/enamels" className="hover:text-[#F3D36B] transition-colors">Enamel Paints</Link></li>
+              <li><Link href="/wood-finishes" className="hover:text-[#F3D36B] transition-colors">Wood Finishes</Link></li>
             </ul>
           </div>
 
           {/* Col 3: Inspiration & Studio */}
           <div className="space-y-2">
-            <h4 className="font-serif text-white text-xs uppercase tracking-wider">Colour & Finishes</h4>
+            <h4 className="font-serif text-[#F7F6F1] text-xs uppercase tracking-wider font-bold">Colour &amp; Finishes</h4>
             <ul className="space-y-1.5">
-              <li><Link href="/colour-finder" className="hover:text-white transition-colors">Colour Guide & Shade Finder</Link></li>
-              <li><Link href="/room-inspiration" className="hover:text-white transition-colors">Room Shade Studio</Link></li>
-              <li><Link href="/surface-studio" className="hover:text-white transition-colors">Surface Studio</Link></li>
-              <li><Link href="/wall-textures" className="hover:text-white transition-colors">Wall Textures</Link></li>
-              <li><Link href="/wallpapers" className="hover:text-white transition-colors">Designer Wallpapers</Link></li>
-              <li><Link href="/paint-tools" className="hover:text-white transition-colors">Painting Tools</Link></li>
+              <li><Link href="/colour-finder" className="hover:text-[#F3D36B] transition-colors">Colour Guide &amp; Shade Finder</Link></li>
+              <li><Link href="/room-inspiration" className="hover:text-[#F3D36B] transition-colors">Room Shade Studio</Link></li>
+              <li><Link href="/surface-studio" className="hover:text-[#F3D36B] transition-colors">Surface Studio</Link></li>
+              <li><Link href="/wall-textures" className="hover:text-[#F3D36B] transition-colors">Wall Textures</Link></li>
+              <li><Link href="/wallpapers" className="hover:text-[#F3D36B] transition-colors">Designer Wallpapers</Link></li>
+              <li><Link href="/paint-tools" className="hover:text-[#F3D36B] transition-colors">Painting Tools</Link></li>
             </ul>
           </div>
 
           {/* Col 4: Showroom & Legal */}
           <div className="space-y-2">
-            <h4 className="font-serif text-white text-xs uppercase tracking-wider">Showroom & Legal</h4>
+            <h4 className="font-serif text-[#F7F6F1] text-xs uppercase tracking-wider font-bold">Showroom &amp; Legal</h4>
             <ul className="space-y-1.5">
-              <li><Link href="/about" className="hover:text-white transition-colors">About Jaymurti Traders</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">Contact & Location</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/about" className="hover:text-[#F3D36B] transition-colors">About Jaymurti Traders</Link></li>
+              <li><Link href="/contact" className="hover:text-[#F3D36B] transition-colors">Contact &amp; Location</Link></li>
+              <li><Link href="/privacy" className="hover:text-[#F3D36B] transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-[#F3D36B] transition-colors">Terms &amp; Conditions</Link></li>
               <li>
                 <a
                   href="https://www.instagram.com/paintwalebhaiya45/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1"
+                  className="hover:text-[#F3D36B] transition-colors inline-flex items-center gap-1"
                 >
-                  <Instagram className="w-3 h-3 text-pink-400" /> Instagram @paintwalebhaiya45
+                  <Instagram className="w-3.5 h-3.5 text-pink-400" /> Instagram @paintwalebhaiya45
                 </a>
               </li>
               <li>
@@ -379,20 +448,129 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
                   href={businessProfile.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors inline-flex items-center gap-1"
+                  className="hover:text-[#F3D36B] transition-colors inline-flex items-center gap-1"
                 >
-                  <Facebook className="w-3 h-3 text-blue-400" /> Facebook Page
+                  <Facebook className="w-3.5 h-3.5 text-blue-400" /> Facebook Page
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="container mx-auto pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+        <div className="container mx-auto pt-6 border-t border-[#176B73]/40 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
           <span>© {new Date().getFullYear()} Jaymurti Traders. Authorized Birla Opus Paint Dealer. All rights reserved.</span>
           <span>Shukul Bazar, Baskhari, Ambedkar Nagar, UP 224129</span>
         </div>
       </footer>
+
+      {/* Floating Desktop Contact Bar */}
+      <div className="floating-contact" aria-label="Quick contact actions">
+        <a className="floating-call" href={`tel:${businessProfile.phoneHref}`} aria-label="Call now">
+          <PhoneCall size={17} aria-hidden="true" />
+          <span>Call</span>
+        </a>
+        <a
+          className="floating-whatsapp"
+          href={generateWhatsAppCartUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Official WhatsApp Support"
+        >
+          <MessageCircle size={17} aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
+        <a
+          className="floating-instagram"
+          href={businessProfile.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Official Instagram"
+        >
+          <Instagram size={17} aria-hidden="true" />
+          <span>Instagram</span>
+        </a>
+        <a
+          className="floating-facebook"
+          href={businessProfile.facebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Official Facebook"
+        >
+          <Facebook size={17} aria-hidden="true" />
+          <span>Facebook</span>
+        </a>
+        <button
+          type="button"
+          onClick={() => setIsCartOpen(true)}
+          style={{
+            background: "var(--color-brand-primary)",
+            color: "var(--color-text-on-dark)",
+            border: "1px solid var(--color-brand-secondary)",
+            padding: "0 16px",
+            borderRadius: "999px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            cursor: "pointer",
+            fontSize: "11px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+          }}
+        >
+          <ShoppingBag size={16} />
+          <span>Cart ({cartItems.length})</span>
+        </button>
+      </div>
+
+      {/* Mobile Sticky Bottom Bar */}
+      <div className="mobile-sticky-bar" aria-label="Mobile quick actions">
+        <a
+          href={`tel:${businessProfile.phoneHref}`}
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-call"
+          aria-label="Call Showroom"
+        >
+          <PhoneCall size={17} />
+        </a>
+        <a
+          href={generateWhatsAppCartUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-whatsapp"
+          aria-label="Official WhatsApp Support"
+        >
+          <MessageCircle size={18} />
+        </a>
+        <a
+          href={businessProfile.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-instagram"
+          aria-label="Official Instagram"
+        >
+          <Instagram size={17} />
+        </a>
+        <a
+          href={businessProfile.facebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-facebook"
+          aria-label="Official Facebook"
+        >
+          <Facebook size={17} />
+        </a>
+        <button
+          type="button"
+          onClick={() => setIsCartOpen(true)}
+          className="mobile-bar-btn mobile-bar-cart"
+          aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
+        >
+          <div className="relative flex items-center">
+            <ShoppingBag size={16} />
+            {cartItems.length > 0 && <span className="mobile-cart-badge">{cartItems.length}</span>}
+          </div>
+          <span>Cart {cartItems.length > 0 ? `(${cartItems.length})` : ""}</span>
+        </button>
+      </div>
     </div>
   );
 };

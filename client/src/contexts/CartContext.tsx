@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import { isValidPhone, PHONE_ERROR_MESSAGE } from "@shared/validation";
 
 export interface CartItem {
   id: string;
@@ -27,6 +28,7 @@ interface CartContextType {
   clearCart: () => void;
   customer: CustomerInfo;
   setCustomer: React.Dispatch<React.SetStateAction<CustomerInfo>>;
+  clearCustomerDetails: () => void;
   customerError: string;
   setCustomerError: (error: string) => void;
   generateWhatsAppCartUrl: () => string;
@@ -41,6 +43,59 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = "jaymurti_cart_v1";
 const CUSTOMER_STORAGE_KEY = "jaymurti_customer_v1";
 
+// Contact details are personal data, so the stored copy expires and is only
+// written once the shopper pauses typing rather than on every keystroke.
+const CUSTOMER_STORAGE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
+const CUSTOMER_SAVE_DEBOUNCE_MS = 500;
+
+const EMPTY_CUSTOMER: CustomerInfo = {
+  name: "",
+  phone: "",
+  areaLocation: "",
+  pincode: "224129",
+};
+
+function readStoredCustomer(): CustomerInfo {
+  try {
+    const saved = localStorage.getItem(CUSTOMER_STORAGE_KEY);
+    if (!saved) return { ...EMPTY_CUSTOMER };
+
+    const parsed = JSON.parse(saved);
+    if (!parsed || typeof parsed !== "object") return { ...EMPTY_CUSTOMER };
+
+    // Previously the raw details were stored without an expiry wrapper; accept
+    // that shape so an in-flight session is not silently dropped.
+    const isLegacyShape = typeof parsed.name === "string";
+    if (!isLegacyShape) {
+      if (typeof parsed.expiresAt === "number" && Date.now() > parsed.expiresAt) {
+        localStorage.removeItem(CUSTOMER_STORAGE_KEY);
+        return { ...EMPTY_CUSTOMER };
+      }
+      if (!parsed.value || typeof parsed.value !== "object") {
+        return { ...EMPTY_CUSTOMER };
+      }
+    }
+
+    const value = isLegacyShape ? parsed : parsed.value;
+    return {
+      name: typeof value.name === "string" ? value.name : "",
+      phone: typeof value.phone === "string" ? value.phone : "",
+      areaLocation: typeof value.areaLocation === "string" ? value.areaLocation : "",
+      pincode: typeof value.pincode === "string" ? value.pincode : EMPTY_CUSTOMER.pincode,
+    };
+  } catch {
+    return { ...EMPTY_CUSTOMER };
+  }
+}
+
+function clearStoredCustomer() {
+  try {
+    localStorage.removeItem(CUSTOMER_STORAGE_KEY);
+  } catch {
+    // Storage unavailable (private mode, quota); nothing to clear.
+  }
+}
+
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     try {
@@ -51,14 +106,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   });
 
-  const [customer, setCustomer] = useState<CustomerInfo>(() => {
-    try {
-      const saved = localStorage.getItem(CUSTOMER_STORAGE_KEY);
-      return saved ? JSON.parse(saved) : { name: "", phone: "", areaLocation: "", pincode: "224129" };
-    } catch {
-      return { name: "", phone: "", areaLocation: "", pincode: "224129" };
-    }
-  });
+  const [customer, setCustomer] = useState<CustomerInfo>(readStoredCustomer);
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [customerError, setCustomerError] = useState("");
@@ -68,13 +116,29 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-    } catch {}
+    } catch {
+      // Storage unavailable; the cart still works for this session.
+    }
   }, [cartItems]);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(CUSTOMER_STORAGE_KEY, JSON.stringify(customer));
-    } catch {}
+    const timer = window.setTimeout(() => {
+      const hasNoDetails = !customer.name && !customer.phone && !customer.areaLocation;
+      if (hasNoDetails) {
+        clearStoredCustomer();
+        return;
+      }
+      try {
+        localStorage.setItem(
+          CUSTOMER_STORAGE_KEY,
+          JSON.stringify({ value: customer, expiresAt: Date.now() + CUSTOMER_STORAGE_TTL_MS }),
+        );
+      } catch {
+        // Storage unavailable; details stay in memory for this session.
+      }
+    }, CUSTOMER_SAVE_DEBOUNCE_MS);
+
+    return () => window.clearTimeout(timer);
   }, [customer]);
 
   const addToCart = useCallback((item: CartItem, openDrawer = false) => {
@@ -104,15 +168,21 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const updateCartQuantity = useCallback((id: string, delta: number) => {
     setCartItems((prev) =>
       prev
-        .map((item) => {
-          if (item.id === id) {
-            const nextQty = Math.max(1, (item.quantity ?? 1) + delta);
-            return { ...item, quantity: nextQty };
-          }
-          return item;
-        })
-        .filter((item) => (item.quantity ?? 1) > 0)
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: Math.max(0, (item.quantity ?? 1) + delta) }
+            : item,
+        )
+        // Stepping a quantity below one removes the line. Clamping at one here
+        // previously made this filter unreachable dead code.
+        .filter((item) => (item.quantity ?? 1) > 0),
     );
+  }, []);
+
+  const clearCustomerDetails = useCallback(() => {
+    setCustomer({ ...EMPTY_CUSTOMER });
+    setCustomerError("");
+    clearStoredCustomer();
   }, []);
 
   const clearCart = useCallback(() => {
@@ -124,6 +194,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const cleanPhone = customer.phone.trim();
     const cleanLocation = customer.areaLocation.trim();
     const cleanPincode = customer.pincode.trim();
+
+    // If cart is empty and no customer details entered, return a clean direct message
+    if (cartItems.length === 0 && !cleanName && !cleanPhone) {
+      const defaultMsg =
+        "Hello Jaymurti Traders, I would like to enquire about Birla Opus paints, shade catalogues, and product consultation.";
+      return `https://wa.me/918756659035?text=${encodeURIComponent(defaultMsg)}`;
+    }
 
     const divider = `━━━━━━━━━━━━━━━━━━`;
     const sections: string[] = [];
@@ -166,8 +243,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         } else if (item.type === "shade") {
           const codeMatch = item.meta.match(/Code:\s*([^·]+)/i);
           const familyMatch = item.meta.match(/Family:\s*(.+)/i);
-          const shadeCode = codeMatch ? codeMatch[1].trim() : "";
-          const shadeFamily = familyMatch ? familyMatch[1].trim() : "";
+          const shadeCode = codeMatch?.[1]?.trim() ?? "";
+          const shadeFamily = familyMatch?.[1]?.trim() ?? "";
           const lines: string[] = [
             `*${itemNum}. SHADE*`,
             `*Shade:* ${item.title}`,
@@ -204,10 +281,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
         const estLines: string[] = [];
         estLines.push(`*Project / Estimate:* ${cleanTitle || est.title}`);
-        if (paintMatch) estLines.push(`*Paint:* ${paintMatch[1].trim()}`);
-        if (primerMatch) estLines.push(`*Primer:* ${primerMatch[1].trim()}`);
-        if (puttyMatch) estLines.push(`*Putty:* ${puttyMatch[1].trim()}`);
-        if (priceMatch) {
+        if (paintMatch?.[1]) estLines.push(`*Paint:* ${paintMatch[1].trim()}`);
+        if (primerMatch?.[1]) estLines.push(`*Primer:* ${primerMatch[1].trim()}`);
+        if (puttyMatch?.[1]) estLines.push(`*Putty:* ${puttyMatch[1].trim()}`);
+        if (priceMatch?.[1]) {
           estLines.push(`*Estimated Material Range:* ${priceMatch[1].trim()}`);
         } else if (est.notes) {
           estLines.push(`*Notes:* ${est.notes}`);
@@ -248,9 +325,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       setCustomerError("Please enter your name.");
       return;
     }
-    if (!/^[0-9+()\-\s]{7,20}$/.test(customer.phone.trim())) {
+    if (!isValidPhone(customer.phone)) {
       e.preventDefault();
-      setCustomerError("Please enter a valid phone number (at least 7–10 digits).");
+      setCustomerError(PHONE_ERROR_MESSAGE);
       return;
     }
     if (!/^\d{6}$/.test(customer.pincode.trim())) {
@@ -264,7 +341,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return;
     }
     setCustomerError("");
-  }, [cartItems, customer]);
+    e.preventDefault();
+    const url = generateWhatsAppCartUrl();
+    window.open(url, "_blank", "noopener,noreferrer");
+  }, [cartItems, customer, generateWhatsAppCartUrl]);
 
   return (
     <CartContext.Provider
@@ -278,6 +358,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         clearCart,
         customer,
         setCustomer,
+        clearCustomerDetails,
         customerError,
         setCustomerError,
         generateWhatsAppCartUrl,

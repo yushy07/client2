@@ -31,8 +31,8 @@ describe("paintCalculator", () => {
   });
 
   it("evaluates 2 BHK and 3 BHK presets cleanly with increasing area", () => {
-    const res2Bhk = calculatePaintRequirements(PRESET_HOME_CONFIGS["2bhk"].rooms);
-    const res3Bhk = calculatePaintRequirements(PRESET_HOME_CONFIGS["3bhk"].rooms);
+    const res2Bhk = calculatePaintRequirements(PRESET_HOME_CONFIGS["2bhk"]!.rooms);
+    const res3Bhk = calculatePaintRequirements(PRESET_HOME_CONFIGS["3bhk"]!.rooms);
 
     expect(res3Bhk.netPaintableAreaSqFt).toBeGreaterThan(res2Bhk.netPaintableAreaSqFt);
     expect(res3Bhk.paintLiters2Coats).toBeGreaterThan(res2Bhk.paintLiters2Coats);

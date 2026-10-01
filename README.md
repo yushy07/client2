@@ -5,7 +5,7 @@ An immersive, full-stack architectural paint platform, digital showroom, and pro
 [![Birla Opus Authorized Dealer](https://img.shields.io/badge/Birla%20Opus-Authorized%20Dealer-e8a338?style=flat-square)](https://www.birlaopus.com/)
 [![React 19](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6-646cff?style=flat-square&logo=vite)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646cff?style=flat-square&logo=vite)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
 [![tRPC](https://img.shields.io/badge/tRPC-v11-2596be?style=flat-square&logo=trpc)](https://trpc.io/)
 [![SEO Ready](https://img.shields.io/badge/SEO-Local%20%26%20Technical-00b894?style=flat-square)](https://jaymurtitraders.com/sitemap.xml)

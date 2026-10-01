@@ -1,16 +1,16 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
-import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
+import { getRouteSEO } from "@shared/seoKeywordMap";
 import { ExtendedTextures } from "@/components/experiences/ExtendedTextures";
 import { WallpaperGallery } from "@/components/experiences/WallpaperGallery";
 import { useCart } from "@/contexts/CartContext";
-import { Sparkles, Layers, Palette } from "lucide-react";
+import { Sparkles, Layers, Palette, ShoppingBag } from "lucide-react";
 import { SplitText, DriftWall, ShinyText } from "@/components/reactbits";
 import { EXTENDED_TEXTURE_COLLECTIONS } from "@shared/extendedTexturesData";
 
 export const SurfaceStudioPage: React.FC = () => {
-  const seo = SITE_ROUTES_SEO["/surface-studio"];
+  const seo = getRouteSEO("/surface-studio");
   const { addToCart, setIsCartOpen } = useCart();
   const [activeTab, setActiveTab] = useState<"textures" | "wallpapers">("textures");
 
@@ -49,7 +49,7 @@ export const SurfaceStudioPage: React.FC = () => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all font-semibold flex items-center gap-2 ${
               activeTab === "textures"
                 ? "bg-accent text-dark border-accent shadow-md"
-                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-white"
+                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -61,7 +61,7 @@ export const SurfaceStudioPage: React.FC = () => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all font-semibold flex items-center gap-2 ${
               activeTab === "wallpapers"
                 ? "bg-accent text-dark border-accent shadow-md"
-                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-white"
+                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -144,6 +144,39 @@ export const SurfaceStudioPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Cross-linking navigation cards to prevent dead ends */}
+      <div className="mt-14 pt-8 border-t border-border-teal/40">
+        <h3 className="text-lg font-serif text-white mb-4">Explore More Inspiration &amp; Tools</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Link
+            href="/colour-finder"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <Palette className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Birla Opus Colour Finder</h4>
+            <p className="text-xs text-on-dark-muted mt-1">159 verified shades with exact hex codes and tone groupings.</p>
+          </Link>
+
+          <Link
+            href="/room-inspiration"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <Layers className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Room Shade Studio</h4>
+            <p className="text-xs text-on-dark-muted mt-1">12 architectural spaces with real wall shade variations.</p>
+          </Link>
+
+          <Link
+            href="/paint-products"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <ShoppingBag className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Paint Products Catalog</h4>
+            <p className="text-xs text-on-dark-muted mt-1">Interior, exterior, waterproofing, enamels &amp; wood finishes.</p>
+          </Link>
+        </div>
+      </div>
     </SEOPageLayout>
   );
 };

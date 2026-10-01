@@ -46,13 +46,15 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
   const handlePrevSpread = useCallback(() => {
     if (!activeSpread) return;
     const prevIdx = activeSpread.index <= 1 ? 50 : activeSpread.index - 1;
-    setActiveSpread(COLOUR_CAPSULE_PAGES[prevIdx - 1]);
+    const prev = COLOUR_CAPSULE_PAGES[prevIdx - 1];
+    if (prev) setActiveSpread(prev);
   }, [activeSpread]);
 
   const handleNextSpread = useCallback(() => {
     if (!activeSpread) return;
     const nextIdx = activeSpread.index >= 50 ? 1 : activeSpread.index + 1;
-    setActiveSpread(COLOUR_CAPSULE_PAGES[nextIdx - 1]);
+    const next = COLOUR_CAPSULE_PAGES[nextIdx - 1];
+    if (next) setActiveSpread(next);
   }, [activeSpread]);
 
   const handleCopyHex = (hex: string) => {
@@ -205,7 +207,7 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
                     className={`w-8 h-8 rounded text-xs font-mono transition-colors ${
                       currentPage === num
                         ? "bg-dark-surface text-on-dark font-bold"
-                        : "text-on-dark-muted hover:bg-brand-secondary hover:text-white"
+                        : "text-on-dark-muted hover:bg-brand-secondary hover:text-accent"
                     }`}
                   >
                     {num}
@@ -316,7 +318,7 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
                     <button
                       type="button"
                       onClick={() => setActiveSpread(null)}
-                      className="hidden md:flex shrink-0 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white items-center justify-center transition-all border border-white/10 hover:scale-105 active:scale-95"
+                      className="hidden md:flex shrink-0 w-8 h-8 rounded-full bg-white/10 hover:bg-accent/20 text-white/80 hover:text-accent items-center justify-center transition-all border border-white/10 hover:scale-105 active:scale-95"
                       aria-label="Close Inspector"
                     >
                       <X className="w-4 h-4" />
@@ -407,14 +409,15 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
                     >
                       <ShoppingBag className="w-4 h-4" /> Enquire This Colour Direction
                     </Button>
-                    {onSelectShadeTone && (
+                    {onSelectShadeTone && activeSpread.paletteHint[0] && (
                       <Button
                         variant="outline"
                         onClick={() => {
-                          onSelectShadeTone(activeSpread.paletteHint[0]);
+                          const hint = activeSpread.paletteHint[0];
+                          if (hint) onSelectShadeTone(hint);
                           setActiveSpread(null);
                         }}
-                        className="w-full bg-dark-surface/90 border-border-teal text-on-dark hover:bg-brand-secondary hover:text-white py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
+                        className="w-full bg-dark-surface/90 border-border-teal text-on-dark hover:bg-brand-secondary hover:text-accent hover:border-accent/40 py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all"
                       >
                         <Sparkles className="w-3.5 h-3.5 text-accent" /> Explore Matching Shades in Swatches
                       </Button>

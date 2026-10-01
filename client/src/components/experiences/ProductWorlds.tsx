@@ -5,7 +5,7 @@ import {
   WOOD_FINISHES_WORLD 
 } from "@shared/productWorldsData";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Sparkles, ShoppingBag, ArrowUpRight, CheckCircle2, Trees, Home } from "lucide-react";
+import { ShieldCheck, ShoppingBag, ArrowUpRight, CheckCircle2, Trees, Home } from "lucide-react";
 import { ShinyText } from "@/components/reactbits";
 
 interface ProductWorldsProps {

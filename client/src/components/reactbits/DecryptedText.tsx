@@ -214,7 +214,9 @@ export const DecryptedText: React.FC<DecryptedTextProps> = ({
             if (pointerRef.current < orderRef.current.length) {
               const idxToRemove = orderRef.current[pointerRef.current++];
               const newRevealed = new Set(prevRevealed);
-              newRevealed.delete(idxToRemove);
+              if (idxToRemove !== undefined) {
+                newRevealed.delete(idxToRemove);
+              }
               setDisplayText(shuffleText(text, newRevealed));
               if (newRevealed.size === 0) {
                 clearInterval(intervalRef.current);

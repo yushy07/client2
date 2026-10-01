@@ -204,7 +204,6 @@ export const Aurora: React.FC<AuroraProps> = ({
 
     let animationId: number | null = null;
     let isVisible = false;
-    let startTime = performance.now();
     let accumulatedTime = 0;
     let lastFrameTime = performance.now();
 
@@ -277,6 +276,7 @@ export const Aurora: React.FC<AuroraProps> = ({
     // Viewport-gating: Only animate when visible in viewport
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
         isVisible = entry.isIntersecting && !document.hidden && !prefersReducedMotion;
         if (isVisible) {
           startAnimation();

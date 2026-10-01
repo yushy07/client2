@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { birlaOpusProducts, birlaOpusCategories } from "@shared/birlaOpusCatalogue";
 import { useCart } from "@/contexts/CartContext";
-import { ShoppingBag, ArrowRight, Layers, Sparkles, SlidersHorizontal } from "lucide-react";
+import { ShoppingBag, ArrowRight } from "lucide-react";
 
 const FEATURED_SLUGS = [
   "one-pure-elegance-matt",
@@ -63,14 +63,14 @@ export const HomeProductsPreview: React.FC = () => {
       </div>
 
       {/* 6 Curated Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 my-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 my-8">
         {displayProducts.map((product) => (
           <article
             key={product.slug}
-            className="group rounded-2xl overflow-hidden bg-dark-surface border border-border-teal/50 hover:border-accent transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
-            style={{ background: "rgba(12, 18, 20, 0.85)" }}
+            className="group rounded-2xl overflow-hidden bg-gradient-to-b from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-accent/60 transition-all duration-300 hover:shadow-[0_16px_36px_rgba(12,41,47,0.6)] hover:-translate-y-1.5 flex flex-col justify-between"
           >
-            <div className="h-40 sm:h-44 w-full bg-dark/60 overflow-hidden relative p-3 flex items-center justify-center">
+            {/* Studio Showcase Pedestal for Product Can */}
+            <div className="h-48 sm:h-52 w-full bg-gradient-to-b from-[#F7F6F1] via-[#E7ECEA] to-[#DCE5E2] overflow-hidden relative p-4 flex items-center justify-center border-b border-[#176B73]/20 shadow-inner">
               <img
                 src={product.imageUrl}
                 alt={product.name}
@@ -79,27 +79,38 @@ export const HomeProductsPreview: React.FC = () => {
                 decoding="async"
                 width={248}
                 height={226}
-                className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-md"
+                className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-108 drop-shadow-[0_10px_16px_rgba(18,63,70,0.25)]"
               />
-              <span className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-accent font-semibold uppercase tracking-wider">
-                {product.category}
+              <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                <span className="bg-[#0C292F]/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] text-accent font-mono font-semibold uppercase tracking-wider border border-[#176B73]/50 shadow-sm">
+                  {product.category}
+                </span>
+              </div>
+              <span className="absolute top-3 right-3 bg-[#123F46]/90 backdrop-blur-md px-2 py-0.5 rounded text-[9px] text-teal-100 font-mono font-bold uppercase tracking-wider border border-[#176B73]/50 shadow-sm">
+                Official Can
               </span>
             </div>
 
-            <div className="p-4 flex-1 flex flex-col justify-between space-y-2.5">
+            {/* Product Metadata & Actions */}
+            <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <span className="text-[10px] text-on-dark-muted font-mono uppercase tracking-wider block mb-0.5">
-                  Series: {product.family}
-                </span>
-                <h3 className="text-sm sm:text-base font-semibold text-white group-hover:text-accent transition-colors leading-snug">
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <span className="text-[10.5px] text-amber-300/90 font-mono uppercase tracking-widest font-semibold">
+                    Series: {product.family}
+                  </span>
+                  <span className="text-[10px] text-teal-200/80 font-mono">
+                    In Stock · Baskhari
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors leading-snug">
                   {product.name}
                 </h3>
-                <p className="text-xs text-on-dark-muted leading-relaxed line-clamp-2 mt-1">
+                <p className="text-xs text-teal-100/70 leading-relaxed line-clamp-2 mt-1.5">
                   {product.copy}
                 </p>
               </div>
 
-              <div className="pt-2.5 border-t border-white/5 flex items-center justify-between gap-2">
+              <div className="pt-3 border-t border-[#176B73]/30 flex items-center justify-between gap-2.5">
                 <button
                   type="button"
                   onClick={() => {
@@ -111,18 +122,18 @@ export const HomeProductsPreview: React.FC = () => {
                       quantity: 1,
                     }, true);
                   }}
-                  className="button-primary text-xs py-1.5 px-3 flex-1 justify-center"
-                  style={{ minHeight: "34px" }}
+                  className="button-primary text-xs py-2 px-3.5 flex-1 justify-center shadow-md font-semibold tracking-wide"
+                  style={{ minHeight: "38px" }}
                 >
-                  <ShoppingBag size={13} />
+                  <ShoppingBag size={14} />
                   <span>+ Add to Enquiry</span>
                 </button>
                 <Link
                   href="/paint-products"
-                  className="button-ghost text-xs py-1.5 px-3"
-                  style={{ minHeight: "34px" }}
+                  className="button-ghost text-xs py-2 px-3.5 font-medium border border-[#176B73]/60 text-[#E7ECEA] bg-[#123F46]/40 hover:bg-[#176B73]/50 hover:border-accent hover:text-accent transition-all duration-200 rounded-xl"
+                  style={{ minHeight: "38px" }}
                 >
-                  Specs
+                  <span>Specs &rarr;</span>
                 </Link>
               </div>
             </div>

@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { EXTENDED_TEXTURE_COLLECTIONS, type ExtendedTextureItem, type TextureCategory } from "@shared/extendedTexturesData";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Layers, Maximize2, ShoppingBag, Sparkles, Feather, X, CheckCircle2 } from "lucide-react";
+import { Layers, Maximize2, ShoppingBag, Sparkles, Feather, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { ShinyText, TiltedCard, DecryptedText } from "@/components/reactbits";
 
@@ -30,6 +30,42 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
     if (activeCategory === "All Worlds") return EXTENDED_TEXTURE_COLLECTIONS;
     return EXTENDED_TEXTURE_COLLECTIONS.filter((t) => t.category === activeCategory);
   }, [activeCategory]);
+
+  const activeIndex = useMemo(() => {
+    if (!activeTexture) return -1;
+    return filteredTextures.findIndex((t) => t.name === activeTexture.name);
+  }, [activeTexture, filteredTextures]);
+
+  const handlePrevTexture = () => {
+    if (filteredTextures.length === 0) return;
+    const prev = activeIndex > 0
+      ? filteredTextures[activeIndex - 1]
+      : filteredTextures[filteredTextures.length - 1];
+    if (prev) setActiveTexture(prev);
+  };
+
+  const handleNextTexture = () => {
+    if (filteredTextures.length === 0) return;
+    const next = (activeIndex >= 0 && activeIndex < filteredTextures.length - 1)
+      ? filteredTextures[activeIndex + 1]
+      : filteredTextures[0];
+    if (next) setActiveTexture(next);
+  };
+
+  useEffect(() => {
+    if (!activeTexture) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handlePrevTexture();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNextTexture();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeTexture, activeIndex, filteredTextures]);
 
   return (
     <section id="extended-textures" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative">
@@ -133,12 +169,17 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
                   {/* Ambient Light */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(23,107,115,0.25)_0%,transparent_70%)] pointer-events-none" />
 
-                  {/* Top Category Badge */}
+                  {/* Top Category Badge & Counter */}
                   <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
                     <span className="bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-mono text-amber-300 border border-white/15 shadow-md flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                       {activeTexture.category}
                     </span>
+                    {activeIndex >= 0 && (
+                      <span className="bg-black/75 backdrop-blur-md px-2.5 py-1.5 rounded-full text-[11px] font-mono text-teal-300 border border-teal-700/40">
+                        {activeIndex + 1} of {filteredTextures.length}
+                      </span>
+                    )}
                   </div>
 
                   {/* Mobile Close Button on Top Right */}
@@ -164,19 +205,66 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
                       </span>
                     </div>
                   </div>
+
+                  {/* Prev / Next Image Navigation Controls */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none z-20">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrevTexture();
+                      }}
+                      className="pointer-events-auto w-9 h-9 rounded-full bg-black/70 hover:bg-teal-900/90 text-white/90 hover:text-accent border border-white/20 flex items-center justify-center transition-all shadow-lg backdrop-blur-md"
+                      aria-label="Previous Texture"
+                      title="Previous Texture (Left Arrow)"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNextTexture();
+                      }}
+                      className="pointer-events-auto w-9 h-9 rounded-full bg-black/70 hover:bg-teal-900/90 text-white/90 hover:text-accent border border-white/20 flex items-center justify-center transition-all shadow-lg backdrop-blur-md"
+                      aria-label="Next Texture"
+                      title="Next Texture (Right Arrow)"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Right Column: Spec & Consultation Panel */}
                 <div className="relative w-full md:w-[48%] lg:w-[45%] p-6 sm:p-8 lg:p-10 flex flex-col justify-between overflow-y-auto no-scrollbar bg-[#081e22]/95 backdrop-blur-md">
-                  {/* Desktop Close Button */}
-                  <button
-                    type="button"
-                    onClick={() => setActiveTexture(null)}
-                    className="hidden md:flex absolute top-5 right-5 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white items-center justify-center border border-white/15 backdrop-blur-sm transition-all shadow-sm"
-                    aria-label="Close"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
+                  {/* Desktop Navigation & Close Bar */}
+                  <div className="hidden md:flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-1.5 text-xs text-on-dark-muted font-mono">
+                      <button
+                        type="button"
+                        onClick={handlePrevTexture}
+                        className="hover:text-accent flex items-center gap-1 px-2.5 py-1 rounded bg-teal-950/60 hover:bg-teal-900/60 border border-border-teal/40 hover:border-accent/40 transition-all duration-200"
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" /> Prev
+                      </button>
+                      <span>·</span>
+                      <button
+                        type="button"
+                        onClick={handleNextTexture}
+                        className="hover:text-accent flex items-center gap-1 px-2.5 py-1 rounded bg-teal-950/60 hover:bg-teal-900/60 border border-border-teal/40 hover:border-accent/40 transition-all duration-200"
+                      >
+                        Next <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTexture(null)}
+                      className="w-9 h-9 rounded-full bg-white/10 hover:bg-accent/20 text-white/80 hover:text-accent flex items-center justify-center border border-white/15 backdrop-blur-sm transition-all shadow-sm"
+                      aria-label="Close"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
 
                   <div className="space-y-5">
                     <div className="pr-8">
@@ -242,7 +330,7 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
                           onExploreSurfaceStudio();
                           setActiveTexture(null);
                         }}
-                        className="w-full bg-dark-surface hover:bg-dark border border-border-teal text-white/80 hover:text-white py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors"
+                        className="w-full bg-dark-surface hover:bg-dark border border-border-teal text-white/80 hover:text-accent hover:border-accent/40 py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors"
                       >
                         <Layers className="w-3.5 h-3.5 text-amber-400" /> Go to 21-Finish Surface Studio
                       </Button>

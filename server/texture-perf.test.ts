@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 import { textureLibrary } from "../shared/discoveryContent";
 
 const projectRoot = resolve(import.meta.dirname, "..");
-const homeComponent = readFileSync(resolve(projectRoot, "client/src/pages/Home.tsx"), "utf8");
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
 
 describe("Texture Studio & Media Performance (Phase C)", () => {

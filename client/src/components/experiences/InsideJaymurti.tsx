@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { INSIDE_JAYMURTI_PHOTOS, type ShowroomPhoto } from "@shared/insideJaymurtiData";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Building2, Maximize2, MapPin, Phone, Clock } from "lucide-react";
+import { Building2, Maximize2, MapPin, Phone, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import { businessProfile } from "@shared/businessProfile";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { ShinyText, PulseHeart } from "@/components/reactbits";
@@ -16,6 +16,39 @@ export const InsideJaymurti: React.FC = () => {
     "5": 61,
     "6": 34
   });
+
+  const activeIndex = INSIDE_JAYMURTI_PHOTOS.findIndex((p) => p.id === activePhoto?.id);
+
+  const handlePrevPhoto = () => {
+    if (INSIDE_JAYMURTI_PHOTOS.length === 0) return;
+    const prev = activeIndex > 0
+      ? INSIDE_JAYMURTI_PHOTOS[activeIndex - 1]
+      : INSIDE_JAYMURTI_PHOTOS[INSIDE_JAYMURTI_PHOTOS.length - 1];
+    if (prev) setActivePhoto(prev);
+  };
+
+  const handleNextPhoto = () => {
+    if (INSIDE_JAYMURTI_PHOTOS.length === 0) return;
+    const next = (activeIndex >= 0 && activeIndex < INSIDE_JAYMURTI_PHOTOS.length - 1)
+      ? INSIDE_JAYMURTI_PHOTOS[activeIndex + 1]
+      : INSIDE_JAYMURTI_PHOTOS[0];
+    if (next) setActivePhoto(next);
+  };
+
+  useEffect(() => {
+    if (!activePhoto) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handlePrevPhoto();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNextPhoto();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activePhoto, activeIndex]);
 
   return (
     <section id="inside-jaymurti" className="py-12 sm:py-16 lg:py-24 bg-dark text-on-dark border-t border-border-teal relative overflow-hidden">
@@ -127,23 +160,59 @@ export const InsideJaymurti: React.FC = () => {
           </div>
         </div>
 
-        {/* Photo Modal */}
+        {/* Photo Modal with Previous/Next Controls */}
         <Dialog open={!!activePhoto} onOpenChange={(open) => !open && setActivePhoto(null)}>
           <DialogContent className="max-w-4xl bg-dark-surface border-border-teal text-on-dark p-0 overflow-hidden sm:rounded-2xl">
             {activePhoto && (
               <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
-                <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto">
+                <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto min-h-[280px]">
                   <ResponsiveImage
                     src={activePhoto.image}
                     alt={activePhoto.title}
                     className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"
                   />
+
+                  {/* Prev / Next Image Navigation Controls */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrevPhoto();
+                      }}
+                      className="pointer-events-auto w-9 h-9 rounded-full bg-black/70 hover:bg-teal-900/90 text-white/90 hover:text-accent border border-white/20 flex items-center justify-center transition-all shadow-lg backdrop-blur-md"
+                      aria-label="Previous Photo"
+                      title="Previous Photo (Left Arrow)"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNextPhoto();
+                      }}
+                      className="pointer-events-auto w-9 h-9 rounded-full bg-black/70 hover:bg-teal-900/90 text-white/90 hover:text-accent border border-white/20 flex items-center justify-center transition-all shadow-lg backdrop-blur-md"
+                      aria-label="Next Photo"
+                      title="Next Photo (Right Arrow)"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
+
                 <div className="md:w-2/5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
                   <div>
-                    <span className="text-xs uppercase tracking-widest text-accent font-semibold">
-                      Jaymurti Traders Showroom
-                    </span>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs uppercase tracking-widest text-accent font-semibold">
+                        Jaymurti Traders Showroom
+                      </span>
+                      {activeIndex >= 0 && (
+                        <span className="text-[10px] font-mono text-teal-300/80 bg-teal-950/60 px-2 py-0.5 rounded-full border border-teal-700/40">
+                          {activeIndex + 1} of {INSIDE_JAYMURTI_PHOTOS.length}
+                        </span>
+                      )}
+                    </div>
                     <DialogTitle className="text-2xl font-serif text-on-dark mt-2 mb-2">
                       {activePhoto.title}
                     </DialogTitle>
@@ -154,12 +223,28 @@ export const InsideJaymurti: React.FC = () => {
                       {activePhoto.description}
                     </p>
                   </div>
-                  <div className="pt-6 border-t border-border-teal">
+                  <div className="pt-6 border-t border-border-teal space-y-2">
+                    <div className="flex items-center justify-between text-xs text-on-dark-muted">
+                      <button
+                        type="button"
+                        onClick={handlePrevPhoto}
+                        className="hover:text-accent transition-colors flex items-center gap-1 font-medium"
+                      >
+                        &larr; Previous Photo
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNextPhoto}
+                        className="hover:text-accent transition-colors flex items-center gap-1 font-medium"
+                      >
+                        Next Photo &rarr;
+                      </button>
+                    </div>
                     <a
                       href={businessProfile.googleMapsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium py-2.5 rounded-xl flex items-center justify-center gap-2 text-center text-sm"
+                      className="w-full bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium py-2.5 rounded-xl flex items-center justify-center gap-2 text-center text-sm transition-colors"
                     >
                       <MapPin className="w-4 h-4" /> Get Directions to Showroom
                     </a>

@@ -11,8 +11,8 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: blob: https:",
-  "media-src 'self' blob: https:",
-  "connect-src 'self' https:",
+  "media-src 'self' blob:",
+  "connect-src 'self' https://maps.googleapis.com",
   "upgrade-insecure-requests",
 ].join("; ");
 

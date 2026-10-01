@@ -4,7 +4,6 @@ import { describe, expect, it } from "vitest";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
-const homeComponent = readFileSync(resolve(projectRoot, "client/src/pages/Home.tsx"), "utf8");
 const productStories = readFileSync(resolve(projectRoot, "client/src/components/ProductStories.tsx"), "utf8");
 
 describe("Phase D–G: Mobile UX, Catalogue, Product Video & Page-End Audit", () => {

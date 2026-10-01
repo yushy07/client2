@@ -67,7 +67,7 @@ describe("Shade Filtering and Search", () => {
     const mixed = filterVerifiedShades(VERIFIED_BIRLA_OPUS_SHADES, { searchQuery: "Holy Basil" });
 
     expect(lower.length).toBeGreaterThanOrEqual(1);
-    expect(lower[0].code).toBe("PP 4150");
+    expect(lower[0]?.code).toBe("PP 4150");
     expect(upper).toEqual(lower);
     expect(mixed).toEqual(lower);
   });
@@ -75,7 +75,7 @@ describe("Shade Filtering and Search", () => {
   it("searches case-insensitively by shade code", () => {
     const results = filterVerifiedShades(VERIFIED_BIRLA_OPUS_SHADES, { searchQuery: "PP 4149" });
     expect(results).toHaveLength(1);
-    expect(results[0].name).toBe("Wish In The Breeze");
+    expect(results[0]?.name).toBe("Wish In The Breeze");
 
     const partial = filterVerifiedShades(VERIFIED_BIRLA_OPUS_SHADES, { searchQuery: "4149" });
     expect(partial.some((s) => s.code === "PP 4149")).toBe(true);
@@ -97,8 +97,8 @@ describe("Shade Filtering and Search", () => {
       searchQuery: "tuscany"
     });
     expect(results).toHaveLength(1);
-    expect(results[0].code).toBe("PP 4079");
-    expect(results[0].name).toBe("Touring Tuscany");
+    expect(results[0]?.code).toBe("PP 4079");
+    expect(results[0]?.name).toBe("Touring Tuscany");
 
     const nonMatching = filterVerifiedShades(VERIFIED_BIRLA_OPUS_SHADES, {
       family: "Whites",

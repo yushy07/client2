@@ -2,15 +2,14 @@ import React, { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { colourTickerShades } from "@shared/colourDirections";
 import { useCart } from "@/contexts/CartContext";
-import { ShoppingBag, ArrowRight, Palette, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingBag, ArrowRight, Palette } from "lucide-react";
 
 export const HomeColoursPreview: React.FC = () => {
   const { addToCart } = useCart();
   const [selectedShadeIndex, setSelectedShadeIndex] = useState(0);
-  const [isTickerHovered, setIsTickerHovered] = useState(false);
 
   const activeShade = useMemo(() => {
-    return colourTickerShades[selectedShadeIndex] || colourTickerShades[0];
+    return colourTickerShades[selectedShadeIndex] ?? colourTickerShades[0]!;
   }, [selectedShadeIndex]);
 
   const colourTickerLoop = useMemo(() => {
@@ -111,8 +110,6 @@ export const HomeColoursPreview: React.FC = () => {
         <div
           className="colour-archive-ticker"
           aria-label="Curated shade ticker"
-          onPointerEnter={() => setIsTickerHovered(true)}
-          onPointerLeave={() => setIsTickerHovered(false)}
         >
           <div
             className="colour-archive-ticker-track"

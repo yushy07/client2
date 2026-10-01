@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
-import { SITE_ROUTES_SEO } from "@shared/seoKeywordMap";
+import { getRouteSEO } from "@shared/seoKeywordMap";
 import { RoomShadeStudio } from "@/components/experiences/RoomShadeStudio";
 import { RoomLibrary } from "@/components/experiences/RoomLibrary";
 import { ColourCapsule } from "@/components/experiences/ColourCapsule";
 import { useCart } from "@/contexts/CartContext";
-import { Sparkles, Layers, BookOpen, Eye } from "lucide-react";
+import { Sparkles, Layers, BookOpen, Eye, Palette, ShoppingBag } from "lucide-react";
 
 export const RoomInspirationPage: React.FC = () => {
-  const seo = SITE_ROUTES_SEO["/room-inspiration"];
+  const seo = getRouteSEO("/room-inspiration");
   const { addToCart, setIsCartOpen } = useCart();
   const [activeTab, setActiveTab] = useState<"studio" | "library" | "capsule">("studio");
 
@@ -35,7 +35,7 @@ export const RoomInspirationPage: React.FC = () => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all font-semibold flex items-center gap-2 ${
               activeTab === "studio"
                 ? "bg-accent text-dark border-accent shadow-md"
-                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-white"
+                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
             }`}
           >
             <Eye className="w-3.5 h-3.5" />
@@ -47,7 +47,7 @@ export const RoomInspirationPage: React.FC = () => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all font-semibold flex items-center gap-2 ${
               activeTab === "library"
                 ? "bg-accent text-dark border-accent shadow-md"
-                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-white"
+                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -59,7 +59,7 @@ export const RoomInspirationPage: React.FC = () => {
             className={`text-xs px-4 py-2 rounded-xl border transition-all font-semibold flex items-center gap-2 ${
               activeTab === "capsule"
                 ? "bg-accent text-dark border-accent shadow-md"
-                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-white"
+                : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
@@ -116,6 +116,39 @@ export const RoomInspirationPage: React.FC = () => {
           />
         </section>
       )}
+
+      {/* Cross-linking navigation cards to prevent dead ends */}
+      <div className="mt-14 pt-8 border-t border-border-teal/40">
+        <h3 className="text-lg font-serif text-white mb-4">Explore More Inspiration &amp; Tools</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Link
+            href="/colour-finder"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <Palette className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Birla Opus Colour Finder</h4>
+            <p className="text-xs text-on-dark-muted mt-1">159 verified shades with exact hex codes and tone groupings.</p>
+          </Link>
+
+          <Link
+            href="/surface-studio"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <Sparkles className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Surface Studio</h4>
+            <p className="text-xs text-on-dark-muted mt-1">Metallic finishes, stucco textures, and tactile swatches.</p>
+          </Link>
+
+          <Link
+            href="/paint-products"
+            className="p-5 rounded-2xl bg-dark-surface border border-border-teal/50 hover:border-accent transition-all group flex flex-col justify-between"
+          >
+            <ShoppingBag className="w-5 h-5 text-accent mb-2" />
+            <h4 className="text-sm font-semibold text-white group-hover:text-accent">Paint Products Catalog</h4>
+            <p className="text-xs text-on-dark-muted mt-1">Interior, exterior, waterproofing, enamels &amp; wood finishes.</p>
+          </Link>
+        </div>
+      </div>
     </SEOPageLayout>
   );
 };

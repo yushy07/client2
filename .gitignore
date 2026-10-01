@@ -83,9 +83,13 @@ vitest-report/
 .vercel
 .webdev/
 .project-config.json
+.freebuff/
 .manus/
 .manus-logs/
 client/public/__manus__/
+
+# Generated reports (media inventory, bundle budgets)
+/reports/
 
 # Audit & lighthouse reports
 lh-*.json

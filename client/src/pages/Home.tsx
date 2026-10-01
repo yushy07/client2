@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useCart } from "@/contexts/CartContext";
 import { businessProfile } from "@shared/businessProfile";
 import {
+  ArrowLeft,
   ArrowRight,
   BadgeCheck,
-  Check,
-  Compass,
-  ExternalLink,
   Facebook,
   Instagram,
   LayoutGrid,
@@ -18,11 +16,10 @@ import {
   MessageCircle,
   Palette,
   PhoneCall,
+  Play,
   Search,
   ShieldCheck,
   ShoppingBag,
-  Sparkles,
-  Star,
   Store,
   X,
 } from "lucide-react";
@@ -32,6 +29,7 @@ import {
   ClickSpark,
   SwipeToast,
 } from "@/components/reactbits";
+import { ShowroomVideoModal, type VideoModalItem } from "@/components/ShowroomVideoModal";
 import {
   MotionMagnetic,
   MotionStagger,
@@ -42,6 +40,10 @@ import { HomeShowroomPreview } from "@/components/home/HomeShowroomPreview";
 import { HomeProductsPreview } from "@/components/home/HomeProductsPreview";
 import { HomeColoursPreview } from "@/components/home/HomeColoursPreview";
 import { HomeInspirationPreview } from "@/components/home/HomeInspirationPreview";
+import {
+  HomeReviewsSection,
+  type ReviewSubmissionInput,
+} from "@/components/reviews/HomeReviewsSection";
 
 const campaigns = [
   {
@@ -51,6 +53,9 @@ const campaigns = [
     swatch: "#E8C88B",
     swatchName: "Imperial Saffron",
     swatchCode: "BO-INT-14",
+    imageUrl: "/storage/storefront/shopreception.webp",
+    mobileUrl: "/storage/storefront/shopreception-mobile.webp",
+    imageAlt: "Jaymurti Traders Birla Opus consultation counter and physical fandeck station in Baskhari",
   },
   {
     kicker: "Formulation 02 · All-Weather Protection",
@@ -59,6 +64,9 @@ const campaigns = [
     swatch: "#2B4C47",
     swatchName: "Forest Canopy",
     swatchCode: "BO-EXT-08",
+    imageUrl: "/storage/storefront/shopwide.webp",
+    mobileUrl: "/storage/storefront/shopwide-mobile.webp",
+    imageAlt: "Jaymurti Traders Birla Opus colour wall and showroom floor in Shukul Bazar, Baskhari",
   },
   {
     kicker: "Formulation 03 · Mineral & Stucco Textures",
@@ -67,6 +75,9 @@ const campaigns = [
     swatch: "#B86B4B",
     swatchName: "Terracotta Clay",
     swatchCode: "BO-TEX-03",
+    imageUrl: "/storage/storefront/shop.webp",
+    mobileUrl: "/storage/storefront/shop-mobile.webp",
+    imageAlt: "Jaymurti Traders main showroom entrance in Shukul Bazar, Baskhari, Ambedkar Nagar",
   },
   {
     kicker: "Formulation 04 · Pure Spatial Elegance",
@@ -75,6 +86,9 @@ const campaigns = [
     swatch: "#E2DDD3",
     swatchName: "Alabaster Mist",
     swatchCode: "BO-NEU-01",
+    imageUrl: "/storage/shopproductpyramid.webp",
+    mobileUrl: "/storage/shopproductpyramid.webp",
+    imageAlt: "Genuine Birla Opus product pyramid and paint cans at Jaymurti Traders showroom",
   },
 ];
 
@@ -118,7 +132,7 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const activeCampaign = campaigns[campaign];
+  const activeCampaign = campaigns[campaign] ?? campaigns[0]!;
 
   // Fetch published reviews via tRPC
   const publishedReviewsQuery = trpc.shopReviews.listPublished.useQuery(undefined, {
@@ -126,7 +140,74 @@ export default function Home() {
     refetchOnWindowFocus: false,
   });
 
+  const utils = trpc.useUtils();
+  const createReview = trpc.shopReviews.create.useMutation({
+    onSuccess: () => utils.shopReviews.listPublished.invalidate(),
+  });
+
+  const handleReviewSubmit = useCallback(
+    async ({ displayName, rating, reviewText }: ReviewSubmissionInput) => {
+      await createReview.mutateAsync({ displayName, rating, reviewText });
+    },
+    [createReview],
+  );
+
   const googleBusinessProfileUrl = "https://share.google/Nyju9PoRuINGGoD83";
+
+  // Video Modal State for Interactive Pillars
+  const [videoModalData, setVideoModalData] = useState<{
+    isOpen: boolean;
+    title: string;
+    subtitle: string;
+    videos: VideoModalItem[];
+    defaultActiveIdx?: number;
+  } | null>(null);
+
+  const handleAuthorisedDealershipClick = () => {
+    setVideoModalData({
+      isOpen: true,
+      title: "Authorised Birla Opus Dealership Showcase",
+      subtitle: "Official Jaymurti Traders Showroom in Shukul Bazar, Baskhari",
+      videos: [
+        {
+          label: "Showroom Walkthrough V4",
+          url: "/storage/jay-murti-traders-v4.mp4",
+          desc: "Full authorized Birla Opus showroom showcase at Jaymurti Traders, Baskhari, Ambedkar Nagar.",
+        },
+      ],
+      defaultActiveIdx: 0,
+    });
+  };
+
+  const handleComputerisedTintingClick = () => {
+    setVideoModalData({
+      isOpen: true,
+      title: "Computerised Tinting & Showroom Inventory",
+      subtitle: "Automated Pigment Dispensing & Factory-Sealed Formulations",
+      videos: [
+        {
+          label: "Tinting Machine in Action",
+          url: "/storage/tiniting machine.mp4",
+          desc: "Watch the computerized automated tinting machine dispense exact pigment formulas for true shade accuracy.",
+        },
+        {
+          label: "Showroom Materials & Stock",
+          url: "/storage/shopmaterial2.mp4",
+          desc: "Explore authentic factory-sealed Birla Opus paint stock, primers, and finishes at Jaymurti Traders.",
+        },
+      ],
+      defaultActiveIdx: 0,
+    });
+  };
+
+  const handlePhysicalSamplingClick = () => {
+    const coloursSection = document.getElementById("colours") || document.querySelector(".colours");
+    if (coloursSection) {
+      coloursSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = "/colour-finder";
+    }
+  };
 
   return (
     <ClickSpark sparkColor="rgba(217, 119, 6, 0.75)" sparkSize={10} sparkRadius={16} sparkCount={7} duration={380}>
@@ -153,14 +234,14 @@ export default function Home() {
             <img
               src="/storage/logo.webp"
               alt="Jaymurti Traders Logo"
-              width={38}
-              height={38}
-              className="brand-logo transition-transform duration-300 group-hover:scale-105"
+              width={42}
+              height={42}
+              className="brand-logo"
             />
-            <div className="brand-titles flex items-baseline gap-3 sm:gap-3.5">
-              <span className="brand-name-text">Jaymurti Traders</span>
-              <span className="brand-sub-text font-sans text-xs sm:text-sm font-medium tracking-normal text-white/85">
-                जयमूर्ति ट्रेडर्स
+            <div className="brand-titles">
+              <span className="brand-name-text font-serif">Jaymurti Traders</span>
+              <span className="brand-sub-text font-mono" lang="hi">
+                जयमूर्ति ट्रेडर्स · Baskhari
               </span>
             </div>
           </Link>
@@ -182,6 +263,16 @@ export default function Home() {
               <span>Enquire</span>
               {cartItems.length > 0 && <span className="nav-enquiry-count">{cartItems.length}</span>}
             </button>
+            <a
+              href={generateWhatsAppCartUrl()}
+              target="_blank"
+              rel="noreferrer"
+              className="nav-whatsapp-btn"
+              aria-label="Direct WhatsApp Enquiry with Showroom"
+            >
+              <MessageCircle size={15} />
+              <span>WhatsApp Showroom</span>
+            </a>
           </nav>
 
           {/* Mobile Navigation Actions */}
@@ -316,78 +407,306 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Hero Active Swatch Card */}
-              <div
-                className="hero-swatch"
+              {/* Hero Showroom Carousel Card */}
+              <div 
+                className="hero-visual relative group" 
+                aria-label="Hero Showroom Gallery"
                 onMouseEnter={() => setHeroPaused(true)}
                 onMouseLeave={() => setHeroPaused(false)}
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  minHeight: "520px",
+                  height: "100%",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  background: "#0c181c",
+                  boxShadow: "0 24px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.12)",
+                }}
               >
-                <div className="hero-swatch-canvas" style={{ background: activeCampaign.swatch }}>
-                  <div className="hero-swatch-glaze" />
-                  <div className="hero-swatch-badge">
-                    <span>{activeCampaign.swatchCode}</span>
-                    <strong>{activeCampaign.swatchName}</strong>
-                  </div>
+                {/* Top-Left Floating Live Status Pill */}
+                <div 
+                  className="hero-floating-badge hero-floating-badge--top-left"
+                  style={{
+                    position: "absolute",
+                    top: "18px",
+                    left: "18px",
+                    zIndex: 25,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "6px 14px",
+                    background: "rgba(12, 41, 47, 0.85)",
+                    backdropFilter: "blur(12px)",
+                    borderRadius: "999px",
+                    border: "1px solid rgba(255, 255, 255, 0.22)",
+                    color: "#ffffff",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  <span className="hero-live-dot" />
+                  <span>SHOWROOM • BASKHARI</span>
                 </div>
-                <div className="hero-swatch-controls">
-                  <span className="hero-swatch-count">
+
+                {campaigns.map((camp, idx) => (
+                  <div
+                    key={`hero-slide-${idx}`}
+                    className="hero-slide"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      opacity: campaign === idx ? 1 : 0,
+                      pointerEvents: campaign === idx ? "auto" : "none",
+                      transition: "opacity 0.75s ease-in-out",
+                      zIndex: campaign === idx ? 2 : 1,
+                    }}
+                  >
+                    <picture style={{ display: "block", position: "absolute", inset: 0, width: "100%", height: "100%" }}>
+                      <source media="(max-width: 640px)" srcSet={camp.mobileUrl || camp.imageUrl} type="image/webp" />
+                      <source srcSet={camp.imageUrl} type="image/webp" />
+                      <img
+                        src={camp.imageUrl}
+                        alt={camp.imageAlt}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center 25%",
+                        }}
+                        className="hero-image hero-image-ambient transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                        loading={idx === 0 ? "eager" : "lazy"}
+                        fetchPriority={idx === 0 ? "high" : "auto"}
+                        decoding="async"
+                        width={720}
+                        height={480}
+                      />
+                    </picture>
+                    <div className="hero-image-shade" />
+
+                    {/* Integrated Shade Accent Badge */}
+                    <div 
+                      className="absolute bottom-16 left-5 z-20 bg-[#0C292F]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-[#176B73]/40 flex items-center gap-3 shadow-2xl"
+                      style={{ pointerEvents: "auto" }}
+                    >
+                      <span className="w-4 h-4 rounded-full border border-white/40 shrink-0" style={{ background: camp.swatch }} />
+                      <span className="text-xs text-teal-200 font-mono tracking-wider">{camp.swatchCode}</span>
+                      <strong className="text-xs text-white font-sans font-semibold">{camp.swatchName}</strong>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Side Navigation Arrows */}
+                <button
+                  type="button"
+                  onClick={() => setCampaign((prev) => (prev - 1 + campaigns.length) % campaigns.length)}
+                  className="hero-nav-arrow hero-nav-arrow--prev"
+                  style={{
+                    position: "absolute",
+                    left: "16px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 30,
+                    width: "42px",
+                    height: "42px",
+                    borderRadius: "50%",
+                    background: "rgba(12, 41, 47, 0.85)",
+                    backdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255, 255, 255, 0.25)",
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease-out",
+                    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.4)",
+                  }}
+                  aria-label="Previous Slide"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setCampaign((prev) => (prev + 1) % campaigns.length)}
+                  className="hero-nav-arrow hero-nav-arrow--next"
+                  style={{
+                    position: "absolute",
+                    right: "16px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 30,
+                    width: "42px",
+                    height: "42px",
+                    borderRadius: "50%",
+                    background: "rgba(12, 41, 47, 0.85)",
+                    backdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255, 255, 255, 0.25)",
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease-out",
+                    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.4)",
+                  }}
+                  aria-label="Next Slide"
+                >
+                  <ArrowRight size={18} />
+                </button>
+
+                {/* Bottom Integrated Status & Dots Bar */}
+                <div 
+                  className="hero-carousel-bottom-bar"
+                  style={{
+                    position: "absolute",
+                    bottom: "16px",
+                    right: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    zIndex: 30,
+                    background: "rgba(12, 41, 47, 0.88)",
+                    backdropFilter: "blur(12px)",
+                    padding: "6px 16px",
+                    borderRadius: "999px",
+                    border: "1px solid rgba(255, 255, 255, 0.25)",
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                  }}
+                >
+                  <span className="hero-carousel-counter text-xs text-white/90 font-mono font-semibold">
                     0{campaign + 1} / 0{campaigns.length}
                   </span>
-                  <div className="hero-swatch-dots">
+
+                  <div className="hero-carousel-dots flex items-center gap-1.5">
                     {campaigns.map((_, i) => (
                       <button
-                        key={i}
+                        key={`hero-dot-${i}`}
                         type="button"
-                        className={`hero-dot ${i === campaign ? "active" : ""}`}
                         onClick={() => setCampaign(i)}
-                        aria-label={`Switch to campaign ${i + 1}`}
+                        className={`hero-dot-btn ${campaign === i ? "active" : ""}`}
+                        aria-label={`Go to slide ${i + 1}`}
                       />
                     ))}
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="hero-authorised-banner">
-                <span className="hero-auth-line" />
-                <span className="hero-auth-title">AUTHORISED BIRLA OPUS SHOWROOM · BASKHARI</span>
-                <span className="hero-auth-line" />
-              </div>
+            {/* Authorised Birla Opus Showroom Banner across hero base */}
+            <div className="hero-authorised-banner flex items-center justify-center gap-3 py-3 border-t border-[#176B73]/30 bg-[#0C292F]/80">
+              <span className="w-8 h-[1px] bg-amber-500/50" />
+              <span className="text-[11px] font-mono tracking-widest text-amber-400 uppercase font-semibold">
+                AUTHORISED BIRLA OPUS SHOWROOM · BASKHARI
+              </span>
+              <span className="w-8 h-[1px] bg-amber-500/50" />
             </div>
           </section>
 
           {/* =========================================================================
-              3. SHORT JAYMURTI / SHOP INTRODUCTION
+              3. SHORT JAYMURTI / SHOP INTRODUCTION (INTERACTIVE PILLARS)
               ========================================================================= */}
-          <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-border-teal/30 bg-[#0c1214]/80">
+          <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#176B73]/30 bg-gradient-to-b from-[#0C292F] via-[#0E353B] to-[#0C292F]">
             <div className="max-w-[var(--shell-max)] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-              <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-3">
-                  <BadgeCheck size={20} />
+              {/* Pillar 1: Authorised Dealership -> Plays Showroom Tour V4 Video */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={handleAuthorisedDealershipClick}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleAuthorisedDealershipClick(); }}
+                className="group relative p-7 rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-amber-400/40 text-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 transition-all">
+                      <BadgeCheck size={24} />
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
+                      Aditya Birla Official
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors flex items-center justify-between">
+                    <span>Authorised Dealership</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
+                    Official flagship dealer for Aditya Birla Group's premier Birla Opus paints in Shukul Bazar, Baskhari. 100% factory-sealed formulations.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-white">Authorised Dealership</h3>
-                <p className="text-xs text-on-dark-muted leading-relaxed">
-                  Official dealer for Aditya Birla Group's premier Birla Opus paints in Shukul Bazar, Baskhari.
-                </p>
+                <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
+                  <span className="flex items-center gap-1.5 group-hover:underline">
+                    <Play size={13} className="fill-current" /> Watch Showroom Tour
+                  </span>
+                  <span className="text-[10px] font-mono text-teal-300/80 uppercase">Tap to Play Video</span>
+                </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-3">
-                  <Palette size={20} />
+              {/* Pillar 2: Computerised Tinting -> Plays Tinting Machine & Materials Videos */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={handleComputerisedTintingClick}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleComputerisedTintingClick(); }}
+                className="group relative p-7 rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-teal-400/40 text-teal-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 group-hover:text-amber-300 transition-all">
+                      <Palette size={24} />
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
+                      159 Spectral Shades
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors">
+                    Computerised Tinting
+                  </h3>
+                  <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
+                    In-store precision automated tinting dispensing exact pigment formulations for perfect batch-to-batch repeatability and depth.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-white">Computerised Tinting</h3>
-                <p className="text-xs text-on-dark-muted leading-relaxed">
-                  Precision in-store automated tinting machines ensuring exact batch consistency across all 159 shades.
-                </p>
+                <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
+                  <span className="flex items-center gap-1.5 group-hover:underline">
+                    <Play size={13} className="fill-current" /> Watch Machine & Stock (2 Videos)
+                  </span>
+                  <span className="text-[10px] font-mono text-teal-300/80 uppercase">Tap to Play</span>
+                </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-dark-surface border border-border-teal/50 space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-3">
-                  <Store size={20} />
+              {/* Pillar 3: Physical Sampling -> Scrolls to Shades / Colour Section */}
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={handlePhysicalSamplingClick}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handlePhysicalSamplingClick(); }}
+                className="group relative p-7 rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-amber-400/40 text-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 transition-all">
+                      <Store size={24} />
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
+                      Live Experience Studio
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors">
+                    Physical Sampling
+                  </h3>
+                  <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
+                    Inspect authentic large fandecks and feel textured masonry plaster panels under calibrated natural daylight before finalising.
+                  </p>
                 </div>
-                <h3 className="text-base font-semibold text-white">Physical Sampling</h3>
-                <p className="text-xs text-on-dark-muted leading-relaxed">
-                  Inspect physical fandecks and real textured masonry panels under natural true daylight before purchase.
-                </p>
+                <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
+                  <span className="flex items-center gap-1.5 group-hover:underline">
+                    <span>Explore 159 Verified Shades</span> <ArrowRight size={13} />
+                  </span>
+                  <span className="text-[10px] font-mono text-teal-300/80 uppercase">Go to Shades</span>
+                </div>
               </div>
             </div>
           </section>
@@ -505,100 +824,22 @@ export default function Home() {
           </section>
 
           {/* =========================================================================
-              10. CUSTOMER REVIEWS
+              10. CUSTOMER REVIEWS & GOOGLE TESTIMONIALS
               ========================================================================= */}
-          <section className="shop-reviews visual-reviews-compact reveal scroll-chapter" id="reviews" data-scroll-section data-section-label="Reviews">
-            <div className="review-intro">
-              <div>
-                <div className="eyebrow">Verified Client Experiences</div>
-                <h2 className="section-title">
-                  Voices of transformed
-                  <br />
-                  living spaces.
-                </h2>
-                <p className="section-lead">
-                  Feedback from homeowners and painters across Baskhari and Ambedkar Nagar.
-                </p>
-              </div>
-              <a className="google-review-placeholder" href={googleBusinessProfileUrl} target="_blank" rel="noopener noreferrer" aria-label="Review Jaymurti Traders on Google">
-                <div>
-                  <span>Google Business Profile</span>
-                  <strong>Review us on Google</strong>
-                  <p className="google-review-sub">See verified showroom listing & directions</p>
-                </div>
-                <ArrowRight size={15} />
-              </a>
-            </div>
-
-            <div className="approved-reviews visual-review-summary-card" aria-live="polite">
-              <div className="review-summary">
-                <div>
-                  <span className="review-summary-label">Showroom reviews</span>
-                  <strong>{publishedReviewsQuery.data?.averageRating ? publishedReviewsQuery.data.averageRating.toFixed(1) : "5.0"}</strong>
-                  <div className="review-stars" role="img" aria-label="5 out of 5 stars">
-                    {Array.from({ length: 5 }, (_, index) => (
-                      <Star key={index} size={17} fill="currentColor" />
-                    ))}
-                  </div>
-                </div>
-                <div className="review-summary-side">
-                  <p>Verified Birla Opus customer reviews</p>
-                  <a href={googleBusinessProfileUrl} target="_blank" rel="noopener noreferrer" className="review-summary-google-link">
-                    View on Google <ArrowRight size={12} />
-                  </a>
-                </div>
-              </div>
-
-              {publishedReviewsQuery.data?.reviews.length ? (
-                <div className="approved-review-list" role="list">
-                  {publishedReviewsQuery.data.reviews.slice(0, 3).map((review) => (
-                    <article className="approved-review-card" key={review.id} role="listitem">
-                      <div className="review-card-top">
-                        <strong>{review.displayName}</strong>
-                        <div className="review-stars" role="img" aria-label={`${review.rating} out of 5 stars`}>
-                          {Array.from({ length: 5 }, (_, index) => (
-                            <Star key={index} size={14} fill={index < review.rating ? "currentColor" : "none"} />
-                          ))}
-                        </div>
-                      </div>
-                      <p>“{review.reviewText}”</p>
-                      <div className="review-card-bottom">
-                        <span>{new Date(review.createdAt).toLocaleDateString("en-IN", { month: "short", year: "numeric" })}</span>
-                        <span className="review-source-tag">Verified customer</span>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <div className="approved-review-list" role="list">
-                  <article className="approved-review-card" role="listitem">
-                    <div className="review-card-top">
-                      <strong>Santosh Verma</strong>
-                      <div className="review-stars" role="img" aria-label="5 out of 5 stars">
-                        {Array.from({ length: 5 }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                      </div>
-                    </div>
-                    <p>“Best paint shop in Baskhari. Got authentic Birla Opus Calista with exact computerized shade matching. Highly recommended.”</p>
-                    <div className="review-card-bottom">
-                      <span>Recent visitor</span>
-                      <span className="review-source-tag">Baskhari Showroom</span>
-                    </div>
-                  </article>
-                  <article className="approved-review-card" role="listitem">
-                    <div className="review-card-top">
-                      <strong>Anil Kumar Yadav</strong>
-                      <div className="review-stars" role="img" aria-label="5 out of 5 stars">
-                        {Array.from({ length: 5 }, (_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                      </div>
-                    </div>
-                    <p>“Very helpful advice on All Dry waterproofing and exterior wall primer coats. Ramesh ji personally guided us on required quantities.”</p>
-                    <div className="review-card-bottom">
-                      <span>Recent visitor</span>
-                      <span className="review-source-tag">Ambedkar Nagar</span>
-                    </div>
-                  </article>
-                </div>
-              )}
+          <section
+            className="shop-reviews visual-reviews-compact reveal scroll-chapter"
+            id="reviews"
+            data-scroll-section
+            data-section-label="Reviews"
+          >
+            <div className="max-w-[var(--shell-max)] mx-auto px-4 sm:px-6 lg:px-8">
+              <HomeReviewsSection
+                reviews={publishedReviewsQuery.data?.reviews ?? []}
+                averageRating={publishedReviewsQuery.data?.averageRating ?? null}
+                isLoading={publishedReviewsQuery.isLoading}
+                onSubmit={handleReviewSubmit}
+                googleBusinessProfileUrl={googleBusinessProfileUrl}
+              />
             </div>
           </section>
 
@@ -768,6 +1009,26 @@ export default function Home() {
             <MessageCircle size={17} aria-hidden="true" />
             <span>WhatsApp</span>
           </a>
+          <a
+            className="floating-instagram"
+            href={businessProfile.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Official Instagram"
+          >
+            <Instagram size={17} aria-hidden="true" />
+            <span>Instagram</span>
+          </a>
+          <a
+            className="floating-facebook"
+            href={businessProfile.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Official Facebook"
+          >
+            <Facebook size={17} aria-hidden="true" />
+            <span>Facebook</span>
+          </a>
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
@@ -818,6 +1079,15 @@ export default function Home() {
           >
             <Instagram size={17} />
           </a>
+          <a
+            href={businessProfile.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-bar-btn mobile-bar-icon-btn mobile-bar-facebook"
+            aria-label="Official Facebook"
+          >
+            <Facebook size={17} />
+          </a>
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
@@ -831,6 +1101,18 @@ export default function Home() {
             <span>Cart {cartItems.length > 0 ? `(${cartItems.length})` : ""}</span>
           </button>
         </div>
+
+        {/* Showroom Interactive Video Modal for Dealership & Computerised Tinting */}
+        {videoModalData && (
+          <ShowroomVideoModal
+            isOpen={videoModalData.isOpen}
+            onClose={() => setVideoModalData(null)}
+            title={videoModalData.title}
+            subtitle={videoModalData.subtitle}
+            videos={videoModalData.videos}
+            defaultActiveIdx={videoModalData.defaultActiveIdx}
+          />
+        )}
 
         {/* Live Swipe Toast for Cart updates */}
         <SwipeToast

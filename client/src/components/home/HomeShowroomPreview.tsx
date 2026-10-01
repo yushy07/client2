@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
-import { businessProfile } from "@shared/businessProfile";
-import { ArrowRight, BadgeCheck, MapPin, Play, Store, Video, Clock } from "lucide-react";
+import { ArrowRight, BadgeCheck, MapPin, Play, Video } from "lucide-react";
 
 export const HomeShowroomPreview: React.FC = () => {
   return (

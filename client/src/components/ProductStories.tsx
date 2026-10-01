@@ -369,11 +369,15 @@ export function ProductStories() {
     const section = sectionRef.current;
     if (!section) return;
     const preloadObserver = new IntersectionObserver(
-      ([entry]) => setIsNearViewport(entry.isIntersecting),
+      ([entry]) => {
+        if (entry) setIsNearViewport(entry.isIntersecting);
+      },
       { rootMargin: "300px 0px" },
     );
     const playbackObserver = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting && entry.intersectionRatio >= 0.15),
+      ([entry]) => {
+        if (entry) setIsVisible(entry.isIntersecting && entry.intersectionRatio >= 0.15);
+      },
       { threshold: [0, 0.15] },
     );
     preloadObserver.observe(section);
@@ -448,17 +452,21 @@ export function ProductStories() {
   // Touch Swipe Handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     setIsInteracting(true);
-    touchStartRef.current = e.touches[0].clientX;
+    const firstTouch = e.touches[0];
+    if (firstTouch) touchStartRef.current = firstTouch.clientX;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartRef.current !== null) {
-      const diff = touchStartRef.current - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) {
-          nextCard();
-        } else {
-          prevCard();
+      const changedTouch = e.changedTouches[0];
+      if (changedTouch) {
+        const diff = touchStartRef.current - changedTouch.clientX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) {
+            nextCard();
+          } else {
+            prevCard();
+          }
         }
       }
       touchStartRef.current = null;
@@ -506,7 +514,7 @@ export function ProductStories() {
         <div className="product-stories-side">
           <a
             href="#products"
-            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 hover:border-amber-400/40 text-amber-300 hover:text-amber-200 transition-all text-xs font-mono tracking-wider uppercase backdrop-blur-sm shadow-sm"
+            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-teal-950/60 hover:bg-teal-900/80 border border-teal-700/40 hover:border-amber-400/60 text-amber-300 hover:text-amber-200 transition-all text-xs font-mono tracking-wider uppercase backdrop-blur-sm shadow-sm"
           >
             <span>View Master Catalogue</span>
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1 text-amber-400" />

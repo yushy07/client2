@@ -178,7 +178,14 @@ export const PixelCard: React.FC<PixelCardProps> = ({
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   ).current;
 
-  const variantCfg = VARIANTS[variant] || VARIANTS.default;
+  const DEFAULT_VARIANT = {
+    activeColor: 'rgba(217, 119, 6, 0.15)',
+    gap: 6,
+    speed: 35,
+    colors: '#f8fafc,#f1f5f9,#cbd5e1',
+    noFocus: false,
+  };
+  const variantCfg = VARIANTS[variant] ?? DEFAULT_VARIANT;
   const finalGap = gap ?? variantCfg.gap;
   const finalSpeed = speed ?? variantCfg.speed;
   const finalColors = colors ?? variantCfg.colors;
@@ -204,7 +211,7 @@ export const PixelCard: React.FC<PixelCardProps> = ({
     const pxs: Pixel[] = [];
     for (let x = 0; x < width; x += parseInt(String(finalGap), 10)) {
       for (let y = 0; y < height; y += parseInt(String(finalGap), 10)) {
-        const color = colorsArray[Math.floor(Math.random() * colorsArray.length)];
+        const color = colorsArray[Math.floor(Math.random() * colorsArray.length)] ?? '#ffffff';
 
         const dx = x - width / 2;
         const dy = y - height / 2;
@@ -234,6 +241,7 @@ export const PixelCard: React.FC<PixelCardProps> = ({
     let allIdle = true;
     for (let i = 0; i < pixelsRef.current.length; i++) {
       const pixel = pixelsRef.current[i];
+      if (!pixel) continue;
       pixel[fnName]();
       if (!pixel.isIdle) {
         allIdle = false;

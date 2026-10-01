@@ -106,7 +106,9 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { rootMargin: '100px' });
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setInView(entry.isIntersecting);
+    }, { rootMargin: '100px' });
     observer.observe(container);
     const onVisibility = () => setPageVisible(!document.hidden);
     document.addEventListener('visibilitychange', onVisibility);
@@ -118,7 +120,10 @@ export const DriftWall: React.FC<DriftWallProps> = ({
 
   const columnItems = useMemo(() => {
     const cols: DriftWallItem[][] = Array.from({ length: columns }, () => []);
-    items.forEach((item, i) => cols[i % columns].push(item));
+    items.forEach((item, i) => {
+      const targetCol = cols[i % columns];
+      if (targetCol) targetCol.push(item);
+    });
     return cols.map(col => (col.length ? col : items.slice(0, 1)));
   }, [items, columns]);
 
@@ -134,7 +139,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   useLayoutEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver(([entry]) => {
-      setContainerHeight(entry.contentRect.height || 600);
+      if (entry) setContainerHeight(entry.contentRect.height || 600);
     });
     ro.observe(containerRef.current);
     return () => ro.disconnect();
@@ -188,11 +193,14 @@ export const DriftWall: React.FC<DriftWallProps> = ({
           if (!meta) continue;
           const paused = wallHoveredRef.current && pauseOnHover;
           const factor = paused || hoveredColRef.current === c ? 0 : 1;
-          const target = baseVelocities[c] * factor;
+          const baseVel = baseVelocities[c] ?? 0;
+          const target = baseVel * factor;
 
           const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
-          velocitiesRef.current[c] += (target - velocitiesRef.current[c]) * ease;
-          let next = (offsetsRef.current[c] ?? 0) + velocitiesRef.current[c] * dt;
+          const currentVel = velocitiesRef.current[c] ?? 0;
+          const newVel = currentVel + (target - currentVel) * ease;
+          velocitiesRef.current[c] = newVel;
+          let next = (offsetsRef.current[c] ?? 0) + newVel * dt;
           next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
           offsetsRef.current[c] = next;
 
@@ -313,7 +321,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     >
       <div ref={planeRef} className="drift-wall__plane">
         {columnItems.map((col, c) => {
-          const meta = columnMeta[c];
+          const meta = columnMeta[c] ?? { copyHeight: 600, copies: 2 };
           const copies = Array.from({ length: meta.copies });
           return (
             <div className="drift-wall__col" key={`col-${c}`}>

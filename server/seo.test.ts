@@ -61,10 +61,9 @@ describe("SEO foundation", () => {
   });
 
   it("defines unique, structured SEO metadata for all routes", () => {
-    const routeKeys = Object.keys(SITE_ROUTES_SEO);
-    expect(routeKeys.length).toBeGreaterThanOrEqual(15);
-    routeKeys.forEach((key) => {
-      const config = SITE_ROUTES_SEO[key];
+    const routeConfigs = Object.values(SITE_ROUTES_SEO);
+    expect(routeConfigs.length).toBeGreaterThanOrEqual(15);
+    routeConfigs.forEach((config) => {
       expect(config.title).toBeTruthy();
       expect(config.description).toBeTruthy();
       expect(config.h1).toBeTruthy();

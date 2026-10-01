@@ -21,23 +21,23 @@ export default function NotFound() {
   });
 
   return (
-    <div className="min-h-screen w-full bg-[#0c1214] text-white flex flex-col justify-between relative overflow-hidden font-sans selection:bg-accent/30 selection:text-white">
+    <div className="min-h-screen w-full bg-gradient-to-b from-[#0C292F] via-[#123F46] to-[#0C292F] text-[#F7F6F1] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-accent/30 selection:text-white">
       {/* Decorative ambient lighting */}
       <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[140px] pointer-events-none" />
 
       {/* Top Header */}
-      <header className="p-6 sm:p-8 flex items-center justify-between border-b border-white/5 relative z-10">
+      <header className="p-6 sm:p-8 flex items-center justify-between border-b border-[#176B73]/40 relative z-10">
         <Link href="/" className="flex items-center gap-3 group">
           <img
-            src="/storage/logo.png"
+            src="/storage/logo.webp"
             alt="Jaymurti Traders Logo"
-            width={34}
-            height={34}
-            className="transition-transform duration-300 group-hover:scale-105"
+            width={38}
+            height={38}
+            className="rounded-full border border-[#F3D36B]/60 p-0.5 transition-transform duration-300 group-hover:scale-105"
           />
           <div className="flex flex-col">
-            <span className="font-serif tracking-wider text-sm sm:text-base font-semibold text-white">
+            <span className="font-serif tracking-wider text-sm sm:text-base font-bold text-[#F7F6F1] group-hover:text-accent transition-colors">
               JAYMURTI TRADERS
             </span>
             <span className="text-[10px] text-accent tracking-widest uppercase font-mono" lang="hi">
@@ -48,7 +48,7 @@ export default function NotFound() {
 
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs text-on-dark-muted hover:text-white transition-colors border border-white/10 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10"
+          className="inline-flex items-center gap-1.5 text-xs text-on-dark-muted hover:text-accent transition-colors border border-border-teal/60 px-3.5 py-1.5 rounded-full bg-dark-surface/60 hover:bg-dark-surface hover:border-accent/40"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Showroom</span>
@@ -145,7 +145,7 @@ export default function NotFound() {
               href="https://wa.me/918756659035?text=Hi%20Jaymurti%20Traders,%20I%20was%20browsing%20your%20website%20and%20needed%20assistance."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 border border-border-teal/80 hover:border-accent text-white hover:bg-white/5 text-xs px-5 py-2.5 rounded-xl transition-all w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 border border-border-teal/80 hover:border-accent text-white hover:bg-teal-900/60 hover:text-accent text-xs px-5 py-2.5 rounded-xl transition-all w-full sm:w-auto"
             >
               <MessageCircle className="w-4 h-4 text-emerald-400" />
               <span>Contact via WhatsApp</span>

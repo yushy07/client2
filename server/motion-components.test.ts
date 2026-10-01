@@ -3,7 +3,6 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const projectRoot = resolve(import.meta.dirname, "..");
-const homePage = readFileSync(resolve(projectRoot, "client/src/pages/Home.tsx"), "utf8");
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
 const glareComponent = readFileSync(resolve(projectRoot, "client/src/components/GlareHover.tsx"), "utf8");
 const stackComponent = readFileSync(resolve(projectRoot, "client/src/components/ServiceScrollStack.tsx"), "utf8");

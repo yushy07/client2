@@ -239,7 +239,7 @@ a {
   }
 }
 
-.scroll-chapter { scroll-margin-top: 0; }
+.scroll-chapter { scroll-margin-top: 0; scroll-snap-align: start; }
 
 .reveal {
   opacity: 1;
@@ -330,110 +330,127 @@ a {
 
 .nav {
   align-items: center;
-  background: var(--ink);
-  color: white;
+  background: rgba(12, 41, 47, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(243, 211, 107, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  color: #F7F6F1;
   display: grid;
-  gap: 24px;
+  gap: 20px;
   grid-template-columns: auto 1fr;
-  min-height: 92px;
+  min-height: 84px;
   padding: 0 clamp(18px, 3vw, 46px);
   position: sticky;
   top: 0;
   z-index: 50;
+  transition: all 0.28s var(--ease-out);
 }
 
 .brand-name-text {
-  font-family: var(--brand-font);
-  font-weight: 400;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+  font-family: var(--serif, 'Playfair Display', Georgia, serif);
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #F7F6F1;
+  transition: color .2s ease;
 }
 
 .brand {
   align-items: center;
   color: inherit;
   display: inline-flex;
-  font-family: var(--brand-font);
-  font-size: 26px;
-  font-weight: 400;
-  letter-spacing: .04em;
-  text-transform: uppercase;
   gap: 14px;
+  text-decoration: none;
+}
+
+.brand:hover .brand-name-text {
+  color: #F3D36B;
 }
 
 .brand-logo {
   background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .14);
+  border: 2px solid #F3D36B;
+  box-shadow: 0 0 14px rgba(243, 211, 107, 0.35), 0 4px 12px rgba(0, 0, 0, 0.3);
   display: inline-block;
-  height: clamp(40px, 4vw, 54px);
+  height: clamp(42px, 4.2vw, 50px);
   object-fit: contain;
   padding: 2px;
-  width: clamp(40px, 4vw, 54px);
+  width: clamp(42px, 4.2vw, 50px);
   flex-shrink: 0;
-  transition: transform .25s var(--ease-out);
+  transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out);
 }
 
 .brand:hover .brand-logo {
-  transform: scale(1.05);
+  transform: scale(1.06);
+  box-shadow: 0 0 20px rgba(243, 211, 107, 0.55), 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .nav .brand {
   color: var(--text-on-dark);
-  font-family: var(--brand-font);
-  font-size: clamp(26px, 2.8vw, 38px);
-  font-weight: 400;
-  letter-spacing: .05em;
-  line-height: .95;
+  font-family: var(--serif, 'Playfair Display', Georgia, serif);
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.1;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .nav .brand-logo {
-  height: clamp(44px, 4.2vw, 54px);
-  width: clamp(44px, 4.2vw, 54px);
+  height: clamp(42px, 4.2vw, 50px);
+  width: clamp(42px, 4.2vw, 50px);
 }
 
 .nav .brand-titles,
 .brand-titles {
-  align-items: baseline;
-  display: inline-flex;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .brand-titles .brand-name-text {
-  font-family: var(--brand-font);
-  letter-spacing: .05em;
+  font-family: var(--serif, 'Playfair Display', Georgia, serif);
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: #F7F6F1;
+  font-size: clamp(16px, 1.8vw, 21px);
 }
 
 .brand-titles .brand-sub-text {
-  color: rgba(255, 255, 255, .82);
-  font-family: var(--sans, 'DM Sans', sans-serif);
-  font-size: 0.52em;
-  font-weight: 500;
-  letter-spacing: .03em;
-  text-transform: none;
+  color: #F3D36B;
+  font-family: var(--mono, 'DM Mono', monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
 .nav-links {
   align-items: center;
   display: flex;
-  gap: clamp(15px, 2vw, 30px);
+  gap: clamp(8px, 1.2vw, 16px);
   justify-content: flex-end;
 }
 
 .nav-links a {
-  color: rgba(255, 255, 255, .76);
-  font-size: 11px;
-  font-weight: 600;
+  color: rgba(231, 236, 234, 0.92);
+  font-size: 11.5px;
+  font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
-  transition: color .16s var(--ease-out);
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all .2s var(--ease-out);
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--saffron);
+  color: #F3D36B !important;
+  background: rgba(18, 63, 70, 0.95);
+  border-color: rgba(243, 211, 107, 0.35);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .hero {
@@ -564,23 +581,30 @@ a {
 }
 
 .button-primary {
-  background: var(--color-brand-primary);
-  color: var(--color-text-on-dark);
+  background: var(--color-accent);
+  color: #0C292F;
+  border-color: #E4C45A;
 }
 
 .button-primary:hover {
-  background: var(--color-brand-primary-hover);
+  background: var(--color-accent-hover);
+  color: #0C292F;
   transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(243, 211, 107, 0.35);
 }
 
 .button-ghost {
-  border-color: rgba(255, 255, 255, .5);
-  color: white;
+  border-color: rgba(243, 211, 107, 0.45);
+  color: #F3D36B;
+  background: rgba(18, 63, 70, 0.6);
 }
 
 .button-ghost:hover {
-  background: white;
-  color: var(--ink);
+  background: var(--color-brand-primary);
+  border-color: var(--color-accent);
+  color: var(--color-accent) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(18, 63, 70, 0.4);
 }
 
 .button-primary:active,
@@ -5716,6 +5740,14 @@ a {
   padding: clamp(48px, 5vw, 68px) clamp(18px, 5vw, 80px);
 }
 
+.shop-reviews .review-summary {
+  margin-bottom: 0;
+}
+
+.shop-reviews .approved-reviews + .approved-reviews {
+  margin-top: 24px;
+}
+
 .review-intro {
   align-items: end;
   display: flex;
@@ -6800,6 +6832,7 @@ a {
   margin-bottom: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -6861,7 +6894,6 @@ a {
   .supplementary-card { flex: 0 0 100%; }
 }
 
-.shop-reviews { background: linear-gradient(180deg, #f7f4ed 0%, #ede8dc 100%); }
 .review-rating button { background: none; border: 0; padding: 2px; }
 
 @media (hover: none), (pointer: coarse) {
@@ -7277,7 +7309,7 @@ a {
 
 .legal-back-link:hover span {
   background: var(--color-brand-primary);
-  color: #FFFFFF;
+  color: #F3D36B;
 }
 
 .legal-page .eyebrow {
@@ -8184,36 +8216,68 @@ a {
   background: var(--surface-pearl);
 }
 
-/* Nav Cart Button */
+/* Nav Cart & Enquiry Button */
 .nav-enquiry-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: var(--color-accent);
-  color: var(--color-text-on-accent);
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 4px;
+  gap: 7px;
+  background: #F3D36B;
+  color: #0C292F;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 8px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  border: 0;
+  border: 1px solid #E4C45A;
   cursor: pointer;
-  transition: all 0.16s var(--ease-out);
+  box-shadow: 0 4px 14px rgba(243, 211, 107, 0.28);
+  transition: all 0.2s var(--ease-out);
 }
 
 .nav-enquiry-btn:hover {
-  background: var(--color-accent-hover);
-  transform: translateY(-1px);
+  background: #FFE082 !important;
+  color: #0C292F !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(243, 211, 107, 0.45);
 }
 
 .nav-enquiry-count {
-  background: var(--ink);
-  color: #ffffff;
+  background: #0C292F;
+  color: #F3D36B;
+  font-weight: 800;
   padding: 2px 7px;
   border-radius: 999px;
   font-size: 10px;
+  border: 1px solid rgba(243, 211, 107, 0.35);
+}
+
+.nav-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #25D366;
+  color: #ffffff !important;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+  transition: all 0.2s var(--ease-out);
+  text-decoration: none;
+}
+
+.nav-whatsapp-btn:hover {
+  background: #22BF5B !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
 }
 
 /* Section 11: Why Jaymurti */
@@ -8356,12 +8420,13 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(8, 16, 18, 0.95);
+  background: rgba(12, 41, 47, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
-  z-index: 60;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+  border-top: 1px solid rgba(243, 211, 107, 0.3);
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
   gap: 6px;
   align-items: center;
@@ -8474,16 +8539,24 @@ a {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 55;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(32, 26, 20, 0.92);
-  backdrop-filter: blur(8px);
-  padding: 6px 8px;
+  background: rgba(18, 63, 70, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(243, 211, 107, 0.35);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+}
+
+.floating-contact a,
+.floating-contact button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
 }
 
 .floating-contact a.floating-call,
@@ -8505,10 +8578,12 @@ a {
 
 .floating-contact a.floating-call {
   background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .floating-contact a.floating-call:hover {
   background: rgba(255, 255, 255, 0.24);
+  transform: translateY(-1px);
 }
 
 .floating-contact a.floating-whatsapp {
@@ -8520,6 +8595,7 @@ a {
 
 .floating-contact a.floating-whatsapp:hover {
   background: #2ee06e;
+  transform: translateY(-1px);
 }
 
 .floating-contact a.floating-instagram {
@@ -8548,16 +8624,18 @@ a {
 
 @media (max-width: 768px) {
   .floating-contact {
-    display: none;
+    display: none !important;
   }
 
   .mobile-sticky-bar {
-    display: flex;
-    gap: 10px;
+    display: flex !important;
+    gap: 8px;
+    z-index: 999999 !important;
+    pointer-events: auto !important;
   }
 
   body {
-    padding-bottom: 60px;
+    padding-bottom: 70px;
   }
 
   .nav-links {
@@ -9117,14 +9195,14 @@ a {
 }
 
 .button-ghost {
-  background: transparent;
-  color: var(--color-text-primary) !important;
+  background: rgba(18, 63, 70, 0.35);
+  color: var(--color-text-on-dark) !important;
   font-family: var(--mono);
   font-size: 12px;
   font-weight: 600;
   padding: 10px 18px;
-  border-radius: 4px;
-  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  border: 1px solid rgba(23, 107, 115, 0.5);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -9132,14 +9210,16 @@ a {
   gap: 8px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.18s var(--ease-out);
+  transition: all 0.2s var(--ease-out);
   text-decoration: none;
 }
 
 .button-ghost:hover {
-  background: var(--surface-soft);
-  border-color: var(--color-brand-primary);
-  color: var(--color-brand-primary) !important;
+  background: rgba(23, 107, 115, 0.45);
+  border-color: var(--color-accent);
+  color: var(--color-accent) !important;
+  box-shadow: 0 4px 14px rgba(12, 41, 47, 0.4);
+  transform: translateY(-1px);
 }
 
 /* Shade Detail Modal Button Refinement */
@@ -9181,19 +9261,14 @@ a {
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.42);
 }
 
-/* Dark-section ghost-button contrast — must stay AFTER the Global Button
-   System above. That system sets .button-ghost to dark charcoal text with
-   !important for light sections, which is invisible on dark backgrounds:
-   the midnight-teal hero, the final CTA, the enquiry desk (#enquiry), and
-   the ink mobile sticky bar. These scoped rules restore porcelain text +
-   light border on dark. */
+/* Dark-section ghost-button contrast — scoped rules matching brand teal/accent theme */
 .hero .hero-actions .button-ghost,
 .final-cta-actions .button-ghost,
 #enquiry .button-ghost,
 .mobile-sticky-bar .button-ghost {
-  background: transparent;
-  border: 1px solid rgba(247, 246, 241, 0.55) !important;
-  border-radius: 4px;
+  background: rgba(18, 63, 70, 0.4);
+  border: 1px solid rgba(247, 246, 241, 0.35) !important;
+  border-radius: 6px;
   color: var(--color-text-on-dark) !important;
   font-family: var(--mono);
   font-size: 12px;
@@ -9202,30 +9277,32 @@ a {
   min-height: 48px;
   padding: 0 21px;
   text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero .hero-actions .button-ghost:hover,
 .final-cta-actions .button-ghost:hover,
 #enquiry .button-ghost:hover,
 .mobile-sticky-bar .button-ghost:hover {
-  background: #ffffff;
-  border-color: #ffffff !important;
-  color: var(--color-dark) !important;
+  background: rgba(23, 107, 115, 0.5);
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+  box-shadow: 0 4px 16px rgba(12, 41, 47, 0.45);
+  transform: translateY(-2px);
 }
 
-/* Preserve the final CTA's deliberate saffron WhatsApp accent: that link
-   carries an inline saffron border + color, but the Global System's
-   !important beats the inline color. Re-assert saffron here (later source
-   order + higher specificity wins) so the design intent survives. */
+/* Preserve the final CTA's deliberate saffron WhatsApp accent */
 .final-cta-actions a.button-ghost[href*="wa.me"] {
   border-color: var(--saffron) !important;
   color: var(--saffron) !important;
 }
 
 .final-cta-actions a.button-ghost[href*="wa.me"]:hover {
-  background: #ffffff;
-  border-color: #ffffff !important;
-  color: var(--color-dark) !important;
+  background: rgba(23, 107, 115, 0.5);
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+  box-shadow: 0 4px 16px rgba(12, 41, 47, 0.45);
+  transform: translateY(-2px);
 }
 
 .hero .hero-actions .button-ghost:focus-visible,

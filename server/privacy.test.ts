@@ -7,8 +7,11 @@ const appFile = readFileSync(resolve(projectRoot, "client/src/App.tsx"), "utf8")
 const privacyPage = readFileSync(resolve(projectRoot, "client/src/pages/Privacy.tsx"), "utf8");
 const homePage = readFileSync(resolve(projectRoot, "client/src/pages/Home.tsx"), "utf8");
 const sitemap = readFileSync(resolve(projectRoot, "client/public/sitemap.xml"), "utf8");
-const vercelConfig = JSON.parse(readFileSync(resolve(projectRoot, "vercel.json"), "utf8"));
 const stylesheet = readFileSync(resolve(projectRoot, "client/src/index.css"), "utf8");
+// The Node server is the deployment target; it serves the prerendered route map.
+const serverEntry = readFileSync(resolve(projectRoot, "server/_core/index.ts"), "utf8");
+const staticServer = readFileSync(resolve(projectRoot, "server/_core/vite.ts"), "utf8");
+const seoRoutes = readFileSync(resolve(projectRoot, "shared/seoKeywordMap.ts"), "utf8");
 
 describe("Moving archive ticker loop & motion", () => {
   it("uses smooth ticker transform and pause controls", () => {
@@ -54,10 +57,13 @@ describe("Privacy policy page and routing", () => {
     expect(sitemap).not.toContain("#reviews");
   });
 
-  it("preserves Vercel SPA routing fallback and API routes", () => {
-    const routes = vercelConfig.routes as Array<{ src?: string; dest?: string }>;
-    expect(routes).toBeDefined();
-    expect(routes.some((r) => r.src && (r.src.includes("/api") || r.src.includes("/trpc")))).toBe(true);
-    expect(routes.some((r) => r.src && r.src.includes("privacy"))).toBe(true);
+  it("serves the privacy route from the Node server's prerendered route map", () => {
+    expect(serverEntry).toContain('app.get("/api/health", handler)');
+    expect(serverEntry).toContain('"/api/trpc"');
+    // Prerendered HTML is resolved through the frozen route map rather than by
+    // joining request paths onto the filesystem.
+    expect(staticServer).toContain("STATIC_ROUTE_FILES");
+    expect(staticServer).toContain("404.html");
+    expect(seoRoutes).toContain('path: "/privacy"');
   });
 });

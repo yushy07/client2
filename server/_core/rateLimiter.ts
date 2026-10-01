@@ -60,3 +60,16 @@ export const apiLimiter = rateLimit({
     error: "Too many requests to API endpoints, please try again later.",
   },
 });
+
+/**
+ * Stricter rate limiter for public mutations (enquiry creations and review submissions).
+ */
+export const mutationLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 25, // Limit each IP to 25 mutation submissions per 15 minutes
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: {
+    error: "Too many submission attempts, please try again later.",
+  },
+});

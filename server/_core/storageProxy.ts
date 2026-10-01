@@ -24,7 +24,8 @@ export function registerStorageProxy(app: Express) {
     path.resolve(currentDir, "../public/storage"),
   ];
   
-  const publicStoragePath = possiblePublicStorage.find((p) => fs.existsSync(p)) || possiblePublicStorage[0];
+  const fallbackStoragePath = path.resolve(process.cwd(), "client", "public", "storage");
+  const publicStoragePath = possiblePublicStorage.find((p) => fs.existsSync(p)) ?? fallbackStoragePath;
   const extractedPath = path.join(publicStoragePath, "extracted");
   const rootExtractedPath = path.resolve(process.cwd(), "storage", "extracted");
 
@@ -36,6 +37,11 @@ export function registerStorageProxy(app: Express) {
       }
     },
   };
+
+  // Media is expected to be in place before boot. This previously copied a few
+  // videos from `assets/storage` into the public directory on every startup and
+  // mounted a second static root over the same URL prefix, which silently
+  // shadowed the real files and mutated the deployment at runtime.
 
   // Serve /storage directly from public storage or root storage with caching
   app.use("/storage", express.static(publicStoragePath, storageStaticOptions));
@@ -135,10 +141,9 @@ export function registerStorageProxy(app: Express) {
       }
     }
 
-    // 4. Default fallback to first available image in the category or collection
-    if (allIndexedFiles.length > 0) {
-      return res.sendFile(allIndexedFiles[0].filePath);
-    }
+    // Deliberately no catch-all here. Falling back to "the first indexed file"
+    // answered unknown keys with an unrelated image under HTTP 200, which hid
+    // broken references and cached the wrong asset at the CDN and in browsers.
 
     // If not found locally, try Forge if configured
     if (ENV.forgeApiUrl && ENV.forgeApiKey) {

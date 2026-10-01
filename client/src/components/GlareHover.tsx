@@ -24,9 +24,12 @@ function toRgba(color: string, opacity: number) {
   }
 
   if (/^[0-9A-Fa-f]{3}$/.test(hex)) {
-    const red = Number.parseInt(hex[0] + hex[0], 16);
-    const green = Number.parseInt(hex[1] + hex[1], 16);
-    const blue = Number.parseInt(hex[2] + hex[2], 16);
+    const r = hex[0] ?? "0";
+    const g = hex[1] ?? "0";
+    const b = hex[2] ?? "0";
+    const red = Number.parseInt(r + r, 16);
+    const green = Number.parseInt(g + g, 16);
+    const blue = Number.parseInt(b + b, 16);
     return `rgba(${red}, ${green}, ${blue}, ${safeOpacity})`;
   }
 

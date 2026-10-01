@@ -35,9 +35,14 @@ export async function getDb() {
     try {
       _pool = mysql.createPool({
         uri: process.env.DATABASE_URL,
-        connectionLimit: 2,
+        connectionLimit: ENV.dbPoolSize,
         connectTimeout: 2500,
-        waitForConnections: false,
+        // `waitForConnections: false` with a two-connection cap made the third
+        // concurrent query fail outright instead of waiting for a free socket.
+        // Requests now queue, bounded by `queueLimit` so a burst cannot grow
+        // memory without limit.
+        waitForConnections: true,
+        queueLimit: ENV.dbPoolSize * 5,
       });
       _db = drizzle(_pool);
     } catch (error) {
@@ -80,15 +85,24 @@ export async function upsertUser(user: InsertUser): Promise<void> {
   values.role = user.role ?? (user.openId === ENV.ownerOpenId ? "admin" : "user");
   updateSet.role = values.role;
 
-  await db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet });
+  await timed(db.insert(users).values(values).onDuplicateKeyUpdate({ set: updateSet }), "User upsert");
 }
 
 export async function getUserByOpenId(openId: string) {
   const db = await getDb();
   if (!db) return undefined;
 
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  const result = await timed(
+    db.select().from(users).where(eq(users.openId, openId)).limit(1),
+    "User lookup",
+  );
   return result[0];
+}
+
+/** Applies the configured query budget so a wedged connection cannot hold a
+ * request open indefinitely. */
+function timed<T>(promise: Promise<T>, label: string): Promise<T> {
+  return withTimeout(promise, ENV.dbQueryTimeoutMs, label);
 }
 
 export class DatabaseUnavailableError extends Error {
@@ -107,7 +121,7 @@ async function requireDb() {
 export async function createServiceEnquiry(enquiry: InsertServiceEnquiry) {
   try {
     const db = await requireDb();
-    const result = await db.insert(serviceEnquiries).values(enquiry);
+    const result = await timed(db.insert(serviceEnquiries).values(enquiry), "Enquiry insert");
     const id = Number(result[0].insertId);
     if (!Number.isSafeInteger(id) || id < 1) throw new Error("Database did not return an enquiry ID");
     return { id };
@@ -148,7 +162,10 @@ function normalizeReview(review: {
 export async function createShopReview(review: Pick<InsertShopReview, "displayName" | "rating" | "reviewText">) {
   try {
     const db = await requireDb();
-    const result = await db.insert(shopReviews).values({ ...review, status: "private" });
+    const result = await timed(
+      db.insert(shopReviews).values({ ...review, status: "private" }),
+      "Review insert",
+    );
     const id = Number(result[0].insertId);
     if (!Number.isSafeInteger(id) || id < 1) throw new Error("Database did not return a review ID");
     return { id, published: false as const };
@@ -163,7 +180,7 @@ export async function listPublishedShopReviews(): Promise<PublicShopReview[]> {
   try {
     const db = await requireDb();
 
-    const rawDbReviews = await withTimeout(
+    const rawDbReviews = await timed(
       db
         .select({
           id: shopReviews.id,
@@ -175,7 +192,6 @@ export async function listPublishedShopReviews(): Promise<PublicShopReview[]> {
         .from(shopReviews)
         .where(or(eq(shopReviews.status, "published"), eq(shopReviews.status, "approved")))
         .orderBy(desc(shopReviews.createdAt)),
-      3500,
       "Published reviews query",
     );
 
@@ -194,8 +210,16 @@ export async function listShopReviewsForModeration(page: number, pageSize: numbe
     const db = await requireDb();
     const offset = (page - 1) * pageSize;
     const [reviews, countRows] = await Promise.all([
-      db.select().from(shopReviews).orderBy(desc(shopReviews.createdAt)).limit(pageSize).offset(offset),
-      db.select({ count: sql<number>`count(*)` }).from(shopReviews),
+      timed(
+        db
+          .select()
+          .from(shopReviews)
+          .orderBy(desc(shopReviews.createdAt))
+          .limit(pageSize)
+          .offset(offset),
+        "Moderation page query",
+      ),
+      timed(db.select({ count: sql<number>`count(*)` }).from(shopReviews), "Moderation count query"),
     ]);
     return { reviews, total: Number(countRows[0]?.count ?? 0), page, pageSize };
   } catch (error) {
@@ -209,7 +233,10 @@ export async function moderateShopReview(id: number, action: "approve" | "hide")
   try {
     const db = await requireDb();
     const status = action === "approve" ? "published" as const : "private" as const;
-    const result = await db.update(shopReviews).set({ status }).where(eq(shopReviews.id, id));
+    const result = await timed(
+      db.update(shopReviews).set({ status }).where(eq(shopReviews.id, id)),
+      "Review moderation update",
+    );
     if (Number(result[0].affectedRows) === 0) return null;
     return { id, status, published: status === "published" };
   } catch (error) {

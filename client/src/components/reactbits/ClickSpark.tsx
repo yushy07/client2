@@ -32,7 +32,6 @@ export const ClickSpark: React.FC<ClickSparkProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sparksRef = useRef<Spark[]>([]);
-  const startTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -191,7 +190,7 @@ export const ClickSpark: React.FC<ClickSparkProps> = ({
           top: 0,
           left: 0,
           pointerEvents: 'none',
-          zIndex: 9999,
+          zIndex: 1,
         }}
       />
       {children}

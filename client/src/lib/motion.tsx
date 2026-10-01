@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, type Variants, type Transition } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 /**
  * Shared Motion System Configurations

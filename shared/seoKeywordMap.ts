@@ -334,3 +334,25 @@ export const SITE_ROUTES_SEO: Record<string, RouteSEOConfig> = {
     faq: []
   }
 };
+
+const DEFAULT_ROUTE_SEO: RouteSEOConfig = {
+  path: "/",
+  title: "Jaymurti Traders | Birla Opus Paint Dealer in Baskhari, Ambedkar Nagar",
+  description: "Jaymurti Traders is an authorized Birla Opus paint dealer and showroom in Baskhari, Shukul Bazar, Ambedkar Nagar. Explore 159 verified shades, interior & exterior paints, waterproofing, and expert colour consultation.",
+  h1: "Birla Opus Paints & Architectural Colour Showroom in Baskhari",
+  eyebrow: "Authorized Birla Opus Dealer · Baskhari, Ambedkar Nagar",
+  breadcrumb: [{ name: "Home", path: "/" }],
+  primaryKeywords: ["Jaymurti Traders", "Birla Opus dealer in Baskhari"],
+  supportingKeywords: ["Birla Opus paints Baskhari"],
+  hindiKeywords: ["जयमूर्ति ट्रेडर्स"],
+  faq: []
+};
+
+export function getRouteSEO(path: string): RouteSEOConfig {
+  return SITE_ROUTES_SEO[path] ?? {
+    ...DEFAULT_ROUTE_SEO,
+    path,
+    breadcrumb: [{ name: "Home", path: "/" }, { name: path.replace(/^\//, ""), path }]
+  };
+}
+

@@ -183,11 +183,12 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
   );
 
   const commit = (i: number, instant?: boolean) => {
-    if (disabled || i === at || !list[i] || list[i].disabled) return;
+    const item = list[i];
+    if (disabled || i === at || !item || item.disabled) return;
     applied.current = i;
     apply(i, instant);
-    if (value === undefined) setInner(list[i].value);
-    onChange?.(list[i].value, i);
+    if (value === undefined) setInner(item.value);
+    onChange?.(item.value, i);
   };
 
   const stepFrom = (i: number, dir: number) => {
@@ -195,7 +196,8 @@ export const JellyRadio: React.FC<JellyRadioProps> = ({
     let j = i;
     for (let tries = 0; tries < n; tries++) {
       j = (j + dir + n) % n;
-      if (!list[j].disabled) return j;
+      const candidate = list[j];
+      if (candidate && !candidate.disabled) return j;
     }
     return i;
   };

@@ -1,29 +1,35 @@
 import React from "react";
 import { Link } from "wouter";
-import { ArrowRight, Compass, Eye, Layers, Sparkles } from "lucide-react";
+import { ArrowRight, Compass, Eye } from "lucide-react";
 
 export const HomeInspirationPreview: React.FC = () => {
   const previewSpaces = [
     {
-      title: "Regal Living Room",
-      tone: "Warm Amber & Royal Ochre",
-      image: "/storage/rooms-catalogue/phone-view_compressed_page-0001.webp",
+      title: "Regal Living Room Lounge",
+      tone: "Warm Cashmere",
+      shadeCode: "BO-1240",
+      hex: "#BEAD9D",
+      image: "/storage/same-room-shades/img22.webp",
       desc: "Simulate natural north daylight on warm earthen neutrals for welcoming living spaces.",
-      tag: "Living Room",
+      tag: "Living Room Studio",
     },
     {
-      title: "Tranquil Bedroom",
+      title: "Tranquil Master Sanctuary",
       tone: "Sage Mist & Soft Linen",
-      image: "/storage/rooms-catalogue/phone-view_compressed_page-0026.webp",
-      desc: "Calming low-sheen matt textures tailored for restful bedroom retreats.",
+      shadeCode: "BO-0891",
+      hex: "#8A9A86",
+      image: "/storage/same-room-shades/img104.webp",
+      desc: "Calming low-sheen matt textures tailored for restful bedroom retreats with soft morning light.",
       tag: "Bedroom Sanctuary",
     },
     {
-      title: "Modern Facade & Exterior",
-      tone: "Weather Shield Sandstone",
-      image: "/storage/rooms-catalogue/phone-view_compressed_page-0051.webp",
-      desc: "High-durability all-weather exterior shields resilient against monsoon humidity.",
-      tag: "Exterior Architecture",
+      title: "Contemporary Dining & Gallery",
+      tone: "Terracotta Glow",
+      shadeCode: "BO-1422",
+      hex: "#C06E52",
+      image: "/storage/same-room-shades/img101.webp",
+      desc: "Warm ambient evening lighting enhancing architectural depth, masonry arches, and feature walls.",
+      tag: "Dining & Accent Hall",
     },
   ];
 
@@ -42,7 +48,7 @@ export const HomeInspirationPreview: React.FC = () => {
           </p>
         </div>
 
-        <Link href="/room-inspiration" className="arrow-link hidden sm:inline-flex items-center gap-1.5 font-semibold text-accent">
+        <Link href="/room-inspiration" className="arrow-link hidden sm:inline-flex items-center gap-1.5 font-semibold text-accent hover:text-amber-300 transition-colors">
           <span>Explore All 102 Room Archives</span>
           <ArrowRight size={15} />
         </Link>
@@ -53,42 +59,57 @@ export const HomeInspirationPreview: React.FC = () => {
         {previewSpaces.map((space) => (
           <article
             key={space.title}
-            className="group rounded-3xl overflow-hidden bg-dark-surface border border-border-teal/50 hover:border-accent transition-all duration-300 hover:shadow-2xl flex flex-col justify-between"
-            style={{ background: "rgba(12, 18, 20, 0.85)" }}
+            className="group rounded-3xl overflow-hidden bg-gradient-to-b from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-accent/60 transition-all duration-300 hover:shadow-[0_16px_36px_rgba(12,41,47,0.6)] hover:-translate-y-1.5 flex flex-col justify-between"
           >
-            <div className="aspect-[16/10] w-full bg-dark/80 overflow-hidden relative">
+            <div className="aspect-[16/10] w-full bg-[#0C292F] overflow-hidden relative">
               <img
                 src={space.image}
                 alt={space.title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
               />
-              <span className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded text-[10px] text-accent font-semibold uppercase tracking-wider">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0C292F]/80 via-transparent to-transparent pointer-events-none" />
+              
+              {/* Category Tag */}
+              <span className="absolute top-3 left-3 bg-[#0C292F]/85 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-accent font-mono font-semibold uppercase tracking-wider border border-[#176B73]/50 shadow-md">
                 {space.tag}
               </span>
+
+              {/* Swatch Pill */}
+              <div className="absolute bottom-3 right-3 bg-[#0C292F]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#176B73]/50 flex items-center gap-2 shadow-lg">
+                <span
+                  className="w-3.5 h-3.5 rounded-full border border-white/40 shadow-inner"
+                  style={{ backgroundColor: space.hex }}
+                />
+                <span className="text-[10px] text-teal-100 font-mono font-medium">
+                  {space.shadeCode}
+                </span>
+              </div>
             </div>
 
-            <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <span className="text-[10px] text-on-dark-muted font-mono uppercase tracking-wider block mb-1">
-                  Palette: {space.tone}
-                </span>
-                <h3 className="text-base font-semibold text-white group-hover:text-accent transition-colors leading-snug">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[10px] text-amber-300 font-mono uppercase tracking-widest font-semibold">
+                    Shade: {space.tone}
+                  </span>
+                </div>
+                <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors leading-snug">
                   {space.title}
                 </h3>
-                <p className="text-xs text-on-dark-muted leading-relaxed mt-1.5">
+                <p className="text-xs text-teal-100/70 leading-relaxed mt-2">
                   {space.desc}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-white/5">
+              <div className="pt-3 border-t border-[#176B73]/30 flex items-center justify-between">
                 <Link
                   href="/room-inspiration"
-                  className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
+                  className="inline-flex items-center gap-1.5 text-xs text-accent hover:text-amber-300 font-semibold transition-colors"
                 >
-                  <Eye size={13} />
-                  <span>Try Shades in Studio &rarr;</span>
+                  <Eye size={14} />
+                  <span>Try Shades in Room Studio &rarr;</span>
                 </Link>
               </div>
             </div>

@@ -33,9 +33,10 @@ function shiftHexColour(hex: string, shift: number) {
 const tickerShadeShifts = [0, 0.11, -0.08, 0.19, -0.15];
 
 export const colourTickerShades = Array.from({ length: colourDirections.length * tickerShadeShifts.length }, (_, index) => {
-  const [name, code, hex] = colourDirections[index % colourDirections.length];
+  const direction = colourDirections[index % colourDirections.length] ?? colourDirections[0];
+  const [name, code, hex] = direction;
   const cycle = Math.floor(index / colourDirections.length);
-  const shift = tickerShadeShifts[cycle];
+  const shift = tickerShadeShifts[cycle] ?? 0;
   return {
     name,
     code: `${code}-${String(cycle + 1).padStart(2, "0")}`,

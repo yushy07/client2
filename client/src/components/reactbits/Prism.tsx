@@ -216,6 +216,7 @@ export const Prism: React.FC<PrismProps> = ({
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
         isVisible = entry.isIntersecting;
         if (isVisible && !document.hidden && !prefersReducedMotion) {
           startAnimation();

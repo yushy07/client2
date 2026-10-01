@@ -3,11 +3,6 @@ import './InfiniteSpiral.css';
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 const modulo = (value: number, divisor: number) => ((value % divisor) + divisor) % divisor;
-const smoothstep = (min: number, max: number, value: number) => {
-  const x = clamp((value - min) / (max - min || 1), 0, 1);
-  return x * x * (3 - 2 * x);
-};
-
 export interface SpiralItem {
   src: string;
   alt?: string;
@@ -193,6 +188,7 @@ export const InfiniteSpiral: React.FC<InfiniteSpiralProps> = ({
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
+        if (!entry) return;
         visibleRef.current = entry.isIntersecting;
         if (visibleRef.current && !document.hidden) {
           startAnimation();

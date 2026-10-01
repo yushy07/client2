@@ -117,7 +117,7 @@ export const PulseHeart: React.FC<PulseHeartProps> = ({
     const a = format(from);
     const b = format(to);
     const changed = a.length === b.length ? [...b].flatMap((ch, i) => (ch !== a[i] ? [i] : [])) : [];
-    setRoll({ a, b, at: changed.length === 1 ? changed[0] : -1, up: to > from });
+    setRoll({ a, b, at: changed.length === 1 ? (changed[0] ?? -1) : -1, up: to > from });
     clearTimeout(rollTimer.current);
     rollTimer.current = setTimeout(() => setRoll(null), cfg.current.rollDuration);
   };

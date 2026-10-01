@@ -2,8 +2,7 @@ import React, { useState, useMemo } from "react";
 import { ROOM_LIBRARY_PAGES, type RoomLibraryPage, type RoomCategory } from "@shared/roomLibraryData";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home, LayoutGrid, Layers, X, CheckCircle2 } from "lucide-react";
-import { MotionImageReveal } from "@/lib/motion";
+import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home, LayoutGrid, Layers, X } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { Masonry, type MasonryItem, ShinyText } from "@/components/reactbits";
 
@@ -82,7 +81,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                 className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
                   activeCategory === cat
                     ? "bg-accent text-dark font-semibold shadow-md"
-                    : "bg-dark-surface text-on-dark-muted hover:text-white border border-border-teal"
+                    : "bg-dark-surface text-on-dark-muted hover:text-accent hover:border-accent/40 border border-border-teal"
                 }`}
               >
                 {cat}
@@ -96,7 +95,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 viewMode === "grid"
                   ? "bg-accent/20 text-accent font-semibold"
-                  : "text-on-dark-muted hover:text-white"
+                  : "text-on-dark-muted hover:text-accent"
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" /> Grid
@@ -106,7 +105,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                 viewMode === "masonry"
                   ? "bg-accent/20 text-accent font-semibold"
-                  : "text-on-dark-muted hover:text-white"
+                  : "text-on-dark-muted hover:text-accent"
               }`}
             >
               <Layers className="w-3.5 h-3.5" /> Masonry Flow
@@ -207,7 +206,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                     className={`w-8 h-8 rounded text-xs font-mono transition-colors ${
                       currentPage === num
                         ? "bg-dark-surface text-on-dark font-bold"
-                        : "text-on-dark-muted hover:bg-dark-surface hover:text-white"
+                        : "text-on-dark-muted hover:bg-dark-surface hover:text-accent"
                     }`}
                   >
                     {num}
@@ -256,7 +255,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                   <button
                     type="button"
                     onClick={() => setActiveSpace(null)}
-                    className="md:hidden absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-black/70 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 backdrop-blur-md shadow-lg"
+                    className="md:hidden absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-black/70 hover:bg-black/90 text-white hover:text-accent flex items-center justify-center border border-white/20 backdrop-blur-md shadow-lg"
                     aria-label="Close"
                   >
                     <X className="w-4 h-4" />
@@ -283,7 +282,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                   <button
                     type="button"
                     onClick={() => setActiveSpace(null)}
-                    className="hidden md:flex absolute top-5 right-5 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white items-center justify-center border border-white/15 backdrop-blur-sm transition-all shadow-sm"
+                    className="hidden md:flex absolute top-5 right-5 z-30 w-9 h-9 rounded-full bg-white/10 hover:bg-accent/20 text-white/80 hover:text-accent items-center justify-center border border-white/15 backdrop-blur-sm transition-all shadow-sm"
                     aria-label="Close"
                   >
                     <X className="w-4 h-4" />
@@ -341,7 +340,7 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
                           onExploreProducts();
                           setActiveSpace(null);
                         }}
-                        className="w-full bg-dark-surface hover:bg-dark border border-border-teal text-white/80 hover:text-white py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors"
+                        className="w-full bg-dark-surface hover:bg-dark border border-border-teal text-white/80 hover:text-accent hover:border-accent/40 py-2.5 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-colors"
                       >
                         <Home className="w-3.5 h-3.5 text-amber-400" /> Browse Associated Products in Catalogue
                       </Button>

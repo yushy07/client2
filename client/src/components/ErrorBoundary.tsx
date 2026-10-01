@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AlertTriangle, RotateCcw } from "lucide-react";
-import { Component, ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -11,6 +11,8 @@ interface State {
   error: Error | null;
 }
 
+const isDevelopment = import.meta.env.DEV;
+
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -19,6 +21,12 @@ class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // Operators still get the stack. Visitors do not: rendering it exposed
+    // internal file paths and dependency versions on every render failure.
+    console.error("[ErrorBoundary] Render failed", error, errorInfo.componentStack);
   }
 
   render() {
@@ -33,11 +41,18 @@ class ErrorBoundary extends Component<Props, State> {
 
             <h2 className="text-xl mb-4">An unexpected error occurred.</h2>
 
-            <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
-              <pre className="text-sm text-muted-foreground whitespace-break-spaces">
-                {this.state.error?.stack}
-              </pre>
-            </div>
+            <p className="text-sm text-muted-foreground text-center mb-6 max-w-md">
+              Something went wrong while loading this page. Reloading usually fixes it. If it
+              keeps happening, call the showroom on +91 87566 59035 and we will help directly.
+            </p>
+
+            {isDevelopment && this.state.error ? (
+              <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
+                <pre className="text-sm text-muted-foreground whitespace-break-spaces">
+                  {this.state.error.stack}
+                </pre>
+              </div>
+            ) : null}
 
             <button
               onClick={() => window.location.reload()}

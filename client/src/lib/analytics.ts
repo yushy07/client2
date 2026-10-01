@@ -72,12 +72,12 @@ export function trackEvent(eventName: AnalyticsEventName, params: AnalyticsEvent
     }
 
     // Development logging for verification
-    if (process.env.NODE_ENV !== "production") {
+    if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
-      console.log(`[SEO-Analytics] Event: ${eventName}`, sanitizedParams);
+      console.debug(`[Analytics] Event: ${eventName}`, sanitizedParams);
     }
-  } catch (err) {
-    // Fail silently in production
+  } catch {
+    // Fail silently
   }
 }
 

@@ -4,6 +4,7 @@ import http from "http";
 import type { AddressInfo } from "net";
 import {
   apiLimiter,
+  mutationLimiter,
   oauthLimiter,
   staticSpaLimiter,
   storageProxyLimiter,
@@ -31,6 +32,7 @@ describe("Rate Limiting Middleware", () => {
     expect(typeof viteLimiter).toBe("function");
     expect(typeof staticSpaLimiter).toBe("function");
     expect(typeof apiLimiter).toBe("function");
+    expect(typeof mutationLimiter).toBe("function");
   });
 
   it("applies oauthLimiter and sets rate limit headers on /api/oauth/callback", async () => {

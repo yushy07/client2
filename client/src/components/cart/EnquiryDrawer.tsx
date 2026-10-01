@@ -14,6 +14,7 @@ export const EnquiryDrawer: React.FC = () => {
     updateCartQuantity,
     customer,
     setCustomer,
+    clearCustomerDetails,
     customerError,
     setCustomerError,
     generateWhatsAppCartUrl,
@@ -22,8 +23,11 @@ export const EnquiryDrawer: React.FC = () => {
 
   return (
     <DialogPrimitive.Root open={isCartOpen} onOpenChange={setIsCartOpen}>
-      {isCartOpen && (
-        <DialogPrimitive.Portal>
+      {/* AnimatePresence must wrap the conditional child, otherwise the exit
+          spring never runs and the drawer snaps shut instead of sliding out. */}
+      <AnimatePresence>
+        {isCartOpen && (
+          <DialogPrimitive.Portal key="enquiry-drawer">
           <DialogPrimitive.Overlay className="enquiry-drawer-overlay" />
           <DialogPrimitive.Content asChild aria-describedby={undefined}>
             <motion.aside
@@ -193,16 +197,41 @@ export const EnquiryDrawer: React.FC = () => {
                     <div style={{ marginTop: "18px", padding: "16px", background: "var(--surface-soft)", border: "1px solid var(--line)", borderRadius: "6px" }}>
                       <div
                         style={{
-                          fontSize: "11px",
-                          fontFamily: "var(--mono)",
-                          color: "var(--moss)",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.06em",
-                          fontWeight: 700,
+                          display: "flex",
+                          alignItems: "baseline",
+                          justifyContent: "space-between",
+                          gap: "10px",
                           marginBottom: "10px",
                         }}
                       >
-                        Customer Details (Required for Enquiry)
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            fontFamily: "var(--mono)",
+                            color: "var(--moss)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.06em",
+                            fontWeight: 700,
+                          }}
+                        >
+                          Customer Details (Required for Enquiry)
+                        </span>
+                        <button
+                          type="button"
+                          onClick={clearCustomerDetails}
+                          style={{
+                            background: "none",
+                            border: 0,
+                            padding: 0,
+                            cursor: "pointer",
+                            fontSize: "11px",
+                            fontFamily: "var(--mono)",
+                            color: "var(--text-muted)",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Clear my details
+                        </button>
                       </div>
                       {customerError && (
                         <div
@@ -343,8 +372,9 @@ export const EnquiryDrawer: React.FC = () => {
               </div>
             </motion.aside>
           </DialogPrimitive.Content>
-        </DialogPrimitive.Portal>
-      )}
+          </DialogPrimitive.Portal>
+        )}
+      </AnimatePresence>
     </DialogPrimitive.Root>
   );
 };
