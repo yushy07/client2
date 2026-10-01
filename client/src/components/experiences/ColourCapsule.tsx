@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { BookOpen, ChevronLeft, ChevronRight, Maximize2, Sparkles, ShoppingBag, X, Copy, Check } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { Aurora, ShinyText } from "@/components/reactbits";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
 
 interface ColourCapsuleProps {
   onSelectShadeTone?: (tone: string) => void;
@@ -105,12 +106,12 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
         </div>
 
         {/* Chapter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-10 no-scrollbar scroll-smooth">
+        <ScrollableRow className="mb-6 sm:mb-10" innerClassName="gap-2 pb-3" showArrows={true} scrollStep={240}>
           {CHAPTERS.map((ch) => (
             <button
               key={ch}
               onClick={() => handleChapterChange(ch)}
-              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] ${
+              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] flex-shrink-0 ${
                 activeChapter === ch
                   ? "bg-dark-surface text-on-dark shadow-md shadow-dark-surface/40 font-semibold"
                   : "bg-dark-surface text-on-dark-muted hover:bg-dark-surface hover:text-surface border border-border-teal"
@@ -119,7 +120,7 @@ export const ColourCapsule: React.FC<ColourCapsuleProps> = ({ onSelectShadeTone,
               {ch}
             </button>
           ))}
-        </div>
+        </ScrollableRow>
 
         {/* Editorial Spreads Grid - Generous layout sized to natural 16:15 scan proportions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

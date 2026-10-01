@@ -7,7 +7,10 @@ export interface CartItem {
   title: string;
   meta: string;
   colourHex?: string;
+  imageUrl?: string;
   quantity?: number;
+  finish?: string;
+  packSize?: string;
   notes?: string;
 }
 
@@ -229,15 +232,26 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       enquiryItems.forEach((item, idx) => {
         const itemNum = idx + 1;
         if (item.type === "product") {
-          const parts = item.meta.split("·").map((p) => p.trim());
-          const category = parts[0] || "";
-          const family = parts[1] || "";
           const lines: string[] = [
             `*${itemNum}. PRODUCT*`,
             `*Product:* ${item.title}`,
           ];
-          if (category) lines.push(`*Category:* ${category}`);
-          if (family) lines.push(`*Family:* ${family}`);
+          if (item.meta && item.meta.includes("·")) {
+            const parts = item.meta.split("·").map((p) => p.trim());
+            if (parts[0]) lines.push(`*Category:* ${parts[0]}`);
+            if (parts[1]) lines.push(`*Family:* ${parts[1]}`);
+          } else if (item.meta) {
+            lines.push(`*Details:* ${item.meta}`);
+          }
+          if (item.finish && item.finish.trim() && !/^(standard|undefined|null|n\/a)$/i.test(item.finish.trim())) {
+            lines.push(`*Finish:* ${item.finish.trim()}`);
+          }
+          if (item.packSize && item.packSize.trim()) {
+            lines.push(`*Pack Size:* ${item.packSize.trim()}`);
+          }
+          if (item.notes && item.notes.trim()) {
+            lines.push(`*Notes:* ${item.notes.trim()}`);
+          }
           lines.push(`*Quantity:* ${item.quantity ?? 1}`);
           itemsFormatted.push(lines.join("\n"));
         } else if (item.type === "shade") {
@@ -251,18 +265,35 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           ];
           if (shadeCode) lines.push(`*Code:* ${shadeCode}`);
           if (shadeFamily) lines.push(`*Family:* ${shadeFamily}`);
+          if (item.finish && item.finish.trim() && !/^(standard|undefined|null|n\/a)$/i.test(item.finish.trim())) {
+            lines.push(`*Finish:* ${item.finish.trim()}`);
+          }
+          if (item.notes && item.notes.trim()) {
+            lines.push(`*Notes:* ${item.notes.trim()}`);
+          }
           itemsFormatted.push(lines.join("\n"));
         } else if (item.type === "texture") {
           const lines: string[] = [
             `*${itemNum}. FINISH / TEXTURE*`,
             `*Finish:* ${item.title}`,
           ];
-          if (item.meta) lines.push(`*Series:* ${item.meta}`);
+          if (item.meta && item.meta.trim()) lines.push(`*Series:* ${item.meta.trim()}`);
+          if (item.finish && item.finish.trim() && !/^(standard|undefined|null|n\/a)$/i.test(item.finish.trim())) {
+            lines.push(`*Finish Option:* ${item.finish.trim()}`);
+          }
+          if (item.notes && item.notes.trim()) lines.push(`*Notes:* ${item.notes.trim()}`);
           itemsFormatted.push(lines.join("\n"));
         } else {
-          itemsFormatted.push(
-            `*${itemNum}. ITEM*\n*Name:* ${item.title}\n*Details:* ${item.meta}`
-          );
+          const lines: string[] = [
+            `*${itemNum}. ITEM*`,
+            `*Name:* ${item.title}`,
+          ];
+          if (item.meta && item.meta.trim()) lines.push(`*Details:* ${item.meta.trim()}`);
+          if (item.finish && item.finish.trim() && !/^(standard|undefined|null|n\/a)$/i.test(item.finish.trim())) {
+            lines.push(`*Finish:* ${item.finish.trim()}`);
+          }
+          if (item.notes && item.notes.trim()) lines.push(`*Notes:* ${item.notes.trim()}`);
+          itemsFormatted.push(lines.join("\n"));
         }
       });
 
@@ -343,7 +374,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setCustomerError("");
     e.preventDefault();
     const url = generateWhatsAppCartUrl();
-    window.open(url, "_blank", "noopener,noreferrer");
+    const isMobile = typeof navigator !== "undefined" && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.location.href = url;
+    } else {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   }, [cartItems, customer, generateWhatsAppCartUrl]);
 
   return (

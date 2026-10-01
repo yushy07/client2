@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { birlaOpusProducts, birlaOpusCategories } from "@shared/birlaOpusCatalogue";
 import { useCart } from "@/contexts/CartContext";
 import { ShoppingBag, ArrowRight } from "lucide-react";
+import { ProductQuickViewModal, type ProductModalData } from "@/components/products/ProductQuickViewModal";
 
 const FEATURED_SLUGS = [
   "one-pure-elegance-matt",
@@ -16,6 +17,7 @@ const FEATURED_SLUGS = [
 export const HomeProductsPreview: React.FC = () => {
   const { addToCart } = useCart();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedQuickViewProduct, setSelectedQuickViewProduct] = useState<ProductModalData | null>(null);
 
   const displayProducts = useMemo(() => {
     if (selectedCategory === "All") {
@@ -70,7 +72,11 @@ export const HomeProductsPreview: React.FC = () => {
             className="group rounded-2xl overflow-hidden bg-gradient-to-b from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-accent/60 transition-all duration-300 hover:shadow-[0_16px_36px_rgba(12,41,47,0.6)] hover:-translate-y-1.5 flex flex-col justify-between"
           >
             {/* Studio Showcase Pedestal for Product Can */}
-            <div className="h-48 sm:h-52 w-full bg-gradient-to-b from-[#F7F6F1] via-[#E7ECEA] to-[#DCE5E2] overflow-hidden relative p-4 flex items-center justify-center border-b border-[#176B73]/20 shadow-inner">
+            <div
+              onClick={() => setSelectedQuickViewProduct(product)}
+              className="h-48 sm:h-52 w-full bg-gradient-to-b from-[#F7F6F1] via-[#E7ECEA] to-[#DCE5E2] overflow-hidden relative p-4 flex items-center justify-center border-b border-[#176B73]/20 shadow-inner cursor-pointer"
+              title={`View ${product.name} specifications`}
+            >
               <img
                 src={product.imageUrl}
                 alt={product.name}
@@ -102,7 +108,10 @@ export const HomeProductsPreview: React.FC = () => {
                     In Stock · Baskhari
                   </span>
                 </div>
-                <h3 className="text-base sm:text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors leading-snug">
+                <h3
+                  onClick={() => setSelectedQuickViewProduct(product)}
+                  className="text-base sm:text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors leading-snug cursor-pointer"
+                >
                   {product.name}
                 </h3>
                 <p className="text-xs text-teal-100/70 leading-relaxed line-clamp-2 mt-1.5">
@@ -119,6 +128,7 @@ export const HomeProductsPreview: React.FC = () => {
                       type: "product",
                       title: product.name,
                       meta: `${product.category} · ${product.family}`,
+                      imageUrl: product.imageUrl,
                       quantity: 1,
                     }, true);
                   }}
@@ -128,18 +138,28 @@ export const HomeProductsPreview: React.FC = () => {
                   <ShoppingBag size={14} />
                   <span>+ Add to Enquiry</span>
                 </button>
-                <Link
-                  href="/paint-products"
+                <button
+                  type="button"
+                  onClick={() => setSelectedQuickViewProduct(product)}
                   className="button-ghost text-xs py-2 px-3.5 font-medium border border-[#176B73]/60 text-[#E7ECEA] bg-[#123F46]/40 hover:bg-[#176B73]/50 hover:border-accent hover:text-accent transition-all duration-200 rounded-xl"
                   style={{ minHeight: "38px" }}
+                  title="View Specifications"
                 >
                   <span>Specs &rarr;</span>
-                </Link>
+                </button>
               </div>
             </div>
           </article>
         ))}
       </div>
+
+      {/* Product Quick View Spec Modal */}
+      <ProductQuickViewModal
+        product={selectedQuickViewProduct}
+        productList={displayProducts}
+        onClose={() => setSelectedQuickViewProduct(null)}
+        onNavigate={(p) => setSelectedQuickViewProduct(p)}
+      />
 
       {/* Action Footer linking to the full 124-product catalogue */}
       <div className="catalogue-footer-cta p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-teal-950/40 via-dark-surface to-dark-surface border border-border-teal/50 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 shadow-xl">

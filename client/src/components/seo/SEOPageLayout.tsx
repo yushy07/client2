@@ -24,6 +24,17 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { PillNav, type PillNavItem } from "@/components/reactbits";
+
+const headerNavItems: PillNavItem[] = [
+  { href: "/", label: "Showroom" },
+  { href: "/paint-products", label: "Products" },
+  { href: "/colour-finder", label: "Colours" },
+  { href: "/room-inspiration", label: "Inspiration" },
+  { href: "/surface-studio", label: "Surfaces" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
 
 interface SEOPageLayoutProps {
   seo: RouteSEOConfig;
@@ -38,6 +49,18 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
 }) => {
   const { cartItems, setIsCartOpen, generateWhatsAppCartUrl } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
+
   usePageSEO({
     title: seo.title,
     description: seo.description,
@@ -127,16 +150,17 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider" aria-label="Main Navigation">
-            <Link href="/" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Showroom</Link>
-            <Link href="/paint-products" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Products</Link>
-            <Link href="/colour-finder" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Colours</Link>
-            <Link href="/room-inspiration" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Inspiration</Link>
-            <Link href="/surface-studio" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Surfaces</Link>
-            <Link href="/about" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">About</Link>
-            <Link href="/contact" className="px-3 py-1.5 rounded-lg text-[#E7ECEA]/90 hover:text-[#F3D36B] hover:bg-[#123F46] border border-transparent hover:border-[#F3D36B]/30 transition-all">Contact</Link>
-          </nav>
+          {/* Desktop Nav Links with React Bits PillNav */}
+          <div className="hidden lg:flex items-center">
+            <PillNav
+              items={headerNavItems}
+              baseColor="rgba(8, 28, 32, 0.75)"
+              pillColor="transparent"
+              pillTextColor="#B5C9CC"
+              hoverCircleColor="#F3D36B"
+              hoveredPillTextColor="#0C292F"
+            />
+          </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button

@@ -95,7 +95,7 @@ export default function NotFound() {
             </Link>
 
             <Link
-              href="/#shades-explorer"
+              href="/colour-finder"
               className="p-5 rounded-2xl bg-dark-surface/80 border border-border-teal/50 hover:border-accent hover:bg-dark-surface transition-all group flex flex-col justify-between space-y-3"
             >
               <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-dark transition-colors">
@@ -112,7 +112,7 @@ export default function NotFound() {
             </Link>
 
             <Link
-              href="/#catalogue"
+              href="/paint-products"
               className="p-5 rounded-2xl bg-dark-surface/80 border border-border-teal/50 hover:border-accent hover:bg-dark-surface transition-all group flex flex-col justify-between space-y-3"
             >
               <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-dark transition-colors">

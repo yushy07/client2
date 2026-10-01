@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
 import { EnquiryDrawer } from "./components/cart/EnquiryDrawer";
+import { ScrollToTop } from "./components/common/ScrollToTop";
 
 const Home = lazy(() => import("./pages/Home"));
 const Privacy = lazy(() => import("./pages/Privacy"));
@@ -101,6 +102,7 @@ function App() {
         <CartProvider>
           <TooltipProvider>
             <Toaster />
+            <ScrollToTop />
             <EnquiryDrawer />
             <Suspense fallback={<RouteFallback />}>
               <Router />

@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Layers, Maximize2, ShoppingBag, Sparkles, Feather, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { ShinyText, TiltedCard, DecryptedText } from "@/components/reactbits";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
 
 interface ExtendedTexturesProps {
   onEnquire?: (title: string, details: string) => void;
@@ -85,12 +86,12 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-10 no-scrollbar scroll-smooth">
+        <ScrollableRow className="mb-6 sm:mb-10" innerClassName="gap-2 pb-3" showArrows={true} scrollStep={240}>
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] ${
+              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] flex-shrink-0 ${
                 activeCategory === cat
                   ? "bg-dark-surface text-on-dark shadow-md shadow-dark-surface/40 font-semibold"
                   : "bg-dark-surface text-on-dark-muted hover:bg-brand-secondary hover:text-surface border border-border-teal"
@@ -99,7 +100,7 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
               {cat}
             </button>
           ))}
-        </div>
+        </ScrollableRow>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">

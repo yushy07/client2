@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Compass, ChevronLeft, ChevronRight, Maximize2, ShoppingBag, Sparkles, Home, LayoutGrid, Layers, X } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { Masonry, type MasonryItem, ShinyText } from "@/components/reactbits";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
 
 interface RoomLibraryProps {
   onEnquire?: (title: string, details: string) => void;
@@ -73,20 +74,22 @@ export const RoomLibrary: React.FC<RoomLibraryProps> = ({ onEnquire, onExplorePr
 
         {/* View Mode & Category Filter Controls */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-10">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar scroll-smooth">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                  activeCategory === cat
-                    ? "bg-accent text-dark font-semibold shadow-md"
-                    : "bg-dark-surface text-on-dark-muted hover:text-accent hover:border-accent/40 border border-border-teal"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          <div className="w-full sm:w-auto flex-1 min-w-0">
+            <ScrollableRow innerClassName="gap-2 pb-2 sm:pb-0" showArrows={true} scrollStep={220}>
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`whitespace-nowrap px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all flex-shrink-0 ${
+                    activeCategory === cat
+                      ? "bg-accent text-dark font-semibold shadow-md"
+                      : "bg-dark-surface text-on-dark-muted hover:text-accent hover:border-accent/40 border border-border-teal"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </ScrollableRow>
           </div>
 
           <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-dark-surface border border-border-teal self-start sm:self-auto shrink-0">

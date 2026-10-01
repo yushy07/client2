@@ -25,6 +25,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { JellyRadio, ElasticSlider, ShinyText, TrueFocus } from "@/components/reactbits";
 import { BIRLA_OPUS_ACCENT_TEXTURES, type PairedTexture } from "@/data/shadeVisualMappings";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
 
 interface RoomShadeStudioProps {
   onEnquire?: (title: string, details: string) => void;
@@ -481,7 +482,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
 
         {/* Room Study Selector Carousel */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 overflow-x-auto pb-3 pt-1 no-scrollbar scroll-smooth">
+          <ScrollableRow innerClassName="gap-3 pb-3 pt-1" showArrows={true} scrollStep={320}>
             {ROOM_SHADE_STUDIO_SCENES.map((scene, i) => {
               const isSelected = selectedSceneIndex === i;
               return (
@@ -516,41 +517,43 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                 </button>
               );
             })}
-          </div>
+          </ScrollableRow>
         </div>
 
         {/* Filter Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 bg-dark-surface/60 p-4 rounded-2xl border border-border-teal/40 backdrop-blur-md">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Palette className="w-4 h-4 text-accent" />
             <span className="text-xs font-semibold uppercase tracking-wider text-white">
               Filter By Tone Family:
             </span>
           </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
-            {availableFamilies.map((family) => {
-              const count = family === "All" ? currentScene.variants.length : familyCounts[family];
-              return (
-                <button
-                  key={family}
-                  type="button"
-                  onClick={() => handleFamilySelect(family)}
-                  className={`text-xs px-3.5 py-1.5 rounded-full border transition-all flex items-center gap-1.5 flex-shrink-0 ${
-                    selectedFamily === family
-                      ? "bg-accent text-dark border-accent font-bold shadow-sm"
-                      : "bg-dark/60 text-on-dark-muted border-border-teal/60 hover:text-accent hover:border-accent/40"
-                  }`}
-                >
-                  <span>{family}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
-                    selectedFamily === family ? "bg-dark/20 text-dark" : "bg-white/10 text-on-dark-muted"
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="w-full sm:w-auto flex-1 min-w-0">
+            <ScrollableRow innerClassName="gap-2 pb-1 sm:pb-0" showArrows={true} scrollStep={220}>
+              {availableFamilies.map((family) => {
+                const count = family === "All" ? currentScene.variants.length : familyCounts[family];
+                return (
+                  <button
+                    key={family}
+                    type="button"
+                    onClick={() => handleFamilySelect(family)}
+                    className={`text-xs px-3.5 py-1.5 rounded-full border transition-all flex items-center gap-1.5 flex-shrink-0 ${
+                      selectedFamily === family
+                        ? "bg-accent text-dark border-accent font-bold shadow-sm"
+                        : "bg-dark/60 text-on-dark-muted border-border-teal/60 hover:text-accent hover:border-accent/40"
+                    }`}
+                  >
+                    <span>{family}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                      selectedFamily === family ? "bg-dark/20 text-dark" : "bg-white/10 text-on-dark-muted"
+                    }`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </ScrollableRow>
           </div>
         </div>
 
@@ -1228,7 +1231,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                      <ScrollableRow innerClassName="gap-2 pb-1" showArrows={true} scrollStep={220}>
                         {BIRLA_OPUS_ACCENT_TEXTURES.map((tex) => {
                           const isSelected = selectedLightboxTexture.id === tex.id;
                           return (
@@ -1250,7 +1253,7 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                             </button>
                           );
                         })}
-                      </div>
+                      </ScrollableRow>
                     </div>
                   </div>
                 )}

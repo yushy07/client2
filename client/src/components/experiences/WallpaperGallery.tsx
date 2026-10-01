@@ -6,6 +6,7 @@ import { Palette, Maximize2, ShoppingBag, Sparkles, CheckCircle2, X, Layers, Che
 import { MotionCursorLight } from "@/lib/motion";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { InfiniteSpiral, ShinyText } from "@/components/reactbits";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
 
 interface WallpaperGalleryProps {
   onEnquire?: (title: string, details: string) => void;
@@ -114,12 +115,12 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-10 no-scrollbar scroll-smooth">
+        <ScrollableRow className="mb-6 sm:mb-10" innerClassName="gap-2 pb-3" showArrows={true} scrollStep={240}>
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] ${
+              className={`whitespace-nowrap px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all min-h-[40px] flex-shrink-0 ${
                 activeCategory === cat
                   ? "bg-dark-surface text-on-dark shadow-md shadow-dark-surface/40 font-semibold"
                   : "bg-dark-surface text-on-dark-muted hover:bg-brand-secondary hover:text-surface border border-border-teal"
@@ -128,7 +129,7 @@ export const WallpaperGallery: React.FC<WallpaperGalleryProps> = ({ onEnquire })
               {cat}
             </button>
           ))}
-        </div>
+        </ScrollableRow>
 
         {/* Gallery Grid with Contextual Cursor Light */}
         <MotionCursorLight tint="butter" radius={260}>

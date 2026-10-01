@@ -201,8 +201,9 @@ export const ContactPage: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs text-white font-medium">Your Name *</label>
+              <label htmlFor="contact-name" className="text-xs text-white font-medium">Your Name *</label>
               <input
+                id="contact-name"
                 type="text"
                 required
                 placeholder="e.g. Ramesh Yadav"
@@ -214,8 +215,9 @@ export const ContactPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs text-white font-medium">Phone Number *</label>
+                <label htmlFor="contact-phone" className="text-xs text-white font-medium">Phone Number *</label>
                 <input
+                  id="contact-phone"
                   type="tel"
                   required
                   placeholder="+91 98765 43210"
@@ -226,8 +228,9 @@ export const ContactPage: React.FC = () => {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-white font-medium">Pincode</label>
+                <label htmlFor="contact-pincode" className="text-xs text-white font-medium">Pincode</label>
                 <input
+                  id="contact-pincode"
                   type="text"
                   placeholder="224129"
                   value={form.pincode}
@@ -238,8 +241,9 @@ export const ContactPage: React.FC = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs text-white font-medium">Service Required</label>
+              <label htmlFor="contact-service" className="text-xs text-white font-medium">Service Required</label>
               <select
+                id="contact-service"
                 value={form.serviceType}
                 onChange={(e) => setForm({ ...form, serviceType: e.target.value })}
                 className="w-full px-4 py-2.5 bg-dark/80 border border-border-teal/60 rounded-xl text-xs text-white focus:outline-none focus:border-accent"

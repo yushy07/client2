@@ -21,3 +21,5 @@ export { BounceCards, type BounceCardsProps } from './BounceCards';
 export { Masonry, type MasonryProps, type MasonryItem } from './Masonry';
 export { ScrollStack, ScrollStackItem, type ScrollStackProps } from './ScrollStack';
 export { Prism, type PrismProps } from './Prism';
+export { BorderGlow, type BorderGlowProps } from './BorderGlow';
+export { PillNav, type PillNavProps, type PillNavItem } from './PillNav';

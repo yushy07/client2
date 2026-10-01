@@ -28,6 +28,9 @@ import {
   ShinyText,
   ClickSpark,
   SwipeToast,
+  BorderGlow,
+  PillNav,
+  type PillNavItem,
 } from "@/components/reactbits";
 import { ShowroomVideoModal, type VideoModalItem } from "@/components/ShowroomVideoModal";
 import {
@@ -131,6 +134,15 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileMenuOpen]);
 
   const activeCampaign = campaigns[campaign] ?? campaigns[0]!;
 
@@ -248,11 +260,15 @@ export default function Home() {
 
           {/* Desktop Navigation Links */}
           <nav className="nav-links" aria-label="Primary navigation">
-            {navLinks.map((item) => (
-              <Link href={item.href} key={item.href}>
-                {item.label}
-              </Link>
-            ))}
+            <PillNav
+              items={navLinks as unknown as PillNavItem[]}
+              baseColor="rgba(8, 28, 32, 0.75)"
+              pillColor="transparent"
+              pillTextColor="#B5C9CC"
+              hoverCircleColor="#F3D36B"
+              hoveredPillTextColor="#0C292F"
+              className="hidden lg:flex"
+            />
             <button
               type="button"
               className="nav-enquiry-btn"
@@ -614,100 +630,136 @@ export default function Home() {
           <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#176B73]/30 bg-gradient-to-b from-[#0C292F] via-[#0E353B] to-[#0C292F]">
             <div className="max-w-[var(--shell-max)] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               {/* Pillar 1: Authorised Dealership -> Plays Showroom Tour V4 Video */}
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={handleAuthorisedDealershipClick}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleAuthorisedDealershipClick(); }}
-                className="group relative p-7 rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="45 85 75"
+                backgroundColor="#0E353B"
+                borderRadius={16}
+                glowRadius={36}
+                glowIntensity={1.2}
+                coneSpread={28}
+                colors={['#176B73', '#F3D36B', '#228B96']}
+                className="h-full"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-amber-400/40 text-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 transition-all">
-                      <BadgeCheck size={24} />
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={handleAuthorisedDealershipClick}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleAuthorisedDealershipClick(); }}
+                  className="group relative p-7 h-full rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] cursor-pointer flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-amber-400/40 text-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 transition-all">
+                        <BadgeCheck size={24} />
+                      </div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
+                        Aditya Birla Official
+                      </span>
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
-                      Aditya Birla Official
-                    </span>
+                    <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors flex items-center justify-between">
+                      <span>Authorised Dealership</span>
+                    </h3>
+                    <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
+                      Official flagship dealer for Aditya Birla Group's premier Birla Opus paints in Shukul Bazar, Baskhari. 100% factory-sealed formulations.
+                    </p>
                   </div>
-                  <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors flex items-center justify-between">
-                    <span>Authorised Dealership</span>
-                  </h3>
-                  <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
-                    Official flagship dealer for Aditya Birla Group's premier Birla Opus paints in Shukul Bazar, Baskhari. 100% factory-sealed formulations.
-                  </p>
+                  <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
+                    <span className="flex items-center gap-1.5 group-hover:underline">
+                      <Play size={13} className="fill-current" /> Watch Showroom Tour
+                    </span>
+                    <span className="text-[10px] font-mono text-teal-300/80 uppercase">Tap to Play Video</span>
+                  </div>
                 </div>
-                <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
-                  <span className="flex items-center gap-1.5 group-hover:underline">
-                    <Play size={13} className="fill-current" /> Watch Showroom Tour
-                  </span>
-                  <span className="text-[10px] font-mono text-teal-300/80 uppercase">Tap to Play Video</span>
-                </div>
-              </div>
+              </BorderGlow>
 
               {/* Pillar 2: Computerised Tinting -> Plays Tinting Machine & Materials Videos */}
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={handleComputerisedTintingClick}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleComputerisedTintingClick(); }}
-                className="group relative p-7 rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="45 85 75"
+                backgroundColor="#0E353B"
+                borderRadius={16}
+                glowRadius={36}
+                glowIntensity={1.2}
+                coneSpread={28}
+                colors={['#176B73', '#F3D36B', '#228B96']}
+                className="h-full"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-teal-400/40 text-teal-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 group-hover:text-amber-300 transition-all">
-                      <Palette size={24} />
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={handleComputerisedTintingClick}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleComputerisedTintingClick(); }}
+                  className="group relative p-7 h-full rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] cursor-pointer flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-teal-400/40 text-teal-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 group-hover:text-amber-300 transition-all">
+                        <Palette size={24} />
+                      </div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
+                        159 Spectral Shades
+                      </span>
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
-                      159 Spectral Shades
-                    </span>
+                    <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors">
+                      Computerised Tinting
+                    </h3>
+                    <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
+                      In-store precision automated tinting dispensing exact pigment formulations for perfect batch-to-batch repeatability and depth.
+                    </p>
                   </div>
-                  <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors">
-                    Computerised Tinting
-                  </h3>
-                  <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
-                    In-store precision automated tinting dispensing exact pigment formulations for perfect batch-to-batch repeatability and depth.
-                  </p>
+                  <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
+                    <span className="flex items-center gap-1.5 group-hover:underline">
+                      <Play size={13} className="fill-current" /> Watch Machine & Stock (2 Videos)
+                    </span>
+                    <span className="text-[10px] font-mono text-teal-300/80 uppercase">Tap to Play</span>
+                  </div>
                 </div>
-                <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
-                  <span className="flex items-center gap-1.5 group-hover:underline">
-                    <Play size={13} className="fill-current" /> Watch Machine & Stock (2 Videos)
-                  </span>
-                  <span className="text-[10px] font-mono text-teal-300/80 uppercase">Tap to Play</span>
-                </div>
-              </div>
+              </BorderGlow>
 
               {/* Pillar 3: Physical Sampling -> Scrolls to Shades / Colour Section */}
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={handlePhysicalSamplingClick}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handlePhysicalSamplingClick(); }}
-                className="group relative p-7 rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="45 85 75"
+                backgroundColor="#0E353B"
+                borderRadius={16}
+                glowRadius={36}
+                glowIntensity={1.2}
+                coneSpread={28}
+                colors={['#176B73', '#F3D36B', '#228B96']}
+                className="h-full"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-amber-400/40 text-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 transition-all">
-                      <Store size={24} />
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={handlePhysicalSamplingClick}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handlePhysicalSamplingClick(); }}
+                  className="group relative p-7 h-full rounded-2xl bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#0C292F] border border-[#176B73]/40 hover:border-amber-400/70 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(12,41,47,0.6)] cursor-pointer flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="w-12 h-12 rounded-xl bg-[#176B73]/30 border border-amber-400/40 text-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:bg-[#F3D36B]/20 transition-all">
+                        <Store size={24} />
+                      </div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
+                        Live Experience Studio
+                      </span>
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#0C292F]/90 border border-[#176B73]/50 text-teal-200 font-semibold group-hover:border-amber-400/50 group-hover:text-amber-300 transition-colors">
-                      Live Experience Studio
-                    </span>
+                    <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors">
+                      Physical Sampling
+                    </h3>
+                    <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
+                      Inspect authentic large fandecks and feel textured masonry plaster panels under calibrated natural daylight before finalising.
+                    </p>
                   </div>
-                  <h3 className="text-lg font-serif font-medium text-white group-hover:text-amber-300 transition-colors">
-                    Physical Sampling
-                  </h3>
-                  <p className="text-xs sm:text-sm text-teal-100/70 leading-relaxed mt-2.5">
-                    Inspect authentic large fandecks and feel textured masonry plaster panels under calibrated natural daylight before finalising.
-                  </p>
+                  <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
+                    <span className="flex items-center gap-1.5 group-hover:underline">
+                      <span>Explore 159 Verified Shades</span> <ArrowRight size={13} />
+                    </span>
+                    <span className="text-[10px] font-mono text-teal-300/80 uppercase">Go to Shades</span>
+                  </div>
                 </div>
-                <div className="pt-4 mt-4 border-t border-[#176B73]/30 flex items-center justify-between text-xs text-amber-300 font-semibold">
-                  <span className="flex items-center gap-1.5 group-hover:underline">
-                    <span>Explore 159 Verified Shades</span> <ArrowRight size={13} />
-                  </span>
-                  <span className="text-[10px] font-mono text-teal-300/80 uppercase">Go to Shades</span>
-                </div>
-              </div>
+              </BorderGlow>
             </div>
           </section>
 
@@ -802,24 +854,36 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <div className="store-result">
-                <div className="store-result-content">
-                  <span className="store-result-label">Authorised Birla Opus Paint Dealer</span>
-                  <h3>{businessProfile.name}</h3>
-                  <div className="store-meta">
-                    <span>
-                      {businessProfile.address}
-                      <br />
-                      Landmark: {businessProfile.landmark}
-                    </span>
-                    <span>
-                      Hours: {businessProfile.hours} (7 Days Open)
-                      <br />
-                      Pincode: 224129
-                    </span>
+              <BorderGlow
+                edgeSensitivity={35}
+                glowColor="45 85 75"
+                backgroundColor="#0C292F"
+                borderRadius={20}
+                glowRadius={36}
+                glowIntensity={1.2}
+                coneSpread={26}
+                colors={['#176B73', '#F3D36B', '#228B96']}
+                className="w-full h-full"
+              >
+                <div className="store-result w-full h-full">
+                  <div className="store-result-content">
+                    <span className="store-result-label">Authorised Birla Opus Paint Dealer</span>
+                    <h3>{businessProfile.name}</h3>
+                    <div className="store-meta">
+                      <span>
+                        {businessProfile.address}
+                        <br />
+                        Landmark: {businessProfile.landmark}
+                      </span>
+                      <span>
+                        Hours: {businessProfile.hours} (7 Days Open)
+                        <br />
+                        Pincode: 224129
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </BorderGlow>
             </div>
           </section>
 

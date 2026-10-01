@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
 
 export const ColourFinderPage: React.FC = () => {
   const seo = getRouteSEO("/colour-finder");
@@ -73,11 +74,24 @@ export const ColourFinderPage: React.FC = () => {
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
         handleNextShade();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        setSelectedModalShade(null);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedModalShade, currentModalIndex, filteredShades]);
+
+  useEffect(() => {
+    if (selectedModalShade) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = orig;
+      };
+    }
+  }, [selectedModalShade]);
 
   const SHADES_PER_PAGE = 30;
   const totalPages = Math.max(1, Math.ceil(filteredShades.length / SHADES_PER_PAGE));
@@ -136,7 +150,7 @@ export const ColourFinderPage: React.FC = () => {
 
         {/* Tone Family Switcher */}
         <div className="pt-2 border-t border-white/5">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+          <ScrollableRow innerClassName="gap-2 pb-2" showArrows={true} scrollStep={240}>
             <button
               onClick={() => {
                 setSelectedFamily("All");
@@ -174,7 +188,7 @@ export const ColourFinderPage: React.FC = () => {
                 </button>
               );
             })}
-          </div>
+          </ScrollableRow>
         </div>
       </div>
 
@@ -315,6 +329,9 @@ export const ColourFinderPage: React.FC = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 0 }}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-shade-title"
               className="bg-dark-surface border border-accent/40 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-6 relative"
             >
               {/* Header */}
@@ -330,7 +347,7 @@ export const ColourFinderPage: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <h3 className="text-2xl font-serif text-white">{selectedModalShade.name}</h3>
+                  <h3 id="modal-shade-title" className="text-2xl font-serif text-white">{selectedModalShade.name}</h3>
                 </div>
 
                 <div className="flex items-center gap-1.5">

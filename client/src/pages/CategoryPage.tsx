@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 
 import { useCart } from "@/contexts/CartContext";
+import { ScrollableRow } from "@/components/ui/ScrollableRow";
+import { ProductQuickViewModal, type ProductModalData } from "@/components/products/ProductQuickViewModal";
 
 interface CategoryPageProps {
   routePath: string;
@@ -29,6 +31,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFamily, setSelectedFamily] = useState<string>("All");
+  const [selectedQuickViewProduct, setSelectedQuickViewProduct] = useState<ProductModalData | null>(null);
 
   // Filter products
   const products = useMemo(() => {
@@ -66,7 +69,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
     <SEOPageLayout seo={seo}>
       {/* Category Switcher Pills */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+        <ScrollableRow innerClassName="gap-2 pb-2" showArrows={true} scrollStep={240}>
           <Link
             href="/paint-products"
             className={`text-xs px-4 py-2 rounded-xl border transition-all whitespace-nowrap font-medium ${
@@ -157,7 +160,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
           >
             Paint Tools
           </Link>
-        </div>
+        </ScrollableRow>
       </div>
 
       {/* Filter and Search Bar */}
@@ -176,23 +179,27 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
 
         {/* Family Filters */}
         {availableFamilies.length > 2 && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full md:w-auto">
+          <div className="flex items-center gap-1.5 w-full md:w-auto min-w-0">
             <span className="text-[11px] font-semibold text-on-dark-muted uppercase mr-1 flex items-center gap-1 flex-shrink-0">
               <Filter className="w-3 h-3 text-accent" /> Series:
             </span>
-            {availableFamilies.map((fam) => (
-              <button
-                key={fam}
-                onClick={() => setSelectedFamily(fam)}
-                className={`text-[11px] px-3 py-1 rounded-lg border transition-all flex-shrink-0 ${
-                  selectedFamily === fam
-                    ? "bg-accent text-dark border-accent font-bold shadow-sm"
-                    : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
-                }`}
-              >
-                {fam}
-              </button>
-            ))}
+            <div className="flex-1 min-w-0">
+              <ScrollableRow innerClassName="gap-1.5" showArrows={true} scrollStep={180}>
+                {availableFamilies.map((fam) => (
+                  <button
+                    key={fam}
+                    onClick={() => setSelectedFamily(fam)}
+                    className={`text-[11px] px-3 py-1 rounded-lg border transition-all flex-shrink-0 ${
+                      selectedFamily === fam
+                        ? "bg-accent text-dark border-accent font-bold shadow-sm"
+                        : "bg-dark/60 text-on-dark-muted border-border-teal/50 hover:text-accent hover:border-accent/50"
+                    }`}
+                  >
+                    {fam}
+                  </button>
+                ))}
+              </ScrollableRow>
+            </div>
           </div>
         )}
       </div>
@@ -288,7 +295,11 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                   className="group rounded-2xl overflow-hidden bg-dark-surface border border-border-teal/60 hover:border-accent transition-all duration-300 hover:shadow-2xl hover:shadow-accent/10 flex flex-col justify-between"
                 >
                   {/* Image Card */}
-                  <div className="aspect-[4/3] w-full bg-dark/80 overflow-hidden relative p-4 flex items-center justify-center">
+                  <div
+                    onClick={() => setSelectedQuickViewProduct(product)}
+                    className="aspect-[4/3] w-full bg-dark/80 overflow-hidden relative p-4 flex items-center justify-center cursor-pointer"
+                    title={`View ${product.name} specifications`}
+                  >
                     <img
                       src={product.imageUrl}
                       alt={`Birla Opus ${product.name} ${product.category}`}
@@ -308,7 +319,10 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                           Series: {product.family}
                         </span>
                       </div>
-                      <h3 className="text-base font-semibold text-white group-hover:text-accent transition-colors leading-snug">
+                      <h3
+                        onClick={() => setSelectedQuickViewProduct(product)}
+                        className="text-base font-semibold text-white group-hover:text-accent transition-colors leading-snug cursor-pointer"
+                      >
                         {product.name}
                       </h3>
                       <p className="text-xs text-on-dark-muted leading-relaxed line-clamp-3">
@@ -316,7 +330,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-white/5 flex items-center gap-2">
+                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => {
@@ -325,19 +339,28 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
                             type: "product",
                             title: product.name,
                             meta: `${product.category} · ${product.family}`,
+                            imageUrl: product.imageUrl,
                             quantity: 1,
                           }, true);
                         }}
-                        className="inline-flex items-center gap-1.5 bg-accent/15 hover:bg-accent text-accent hover:text-dark border border-accent/40 text-xs px-3 py-1.5 rounded-lg transition-all flex-1 justify-center font-semibold"
+                        className="inline-flex items-center gap-1 bg-accent/15 hover:bg-accent text-accent hover:text-dark border border-accent/40 text-xs px-2.5 py-1.5 rounded-lg transition-all flex-1 justify-center font-semibold"
                       >
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span>+ Enquiry</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedQuickViewProduct(product)}
+                        className="inline-flex items-center gap-1 bg-dark-surface/60 hover:bg-[#176B73]/50 text-[#E7ECEA] hover:text-accent border border-border-teal/60 hover:border-accent/40 text-xs px-2.5 py-1.5 rounded-lg transition-all font-medium"
+                        title="View Specifications"
+                      >
+                        <span>Specs &rarr;</span>
                       </button>
                       <a
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-emerald-950 border border-emerald-500/30 text-xs px-3 py-1.5 rounded-lg transition-all justify-center font-bold"
+                        className="inline-flex items-center gap-1 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-emerald-950 border border-emerald-500/30 text-xs p-1.5 rounded-lg transition-all justify-center font-bold"
                         title="Direct WhatsApp"
                         aria-label="Direct WhatsApp"
                       >
@@ -351,6 +374,14 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ routePath }) => {
           </div>
         )}
       </div>
+
+      {/* Product Quick View Spec Modal */}
+      <ProductQuickViewModal
+        product={selectedQuickViewProduct}
+        productList={products}
+        onClose={() => setSelectedQuickViewProduct(null)}
+        onNavigate={(p) => setSelectedQuickViewProduct(p)}
+      />
 
       {/* Cross-linking cards */}
       <div className="mt-14 pt-8 border-t border-border-teal/40">

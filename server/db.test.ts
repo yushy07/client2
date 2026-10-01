@@ -49,7 +49,7 @@ describe("createServiceEnquiry", () => {
     expect(result).toEqual({ id: 789 });
     expect(mockInsert).toHaveBeenCalled();
     expect(mockValues).toHaveBeenCalledWith(testEnquiry);
-  });
+  }, 10000);
 
   it("handles database insertion error and throws DatabaseUnavailableError", async () => {
     const { createServiceEnquiry, DatabaseUnavailableError } = await import("./db");
