@@ -411,28 +411,6 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
     }
   };
 
-  // Viewport nav offset calculation so the modal is never cut off or overlapped by the fixed/sticky navbar
-  const [navOffset, setNavOffset] = useState<number>(72);
-
-  useEffect(() => {
-    if (!activeLightboxVariant) return;
-
-    const updateNavOffset = () => {
-      const header = document.querySelector("header.sticky") || document.querySelector("header");
-      if (header) {
-        const rect = header.getBoundingClientRect();
-        // The navbar's bottom edge in viewport coordinates represents the exact line where site navigation ends
-        const bottomEdge = Math.max(0, Math.round(rect.bottom));
-        setNavOffset(bottomEdge || (window.innerWidth < 640 ? 65 : 71));
-      } else {
-        setNavOffset(window.innerWidth < 640 ? 65 : 71);
-      }
-    };
-
-    updateNavOffset();
-    window.addEventListener("resize", updateNavOffset);
-    return () => window.removeEventListener("resize", updateNavOffset);
-  }, [activeLightboxVariant]);
 
   // Lock background body scroll when modal is open
   useEffect(() => {
@@ -902,500 +880,520 @@ export const RoomShadeStudio: React.FC<RoomShadeStudioProps> = ({ onEnquire, onE
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="lightbox-shade-title"
-                style={{
-                  position: "fixed",
-                  top: `${navOffset}px`,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  height: `calc(100dvh - ${navOffset}px)`,
-                  zIndex: 1000000,
-                }}
-                className="bg-black/95 backdrop-blur-xl flex flex-col p-2 sm:p-4 md:p-6 overflow-hidden"
+                className="fixed inset-0 z-[1000000] h-[100dvh] w-full bg-black/95 backdrop-blur-xl flex flex-col p-0 sm:p-3 md:p-6 overflow-hidden"
                 onClick={() => setActiveLightboxVariant(null)}
               >
                 <div
-                  className="bg-[#0b1114] border border-border-teal/60 rounded-2xl sm:rounded-3xl w-full max-w-6xl mx-auto flex-1 flex flex-col shadow-2xl overflow-hidden relative min-h-0"
+                  className="bg-[#0b1114] border-0 sm:border border-border-teal/60 rounded-none sm:rounded-3xl w-full max-w-6xl mx-auto flex-1 flex flex-col shadow-2xl overflow-hidden relative min-h-0 h-full"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {/* Modal Top Header */}
-                  <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-border-teal/40 bg-[#0e1619] flex-shrink-0">
-                    <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex items-center justify-between px-3.5 py-2.5 sm:px-6 sm:py-4 border-b border-border-teal/40 bg-[#0e1619] flex-shrink-0 z-20">
+                    <div className="flex items-center gap-2.5 min-w-0">
                       <span
                         className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-white/40 shadow-md flex-shrink-0"
                         style={{ backgroundColor: activeLightboxVariant.hex }}
                       />
                       <div className="min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
                           <span className="text-[10px] sm:text-xs font-mono font-bold text-accent tracking-wider uppercase">
                             {activeLightboxVariant.shadeCode}
                           </span>
-                          <span className="text-[10px] text-zinc-400 font-sans hidden xs:inline">
+                          <span className="text-[10px] text-zinc-400 font-sans truncate">
                             · {activeLightboxVariant.family}
                           </span>
                         </div>
-                        <h3 id="lightbox-shade-title" className="text-base sm:text-lg font-serif text-white truncate font-medium">
+                        <h3 id="lightbox-shade-title" className="text-sm sm:text-lg font-serif text-white truncate font-medium">
                           {activeLightboxVariant.label} · <span className="text-zinc-400 text-xs font-sans">{currentScene.name}</span>
                         </h3>
                       </div>
                     </div>
 
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <Button
-                    size="sm"
-                    onClick={() => {
-                      onEnquire?.(
-                        `Shade Order: ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode})`,
-                        `I am enquiring about ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode}) from ${currentScene.name}.`
-                      );
-                    }}
-                    className="bg-accent text-dark font-bold text-xs hover:bg-accent/90 h-8 px-3 rounded-lg hidden sm:flex items-center"
-                  >
-                    <ShoppingBag className="w-3.5 h-3.5 mr-1" /> Order Sample
-                  </Button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveLightboxVariant(null)}
-                    className="w-8 h-8 rounded-full bg-teal-900/70 hover:bg-teal-800 text-teal-200 hover:text-accent border border-teal-700/40 hover:border-accent/40 flex items-center justify-center transition-all"
-                    aria-label="Close lightbox"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* View Mode Tabs: [ Applied Room ] [ Lighting Conditions ] [ Motifs & Finishes ] */}
-              <div className="flex flex-col border-b border-border-teal/30 bg-[#0e1619]/90 flex-shrink-0">
-                <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 gap-2 flex-wrap">
-                  <div className="flex items-center gap-1.5 p-1 rounded-xl bg-dark-surface/90 border border-border-teal/40 overflow-x-auto no-scrollbar">
-                    <button
-                      type="button"
-                      onClick={() => setLightboxTab("room")}
-                      className={`text-xs px-3.5 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap ${
-                        lightboxTab === "room"
-                          ? "bg-accent text-dark shadow-sm"
-                          : "text-zinc-300 hover:text-accent hover:bg-teal-900/40"
-                      }`}
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>Applied Room</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setLightboxTab("lighting")}
-                      className={`text-xs px-3.5 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap ${
-                        lightboxTab === "lighting"
-                          ? "bg-accent text-dark shadow-sm"
-                          : "text-zinc-300 hover:text-accent hover:bg-teal-900/40"
-                      }`}
-                    >
-                      <Sun className="w-3.5 h-3.5" />
-                      <span>Lighting Conditions</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setLightboxTab("motifs")}
-                      className={`text-xs px-3.5 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all duration-200 whitespace-nowrap ${
-                        lightboxTab === "motifs"
-                          ? "bg-accent text-dark shadow-sm"
-                          : "text-zinc-300 hover:text-accent hover:bg-teal-900/40"
-                      }`}
-                    >
-                      <Layers className="w-3.5 h-3.5" />
-                      <span>Motifs & Finishes</span>
-                    </button>
-                  </div>
-
-                  {/* Active Context Label (When in Lighting Mode) */}
-                  {lightboxTab === "lighting" && (
-                    <div className="flex items-center gap-3 text-xs font-sans">
-                      <div className="flex items-center gap-1.5 text-accent font-medium">
-                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                        <span>{LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.contextLabel}</span>
-                      </div>
-                      <span className="text-zinc-500 hidden sm:inline">·</span>
-                      <span className="text-[11px] font-mono text-zinc-300 bg-white/5 px-2 py-0.5 rounded-full border border-white/10 hidden sm:inline">
-                        {LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.colorTemp}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* 5-Condition Lighting Selector & Micro-Tuning Bar */}
-                {lightboxTab === "lighting" && (
-                  <div className="px-3 sm:px-6 py-2.5 bg-[#090f11] border-t border-white/5 space-y-2">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 w-full">
-                      {LIGHTING_ENVIRONMENTS.map((env, index) => {
-                        const isSelected = lightingCondition === env.id;
-                        return (
-                          <button
-                            key={env.id}
-                            type="button"
-                            onClick={() => setLightingCondition(env.id)}
-                            className={`p-2.5 rounded-xl border text-left transition-all flex items-start gap-2.5 w-full ${
-                              index === 4 ? "col-span-2 sm:col-span-1 md:col-span-1" : ""
-                            } ${
-                              isSelected
-                                ? "bg-accent/15 border-accent text-white shadow-md shadow-accent/10 ring-1 ring-accent/40"
-                                : "bg-dark/80 border-border-teal/40 text-zinc-400 hover:text-white hover:border-accent/40 hover:bg-dark"
-                            }`}
-                          >
-                            <div
-                              className={`p-1.5 rounded-lg flex-shrink-0 mt-0.5 transition-colors ${
-                                isSelected ? "bg-accent text-dark" : "bg-white/5 text-zinc-300"
-                              }`}
-                            >
-                              {env.icon === "sun" && <Sun className="w-4 h-4" />}
-                              {env.icon === "sun-bright" && <Sparkles className="w-4 h-4" />}
-                              {env.icon === "cloud" && <Cloud className="w-4 h-4" />}
-                              {env.icon === "lamp" && <Lamp className="w-4 h-4" />}
-                              {env.icon === "moon" && <Moon className="w-4 h-4" />}
-                            </div>
-                            <div className="flex flex-col min-w-0 flex-1">
-                              <div className="flex items-center justify-between gap-1">
-                                <span
-                                  className={`text-xs font-semibold leading-tight truncate ${
-                                    isSelected ? "text-accent" : "text-white"
-                                  }`}
-                                >
-                                  {env.name}
-                                </span>
-                                {isSelected && (
-                                  <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0 animate-pulse" />
-                                )}
-                              </div>
-                              <span className="text-[10px] text-zinc-400 line-clamp-2 leading-snug mt-0.5">
-                                {env.shortDesc}
-                              </span>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Secondary Micro-Tuning Bar: Intensity Slider & Hold to Compare */}
-                    <div className="flex items-center justify-between gap-3 pt-2 border-t border-white/5 flex-wrap">
-                      <div className="flex items-center gap-2 sm:gap-3 text-xs">
-                        <span className="text-[11px] text-zinc-400 flex items-center gap-1.5">
-                          <Sun className="w-3.5 h-3.5 text-accent" />
-                          <span className="font-medium">Intensity:</span>
-                        </span>
-                        <div className="flex items-center gap-1">
-                          {[
-                            { label: "Subtle", val: 70 },
-                            { label: "Balanced", val: 100 },
-                            { label: "Vivid", val: 130 }
-                          ].map((preset) => (
-                            <button
-                              key={preset.val}
-                              type="button"
-                              onClick={() => setLightingIntensity(preset.val)}
-                              className={`px-2 py-0.5 rounded text-[10px] font-medium transition-all duration-200 ${
-                                lightingIntensity === preset.val
-                                  ? "bg-accent text-dark font-bold shadow-sm"
-                                  : "bg-teal-950/60 border border-border-teal/30 text-zinc-400 hover:text-accent hover:bg-teal-900/50 hover:border-accent/40"
-                              }`}
-                            >
-                              {preset.label}
-                            </button>
-                          ))}
-                        </div>
-                        <input
-                          type="range"
-                          min="50"
-                          max="150"
-                          step="5"
-                          value={lightingIntensity}
-                          onChange={(e) => setLightingIntensity(Number(e.target.value))}
-                          className="w-16 sm:w-28 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-accent"
-                          aria-label="Lighting Intensity Slider"
-                        />
-                        <span className="text-[10px] font-mono text-zinc-400 w-8">{lightingIntensity}%</span>
-                      </div>
-
-                      {/* Hold to Compare Natural Daylight Reference */}
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          onEnquire?.(
+                            `Shade Order: ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode})`,
+                            `I am enquiring about ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode}) from ${currentScene.name}.`
+                          );
+                        }}
+                        className="bg-accent text-dark font-bold text-xs hover:bg-accent/90 h-8 px-3 rounded-lg hidden sm:flex items-center"
+                      >
+                        <ShoppingBag className="w-3.5 h-3.5 mr-1" /> Order Sample
+                      </Button>
                       <button
                         type="button"
-                        onMouseDown={() => setIsComparingOriginal(true)}
-                        onMouseUp={() => setIsComparingOriginal(false)}
-                        onMouseLeave={() => setIsComparingOriginal(false)}
-                        onTouchStart={() => setIsComparingOriginal(true)}
-                        onTouchEnd={() => setIsComparingOriginal(false)}
-                        className={`px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all duration-200 select-none ${
-                          isComparingOriginal
-                            ? "bg-accent text-dark scale-95 shadow-md shadow-accent/20"
-                            : "bg-teal-950/70 text-zinc-300 hover:text-accent hover:bg-teal-900/60 border border-border-teal/50 hover:border-accent/50"
-                        }`}
-                        title="Press and hold to view the natural unedited room photo"
+                        onClick={() => setActiveLightboxVariant(null)}
+                        className="w-8 h-8 rounded-full bg-teal-900/70 hover:bg-teal-800 text-teal-200 hover:text-accent border border-teal-700/40 hover:border-accent/40 flex items-center justify-center transition-all"
+                        aria-label="Close lightbox"
                       >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>{isComparingOriginal ? "Viewing Original Daylight" : "Hold to Compare (Daylight)"}</span>
+                        <X className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
-                )}
-              </div>
 
-              {/* Main Visual Display Stage */}
-              <div className="flex-1 min-h-0 relative flex items-center justify-center overflow-hidden bg-black/80">
-                {lightboxTab !== "motifs" ? (
-                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-4 min-h-0">
-                    {/* The Room Image Container with Layered Spatial Compositing Stack */}
-                    <div className="relative max-h-full max-w-full rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
-                      {/* Base Room Photograph */}
-                      <ResponsiveImage
-                        src={activeLightboxVariant.url}
-                        alt={`${activeLightboxVariant.label} in ${currentScene.name}`}
-                        className="max-h-full max-w-full object-contain transition-all duration-300 ease-out"
-                        style={{
-                          filter: lightboxTab === "lighting"
-                            ? (isComparingOriginal ? "none" : (LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.baseFilter || "none"))
-                            : `brightness(${lightingLevel}%)`,
-                          transition: "filter 350ms cubic-bezier(0.16, 1, 0.3, 1)"
-                        }}
-                      />
+                  {/* Main Visual Display Stage (Visible Prominently at the top on mobile, centered flex-1 on desktop) */}
+                  <div className="w-full relative flex items-center justify-center overflow-hidden bg-black/90 flex-shrink-0 h-[28vh] min-h-[190px] max-h-[300px] sm:h-auto sm:min-h-0 sm:max-h-none sm:flex-1 sm:order-2 border-b sm:border-b-0 border-border-teal/40">
+                    {lightboxTab !== "motifs" ? (
+                      <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-4 min-h-0">
+                        {/* The Room Image Container with Layered Spatial Compositing Stack */}
+                        <div className="relative h-full w-full max-h-full max-w-full rounded-lg sm:rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
+                          {/* Base Room Photograph */}
+                          <ResponsiveImage
+                            src={activeLightboxVariant.url}
+                            alt={`${activeLightboxVariant.label} in ${currentScene.name}`}
+                            className="max-h-full max-w-full object-contain transition-all duration-300 ease-out"
+                            style={{
+                              filter: lightboxTab === "lighting"
+                                ? (isComparingOriginal ? "none" : (LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.baseFilter || "none"))
+                                : `brightness(${lightingLevel}%)`,
+                              transition: "filter 350ms cubic-bezier(0.16, 1, 0.3, 1)"
+                            }}
+                          />
 
-                      {/* Spatial Optical Compositing Stack (Active in Lighting Mode) */}
-                      {lightboxTab === "lighting" && !isComparingOriginal && (() => {
-                        const currentEnv = LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition) ?? LIGHTING_ENVIRONMENTS[1] ?? LIGHTING_ENVIRONMENTS[0]!;
-                        const intensityFactor = lightingIntensity / 100;
-                        return (
-                          <>
-                            {/* Layer 2: Directional Primary Light Field */}
-                            <div
-                              className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
-                              style={{
-                                background: currentEnv.primaryLightGradient,
-                                mixBlendMode: currentEnv.primaryBlendMode,
-                                opacity: Math.min(1, currentEnv.primaryOpacity * intensityFactor),
-                                transition: "all 350ms cubic-bezier(0.16, 1, 0.3, 1)"
-                              }}
-                            />
+                          {/* Spatial Optical Compositing Stack (Active in Lighting Mode) */}
+                          {lightboxTab === "lighting" && !isComparingOriginal && (() => {
+                            const currentEnv = LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition) ?? LIGHTING_ENVIRONMENTS[1] ?? LIGHTING_ENVIRONMENTS[0]!;
+                            const intensityFactor = lightingIntensity / 100;
+                            return (
+                              <>
+                                {/* Layer 2: Directional Primary Light Field */}
+                                <div
+                                  className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
+                                  style={{
+                                    background: currentEnv.primaryLightGradient,
+                                    mixBlendMode: currentEnv.primaryBlendMode,
+                                    opacity: Math.min(1, currentEnv.primaryOpacity * intensityFactor),
+                                    transition: "all 350ms cubic-bezier(0.16, 1, 0.3, 1)"
+                                  }}
+                                />
 
-                            {/* Layer 3: Localized Accent Pool / Warm-Cool Light Pool */}
-                            {currentEnv.accentLightGradient && (
-                              <div
-                                className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
-                                style={{
-                                  background: currentEnv.accentLightGradient,
-                                  mixBlendMode: currentEnv.accentBlendMode || "soft-light",
-                                  opacity: Math.min(1, (currentEnv.accentOpacity || 0.5) * intensityFactor),
-                                  transition: "all 350ms cubic-bezier(0.16, 1, 0.3, 1)"
-                                }}
-                              />
-                            )}
+                                {/* Layer 3: Localized Accent Pool / Warm-Cool Light Pool */}
+                                {currentEnv.accentLightGradient && (
+                                  <div
+                                    className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
+                                    style={{
+                                      background: currentEnv.accentLightGradient,
+                                      mixBlendMode: currentEnv.accentBlendMode || "soft-light",
+                                      opacity: Math.min(1, (currentEnv.accentOpacity || 0.5) * intensityFactor),
+                                      transition: "all 350ms cubic-bezier(0.16, 1, 0.3, 1)"
+                                    }}
+                                  />
+                                )}
 
-                            {/* Layer 4: Spatial Shadow & Ambient Depth Falloff */}
-                            <div
-                              className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
-                              style={{
-                                background: currentEnv.shadowGradient,
-                                mixBlendMode: currentEnv.shadowBlendMode,
-                                opacity: Math.min(1, currentEnv.shadowOpacity * intensityFactor),
-                                transition: "all 350ms cubic-bezier(0.16, 1, 0.3, 1)"
-                              }}
-                            />
-                          </>
-                        );
-                      })()}
-                    </div>
+                                {/* Layer 4: Spatial Shadow & Ambient Depth Falloff */}
+                                <div
+                                  className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
+                                  style={{
+                                    background: currentEnv.shadowGradient,
+                                    mixBlendMode: currentEnv.shadowBlendMode,
+                                    opacity: Math.min(1, currentEnv.shadowOpacity * intensityFactor),
+                                    transition: "all 350ms cubic-bezier(0.16, 1, 0.3, 1)"
+                                  }}
+                                />
+                              </>
+                            );
+                          })()}
+                        </div>
 
-                    {/* Prev Navigation Button */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const currIdx = currentScene.variants.findIndex((v) => v.id === activeLightboxVariant.id);
-                        const prevIdx = (currIdx - 1 + currentScene.variants.length) % currentScene.variants.length;
-                        const prev = currentScene.variants[prevIdx];
-                        if (prev) setActiveLightboxVariant(prev);
-                      }}
-                      className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-dark/80 hover:bg-dark text-white border border-white/20 flex items-center justify-center transition-all shadow-xl hover:scale-105 active:scale-95 z-20"
-                      aria-label="Previous shade variation"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
+                        {/* Prev Navigation Button */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const currIdx = currentScene.variants.findIndex((v) => v.id === activeLightboxVariant.id);
+                            const prevIdx = (currIdx - 1 + currentScene.variants.length) % currentScene.variants.length;
+                            const prev = currentScene.variants[prevIdx];
+                            if (prev) setActiveLightboxVariant(prev);
+                          }}
+                          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-dark text-white border border-white/20 flex items-center justify-center transition-all shadow-xl hover:scale-105 active:scale-95 z-20"
+                          aria-label="Previous shade variation"
+                        >
+                          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </button>
 
-                    {/* Next Navigation Button */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const currIdx = currentScene.variants.findIndex((v) => v.id === activeLightboxVariant.id);
-                        const nextIdx = (currIdx + 1) % currentScene.variants.length;
-                        const next = currentScene.variants[nextIdx];
-                        if (next) setActiveLightboxVariant(next);
-                      }}
-                      className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-dark/80 hover:bg-dark text-white border border-white/20 flex items-center justify-center transition-all shadow-xl hover:scale-105 active:scale-95 z-20"
-                      aria-label="Next shade variation"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
+                        {/* Next Navigation Button */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const currIdx = currentScene.variants.findIndex((v) => v.id === activeLightboxVariant.id);
+                            const nextIdx = (currIdx + 1) % currentScene.variants.length;
+                            const next = currentScene.variants[nextIdx];
+                            if (next) setActiveLightboxVariant(next);
+                          }}
+                          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/70 hover:bg-dark text-white border border-white/20 flex items-center justify-center transition-all shadow-xl hover:scale-105 active:scale-95 z-20"
+                          aria-label="Next shade variation"
+                        >
+                          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </button>
 
-                    {/* Lighting Environment Context Badge */}
-                    {lightboxTab === "lighting" && (
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-accent/40 text-accent text-xs font-sans font-medium flex items-center gap-2 shadow-xl z-20">
-                        {isComparingOriginal ? (
-                          <>
-                            <Eye className="w-3.5 h-3.5 text-zinc-300" />
-                            <span className="text-zinc-200">Original Daylight Reference (Unfiltered)</span>
-                          </>
-                        ) : (
-                          <>
-                            {lightingCondition === "morning-sun" && <Sun className="w-3.5 h-3.5 text-amber-400" />}
-                            {lightingCondition === "bright-daylight" && <Sparkles className="w-3.5 h-3.5 text-teal-300" />}
-                            {lightingCondition === "overcast" && <Cloud className="w-3.5 h-3.5 text-blue-300" />}
-                            {lightingCondition === "warm-indoor" && <Lamp className="w-3.5 h-3.5 text-amber-300" />}
-                            {lightingCondition === "evening" && <Moon className="w-3.5 h-3.5 text-indigo-300" />}
-                            <span>
-                              {LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.contextLabel} ·{" "}
-                              <span className="text-zinc-300 font-mono text-[11px]">
-                                {LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.colorTemp}
-                              </span>
-                              {lightingIntensity !== 100 && (
-                                <span className="text-amber-300 font-mono text-[10px] ml-1">
-                                  ({lightingIntensity}%)
+                        {/* Lighting Environment Context Badge */}
+                        {lightboxTab === "lighting" && (
+                          <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 px-2.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-black/85 backdrop-blur-md border border-accent/40 text-accent text-[10px] sm:text-xs font-sans font-medium flex items-center gap-1.5 sm:gap-2 shadow-xl z-20 whitespace-nowrap">
+                            {isComparingOriginal ? (
+                              <>
+                                <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-300" />
+                                <span className="text-zinc-200">Original Daylight (Unfiltered)</span>
+                              </>
+                            ) : (
+                              <>
+                                {lightingCondition === "morning-sun" && <Sun className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />}
+                                {lightingCondition === "bright-daylight" && <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-teal-300" />}
+                                {lightingCondition === "overcast" && <Cloud className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-300" />}
+                                {lightingCondition === "warm-indoor" && <Lamp className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300" />}
+                                {lightingCondition === "evening" && <Moon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-300" />}
+                                <span>
+                                  {LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.name} ·{" "}
+                                  <span className="text-zinc-300 font-mono text-[9px] sm:text-[11px]">
+                                    {LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.colorTemp}
+                                  </span>
+                                  {lightingIntensity !== 100 && (
+                                    <span className="text-amber-300 font-mono text-[9px] sm:text-[10px] ml-1">
+                                      ({lightingIntensity}%)
+                                    </span>
+                                  )}
                                 </span>
-                              )}
-                            </span>
-                          </>
+                              </>
+                            )}
+                          </div>
                         )}
+                      </div>
+                    ) : (
+                      /* MOTIFS & TEXTURES PREVIEW STAGE */
+                      <div className="w-full h-full p-2 sm:p-4 flex items-center justify-center relative">
+                        <div className="relative max-h-full max-w-full h-full w-full rounded-lg sm:rounded-xl overflow-hidden border border-border-teal/40 bg-black flex items-center justify-center">
+                          <img
+                            src={selectedLightboxTexture.url}
+                            alt={selectedLightboxTexture.name}
+                            className="max-h-full max-w-full object-contain"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-2 sm:p-4">
+                            <span className="text-[9px] sm:text-[10px] font-mono text-accent uppercase tracking-wider">
+                              {selectedLightboxTexture.category}
+                            </span>
+                            <h4 className="text-xs sm:text-base font-serif text-white font-medium">
+                              {selectedLightboxTexture.name}
+                            </h4>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
-                ) : (
-                  /* MOTIFS & TEXTURES STAGE */
-                  <div className="w-full h-full p-4 sm:p-6 flex flex-col justify-between overflow-y-auto">
-                    <div className="relative w-full h-[75%] rounded-2xl overflow-hidden border border-border-teal/40 bg-black flex items-center justify-center">
-                      <img
-                        src={selectedLightboxTexture.url}
-                        alt={selectedLightboxTexture.name}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4">
-                        <span className="text-[10px] font-mono text-accent uppercase tracking-wider">
-                          {selectedLightboxTexture.category}
-                        </span>
-                        <h4 className="text-base font-serif text-white font-medium">
-                          {selectedLightboxTexture.name}
-                        </h4>
-                        <p className="text-xs text-zinc-300 mt-1 max-w-xl">
-                          {selectedLightboxTexture.description}
-                        </p>
+
+                  {/* Controls & Options Body (Scrollable on Mobile, Sits above/below on desktop) */}
+                  <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-2.5 sm:p-4 md:p-6 space-y-3 sm:order-1 bg-[#0b1114]">
+                    {/* View Mode Tabs: [ Applied Room ] [ Lighting Conditions ] [ Motifs & Finishes ] */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 p-1 rounded-xl bg-dark-surface/90 border border-border-teal/40 w-full sm:w-auto overflow-x-auto no-scrollbar">
+                        <button
+                          type="button"
+                          onClick={() => setLightboxTab("room")}
+                          className={`text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all duration-200 flex-1 sm:flex-none justify-center whitespace-nowrap ${
+                            lightboxTab === "room"
+                              ? "bg-accent text-dark shadow-sm"
+                              : "text-zinc-300 hover:text-accent hover:bg-teal-900/40"
+                          }`}
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Applied Room</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setLightboxTab("lighting")}
+                          className={`text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all duration-200 flex-1 sm:flex-none justify-center whitespace-nowrap ${
+                            lightboxTab === "lighting"
+                              ? "bg-accent text-dark shadow-sm"
+                              : "text-zinc-300 hover:text-accent hover:bg-teal-900/40"
+                          }`}
+                        >
+                          <Sun className="w-3.5 h-3.5" />
+                          <span>Lighting Conditions</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setLightboxTab("motifs")}
+                          className={`text-xs px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1.5 transition-all duration-200 flex-1 sm:flex-none justify-center whitespace-nowrap ${
+                            lightboxTab === "motifs"
+                              ? "bg-accent text-dark shadow-sm"
+                              : "text-zinc-300 hover:text-accent hover:bg-teal-900/40"
+                          }`}
+                        >
+                          <Layers className="w-3.5 h-3.5" />
+                          <span>Motifs & Finishes</span>
+                        </button>
                       </div>
+
+                      {/* Active Context Label (When in Lighting Mode) */}
+                      {lightboxTab === "lighting" && (
+                        <div className="hidden sm:flex items-center gap-3 text-xs font-sans">
+                          <div className="flex items-center gap-1.5 text-accent font-medium">
+                            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                            <span>{LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.contextLabel}</span>
+                          </div>
+                          <span className="text-zinc-500 hidden md:inline">·</span>
+                          <span className="text-[11px] font-mono text-zinc-300 bg-white/5 px-2 py-0.5 rounded-full border border-white/10 hidden md:inline">
+                            {LIGHTING_ENVIRONMENTS.find((e) => e.id === lightingCondition)?.colorTemp}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
-                    <div className="pt-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-white flex items-center gap-1.5">
-                          <Layers className="w-3.5 h-3.5 text-accent" /> Complementary Textures & Wallpapers
+                    {/* Tab 1: LIGHTING CONTROLS */}
+                    {lightboxTab === "lighting" && (
+                      <div className="p-2.5 sm:p-3.5 rounded-2xl bg-[#090f11] border border-border-teal/40 space-y-2.5">
+                        <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-5 gap-1.5 sm:gap-2 w-full">
+                          {LIGHTING_ENVIRONMENTS.map((env, index) => {
+                            const isSelected = lightingCondition === env.id;
+                            return (
+                              <button
+                                key={env.id}
+                                type="button"
+                                onClick={() => setLightingCondition(env.id)}
+                                className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all flex items-center sm:items-start gap-2 sm:gap-2.5 w-full ${
+                                  index === 4 ? "col-span-2 xs:col-span-1 sm:col-span-1" : ""
+                                } ${
+                                  isSelected
+                                    ? "bg-accent/15 border-accent text-white shadow-md shadow-accent/10 ring-1 ring-accent/40"
+                                    : "bg-dark/80 border-border-teal/40 text-zinc-400 hover:text-white hover:border-accent/40 hover:bg-dark"
+                                }`}
+                              >
+                                <div
+                                  className={`p-1.5 rounded-lg flex-shrink-0 transition-colors ${
+                                    isSelected ? "bg-accent text-dark" : "bg-white/5 text-zinc-300"
+                                  }`}
+                                >
+                                  {env.icon === "sun" && <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                                  {env.icon === "sun-bright" && <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                                  {env.icon === "cloud" && <Cloud className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                                  {env.icon === "lamp" && <Lamp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                                  {env.icon === "moon" && <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                                </div>
+                                <div className="flex flex-col min-w-0 flex-1">
+                                  <div className="flex items-center justify-between gap-1">
+                                    <span
+                                      className={`text-xs font-semibold leading-tight truncate ${
+                                        isSelected ? "text-accent" : "text-white"
+                                      }`}
+                                    >
+                                      {env.name}
+                                    </span>
+                                    {isSelected && (
+                                      <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0 animate-pulse" />
+                                    )}
+                                  </div>
+                                  <span className="text-[9px] sm:text-[10px] text-zinc-400 line-clamp-1 sm:line-clamp-2 leading-snug mt-0.5">
+                                    {env.shortDesc}
+                                  </span>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {/* Secondary Micro-Tuning Bar: Intensity Slider & Hold to Compare */}
+                        <div className="flex items-center justify-between gap-2 sm:gap-3 pt-2 border-t border-white/5 flex-wrap">
+                          <div className="flex items-center gap-2 text-xs flex-wrap">
+                            <span className="text-[11px] text-zinc-400 flex items-center gap-1">
+                              <Sun className="w-3 h-3 text-accent" />
+                              <span className="font-medium hidden xs:inline">Intensity:</span>
+                            </span>
+                            <div className="flex items-center gap-1">
+                              {[
+                                { label: "Subtle", val: 70 },
+                                { label: "Balanced", val: 100 },
+                                { label: "Vivid", val: 130 }
+                              ].map((preset) => (
+                                <button
+                                  key={preset.val}
+                                  type="button"
+                                  onClick={() => setLightingIntensity(preset.val)}
+                                  className={`px-2 py-0.5 rounded text-[10px] font-medium transition-all duration-200 ${
+                                    lightingIntensity === preset.val
+                                      ? "bg-accent text-dark font-bold shadow-sm"
+                                      : "bg-teal-950/60 border border-border-teal/30 text-zinc-400 hover:text-accent hover:bg-teal-900/50 hover:border-accent/40"
+                                  }`}
+                                >
+                                  {preset.label}
+                                </button>
+                              ))}
+                            </div>
+                            <input
+                              type="range"
+                              min="50"
+                              max="150"
+                              step="5"
+                              value={lightingIntensity}
+                              onChange={(e) => setLightingIntensity(Number(e.target.value))}
+                              className="w-16 sm:w-24 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-accent"
+                              aria-label="Lighting Intensity Slider"
+                            />
+                            <span className="text-[10px] font-mono text-zinc-400">{lightingIntensity}%</span>
+                          </div>
+
+                          {/* Hold to Compare Natural Daylight Reference */}
+                          <button
+                            type="button"
+                            onMouseDown={() => setIsComparingOriginal(true)}
+                            onMouseUp={() => setIsComparingOriginal(false)}
+                            onMouseLeave={() => setIsComparingOriginal(false)}
+                            onTouchStart={() => setIsComparingOriginal(true)}
+                            onTouchEnd={() => setIsComparingOriginal(false)}
+                            className={`px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 transition-all duration-200 select-none ${
+                              isComparingOriginal
+                                ? "bg-accent text-dark scale-95 shadow-md shadow-accent/20"
+                                : "bg-teal-950/70 text-zinc-300 hover:text-accent hover:bg-teal-900/60 border border-border-teal/50 hover:border-accent/50"
+                            }`}
+                            title="Press and hold to view the natural unedited room photo"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>{isComparingOriginal ? "Viewing Daylight" : "Hold to Compare (Daylight)"}</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tab 2: APPLIED ROOM SPECIFICATIONS */}
+                    {lightboxTab === "room" && (
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 p-3 rounded-2xl bg-dark-surface/60 border border-border-teal/40 text-xs">
+                        <div>
+                          <span className="text-zinc-500 text-[10px] uppercase font-mono block">Shade Code</span>
+                          <span className="font-mono font-bold text-white text-xs sm:text-sm">{activeLightboxVariant.shadeCode}</span>
+                        </div>
+                        <div>
+                          <span className="text-zinc-500 text-[10px] uppercase font-mono block">Tone Family</span>
+                          <span className="font-semibold text-white truncate block text-xs sm:text-sm">{activeLightboxVariant.family}</span>
+                        </div>
+                        <div>
+                          <span className="text-zinc-500 text-[10px] uppercase font-mono block">Calibrated Hex</span>
+                          <span className="font-mono text-accent text-xs sm:text-sm font-semibold">{activeLightboxVariant.hex.toUpperCase()}</span>
+                        </div>
+                        <div>
+                          <span className="text-zinc-500 text-[10px] uppercase font-mono block">Dealer Status</span>
+                          <span className="text-emerald-400 font-semibold text-[11px] flex items-center gap-1">
+                            <Check className="w-3 h-3" /> In-Store Tinting
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tab 3: MOTIFS & TEXTURES RAIL */}
+                    {lightboxTab === "motifs" && (
+                      <div className="p-3 rounded-2xl bg-dark-surface/60 border border-border-teal/40 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-white flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5 text-accent" /> Paired Birla Opus Textures
+                          </span>
+                          <span className="text-[10px] text-zinc-400">
+                            Tap to preview
+                          </span>
+                        </div>
+
+                        <ScrollableRow innerClassName="gap-2 pb-1" showArrows={true} scrollStep={220}>
+                          {BIRLA_OPUS_ACCENT_TEXTURES.map((tex) => {
+                            const isSelected = selectedLightboxTexture.id === tex.id;
+                            return (
+                              <button
+                                key={tex.id}
+                                type="button"
+                                onClick={() => setSelectedLightboxTexture(tex)}
+                                className={`flex-shrink-0 w-24 rounded-xl overflow-hidden border p-1 text-left transition-all ${
+                                  isSelected
+                                    ? "border-accent bg-accent/10 shadow-lg scale-105"
+                                    : "border-border-teal/50 bg-dark/60 hover:border-accent/40"
+                                }`}
+                              >
+                                <div className="aspect-square w-full rounded-lg overflow-hidden bg-black mb-1">
+                                  <img src={tex.url} alt={tex.name} className="w-full h-full object-cover" loading="lazy" />
+                                </div>
+                                <div className="text-[10px] font-semibold text-white truncate">{tex.name}</div>
+                                <div className="text-[8px] text-zinc-400 truncate">{tex.category}</div>
+                              </button>
+                            );
+                          })}
+                        </ScrollableRow>
+                      </div>
+                    )}
+
+                    {/* Switch Room Shades Thumbnail Strip */}
+                    <div className="pt-1">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
+                          Same Room Variations ({currentScene.variants.length} Shades):
                         </span>
-                        <span className="text-[10px] text-zinc-400">
-                          Paired with {activeLightboxVariant.label} ({activeLightboxVariant.shadeCode})
+                        <span className="text-[10px] text-accent font-mono">
+                          {activeLightboxVariant.shadeCode} Selected
                         </span>
                       </div>
 
-                      <ScrollableRow innerClassName="gap-2 pb-1" showArrows={true} scrollStep={220}>
-                        {BIRLA_OPUS_ACCENT_TEXTURES.map((tex) => {
-                          const isSelected = selectedLightboxTexture.id === tex.id;
+                      <div className="flex items-center gap-2 overflow-x-auto py-1 no-scrollbar scroll-smooth">
+                        {currentScene.variants.map((v) => {
+                          const isActive = activeLightboxVariant.id === v.id;
                           return (
                             <button
-                              key={tex.id}
+                              key={v.id}
                               type="button"
-                              onClick={() => setSelectedLightboxTexture(tex)}
-                              className={`flex-shrink-0 w-24 rounded-xl overflow-hidden border p-1 text-left transition-all ${
-                                isSelected
-                                  ? "border-accent bg-accent/10 shadow-lg scale-105"
-                                  : "border-border-teal/50 bg-dark/60 hover:border-accent/40"
+                              onClick={() => setActiveLightboxVariant(v)}
+                              className={`flex-shrink-0 relative rounded-lg overflow-hidden border-2 w-16 h-11 transition-all ${
+                                isActive ? "border-accent ring-1 ring-accent/40 scale-105 shadow-md" : "border-white/20 opacity-60 hover:opacity-100"
                               }`}
                             >
-                              <div className="aspect-square w-full rounded-lg overflow-hidden bg-black mb-1">
-                                <img src={tex.url} alt={tex.name} className="w-full h-full object-cover" loading="lazy" />
+                              <ResponsiveImage src={v.url} alt={v.label} loading="lazy" decoding="async" width={64} height={44} className="w-full h-full object-cover" />
+                              <div className="absolute inset-x-0 bottom-0 bg-black/80 text-[7px] text-white px-1 py-0.5 truncate text-center font-mono">
+                                {v.shadeCode}
                               </div>
-                              <div className="text-[10px] font-semibold text-white truncate">{tex.name}</div>
-                              <div className="text-[8px] text-zinc-400 truncate">{tex.category}</div>
                             </button>
                           );
                         })}
-                      </ScrollableRow>
+                      </div>
                     </div>
                   </div>
-                )}
-              </div>
 
-              {/* Bottom Scrubber & Mobile Action Bar */}
-              <div className="p-3 sm:p-4 bg-[#0e1619] border-t border-border-teal/40 flex flex-col sm:flex-row items-center justify-between gap-3 flex-shrink-0">
-                {/* Variant Thumbnail Scrubber */}
-                <div
-                  onWheel={(e) => {
-                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                      e.currentTarget.scrollLeft += e.deltaY;
-                    }
-                  }}
-                  className="w-full sm:max-w-xl flex items-center gap-2 overflow-x-auto py-1 no-scrollbar scroll-smooth"
-                >
-                  {currentScene.variants.map((v) => {
-                    const isActive = activeLightboxVariant.id === v.id;
-                    return (
-                      <button
-                        key={v.id}
-                        type="button"
-                        onClick={() => setActiveLightboxVariant(v)}
-                        className={`flex-shrink-0 relative rounded-lg overflow-hidden border-2 w-16 h-11 transition-all ${
-                          isActive ? "border-accent scale-105 shadow-md" : "border-white/20 opacity-60 hover:opacity-100"
-                        }`}
+                  {/* 4. Bottom Sticky Action Bar */}
+                  <div className="p-3 sm:p-4 bg-[#0e1619] border-t border-border-teal/40 flex items-center justify-between gap-2.5 flex-shrink-0 z-20 sm:order-3">
+                    <div className="flex items-center gap-2 w-full justify-between">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          onEnquire?.(
+                            `Shade Order: ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode})`,
+                            `I am enquiring about ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode}) from ${currentScene.name}.`
+                          );
+                        }}
+                        className="bg-accent text-dark font-bold text-xs hover:bg-accent/90 h-10 px-4 rounded-xl flex-1 flex items-center justify-center gap-1.5 shadow-md"
                       >
-                        <ResponsiveImage src={v.url} alt={v.label} loading="lazy" decoding="async" width={64} height={44} className="w-full h-full object-cover" />
-                        <div className="absolute inset-x-0 bottom-0 bg-black/80 text-[7px] text-white px-1 py-0.5 truncate text-center font-mono">
-                          {v.shadeCode}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>Order Sample Kit</span>
+                      </Button>
 
-                {/* Bottom Actions */}
-                <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-                  <Button
-                    size="sm"
-                    onClick={() => {
-                      onEnquire?.(
-                        `Shade Order: ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode})`,
-                        `I am enquiring about ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode}) from ${currentScene.name}.`
-                      );
-                    }}
-                    className="bg-accent text-dark font-bold text-xs hover:bg-accent/90 h-9 px-4 rounded-xl flex-1 sm:flex-none flex items-center justify-center gap-1.5"
-                  >
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                    <span>Order Sample Kit</span>
-                  </Button>
-
-                  <Button
-                    asChild
-                    size="sm"
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-9 px-4 rounded-xl flex-1 sm:flex-none"
-                  >
-                    <a
-                      href={`https://wa.me/918756659035?text=${encodeURIComponent(
-                        `Hello Jaymurti Traders, I am enquiring about Birla Opus shade ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode}) in ${currentScene.name}.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-1.5"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>WhatsApp Showroom</span>
-                    </a>
-                  </Button>
+                      <Button
+                        asChild
+                        size="sm"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 px-4 rounded-xl flex-1"
+                      >
+                        <a
+                          href={`https://wa.me/918756659035?text=${encodeURIComponent(
+                            `Hello Jaymurti Traders, I am enquiring about Birla Opus shade ${activeLightboxVariant.label} (${activeLightboxVariant.shadeCode}) in ${currentScene.name}.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5" />
+                          <span>WhatsApp Showroom</span>
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>,
-      document.body
-    )}
-  </section>
-);
+    </section>
+  );
 };
+

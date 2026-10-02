@@ -79,7 +79,7 @@ function registerApiNotFoundHandler(app: express.Express) {
 async function startServer() {
   const app = express();
   app.disable("x-powered-by");
-  app.set("trust proxy", ENV.isProduction ? 1 : false);
+  app.set("trust proxy", 1);
   const server = createServer(app);
   app.use(securityHeaders);
   app.use(express.json({ limit: "1mb" }));

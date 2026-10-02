@@ -143,7 +143,7 @@ export const ShadeDetailModal: React.FC<ShadeDetailModalProps> = ({
           className="bg-[#0b1114] border border-border-teal/60 sm:rounded-3xl rounded-t-3xl w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] flex flex-col shadow-2xl overflow-hidden relative"
         >
           {/* Top Sticky Header */}
-          <div className="flex items-center justify-between px-5 sm:px-7 py-4 border-b border-border-teal/40 bg-[#0e1619]/90 backdrop-blur-md z-20 flex-shrink-0">
+          <div className="flex items-center justify-between px-4 sm:px-7 py-3 sm:py-4 border-b border-border-teal/40 bg-[#0e1619]/90 backdrop-blur-md z-20 flex-shrink-0">
             <div className="flex items-center gap-3 min-w-0">
               {/* Authentic color swatch pill */}
               <div
@@ -162,7 +162,7 @@ export const ShadeDetailModal: React.FC<ShadeDetailModalProps> = ({
                 </div>
                 <h2
                   id="shade-modal-title"
-                  className="text-lg sm:text-xl font-serif text-white truncate font-medium"
+                  className="text-base sm:text-xl font-serif text-white truncate font-medium"
                 >
                   {shade.name}
                 </h2>
@@ -173,7 +173,7 @@ export const ShadeDetailModal: React.FC<ShadeDetailModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="w-9 h-9 rounded-full bg-teal-950/80 hover:bg-teal-900 text-teal-200 hover:text-accent border border-teal-700/50 hover:border-accent/50 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-teal-950/80 hover:bg-teal-900 text-teal-200 hover:text-accent border border-teal-700/50 hover:border-accent/50 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-accent"
                 aria-label="Close shade details"
               >
                 <X className="w-4 h-4" />
@@ -182,7 +182,7 @@ export const ShadeDetailModal: React.FC<ShadeDetailModalProps> = ({
           </div>
 
           {/* Scrollable Modal Content */}
-          <div className="flex-1 overflow-y-auto overflow-x-hidden p-5 sm:p-7 space-y-6 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden p-3.5 sm:p-7 space-y-4 sm:space-y-6 custom-scrollbar">
             {/* Primary Visual Stage Container */}
             <div className="space-y-3">
               <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden bg-black/60 border border-border-teal/50 shadow-inner">

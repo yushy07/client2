@@ -9,12 +9,6 @@ import { staticSpaLimiter, viteLimiter } from "./rateLimiter";
 import { SITE_ROUTES_SEO } from "../../shared/seoKeywordMap";
 
 export async function setupVite(app: Express, server: Server) {
-  const serverOptions = {
-    middlewareMode: true,
-    hmr: { server },
-    allowedHosts: ["localhost", "127.0.0.1", ".manuspre.computer", ".manus.computer", ".manus-asia.computer", ".manuscomputer.ai", ".manusvm.computer"],
-  };
-
   const resolvedViteConfig =
     typeof viteConfig === "function"
       ? await viteConfig({ command: "serve", mode: "development" })
@@ -23,7 +17,12 @@ export async function setupVite(app: Express, server: Server) {
   const vite = await createViteServer({
     ...resolvedViteConfig,
     configFile: false,
-    server: serverOptions,
+    server: {
+      middlewareMode: true,
+      hmr: { server },
+      allowedHosts: true,
+      ...(resolvedViteConfig?.server || {}),
+    } as any,
     appType: "custom",
   });
 
