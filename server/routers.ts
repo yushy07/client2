@@ -18,6 +18,7 @@ import { createServiceEnquiry, createShopReview, listPublishedShopReviews, listS
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, publicProcedure, router } from "./_core/trpc";
+import { ENV } from "./_core/env";
 
 const temporarilyUnavailable = () => new TRPCError({
   code: "INTERNAL_SERVER_ERROR",
@@ -52,6 +53,12 @@ export const appRouter = router({
   }),
   enquiries: router({
     create: publicProcedure.input(serviceEnquiryInput).mutation(async ({ input }) => {
+      if (ENV.isDemoMode) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "Service enquiries are disabled in standalone demo mode. Please contact Jaymurti Traders directly via WhatsApp or phone (+91 87566 59035).",
+        });
+      }
       try {
         const saved = await createServiceEnquiry(input);
         return { success: true, enquiryId: saved.id } as const;
@@ -74,6 +81,12 @@ export const appRouter = router({
       }
     }),
     create: publicProcedure.input(shopReviewInput).mutation(async ({ input }) => {
+      if (ENV.isDemoMode) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "Customer reviews are disabled in standalone demo mode. Please share your review directly on our Google Business Profile.",
+        });
+      }
       try {
         const saved = await createShopReview(input);
         return { success: true, reviewId: saved.id, published: false } as const;

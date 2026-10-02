@@ -4,9 +4,18 @@ This guide outlines the production deployment requirements for **Jaymurti Trader
 
 ---
 
-## 1. Production Startup Requirements
+## 1. Production Startup Modes
 
-The server enforces strict fail-fast validation in production (`NODE_ENV=production`). If any mandatory environment variable is missing or invalid, the process will log a diagnostic error and immediately terminate with code `1`.
+The application supports two deployment modes:
+
+### Mode A: Standalone Demo Mode (Recommended for Client Showcase)
+Set one environment variable in Render:
+- **`DEMO_MODE`**: `true`
+
+This mode starts the Node web server immediately without requiring external MySQL or OAuth infrastructure. All 17 public routes, 159 Birla Opus shades, 3D visualizers, room inspiration studio, surface textures, paint calculators, and static media work 100% locally. Inquiries and review submissions show a friendly notification that they are disabled in demo mode and prompt direct WhatsApp/phone contact.
+
+### Mode B: Full Production Mode (`DEMO_MODE=false`)
+Requires setting all production infrastructure variables (`DATABASE_URL`, `JWT_SECRET`, `OAUTH_SERVER_URL`, `VITE_APP_ID`). If any mandatory variable is missing, the server will intentionally fail fast and refuse to start.
 
 ---
 
@@ -14,7 +23,7 @@ The server enforces strict fail-fast validation in production (`NODE_ENV=product
 
 Configure these variables in the **Render Dashboard → Your Web Service → Environment**:
 
-### A. Mandatory Variables (Server will NOT start without these)
+### A. Mandatory Variables for Full Production (`DEMO_MODE=false`)
 
 | Variable | Description & Format | How to Obtain / Generate |
 |---|---|---|

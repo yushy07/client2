@@ -224,5 +224,20 @@ npm run start
 
 ---
 
+## ⚙️ Runtime & Deployment Modes
+
+The application supports two production operating modes via the `DEMO_MODE` environment variable:
+
+1. **Standalone Demo Mode (`DEMO_MODE=true`)**:
+   - Designed for standalone client preview deployments (e.g., Render, Railway) without requiring external MySQL or OAuth infrastructure.
+   - All 17 canonical public pages, 159 verified shade databases, 3D room/texture visualizers, paint calculators, and static assets operate at 100% fidelity.
+   - Database-dependent mutations (enquiry form saving and review submission) are safely disabled with clear feedback prompting direct WhatsApp/phone contact or Google Business reviews.
+
+2. **Full Production Mode (`DEMO_MODE=false`)**:
+   - Requires real MySQL connection string (`DATABASE_URL`), OAuth provider (`OAUTH_SERVER_URL`, `VITE_APP_ID`), and session cookie signing key (`JWT_SECRET`).
+   - Enforces strict startup validation to safeguard authenticated review moderation and database transactions.
+
+---
+
 ## 📄 License
 This project is proprietary software for **Jaymurti Traders** (Birla Opus Authorized Dealer, Baskhari, Ambedkar Nagar). All brand marks, product names, and shade formulas are copyright of their respective owners (Aditya Birla Group / Birla Opus).

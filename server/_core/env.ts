@@ -8,6 +8,12 @@ import { z } from "zod";
  */
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+  DEMO_MODE: z
+    .preprocess(
+      (val) => val === "true" || val === "1" || val === true,
+      z.boolean(),
+    )
+    .default(false),
 
   // Connection and credentials
   DATABASE_URL: z.string().trim().min(1).optional(),
@@ -51,6 +57,7 @@ if (!rawEnvResult.success) {
 
 const rawEnv: RawEnv = rawEnvResult.data;
 const isProduction = rawEnv.NODE_ENV === "production";
+const isDemoMode = rawEnv.DEMO_MODE;
 
 const REQUIRED_IN_PRODUCTION = {
   DATABASE_URL: "MySQL connection string used for enquiries, reviews, and admin accounts.",
@@ -64,37 +71,43 @@ const REQUIRED_IN_PRODUCTION = {
 const allowMissingEnv = process.env.ALLOW_MISSING_ENV === "1";
 
 if (isProduction) {
-  const missing = (Object.keys(REQUIRED_IN_PRODUCTION) as Array<keyof typeof REQUIRED_IN_PRODUCTION>)
-    .filter(key => !rawEnv[key]);
-
-  if (rawEnv.JWT_SECRET && rawEnv.JWT_SECRET.length < 32) {
-    console.error(
-      "[Config] JWT_SECRET is shorter than 32 characters; HS256 signing requires a 256-bit key.",
+  if (isDemoMode) {
+    console.info(
+      "[Config] Starting in DEMO_MODE: public showroom, visualizers, colour finder, and SEO routes are active. Database and OAuth integrations are running in standalone demo mode.",
     );
-    process.exit(1);
-  }
+  } else {
+    const missing = (Object.keys(REQUIRED_IN_PRODUCTION) as Array<keyof typeof REQUIRED_IN_PRODUCTION>)
+      .filter(key => !rawEnv[key]);
 
-  if (missing.length > 0) {
-    const details = missing
-      .map(key => `  - ${key}: ${REQUIRED_IN_PRODUCTION[key]}`)
-      .join("\n");
-
-    if (allowMissingEnv) {
-      console.warn(
-        `[Config] Running in production with missing configuration because ALLOW_MISSING_ENV=1:\n${details}`,
-      );
-    } else {
+    if (rawEnv.JWT_SECRET && rawEnv.JWT_SECRET.length < 32) {
       console.error(
-        `[Config] Refusing to start: missing required production configuration.\n${details}\n` +
-          "Set these variables, or set ALLOW_MISSING_ENV=1 to start knowingly degraded.",
+        "[Config] JWT_SECRET is shorter than 32 characters; HS256 signing requires a 256-bit key.",
       );
       process.exit(1);
+    }
+
+    if (missing.length > 0) {
+      const details = missing
+        .map(key => `  - ${key}: ${REQUIRED_IN_PRODUCTION[key]}`)
+        .join("\n");
+
+      if (allowMissingEnv) {
+        console.warn(
+          `[Config] Running in production with missing configuration because ALLOW_MISSING_ENV=1:\n${details}`,
+        );
+      } else {
+        console.error(
+          `[Config] Refusing to start: missing required production configuration.\n${details}\n` +
+            "Set these variables, or set DEMO_MODE=true for standalone demo deployment.",
+        );
+        process.exit(1);
+      }
     }
   }
 }
 
 // An unset OWNER_OPEN_ID and ADMIN_KEY makes the admin surface unreachable.
-if (!rawEnv.OWNER_OPEN_ID && !rawEnv.ADMIN_KEY) {
+if (!isDemoMode && !rawEnv.OWNER_OPEN_ID && !rawEnv.ADMIN_KEY) {
   console.warn(
     "[Config] Neither OWNER_OPEN_ID nor ADMIN_KEY is set. No account can be granted the admin role, " +
       "so /admin/reviews and every adminProcedure will be unreachable.",
@@ -111,6 +124,7 @@ export const ENV = {
   ownerOpenId: rawEnv.OWNER_OPEN_ID ?? "",
   adminKey: rawEnv.ADMIN_KEY ?? "",
   isProduction,
+  isDemoMode,
   forgeApiUrl: rawEnv.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: rawEnv.BUILT_IN_FORGE_API_KEY ?? "",
   port: rawEnv.PORT,

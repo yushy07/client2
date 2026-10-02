@@ -2,30 +2,28 @@ import { describe, it, expect, beforeAll } from "vitest";
 import { spawn } from "child_process";
 import path from "path";
 import http from "http";
-import fs from "fs";
 import { build as esbuild } from "esbuild";
 
 const DIST_INDEX = path.resolve(__dirname, "../dist/index.js");
 
 describe("Production Environment Startup Validation", () => {
   beforeAll(async () => {
-    if (!fs.existsSync(DIST_INDEX)) {
-      await esbuild({
-        entryPoints: [path.resolve(__dirname, "_core/index.ts")],
-        platform: "node",
-        packages: "external",
-        bundle: true,
-        format: "esm",
-        outfile: DIST_INDEX,
-      });
-    }
+    await esbuild({
+      entryPoints: [path.resolve(__dirname, "_core/index.ts")],
+      platform: "node",
+      packages: "external",
+      bundle: true,
+      format: "esm",
+      outfile: DIST_INDEX,
+    });
   });
 
-  it("fails fast with non-zero exit code when required production variables are missing", async () => {
+  it("fails fast with non-zero exit code when required production variables are missing and DEMO_MODE is false", async () => {
     const child = spawn(process.execPath, [DIST_INDEX], {
       env: {
         ...process.env,
         NODE_ENV: "production",
+        DEMO_MODE: "false",
         DATABASE_URL: "",
         JWT_SECRET: "",
         OAUTH_SERVER_URL: "",
@@ -50,11 +48,12 @@ describe("Production Environment Startup Validation", () => {
     expect(stderr).toContain("VITE_APP_ID");
   });
 
-  it("fails fast when JWT_SECRET is shorter than 32 characters in production", async () => {
+  it("fails fast when JWT_SECRET is shorter than 32 characters in strict production mode", async () => {
     const child = spawn(process.execPath, [DIST_INDEX], {
       env: {
         ...process.env,
         NODE_ENV: "production",
+        DEMO_MODE: "false",
         DATABASE_URL: "mysql://test:test@localhost:3306/test",
         JWT_SECRET: "too-short-secret-under-32-chars",
         OAUTH_SERVER_URL: "https://auth.example.com",
@@ -75,13 +74,75 @@ describe("Production Environment Startup Validation", () => {
     expect(stderr).toContain("JWT_SECRET is shorter than 32 characters");
   });
 
-  it("successfully boots and binds to PORT when all required variables are present", async () => {
-    // Pick a test port
+  it("successfully boots and binds to PORT in DEMO_MODE without database or OAuth configuration", async () => {
+    const testPort = 3098;
+    const child = spawn(process.execPath, [DIST_INDEX], {
+      env: {
+        ...process.env,
+        NODE_ENV: "production",
+        DEMO_MODE: "true",
+        PORT: String(testPort),
+        DATABASE_URL: "",
+        JWT_SECRET: "",
+        OAUTH_SERVER_URL: "",
+        VITE_APP_ID: "",
+      },
+    });
+
+    let stdout = "";
+    let stderr = "";
+
+    child.stdout.on("data", (data) => {
+      stdout += data.toString();
+    });
+    child.stderr.on("data", (data) => {
+      stderr += data.toString();
+    });
+
+    const started = await new Promise<boolean>((resolve) => {
+      const interval = setInterval(() => {
+        if (stdout.includes(`http://localhost:${testPort}/`)) {
+          clearInterval(interval);
+          resolve(true);
+        }
+      }, 50);
+
+      child.on("exit", () => {
+        clearInterval(interval);
+        resolve(false);
+      });
+
+      setTimeout(() => {
+        clearInterval(interval);
+        resolve(false);
+      }, 5000);
+    });
+
+    expect(started).toBe(true);
+    expect(stdout).toContain("[Config] Starting in DEMO_MODE");
+
+    // Verify /health endpoint responds
+    const healthStatus = await new Promise<number>((resolve, reject) => {
+      http
+        .get(`http://localhost:${testPort}/health`, (res) => {
+          resolve(res.statusCode ?? 0);
+        })
+        .on("error", reject);
+    });
+
+    expect(healthStatus).toBe(200);
+
+    // Clean up
+    child.kill("SIGTERM");
+  });
+
+  it("successfully boots and binds to PORT in strict production mode when all required variables are present", async () => {
     const testPort = 3099;
     const child = spawn(process.execPath, [DIST_INDEX], {
       env: {
         ...process.env,
         NODE_ENV: "production",
+        DEMO_MODE: "false",
         PORT: String(testPort),
         DATABASE_URL: "mysql://mock_user:mock_pass@127.0.0.1:3306/mock_db",
         JWT_SECRET: "a_very_secure_test_jwt_secret_with_more_than_32_characters!",
@@ -101,7 +162,6 @@ describe("Production Environment Startup Validation", () => {
       stderr += data.toString();
     });
 
-    // Wait for server to bind or error out
     const started = await new Promise<boolean>((resolve) => {
       const interval = setInterval(() => {
         if (stdout.includes(`http://localhost:${testPort}/`)) {
