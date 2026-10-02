@@ -1,11 +1,26 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import { spawn } from "child_process";
 import path from "path";
 import http from "http";
+import fs from "fs";
+import { build as esbuild } from "esbuild";
 
 const DIST_INDEX = path.resolve(__dirname, "../dist/index.js");
 
 describe("Production Environment Startup Validation", () => {
+  beforeAll(async () => {
+    if (!fs.existsSync(DIST_INDEX)) {
+      await esbuild({
+        entryPoints: [path.resolve(__dirname, "_core/index.ts")],
+        platform: "node",
+        packages: "external",
+        bundle: true,
+        format: "esm",
+        outfile: DIST_INDEX,
+      });
+    }
+  });
+
   it("fails fast with non-zero exit code when required production variables are missing", async () => {
     const child = spawn(process.execPath, [DIST_INDEX], {
       env: {

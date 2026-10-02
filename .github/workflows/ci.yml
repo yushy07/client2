@@ -30,8 +30,8 @@ jobs:
       - name: Run TypeScript typecheck
         run: pnpm check
 
-      - name: Run Vitest test suite
-        run: pnpm test
-
       - name: Run production build (Vite + Prerender + Server)
         run: pnpm build
+
+      - name: Run Vitest test suite
+        run: pnpm test
