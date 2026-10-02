@@ -4,6 +4,28 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  qs: '>=6.16.0'
+  path-to-regexp: '>=0.1.13'
+  body-parser: '>=1.20.6'
+  fast-xml-parser: '>=5.7.0'
+  tailwindcss>nanoid: 3.3.7
+  esbuild: '>=0.25.10'
+  tar: '>=7.5.21'
+  '@trpc/server': '>=11.18.0'
+  mdast-util-to-hast: '>=13.2.1'
+  dompurify: '>=3.4.13'
+  lodash-es: '>=4.18.0'
+  lodash: '>=4.18.0'
+  follow-redirects: '>=1.16.0'
+  axios: '>=1.20.0'
+  postcss: '>=8.5.26'
+  form-data: '>=4.0.6'
+  nanoid: '>=5.1.16'
+  vitest: '>=4.1.11'
+  sharp: '>=0.35.4'
+  ip-address: '>=10.7.1'
+
 pnpmfileChecksum: sha256-qqAXjP71Wikz8J3g8qK8bJ7bpBTTQaCjRA+Yt+LE/i0=
 
 importers:
@@ -32,11 +54,11 @@ importers:
         specifier: ^11.18.0
         version: 11.18.0(@tanstack/react-query@5.90.2(react@19.2.1))(@trpc/client@11.18.0(@trpc/server@11.18.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.18.0(typescript@5.9.3))(react@19.2.1)(typescript@5.9.3)
       '@trpc/server':
-        specifier: ^11.18.0
+        specifier: '>=11.18.0'
         version: 11.18.0(typescript@5.9.3)
       axios:
-        specifier: ^1.19.0
-        version: 1.19.0
+        specifier: '>=1.20.0'
+        version: 1.20.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -56,8 +78,8 @@ importers:
         specifier: ^4.21.2
         version: 4.21.2
       express-rate-limit:
-        specifier: ^8.6.2
-        version: 8.6.2(express@4.21.2)
+        specifier: ^8.7.0
+        version: 8.7.0(express@4.21.2)
       framer-motion:
         specifier: ^12.23.22
         version: 12.23.22(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -74,7 +96,7 @@ importers:
         specifier: ^3.23.1
         version: 3.24.4(@types/node@24.7.0)
       nanoid:
-        specifier: ^5.1.6
+        specifier: '>=5.1.16'
         version: 5.1.16
       next-themes:
         specifier: ^0.4.6
@@ -138,19 +160,19 @@ importers:
         specifier: ^0.31.4
         version: 0.31.5
       esbuild:
-        specifier: ^0.25.10
+        specifier: '>=0.25.10'
         version: 0.25.10
       pnpm:
         specifier: ^10.34.4
         version: 10.34.5
       postcss:
-        specifier: ^8.5.26
+        specifier: '>=8.5.26'
         version: 8.5.26
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
       sharp:
-        specifier: ^0.35.4
+        specifier: '>=0.35.4'
         version: 0.35.5(@types/node@24.7.0)
       tailwindcss:
         specifier: ^4.1.14
@@ -168,7 +190,7 @@ importers:
         specifier: ^8.2.1
         version: 8.2.1(@types/node@24.7.0)(esbuild@0.25.10)(jiti@2.6.1)(tsx@4.20.6)
       vitest:
-        specifier: ^4.1.11
+        specifier: '>=4.1.11'
         version: 4.1.11(@types/node@24.7.0)(vite@8.2.1(@types/node@24.7.0)(esbuild@0.25.10)(jiti@2.6.1)(tsx@4.20.6))
 
 packages:
@@ -284,11 +306,9 @@ packages:
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
-    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild-kit/esm-loader@2.6.5':
     resolution: {integrity: sha512-FxEMIkJKnodyA1OaCUoEvbYRkoZlLZ4d/eXFu9Fh8CbBBgP5EmZxrfTRyN0qpXZ4vOvqnE5YdRdcrmUUXuU+dA==}
-    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild/aix-ppc64@0.25.10':
     resolution: {integrity: sha512-0NFWnA+7l41irNuaSVlLfgNT12caWJVLzp5eAVhZ0z1qpxbockccEt3s+149rE64VUI3Ml2zt8Nv5JVc4QXTsw==}
@@ -1148,7 +1168,7 @@ packages:
     resolution: {integrity: sha512-wOqeg3Fvl25V1ZisQhUD3K8G60ZJDlSGJNSyeXrLH24xAo5w6GSR2Kzb1cSNY9Y+IQ2YZvYGZstBU+V/ulo/ow==}
     hasBin: true
     peerDependencies:
-      '@trpc/server': 11.18.0
+      '@trpc/server': '>=11.18.0'
       typescript: '>=5.7.2'
 
   '@trpc/react-query@11.18.0':
@@ -1156,7 +1176,7 @@ packages:
     peerDependencies:
       '@tanstack/react-query': ^5.80.3
       '@trpc/client': 11.18.0
-      '@trpc/server': 11.18.0
+      '@trpc/server': '>=11.18.0'
       react: '>=18.2.0'
       typescript: '>=5.7.2'
 
@@ -1296,14 +1316,14 @@ packages:
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
-      postcss: ^8.1.0
+      postcss: '>=8.5.26'
 
   aws-ssl-profiles@1.1.2:
     resolution: {integrity: sha512-NZKeq9AfyQvEeNlN0zSYAaWrmBffJh3IELMZfRpJVWgrpEbtEpnjvzqBPf+mxoI287JohRDoa+/nsfqqiZmF6g==}
     engines: {node: '>= 6.0.0'}
 
-  axios@1.19.0:
-    resolution: {integrity: sha512-ht/iuYZXEjFxLH/Hkezgd7m6JKlHHXEUSneaDz8uZe1Gj5QZtCnpyDsckvAiEnT89OEbCLmnte4R4sn7P0EKFw==}
+  axios@1.20.0:
+    resolution: {integrity: sha512-r8aOh8j9cGKpgQAqpzrUHnSIc6a59Y3Xf/cv8sy1DrHCkZHzQGEuoq1tARk6qSyDdtQGSDgpb9kFlruzPvrgwg==}
 
   baseline-browser-mapping@2.11.26:
     resolution: {integrity: sha512-GLQdD3y6UF8iVuMJl5fHgE4jdn/ua7n+toKfLgNlg3BqQtOZjpy68T8Tup8/wGWZCDlm7KMg7tPb4MPn7oN0TQ==}
@@ -1582,7 +1602,7 @@ packages:
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
     peerDependencies:
-      esbuild: '>=0.12 <1'
+      esbuild: '>=0.25.10'
 
   esbuild@0.25.10:
     resolution: {integrity: sha512-9RiGKvCwaqxO2owP61uQ4BgNborAQskMR6QusfWzQqv7AZOg5oGehdY2pRJMTKuwxd1IDBP4rSbI5lHzU7SMsQ==}
@@ -1607,8 +1627,8 @@ packages:
     resolution: {integrity: sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA==}
     engines: {node: '>=12.0.0'}
 
-  express-rate-limit@8.6.2:
-    resolution: {integrity: sha512-YH4ru+eOJxQABscKFfRCy9R7x9QFGdezclVMwwgFFndzS2Xnm0uo6B0ABZsLhcpeptGv2qvuJVWlQr9gQZoC3A==}
+  express-rate-limit@8.7.0:
+    resolution: {integrity: sha512-hOwV7WOxXfjRpAM1DSJWZDXx3GhplwD8IfwuwvogD8i1Qnkgosw/H45s4ZnFAUHDAhPjlY9hLBvJhKmGMyY26g==}
     engines: {node: '>= 16'}
     peerDependencies:
       express: '>= 4.11'
@@ -1743,8 +1763,8 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  ip-address@10.5.0:
-    resolution: {integrity: sha512-R5SnVLJmgYYvf2F2ZgwSBnelz5G4q5AxIC277GDfUaNbrZKNANcBC7RHqYYePlszf4kBolVkJauG0ZjHHFh55g==}
+  ip-address@10.7.3:
+    resolution: {integrity: sha512-A1kdq/tSb5QjvKvAMgIoEvDBIgL7qaqVP/jkvSwYYRZ9iEzvPpopxp2wQfu3SuZRHtpHNxMn8Fs0bS+gf5Xmwg==}
     engines: {node: '>= 12'}
 
   ipaddr.js@1.9.1:
@@ -2004,11 +2024,6 @@ packages:
   named-placeholders@1.1.6:
     resolution: {integrity: sha512-Tz09sEL2EEuv5fFowm419c1+a/jSMiBjI9gHxVLrVdbUkkNUUfjsVYs9pVZu5oCon/kmRh9TfLEObFtkVxmY0w==}
     engines: {node: '>=8.0.0'}
-
-  nanoid@3.3.19:
-    resolution: {integrity: sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
 
   nanoid@5.1.16:
     resolution: {integrity: sha512-kVrnsrJqMR8+oLJnGEmSWw9BivK5mt7H3FZatVRjrc5wGqFYuBxX1yG7+A7Gi5AefkX6t/oCkizcQgpu0cY1dQ==}
@@ -2380,7 +2395,7 @@ packages:
     peerDependencies:
       '@types/node': ^20.19.0 || >=22.12.0
       '@vitejs/devtools': ^0.4.0
-      esbuild: ^0.27.0 || ^0.28.0
+      esbuild: '>=0.25.10'
       jiti: '>=1.21.0'
       less: ^4.0.0
       sass: ^1.70.0
@@ -3444,7 +3459,7 @@ snapshots:
 
   aws-ssl-profiles@1.1.2: {}
 
-  axios@1.19.0:
+  axios@1.20.0:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.6
@@ -3663,11 +3678,11 @@ snapshots:
 
   expect-type@1.4.0: {}
 
-  express-rate-limit@8.6.2(express@4.21.2):
+  express-rate-limit@8.7.0(express@4.21.2):
     dependencies:
       debug: 4.4.3
       express: 4.21.2
-      ip-address: 10.5.0
+      ip-address: 10.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -3832,7 +3847,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  ip-address@10.5.0: {}
+  ip-address@10.7.3: {}
 
   ipaddr.js@1.9.1: {}
 
@@ -4015,8 +4030,6 @@ snapshots:
     dependencies:
       lru.min: 1.1.5
 
-  nanoid@3.3.19: {}
-
   nanoid@5.1.16: {}
 
   negotiator@0.6.3: {}
@@ -4061,7 +4074,7 @@ snapshots:
 
   postcss@8.5.26:
     dependencies:
-      nanoid: 3.3.19
+      nanoid: 5.1.16
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
