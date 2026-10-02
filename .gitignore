@@ -12,7 +12,29 @@ build/
 # Environment variables (credentials & secrets)
 .env
 .env.*
+.env*.local
+*.env
 !.env.example
+!.env.template
+
+# Credentials, tokens, private keys and certificates
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.pkcs12
+*.pub
+id_rsa*
+id_ed25519*
+id_dsa*
+*.secret
+*.token
+*credentials*.json
+service-account*.json
+google-credentials*.json
+auth-token*.json
 
 # IDE and editor files
 .vscode/
@@ -84,6 +106,8 @@ vitest-report/
 .webdev/
 .project-config.json
 .freebuff/
+.omnirush/
+.jules/
 .manus/
 .manus-logs/
 client/public/__manus__/
