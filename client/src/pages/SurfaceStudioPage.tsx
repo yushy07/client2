@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
 import { getRouteSEO } from "@shared/seoKeywordMap";
@@ -13,13 +13,64 @@ export const SurfaceStudioPage: React.FC = () => {
   const seo = getRouteSEO("/surface-studio");
   const { addToCart, setIsCartOpen } = useCart();
   const [activeTab, setActiveTab] = useState<"textures" | "wallpapers">("textures");
+  const [selectedTexture, setSelectedTexture] = useState<any>(null);
+  const [highlightedTextureId, setHighlightedTextureId] = useState<string | null>(null);
 
   const driftWallItems = useMemo(() => {
-    return EXTENDED_TEXTURE_COLLECTIONS.slice(0, 16).map((texture) => ({
+    return EXTENDED_TEXTURE_COLLECTIONS.map((texture) => ({
+      id: texture.id,
       image: texture.url,
       title: texture.name,
+      category: texture.category,
+      subtitle: texture.materialSensory,
+      raw: texture,
     }));
   }, []);
+
+  const [screenWidth, setScreenWidth] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
+
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const wallConfig = useMemo(() => {
+    if (screenWidth < 640) {
+      return { columns: 3, tileWidth: 145, tileHeight: 102, gap: 10, scale: 1.36, depth: 75 };
+    }
+    if (screenWidth < 1024) {
+      return { columns: 4, tileWidth: 210, tileHeight: 142, gap: 14, scale: 1.38, depth: 90 };
+    }
+    if (screenWidth < 1440) {
+      return { columns: 5, tileWidth: 255, tileHeight: 168, gap: 16, scale: 1.42, depth: 100 };
+    }
+    return { columns: 6, tileWidth: 275, tileHeight: 180, gap: 18, scale: 1.45, depth: 110 };
+  }, [screenWidth]);
+
+  const handleSelectWallItem = (item: any) => {
+    const matched = item.raw || EXTENDED_TEXTURE_COLLECTIONS.find((t) => t.id === item.id || t.name === item.title);
+    if (matched) {
+      setActiveTab("textures");
+      setSelectedTexture(matched);
+      setHighlightedTextureId(matched.id);
+
+      // Smooth scroll down to the respective texture card
+      setTimeout(() => {
+        const el = document.getElementById(`texture-card-${matched.id}`) || document.getElementById("extended-textures");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 80);
+
+      // Auto-clear highlight ring after 3.5 seconds
+      setTimeout(() => {
+        setHighlightedTextureId((current) => (current === matched.id ? null : current));
+      }, 3500);
+    }
+  };
 
   return (
     <SEOPageLayout seo={seo}>
@@ -73,27 +124,42 @@ export const SurfaceStudioPage: React.FC = () => {
       {activeTab === "textures" && (
         <div className="space-y-10 visual-texture-refinement">
           {/* Interactive Drift Wall Showcase */}
-          <div className="rounded-3xl overflow-hidden border border-border-teal/40 bg-dark-surface/50 p-4 sm:p-6">
-            <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="rounded-3xl overflow-hidden border border-border-teal/40 bg-dark-surface/50 p-4 sm:p-6 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Interactive Perspective Wall</h3>
-                <p className="text-xs text-on-dark-muted">Hover and drift across real swatch captures</p>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Interactive Perspective Wall</h3>
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                  </span>
+                </div>
+                <p className="text-xs text-on-dark-muted mt-0.5">
+                  Continuous upward infinite loop. Hover to tilt in 3D &middot; click any swatch to view &amp; inspect specifications.
+                </p>
               </div>
-              <span className="text-[11px] text-teal-300/80 bg-teal-950/60 px-2.5 py-1 rounded-full border border-teal-500/20 self-start sm:self-auto">
+              <span className="text-[11px] text-teal-300/90 bg-teal-950/70 px-3 py-1 rounded-full border border-teal-500/30 self-start sm:self-auto flex items-center gap-1.5 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
                 3D Dynamic Tilt Active
               </span>
             </div>
-            <div className="h-[320px] sm:h-[460px] rounded-2xl overflow-hidden border border-border-teal/30">
+            <div className="h-[360px] sm:h-[500px] lg:h-[560px] rounded-2xl overflow-hidden border border-border-teal/30 bg-[#061418]">
               <DriftWall
                 items={driftWallItems}
-                columns={typeof window !== 'undefined' && window.innerWidth < 640 ? 3 : 4}
-                tileWidth={typeof window !== 'undefined' && window.innerWidth < 640 ? 150 : 240}
-                tileHeight={typeof window !== 'undefined' && window.innerWidth < 640 ? 105 : 160}
-                speed={0.5}
-                tilt={12}
-                turn={-6}
-                depth={90}
-                gap={12}
+                columns={wallConfig.columns}
+                tileWidth={wallConfig.tileWidth}
+                tileHeight={wallConfig.tileHeight}
+                gap={wallConfig.gap}
+                scale={wallConfig.scale}
+                depth={wallConfig.depth}
+                speed={26}
+                direction="up"
+                variance={0.25}
+                tilt={13}
+                turn={-7}
+                parallax={0.65}
+                lift={70}
+                onSelect={handleSelectWallItem}
               />
             </div>
           </div>
@@ -101,6 +167,9 @@ export const SurfaceStudioPage: React.FC = () => {
           {/* Extended Textures Showcase */}
           <div className="rounded-3xl overflow-hidden border border-border-teal/40">
             <ExtendedTextures
+              externalActiveTexture={selectedTexture}
+              highlightedTextureId={highlightedTextureId}
+              onSelectTexture={(t) => setSelectedTexture(t)}
               onEnquire={(title, details) => {
                 addToCart({
                   id: `ext-tex-${Date.now()}`,

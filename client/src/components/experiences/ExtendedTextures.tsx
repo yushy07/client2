@@ -10,6 +10,9 @@ import { ScrollableRow } from "@/components/ui/ScrollableRow";
 interface ExtendedTexturesProps {
   onEnquire?: (title: string, details: string) => void;
   onExploreSurfaceStudio?: () => void;
+  externalActiveTexture?: ExtendedTextureItem | null;
+  onSelectTexture?: (texture: ExtendedTextureItem | null) => void;
+  highlightedTextureId?: string | null;
 }
 
 const CATEGORIES: Array<TextureCategory | "All Worlds"> = [
@@ -23,9 +26,29 @@ const CATEGORIES: Array<TextureCategory | "All Worlds"> = [
   "Architectural Plaster",
 ];
 
-export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, onExploreSurfaceStudio }) => {
+export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({
+  onEnquire,
+  onExploreSurfaceStudio,
+  externalActiveTexture,
+  onSelectTexture,
+  highlightedTextureId,
+}) => {
   const [activeCategory, setActiveCategory] = useState<string>("All Worlds");
   const [activeTexture, setActiveTexture] = useState<ExtendedTextureItem | null>(null);
+
+  useEffect(() => {
+    if (externalActiveTexture) {
+      setActiveTexture(externalActiveTexture);
+      if (activeCategory !== "All Worlds" && externalActiveTexture.category !== activeCategory) {
+        setActiveCategory("All Worlds");
+      }
+    }
+  }, [externalActiveTexture]);
+
+  const handleCloseModal = () => {
+    setActiveTexture(null);
+    if (onSelectTexture) onSelectTexture(null);
+  };
 
   const filteredTextures = useMemo(() => {
     if (activeCategory === "All Worlds") return EXTENDED_TEXTURE_COLLECTIONS;
@@ -104,61 +127,72 @@ export const ExtendedTextures: React.FC<ExtendedTexturesProps> = ({ onEnquire, o
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {filteredTextures.map((tex) => (
-            <article
-              key={tex.id}
-              onClick={() => setActiveTexture(tex)}
-              className="group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border border-border-teal hover:border-accent transition-all duration-300 flex flex-col justify-between shadow-lg hover:shadow-2xl"
-            >
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
-                <TiltedCard
-                  imageSrc={tex.url}
-                  altText={tex.name}
-                  captionText={tex.materialSensory}
-                  containerHeight="100%"
-                  containerWidth="100%"
-                  imageHeight="100%"
-                  imageWidth="100%"
-                  scaleOnHover={1.05}
-                  rotateAmplitude={10}
-                  showTooltip={false}
-                  showMobileWarning={false}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 pointer-events-none z-10">
-                  <span className="inline-flex items-center gap-1.5 text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
-                    <Maximize2 className="w-3.5 h-3.5" /> Inspect Texture Grain
-                  </span>
+          {filteredTextures.map((tex) => {
+            const isHighlighted = highlightedTextureId === tex.id;
+            return (
+              <article
+                key={tex.id}
+                id={`texture-card-${tex.id}`}
+                onClick={() => {
+                  setActiveTexture(tex);
+                  if (onSelectTexture) onSelectTexture(tex);
+                }}
+                className={`group cursor-pointer rounded-2xl overflow-hidden bg-dark-surface border transition-all duration-500 flex flex-col justify-between shadow-lg hover:shadow-2xl ${
+                  isHighlighted
+                    ? "ring-2 ring-accent border-accent shadow-[0_0_35px_rgba(217,119,6,0.45)] scale-[1.02] bg-dark-surface/90"
+                    : "border-border-teal hover:border-accent"
+                }`}
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-dark-surface">
+                  <TiltedCard
+                    imageSrc={tex.url}
+                    altText={tex.name}
+                    captionText={tex.materialSensory}
+                    containerHeight="100%"
+                    containerWidth="100%"
+                    imageHeight="100%"
+                    imageWidth="100%"
+                    scaleOnHover={1.05}
+                    rotateAmplitude={10}
+                    showTooltip={false}
+                    showMobileWarning={false}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 pointer-events-none z-10">
+                    <span className="inline-flex items-center gap-1.5 text-xs text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
+                      <Maximize2 className="w-3.5 h-3.5" /> Inspect Texture Grain
+                    </span>
+                  </div>
+                  <div className="absolute top-3 left-3 bg-dark/85 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider text-accent font-semibold border border-border-teal z-10 pointer-events-none">
+                    <DecryptedText text={tex.category} animateOn="hover" speed={30} />
+                  </div>
                 </div>
-                <div className="absolute top-3 left-3 bg-dark/85 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider text-accent font-semibold border border-border-teal z-10 pointer-events-none">
-                  <DecryptedText text={tex.category} animateOn="hover" speed={30} />
-                </div>
-              </div>
 
-              <div className="p-5 flex flex-col justify-between flex-grow">
-                <div>
-                  <h3 className="text-xl font-serif text-on-dark group-hover:text-accent transition-colors">
-                    {tex.name}
-                  </h3>
-                  <p className="mt-2 text-xs text-on-dark-muted line-clamp-2 leading-relaxed">
-                    {tex.description}
-                  </p>
-                </div>
+                <div className="p-5 flex flex-col justify-between flex-grow">
+                  <div>
+                    <h3 className="text-xl font-serif text-on-dark group-hover:text-accent transition-colors">
+                      {tex.name}
+                    </h3>
+                    <p className="mt-2 text-xs text-on-dark-muted line-clamp-2 leading-relaxed">
+                      {tex.description}
+                    </p>
+                  </div>
 
-                <div className="mt-4 pt-3 border-t border-border-teal flex items-center justify-between text-xs">
-                  <span className="text-on-dark-muted italic">
-                    {tex.materialSensory}
-                  </span>
-                  <span className="text-accent font-medium group-hover:translate-x-1 transition-transform">
-                    View &rarr;
-                  </span>
+                  <div className="mt-4 pt-3 border-t border-border-teal flex items-center justify-between text-xs">
+                    <span className="text-on-dark-muted italic">
+                      {tex.materialSensory}
+                    </span>
+                    <span className="text-accent font-medium group-hover:translate-x-1 transition-transform">
+                      View &rarr;
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
 
         {/* Luxury Texture Lightbox Modal */}
-        <Dialog open={!!activeTexture} onOpenChange={(open) => !open && setActiveTexture(null)}>
+        <Dialog open={!!activeTexture} onOpenChange={(open) => !open && handleCloseModal()}>
           <DialogContent
             showCloseButton={false}
             className="w-[95vw] sm:max-w-3xl md:max-w-4xl lg:max-w-5xl max-h-[88vh] bg-[#07191d] border border-border-teal/80 text-on-dark p-0 overflow-hidden rounded-2xl md:rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] flex flex-col md:flex-row"

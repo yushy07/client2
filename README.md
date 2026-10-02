@@ -112,11 +112,11 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 | Layer | Technologies |
 |---|---|
-| **Frontend UI** | React 19, TypeScript 5.9, Vite 6, Tailwind CSS 4, Framer Motion, Lucide React, Radix UI |
-| **Routing & State** | Wouter, TanStack React Query v5 |
-| **Backend & API** | Node.js (ESM), Express, tRPC v11 (End-to-end type safety) |
+| **Frontend UI** | React 19, TypeScript 5.9, Vite 8, Tailwind CSS v4, Framer Motion, GSAP, Lucide React, Radix UI |
+| **Routing & State** | Wouter v3.7, TanStack React Query v5 |
+| **Backend & API** | Node.js 22 (ESM), Express 4, tRPC v11 (End-to-end type safety) |
 | **Database & ORM** | MySQL, Drizzle ORM, Drizzle Kit |
-| **Build & Tooling** | esbuild, pnpm, Vitest |
+| **Build & Tooling** | esbuild, pnpm v10, Vitest v4, Sharp (SSR Pre-rendering & Budget Checks) |
 | **SEO & Crawl** | Schema.org JSON-LD, W3C XML Sitemaps, Robots.txt, LLMs.txt |
 
 ---
@@ -137,14 +137,15 @@ client2/
 │       ├── components/
 │       │   ├── experiences/              # Showroom & visualizer components
 │       │   │   ├── ColourCapsule.tsx     # Curated 50-shade mood palette
-│       │   │   ├── ExtendedTextures.tsx  # 17 sensory relief studies
+│       │   │   ├── ExtendedTextures.tsx  # 17 sensory relief studies & modal showcase
 │       │   │   ├── InsideJaymurti.tsx    # Photographic showroom gallery
 │       │   │   ├── OwnerAndTeam.tsx      # Leadership video & specialist team
 │       │   │   ├── ProductWorlds.tsx     # 8 Birla Opus product categories
 │       │   │   ├── RoomLibrary.tsx       # 102-space room inspiration library
-│       │   │   ├── RoomShadeStudio.tsx   # Live room shade try-on studio
+│       │   │   ├── RoomShadeStudio.tsx   # Live room shade try-on studio with lighting modes
 │       │   │   ├── StepInside.tsx        # 2-column showroom video & store highlights
 │       │   │   └── WallpaperGallery.tsx  # 13 designer wallpaper collections
+│       │   ├── reactbits/                # Micro-interaction & dynamic 3D components (DriftWall, TiltedCard, SplitText)
 │       │   ├── seo/
 │       │   │   └── SEOPageLayout.tsx     # Editorial page shell with Breadcrumb & FAQ Schema
 │       │   └── ui/                       # Accessible Radix UI primitives
@@ -159,7 +160,7 @@ client2/
 │       │   ├── CategoryPage.tsx          # Dynamic product category template
 │       │   ├── ColourFinderPage.tsx      # 159-shade interactive database
 │       │   ├── RoomInspirationPage.tsx   # Room shade lookbook & lighting studio
-│       │   ├── SurfaceStudioPage.tsx     # Wall textures & wallpaper studio
+│       │   ├── SurfaceStudioPage.tsx     # Wall textures & 3D perspective wall studio
 │       │   ├── AboutPage.tsx             # Showroom history & trust pillars
 │       │   ├── ContactPage.tsx           # Contact details, map directions & review flow
 │       │   ├── NotFound.tsx              # Luxury dark 404 handler
@@ -169,7 +170,9 @@ client2/
 │       └── index.css                     # Design tokens, typography & animations
 ├── server/                               # Backend Express API & tRPC service
 │   ├── _core/
+│   │   ├── env.ts                        # Zod environment schema & fail-fast validator
 │   │   ├── index.ts                      # Server bootstrap & HTTP security headers
+│   │   ├── rateLimiter.ts                # Route & asset rate limiting
 │   │   ├── storageProxy.ts               # Local media & storage streaming proxy
 │   │   └── trpc.ts                       # tRPC procedure initialization
 │   ├── db.ts                             # Database queries (enquiries, reviews)
@@ -180,7 +183,12 @@ client2/
 │   ├── verifiedBirlaOpusShades.ts        # 159 verified shades (codes, families, hexes)
 │   ├── birlaOpusCatalogue.ts             # Official Birla Opus paint formulations
 │   └── businessProfile.ts                # NAP source of truth & showroom coordinates
-├── package.json                          # Dependencies & build scripts
+├── docs/                                 # Technical & deployment documentation
+│   ├── render-deployment.md              # Production Render deployment manual
+│   └── visual-system-migration.md        # UI design token & visual architecture guide
+├── scripts/                              # Verification, prerender, & build automation scripts
+├── package.json                          # Dependencies & scripts
+├── pnpm-lock.yaml                        # Locked dependency graph
 ├── tsconfig.json                         # Strict TypeScript configuration
 ├── vite.config.ts                        # Vite bundler, chunk splitting & alias configuration
 └── vitest.config.ts                      # Vitest test runner configuration
@@ -190,37 +198,50 @@ client2/
 
 ## 🚀 Local Development Setup
 
-### 1. Clone the repository
+### 1. Prerequisites
+- **Node.js**: `v22.x` or higher
+- **pnpm**: `v10.x` (`corepack enable && corepack prepare pnpm@latest --activate`)
+
+### 2. Clone the repository
 ```bash
 git clone https://github.com/yushy07/client2.git
 cd client2
 ```
 
-### 2. Install dependencies
+### 3. Install dependencies
 ```bash
-npm install
+pnpm install
 ```
 
-### 3. Start development server
+### 4. Configure local environment
+Copy the template environment file:
 ```bash
-npm run dev
+cp .env.example .env
+```
+*(For basic local UI development, no database connection is required; `DEMO_MODE=true` can be set).*
+
+### 5. Start development server
+```bash
+pnpm dev
 ```
 Open [http://localhost:3000/](http://localhost:3000/) in your browser.
 
-### 4. Verification & Testing
-```bash
-# Run TypeScript compilation check
-npm run check
+---
 
-# Run SEO & backend unit tests
-npm test
+## 📜 Available Scripts
 
-# Build production bundle
-npm run build
-
-# Start production server
-npm run start
-```
+| Command | Description |
+|---|---|
+| `pnpm dev` | Starts Vite development server with hot module replacement (`localhost:3000`). |
+| `pnpm check` | Runs strict TypeScript typecheck (`tsc --noEmit`) with zero emit. |
+| `pnpm test` | Executes the complete Vitest test suite (SEO, APIs, calculations, components). |
+| `pnpm build` | Compiles frontend bundle, runs bundle budget checks, executes prerender scripts, and bundles the server. |
+| `pnpm start` | Boots the compiled production Node/Express server (`dist/index.js`). |
+| `pnpm verify:budget` | Enforces bundle size limits to prevent performance regressions. |
+| `pnpm verify:prerender` | Verifies SSR pre-rendered HTML snapshot integrity for all 17 canonical routes. |
+| `pnpm report:media` | Generates a media inventory report auditing public image/video assets. |
+| `pnpm deploy` | Triggers immediate remote production deployment via Render deploy webhook. |
+| `pnpm format` | Formats all code using Prettier. |
 
 ---
 
@@ -237,7 +258,10 @@ The application supports two production operating modes via the `DEMO_MODE` envi
    - Requires real MySQL connection string (`DATABASE_URL`), OAuth provider (`OAUTH_SERVER_URL`, `VITE_APP_ID`), and session cookie signing key (`JWT_SECRET`).
    - Enforces strict startup validation to safeguard authenticated review moderation and database transactions.
 
+For detailed deployment steps, see [docs/render-deployment.md](docs/render-deployment.md).
+
 ---
 
-## 📄 License
-This project is proprietary software for **Jaymurti Traders** (Birla Opus Authorized Dealer, Baskhari, Ambedkar Nagar). All brand marks, product names, and shade formulas are copyright of their respective owners (Aditya Birla Group / Birla Opus).
+## 📄 License & Security
+- **License**: Licensed under the [MIT License](LICENSE).
+- **Security Policy**: For vulnerability disclosures, please review [SECURITY.md](SECURITY.md).

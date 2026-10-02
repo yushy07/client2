@@ -96,6 +96,14 @@ vitest-report/
 *.tgz
 .npm
 
+# Local executable binaries and tools
+*.exe
+*.bin
+*.dll
+*.so
+*.dylib
+cloudflared.exe
+
 # Local SQLite databases (if used locally)
 *.db
 *.sqlite
@@ -110,6 +118,7 @@ vitest-report/
 .jules/
 .manus/
 .manus-logs/
+.tempmediaStorage/
 client/public/__manus__/
 
 # Generated reports (media inventory, bundle budgets)

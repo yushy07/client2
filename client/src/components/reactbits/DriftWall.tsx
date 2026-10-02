@@ -2,9 +2,14 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 import './DriftWall.css';
 
 export interface DriftWallItem {
+  id?: string;
   image: string;
   title?: string;
+  subtitle?: string;
+  category?: string;
   href?: string;
+  onClick?: () => void;
+  raw?: any;
 }
 
 const DEFAULT_ITEMS: DriftWallItem[] = Array.from({ length: 15 }, (_, i) => {
@@ -18,11 +23,6 @@ const DEFAULT_ITEMS: DriftWallItem[] = Array.from({ length: 15 }, (_, i) => {
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-const columnFactor = (index: number, variance: number) => {
-  const pseudo = ((index * 0.6180339887 + 0.35) % 1) * 2 - 1;
-  return 1 + variance * pseudo;
-};
 
 export interface DriftWallProps {
   items?: DriftWallItem[];
@@ -41,6 +41,7 @@ export interface DriftWallProps {
   variance?: number;
   parallax?: number;
   pauseOnHover?: boolean;
+  scale?: number;
   lift?: number;
   fade?: number;
   dim?: number;
@@ -48,32 +49,35 @@ export interface DriftWallProps {
   overlayColor?: string;
   className?: string;
   style?: React.CSSProperties;
+  onSelect?: (item: DriftWallItem, index: number) => void;
 }
 
 export const DriftWall: React.FC<DriftWallProps> = ({
   items = DEFAULT_ITEMS,
   columns = 5,
-  tileWidth = 200,
-  tileHeight = 132,
-  gap = 18,
+  tileWidth = 220,
+  tileHeight = 145,
+  gap = 16,
   radius = 14,
-  tilt = 16,
-  turn = -14,
+  tilt = 14,
+  turn = -8,
   roll = 0,
   perspective = 1200,
-  depth = 120,
-  speed = 42,
+  depth = 100,
+  speed = 28,
   direction = 'up',
-  variance = 0.45,
+  variance = 0.25,
   parallax = 0.6,
   pauseOnHover = false,
+  scale = 1.38,
   lift = 64,
   fade = 0.6,
-  dim = 0.55,
+  dim = 0.72,
   grayscale = false,
-  overlayColor = '#060010',
+  overlayColor = '#051417',
   className = '',
   style,
+  onSelect,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const planeRef = useRef<HTMLDivElement>(null);
@@ -131,8 +135,9 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     const unit = tileHeight + gap;
     return columnItems.map(col => {
       const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(2, Math.ceil((containerHeight * 1.6) / copyHeight) + 1);
-      return { copyHeight, copies };
+      const copies = Math.max(4, Math.ceil((containerHeight * 3.5) / copyHeight) + 3);
+      const topOffset = -copyHeight * Math.floor(copies / 3);
+      return { copyHeight, copies, topOffset };
     });
   }, [columnItems, tileHeight, gap, containerHeight]);
 
@@ -145,29 +150,31 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     return () => ro.disconnect();
   }, []);
 
+  // All columns drift smoothly in the requested direction (upwards by default)
   const baseVelocities = useMemo(() => {
     const dirSign = direction === 'up' ? 1 : -1;
     return columnItems.map((_, c) => {
-      const altSign = c % 2 === 0 ? 1 : -1;
-      return speed * columnFactor(c, variance) * dirSign * altSign;
+      // Gentle natural speed variation between columns for organic depth
+      const stagger = 1 + (((c * 7) % 5) - 2) * (variance * 0.3);
+      return speed * stagger * dirSign;
     });
   }, [columnItems, speed, direction, variance]);
 
   useEffect(() => {
-    offsetsRef.current = columnMeta.map((meta, c) => meta.copyHeight * ((c * 0.37) % 1));
-    velocitiesRef.current = columnItems.map(() => 0);
-  }, [columnMeta, columnItems]);
+    offsetsRef.current = columnMeta.map((meta, c) => meta.copyHeight * (((c * 37) % 100) / 100));
+    velocitiesRef.current = columnItems.map((_, c) => baseVelocities[c] ?? speed);
+  }, [columnMeta, columnItems, baseVelocities, speed]);
 
   const applyPlaneTransform = useCallback(
     (px: number, py: number) => {
       const plane = planeRef.current;
       if (!plane) return;
       plane.style.transform =
-        `translate(-50%, -50%) scale(1.18) ` +
+        `translate(-50%, -50%) scale(${scale}) ` +
         `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
         `translateZ(${-depth}px)`;
     },
-    [tilt, turn, roll, depth]
+    [tilt, turn, roll, depth, scale]
   );
 
   useEffect(() => {
@@ -189,23 +196,24 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
 
       for (let c = 0; c < trackRefs.current.length; c++) {
-          const meta = columnMeta[c];
-          if (!meta) continue;
-          const paused = wallHoveredRef.current && pauseOnHover;
-          const factor = paused || hoveredColRef.current === c ? 0 : 1;
-          const baseVel = baseVelocities[c] ?? 0;
-          const target = baseVel * factor;
+        const meta = columnMeta[c];
+        if (!meta) continue;
+        const paused = wallHoveredRef.current && pauseOnHover;
+        // Ease speed when hovered for comfortable clickability
+        const factor = paused ? 0 : hoveredColRef.current === c ? 0.35 : 1;
+        const baseVel = baseVelocities[c] ?? 0;
+        const target = baseVel * factor;
 
-          const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
-          const currentVel = velocitiesRef.current[c] ?? 0;
-          const newVel = currentVel + (target - currentVel) * ease;
-          velocitiesRef.current[c] = newVel;
-          let next = (offsetsRef.current[c] ?? 0) + newVel * dt;
-          next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
-          offsetsRef.current[c] = next;
+        const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
+        const currentVel = velocitiesRef.current[c] ?? 0;
+        const newVel = currentVel + (target - currentVel) * ease;
+        velocitiesRef.current[c] = newVel;
+        let next = (offsetsRef.current[c] ?? 0) + newVel * dt;
+        next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
+        offsetsRef.current[c] = next;
 
-          const el = trackRefs.current[c];
-          if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
+        const el = trackRefs.current[c];
+        if (el) el.style.transform = `translate3d(0, ${(meta.topOffset ?? 0) - next}px, 0)`;
       }
 
       rafRef.current = requestAnimationFrame(animate);
@@ -276,11 +284,21 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     [tileWidth, tileHeight, gap, radius, perspective, lift, dim, grayscale, overlayColor, fade, style]
   );
 
-  const renderTile = (item: DriftWallItem, id: string, colIndex: number) => {
+  const renderTile = (item: DriftWallItem, id: string, colIndex: number, itemIndex: number) => {
     const inner = (
       <span className="drift-wall__inner">
         <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
         <span className="drift-wall__overlay" aria-hidden="true" />
+        {item.title && (
+          <span className="drift-wall__badge">
+            <span className="drift-wall__badge-title">{item.title}</span>
+            {item.category && <span className="drift-wall__badge-cat">{item.category}</span>}
+            <span className="drift-wall__badge-action">
+              <span>Inspect swatch</span>
+              <span aria-hidden="true">&rarr;</span>
+            </span>
+          </span>
+        )}
       </span>
     );
     const commonProps = {
@@ -298,9 +316,19 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       );
     }
     return (
-      <div key={id} tabIndex={0} role="button" aria-label={item.title ?? 'tile'} {...commonProps}>
+      <button
+        key={id}
+        type="button"
+        aria-label={item.title ? `Inspect ${item.title}` : 'Inspect texture swatch'}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (item.onClick) item.onClick();
+          if (onSelect) onSelect(item, itemIndex);
+        }}
+        {...commonProps}
+      >
         {inner}
-      </div>
+      </button>
     );
   };
 
@@ -317,7 +345,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       }}
       onPointerLeave={handlePointerLeaveWall}
       role="group"
-      aria-label="Drifting wall of tiles"
+      aria-label="Interactive texture perspective wall"
     >
       <div ref={planeRef} className="drift-wall__plane">
         {columnItems.map((col, c) => {
@@ -327,7 +355,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
             <div className="drift-wall__col" key={`col-${c}`}>
               <div className="drift-wall__track" ref={el => { trackRefs.current[c] = el; }}>
                 {copies.map((_, copyIndex) =>
-                  col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c))
+                  col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c, itemIndex))
                 )}
               </div>
             </div>
