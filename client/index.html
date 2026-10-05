@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Chrome's Android "Desktop site" mode can expose a desktop-width layout
+      // viewport even though the device is still a small touch screen. Preserve
+      // the phone layout in that mode using the physical screen dimensions.
+      (() => {
+        const screenWidth = window.screen?.width || window.innerWidth;
+        const screenHeight = window.screen?.height || window.innerHeight;
+        const hasTouch = navigator.maxTouchPoints > 0 || "ontouchstart" in window;
+        if (hasTouch && window.innerWidth > 768 && Math.min(screenWidth, screenHeight) <= 900) {
+          document.documentElement.classList.add("mobile-device-layout");
+        }
+      })();
+    </script>
     <meta name="theme-color" content="#123F46" />
     <meta name="description" content="Jaymurti Traders is a Birla Opus paint dealer and paint & colour showroom in Baskhari, Shukul Bazar, Ambedkar Nagar — offering interior and exterior paints, waterproofing, colour consultation, and painting supplies." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
