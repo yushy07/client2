@@ -12946,10 +12946,13 @@ html.mobile-device-layout .nav {
   width: 100% !important; min-height: clamp(88px, 17vw, 128px) !important;
   padding: 10px clamp(14px, 4vw, 30px) !important; box-sizing: border-box !important;
 }
-html.mobile-device-layout .nav .brand { width: calc(100% - 100px) !important; min-width: 0 !important; overflow: hidden !important; }
+html.mobile-device-layout .nav .brand {
+  flex: 1 1 0 !important; width: auto !important; min-width: 0 !important;
+  max-width: calc(100% - 100px) !important; overflow: visible !important;
+}
 html.mobile-device-layout .nav .brand-reference-lockup {
-  display: block !important; width: min(72vw, 620px) !important; height: auto !important;
-  max-width: none !important; transform: none !important;
+  display: block !important; width: 100% !important; height: auto !important;
+  max-width: 100% !important; object-fit: contain !important; transform: none !important;
 }
 html.mobile-device-layout .nav .brand-logo,
 html.mobile-device-layout .nav .brand-leaf-accent,
