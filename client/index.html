@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // Chrome's Android "Desktop site" mode can expose a desktop-width layout
-      // viewport even though the device is still a small touch screen. Preserve
-      // the phone layout in that mode using the physical screen dimensions.
+      // Apply the phone composition to actual mobile browsers, including when
+      // the phone is rotated. Chrome's Desktop site UA is intentionally left
+      // unmarked so it follows the desktop layout breakpoints.
       (() => {
         const screenWidth = window.screen?.width || window.innerWidth;
         const screenHeight = window.screen?.height || window.innerHeight;
         const hasTouch = navigator.maxTouchPoints > 0 || "ontouchstart" in window;
-        if (hasTouch && window.innerWidth > 768 && Math.min(screenWidth, screenHeight) <= 900) {
+        const mobileBrowser = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (hasTouch && mobileBrowser && Math.min(screenWidth, screenHeight) <= 900) {
           document.documentElement.classList.add("mobile-device-layout");
         }
       })();
