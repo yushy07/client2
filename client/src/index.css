@@ -13190,3 +13190,21 @@ html.desktop-site-phone-layout .hero-carousel-bottom-bar { display: flex !import
 html.desktop-site-phone-layout .hero + section > div { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 html.desktop-site-phone-layout .mobile-sticky-bar { display: none !important; }
 html.desktop-site-phone-layout .floating-contact { display: flex !important; }
+html.desktop-site-phone-layout .visual-catalogue-header {
+  display: flex !important; flex-direction: column !important; align-items: flex-start !important;
+  justify-content: flex-start !important; gap: 18px !important; text-align: left !important;
+  width: 100% !important; box-sizing: border-box !important;
+  margin: 0 0 24px !important; padding: 24px !important;
+}
+html.desktop-site-phone-layout .visual-catalogue-header > div:first-child {
+  width: 100% !important; max-width: 680px !important; margin: 0 !important;
+  align-self: flex-start !important; text-align: left !important;
+}
+html.desktop-site-phone-layout .visual-catalogue-header .eyebrow,
+html.desktop-site-phone-layout .visual-catalogue-header .section-title,
+html.desktop-site-phone-layout .visual-catalogue-header .section-lead { text-align: left !important; }
+html.desktop-site-phone-layout .visual-catalogue-header .filter-pills {
+  display: flex !important; flex-wrap: wrap !important; justify-content: flex-start !important;
+  align-self: flex-start !important; width: 100% !important; max-width: 680px !important;
+  margin: 0 !important;
+}
