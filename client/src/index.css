@@ -12951,8 +12951,9 @@ html.mobile-device-layout .nav .brand {
   max-width: calc(100% - 100px) !important; overflow: visible !important;
 }
 html.mobile-device-layout .nav .brand-reference-lockup {
-  display: block !important; width: 100% !important; height: auto !important;
-  max-width: 100% !important; object-fit: contain !important; transform: none !important;
+  display: block !important; flex: 1 1 auto !important; width: 100% !important;
+  min-width: 0 !important; height: auto !important; max-width: 100% !important;
+  object-fit: contain !important; object-position: left center !important; transform: none !important;
 }
 html.mobile-device-layout .nav .brand-logo,
 html.mobile-device-layout .nav .brand-leaf-accent,
