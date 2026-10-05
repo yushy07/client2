@@ -460,6 +460,11 @@ a {
   position: relative;
 }
 
+/* The product cutout is intentionally omitted from the hero at every size. */
+.hero-product-art {
+  display: none !important;
+}
+
 .hero-inner {
   display: grid;
   grid-template-columns: minmax(0, .93fr) minmax(430px, 1.07fr);
@@ -12447,7 +12452,7 @@ a {
   display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 700px), (orientation: landscape) and (max-height: 600px) and (max-width: 1200px) {
   .utility-bar {
     padding: 7px 12px !important;
     gap: 4px !important;
@@ -12826,6 +12831,61 @@ a {
     min-height: clamp(43px, 12vw, 64px) !important;
     border-radius: 14px !important;
     font-size: clamp(13px, 3.8vw, 19px) !important;
+  }
+}
+
+/* Keep the complete mobile hero when a phone is rotated; compact it for the
+   shorter viewport instead of switching to the tablet/desktop composition. */
+@media (orientation: landscape) and (max-height: 600px) and (max-width: 1200px) {
+  .hero {
+    min-height: auto !important;
+  }
+
+  .nav .brand-reference-lockup {
+    width: clamp(320px, calc(100vw - 170px), 620px) !important;
+    transform: none !important;
+  }
+
+  .hero-eyebrow-pill {
+    margin-bottom: 10px !important;
+  }
+
+  .hero-headline {
+    font-size: clamp(38px, 6.8vw, 60px) !important;
+    margin-bottom: 10px !important;
+  }
+
+  .hero-description {
+    font-size: clamp(13px, 2vw, 16px) !important;
+    margin-bottom: 10px !important;
+  }
+
+  .hero-proof-points {
+    margin: 10px 0 !important;
+  }
+
+  .hero-actions {
+    gap: 8px !important;
+    margin-top: 10px !important;
+  }
+
+  .hero-actions .hero-btn-main {
+    min-height: 48px !important;
+  }
+
+  .hero-actions .hero-btn-sub {
+    min-height: 46px !important;
+  }
+
+  .hero-visual {
+    height: clamp(200px, 40vw, 270px) !important;
+    margin-top: 16px !important;
+  }
+
+  .hero-top-accent-decor {
+    top: 8px !important;
+    width: clamp(120px, 20vw, 180px) !important;
+    height: clamp(130px, 22vw, 190px) !important;
   }
 }
 
