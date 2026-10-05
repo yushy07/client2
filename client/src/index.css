@@ -13074,20 +13074,41 @@ html.desktop-site-phone-layout .nav {
   grid-template-columns: minmax(285px, .8fr) minmax(0, 1.2fr) !important;
   gap: 10px !important; min-height: 94px !important; padding: 8px 14px !important;
 }
+html.desktop-site-phone-layout .utility-bar {
+  align-items: center !important; gap: 12px !important; padding: 6px 18px !important;
+  font-size: clamp(9px, 1vw, 11px) !important; white-space: nowrap !important;
+}
+html.desktop-site-phone-layout .utility-contact {
+  display: inline-flex !important; align-items: center !important; gap: 7px !important;
+  flex: 0 0 auto !important; white-space: nowrap !important;
+}
+html.desktop-site-phone-layout .utility-contact i {
+  display: inline-block !important; height: 14px !important; margin: 0 5px !important;
+  border-left: 1px solid rgba(255,255,255,.5) !important;
+}
 html.desktop-site-phone-layout .nav .brand { gap: 10px !important; min-width: 0 !important; }
-html.desktop-site-phone-layout .nav .brand-logo { width: 60px !important; height: 60px !important; }
-html.desktop-site-phone-layout .brand-titles { min-width: 0 !important; gap: 4px !important; }
-html.desktop-site-phone-layout .brand-titles .brand-name-text { font-size: clamp(18px, 2.6vw, 27px) !important; white-space: nowrap !important; }
-html.desktop-site-phone-layout .brand-descriptor { font-size: 8px !important; letter-spacing: .08em !important; }
-html.desktop-site-phone-layout .brand-subline { width: 100% !important; margin: 0 !important; }
-html.desktop-site-phone-layout .brand-subline .brand-sub-text { font-size: 9px !important; }
-html.desktop-site-phone-layout .nav-links { gap: 6px !important; min-width: 0 !important; }
-html.desktop-site-phone-layout .nav-links .pill-nav { display: flex !important; min-width: 0 !important; }
-html.desktop-site-phone-layout .nav-links .pill-nav-items { padding: 0 5px !important; }
-html.desktop-site-phone-layout .nav-links .pill { padding: 7px 5px !important; font-size: 8px !important; letter-spacing: 0 !important; }
+html.desktop-site-phone-layout .nav .brand-reference-lockup {
+  display: block !important; width: min(36vw, 350px) !important; height: auto !important;
+  max-width: none !important; object-fit: contain !important; transform: none !important;
+}
+html.desktop-site-phone-layout .nav .brand-logo,
+html.desktop-site-phone-layout .nav .brand-leaf-accent,
+html.desktop-site-phone-layout .nav .brand-titles { display: none !important; }
 html.desktop-site-phone-layout .nav-enquiry-btn,
 html.desktop-site-phone-layout .nav-whatsapp-btn { min-height: 38px !important; padding: 0 8px !important; font-size: 8px !important; gap: 4px !important; }
 html.desktop-site-phone-layout .nav-mobile-actions { display: none !important; }
+html.desktop-site-phone-layout .nav-links { display: flex !important; gap: 6px !important; min-width: 0 !important; }
+html.desktop-site-phone-layout .nav-links .pill-nav-container { display: flex !important; flex: 1 1 auto !important; min-width: 0 !important; }
+html.desktop-site-phone-layout .nav-links .pill-nav { display: flex !important; width: 100% !important; min-width: 0 !important; }
+html.desktop-site-phone-layout .nav-links .pill-nav-items {
+  display: flex !important; width: 100% !important; min-width: 0 !important;
+  justify-content: center !important; padding: 0 3px !important;
+}
+html.desktop-site-phone-layout .nav-links .pill-list { width: 100% !important; justify-content: space-around !important; gap: 0 !important; }
+html.desktop-site-phone-layout .nav-links .pill { padding: 7px 4px !important; font-size: 8px !important; letter-spacing: 0 !important; }
+html.desktop-site-phone-layout .nav-links .desktop-only { display: flex !important; }
+html.desktop-site-phone-layout .nav-links .mobile-only,
+html.desktop-site-phone-layout .nav-links .mobile-menu-button { display: none !important; }
 html.desktop-site-phone-layout .hero { min-height: 0 !important; }
 html.desktop-site-phone-layout .hero::before {
   content: "" !important; position: absolute !important; z-index: 0 !important;
