@@ -72,7 +72,7 @@ export const SwipeToast: React.FC<SwipeToastProps> = ({
   className = '',
 }) => {
   const reduce = useReducedMotion();
-  const [phase, setPhase] = useState<'open' | 'closing' | 'gone'>('open');
+  const [phase, setPhase] = useState<'open' | 'closing' | 'gone'>(open ? 'open' : 'gone');
   const [instant, setInstant] = useState(false);
   const [mounted, setMounted] = useState(HAS_STARTING_STYLE);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -245,6 +245,10 @@ export const SwipeToast: React.FC<SwipeToastProps> = ({
     if (queued) close(queued);
     else syncFuse();
   };
+
+  if (!open && phase === 'gone') {
+    return null;
+  }
 
   return (
     <div

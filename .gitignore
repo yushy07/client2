@@ -118,6 +118,11 @@ cloudflared.exe
 .jules/
 .manus/
 .manus-logs/
+.agent/
+.agents/
+.gemini/
+.cursor/
+.gsd/
 .tempmediaStorage/
 client/public/__manus__/
 

@@ -105,6 +105,7 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 3. **Surface Studio & Extended Textures**: 21 tactile texture finishes and 17 sensory relief studies.
 4. **Precision Paint Estimator**: Instant engineering-grade calculation of topcoat litres, primer litres, and putty kg by either carpet area or standard home configuration (1 BHK, 2 BHK, 3 BHK, Villa).
 5. **Showroom Visual Tour**: Real interior photos, computerized tinting machinery, and founder consultation desk in Baskhari.
+6. **Omni-Channel Floating Actions & Mobile Sticky Bar**: Persistent quick-access actions across desktop (floating glassmorphic contact pill) and mobile (ergonomic bottom sticky bar) featuring instant showroom calls (`tel:`), pre-formatted WhatsApp consultations (`wa.me`), Instagram, Facebook, and the interactive Enquiry Cart drawer.
 
 ---
 

@@ -526,20 +526,8 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
         <button
           type="button"
           onClick={() => setIsCartOpen(true)}
-          style={{
-            background: "var(--color-brand-primary)",
-            color: "var(--color-text-on-dark)",
-            border: "1px solid var(--color-brand-secondary)",
-            padding: "0 16px",
-            borderRadius: "999px",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            cursor: "pointer",
-            fontSize: "11px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-          }}
+          className="floating-cart"
+          aria-label={`Open Enquiry Drawer with ${cartItems.length} items`}
         >
           <ShoppingBag size={16} />
           <span>Cart ({cartItems.length})</span>

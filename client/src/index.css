@@ -8466,6 +8466,12 @@ a {
   transition: all 0.18s ease;
   touch-action: manipulation;
   user-select: none;
+  pointer-events: auto !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-bar-btn * {
+  pointer-events: none !important;
 }
 
 .mobile-bar-icon-btn {
@@ -8583,10 +8589,16 @@ a {
   cursor: pointer !important;
 }
 
+.floating-contact svg,
+.floating-contact span {
+  pointer-events: none;
+}
+
 .floating-contact a.floating-call,
 .floating-contact a.floating-whatsapp,
 .floating-contact a.floating-instagram,
-.floating-contact a.floating-facebook {
+.floating-contact a.floating-facebook,
+.floating-contact .floating-cart {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -8644,6 +8656,30 @@ a {
 .floating-contact a.floating-facebook:hover {
   background: #166fe5;
   transform: translateY(-1px);
+}
+
+.floating-contact .floating-cart {
+  background: #e05a2b;
+  color: #ffffff;
+  border: 1px solid #f3d36b;
+  cursor: pointer;
+}
+
+.floating-contact .floating-cart:hover {
+  background: #ea6b3f;
+  transform: translateY(-1px);
+}
+
+@media (min-width: 769px) {
+  .floating-contact {
+    display: flex !important;
+    z-index: 999999 !important;
+    pointer-events: auto !important;
+  }
+
+  .mobile-sticky-bar {
+    display: none !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -12329,7 +12365,7 @@ a {
   }
 
   .site-shell .floating-contact {
-    display: none !important;
+    display: flex !important;
   }
 }
 
@@ -12452,7 +12488,7 @@ a {
   display: none;
 }
 
-@media (max-width: 700px), (orientation: landscape) and (max-height: 600px) and (max-width: 1200px), (max-width: 1200px) {
+@media (max-width: 768px), (orientation: landscape) and (max-height: 600px) and (max-width: 1024px) {
   .utility-bar {
     padding: 7px 12px !important;
     gap: 4px !important;
