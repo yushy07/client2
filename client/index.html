@@ -4,16 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // Apply the phone composition to actual mobile browsers, including when
-      // the phone is rotated. Chrome's Desktop site UA is intentionally left
-      // unmarked so it follows the desktop layout breakpoints.
+      // Use UA Client Hints when available: Chrome flips `mobile` off for
+      // Desktop site even on Android, while a normal phone visit keeps it on.
       (() => {
         const screenWidth = window.screen?.width || window.innerWidth;
         const screenHeight = window.screen?.height || window.innerHeight;
         const hasTouch = navigator.maxTouchPoints > 0 || "ontouchstart" in window;
-        const mobileBrowser = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (hasTouch && mobileBrowser && Math.min(screenWidth, screenHeight) <= 900) {
-          document.documentElement.classList.add("mobile-device-layout");
+        const hasPhoneScreen = Math.min(screenWidth, screenHeight) <= 900;
+        const mobileBrowser = typeof navigator.userAgentData?.mobile === "boolean"
+          ? navigator.userAgentData.mobile
+          : /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (hasTouch && hasPhoneScreen) {
+          document.documentElement.classList.add(mobileBrowser ? "mobile-device-layout" : "desktop-site-phone-layout");
         }
       })();
     </script>
