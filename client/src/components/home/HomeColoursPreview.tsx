@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { colourTickerShades } from "@shared/colourDirections";
 import { useCart } from "@/contexts/CartContext";
@@ -7,6 +7,14 @@ import { ShoppingBag, ArrowRight, Palette } from "lucide-react";
 export const HomeColoursPreview: React.FC = () => {
   const { addToCart } = useCart();
   const [selectedShadeIndex, setSelectedShadeIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setSelectedShadeIndex((current) => (current + 1) % colourTickerShades.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   const activeShade = useMemo(() => {
     return colourTickerShades[selectedShadeIndex] ?? colourTickerShades[0]!;

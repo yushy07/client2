@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { usePageSEO } from "@/hooks/usePageSEO";
@@ -8,7 +8,10 @@ import {
   ArrowLeft,
   ArrowRight,
   BadgeCheck,
+  Droplet,
+  Gem,
   Facebook,
+  House,
   Instagram,
   LayoutGrid,
   MapPin,
@@ -62,7 +65,7 @@ const campaigns = [
   },
   {
     kicker: "Formulation 02 · All-Weather Protection",
-    title: "Shielding Living Spaces Across Baskhari.",
+    title: "All-Weather Protection for Every Season.",
     text: "Engineered exterior barriers and waterproofing systems crafted to endure humid monsoon downpours and intense Uttar Pradesh summers without blistering or efflorescence.",
     swatch: "#2B4C47",
     swatchName: "Forest Canopy",
@@ -73,14 +76,14 @@ const campaigns = [
   },
   {
     kicker: "Formulation 03 · Mineral & Stucco Textures",
-    title: "Sculptural Textures with Tactile Depth.",
-    text: "Transform plain masonry into artisanal reliefs—from mineral stone and metallic trowel effects to soft fluid clay. Sample panels available to touch at Jaymurti Traders.",
+    title: "Shielding Living Spaces Across Baskhari.",
+    text: "Birla Opus Calista interior emulsions bring rich colours, smooth finish and long-lasting washability to your home. Explore shades, get expert advice and visit our showroom at Jaymurti Traders, Baskhari.",
     swatch: "#B86B4B",
     swatchName: "Terracotta Clay",
     swatchCode: "BO-TEX-03",
-    imageUrl: "/storage/storefront/shop.webp",
-    mobileUrl: "/storage/storefront/shop-mobile.webp",
-    imageAlt: "Jaymurti Traders main showroom entrance in Shukul Bazar, Baskhari, Ambedkar Nagar",
+    imageUrl: "/storage/storefront/shopreception.webp",
+    mobileUrl: "/storage/storefront/shopreception-mobile.webp",
+    imageAlt: "Birla Opus showroom wall sign and ceiling fans inside Jaymurti Traders, Baskhari",
   },
   {
     kicker: "Formulation 04 · Pure Spatial Elegance",
@@ -112,8 +115,9 @@ export default function Home() {
   });
 
   const { cartItems, setIsCartOpen, toastOpen, setToastOpen, toastData, generateWhatsAppCartUrl } = useCart();
-  const [campaign, setCampaign] = useState(0);
-  const [heroPaused, setHeroPaused] = useState(false);
+  const [campaign, setCampaign] = useState(2);
+  const [heroPaused, setHeroPaused] = useState(true);
+  const heroTouchStartX = useRef<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -232,7 +236,7 @@ export default function Home() {
           <span>
             Authorised Birla Opus Paint Dealer · <strong className="brand-name-text">JAYMURTI TRADERS &nbsp;·&nbsp; जयमूर्ति ट्रेडर्स</strong>
           </span>
-          <span>Shukul Bazar, Baskhari · Call +91 87566 59035</span>
+          <span className="utility-contact"><MapPin size={14} aria-hidden="true" /> Shukul Bazar, Baskhari <i /> <PhoneCall size={14} aria-hidden="true" /> +91 87566 59035</span>
         </div>
 
         {/* =========================================================================
@@ -244,16 +248,37 @@ export default function Home() {
         >
           <Link className="brand group" href="/" aria-label="Birla Opus Paint Jaymurti Traders">
             <img
+              src="/storage/jaymurti-header-lockup.png"
+              alt="Jaymurti Traders · Paints · Interiors · Better Homes · Baskhari"
+              width={680}
+              height={115}
+              className="brand-reference-lockup"
+            />
+            <img
               src="/storage/logo.webp"
               alt="Jaymurti Traders Logo"
               width={42}
               height={42}
               className="brand-logo"
             />
+            <svg className="brand-leaf-accent" viewBox="0 0 52 72" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 65C20 50 31 34 44 9" />
+              <path d="M16 54C9 53 5 48 5 42c7-1 13 2 15 8M22 44c-6-4-7-10-4-15 7 2 10 7 8 13M30 32c-4-7-2-13 3-17 6 4 7 10 3 16M14 57c-6-1-10-4-12-9 6-2 12 0 15 5M26 39c5-5 11-6 16-2-2 6-7 9-14 7M34 25c5-5 11-5 16-1-3 6-8 8-14 5" />
+            </svg>
             <div className="brand-titles">
-              <span className="brand-name-text font-serif">Jaymurti Traders</span>
-              <span className="brand-sub-text font-mono" lang="hi">
-                जयमूर्ति ट्रेडर्स · Baskhari
+              <span className="brand-roof-rule" aria-hidden="true">
+                <i />
+                <svg viewBox="0 0 34 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m3 12 14-10 14 10M8 10v11h18V10M15 21v-8h5v8M24 7V3h5v8" />
+                </svg>
+                <i />
+              </span>
+              <span className="brand-name-text font-serif"><span>Jaymurti</span> <span className="brand-traders">Traders</span></span>
+              <span className="brand-descriptor">PAINTS · INTERIORS · BETTER HOMES</span>
+              <span className="brand-subline">
+                <i aria-hidden="true" />
+                <span className="brand-sub-text font-mono" lang="hi">जयमूर्ति ट्रेडर्स · BASKHARI</span>
+                <i aria-hidden="true" />
               </span>
             </div>
           </Link>
@@ -362,13 +387,15 @@ export default function Home() {
                 height={220}
               />
               <span className="hero-accent-script">
-                Colours<br />
-                <span>for a better</span><br />
-                <em>tomorrow</em>
+                Spaces<br />
+                <span>with</span><br />
+                <em>personality</em><br />
+                <span aria-hidden="true">♡</span>
               </span>
             </div>
 
             <div className="hero-inner relative">
+              <img className="hero-product-art" src="/storage/hero-calista-cutout.png?v=3" alt="Birla Opus Calista Ever Wash paint bucket" />
               <div className="hero-copy">
                 <div className="slide-fade">
                   <div className="hero-brand-lockup">
@@ -379,11 +406,27 @@ export default function Home() {
 
                   <div className="hero-eyebrow-pill">
                     <span className="hero-eyebrow-dash">—</span>{" "}
-                    <ShinyText text="AUTHORISED BIRLA OPUS SHOWROOM" color="#71717a" shineColor="#d97706" speed={2.5} />
+                    <ShinyText text="AUTHORISED BIRLA OPUS SHOWROOM" color="#f7f3e8" shineColor="#f3b737" speed={2.5} />
                   </div>
 
                   <div className="hero-campaign-fade" key={`campaign-${campaign}`}>
-                    <h1 className="hero-headline">{activeCampaign.title}</h1>
+                    <h1 className="hero-headline">
+                      <span className="hero-headline-desktop">
+                        {campaign === 2 ? (
+                          <>
+                            <span>Shielding</span>
+                            <span className="hero-headline-accent">Living Spaces</span>
+                            <span>Across Baskhari.</span>
+                          </>
+                        ) : activeCampaign.title}
+                      </span>
+                      <span className="hero-headline-mobile">
+                        <span>Colours</span>
+                        <span>that make</span>
+                        <span>your home</span>
+                        <em>feel like you.</em>
+                      </span>
+                    </h1>
                     <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400 font-medium mb-3">
                       <span>Transforming:</span>
                       <RotatingText
@@ -391,9 +434,18 @@ export default function Home() {
                         mainClassName="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 font-semibold border border-amber-500/20 text-xs sm:text-sm"
                       />
                     </div>
-                    <p className="hero-description text-base text-zinc-300 leading-relaxed font-sans">
+                    <p className="hero-description hero-description-desktop text-base text-zinc-300 leading-relaxed font-sans">
                       {activeCampaign.text}
                     </p>
+                    <p className="hero-description hero-description-mobile text-base text-zinc-300 leading-relaxed font-sans">
+                      Birla Opus Calista interior emulsions bring rich colours, smooth finish and long-lasting washability to your home.
+                    </p>
+                  </div>
+
+                  <div className="hero-proof-points" aria-label="Showroom benefits">
+                    <span><Droplet size={18} /><b>EXCELLENT<br />WASHABILITY</b></span>
+                    <span><Gem size={18} /><b>PREMIUM<br />INTERIORS</b></span>
+                    <span><House size={18} /><b>BRIGHTER<br />FINISH</b></span>
                   </div>
 
                   <div className="hero-actions">
@@ -429,6 +481,23 @@ export default function Home() {
                 aria-label="Hero Showroom Gallery"
                 onMouseEnter={() => setHeroPaused(true)}
                 onMouseLeave={() => setHeroPaused(false)}
+                onTouchStart={(event) => {
+                  heroTouchStartX.current = event.touches[0]?.clientX ?? null;
+                }}
+                onTouchEnd={(event) => {
+                  const startX = heroTouchStartX.current;
+                  const endX = event.changedTouches[0]?.clientX;
+                  heroTouchStartX.current = null;
+                  if (startX == null || endX == null) return;
+
+                  const swipeDistance = endX - startX;
+                  if (Math.abs(swipeDistance) < 45) return;
+                  setCampaign((prev) =>
+                    swipeDistance < 0
+                      ? (prev + 1) % campaigns.length
+                      : (prev - 1 + campaigns.length) % campaigns.length,
+                  );
+                }}
                 style={{
                   position: "relative",
                   width: "100%",
@@ -469,7 +538,7 @@ export default function Home() {
                 {campaigns.map((camp, idx) => (
                   <div
                     key={`hero-slide-${idx}`}
-                    className="hero-slide"
+                    className={`hero-slide ${idx === 2 ? "hero-slide--reference" : ""}`}
                     style={{
                       position: "absolute",
                       inset: 0,
@@ -507,7 +576,7 @@ export default function Home() {
 
                     {/* Integrated Shade Accent Badge */}
                     <div 
-                      className="absolute bottom-16 left-5 z-20 bg-[#0C292F]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-[#176B73]/40 flex items-center gap-3 shadow-2xl"
+                      className="hero-slide-shade-badge absolute bottom-16 left-5 z-20 bg-[#0C292F]/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-[#176B73]/40 flex items-center gap-3 shadow-2xl"
                       style={{ pointerEvents: "auto" }}
                     >
                       <span className="w-4 h-4 rounded-full border border-white/40 shrink-0" style={{ background: camp.swatch }} />
