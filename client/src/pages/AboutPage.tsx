@@ -7,6 +7,7 @@ import { InsideJaymurti } from "@/components/experiences/InsideJaymurti";
 import { StepInside } from "@/components/experiences/StepInside";
 import { OwnerAndTeam } from "@/components/experiences/OwnerAndTeam";
 import { ShowroomVideoModal, VideoModalItem } from "@/components/ShowroomVideoModal";
+import { ShowroomLocationCard } from "@/components/common/ShowroomLocationCard";
 import {
   MapPin,
   MessageCircle,
@@ -133,6 +134,8 @@ export const AboutPage: React.FC = () => {
             </div>
           </div>
         </section>
+
+        <ShowroomLocationCard />
 
         {/* 4 Core Showroom Pillars */}
         <section className="space-y-6">

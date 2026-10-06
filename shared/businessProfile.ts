@@ -15,7 +15,7 @@ export const businessProfile = {
   facebookUrl: "https://www.facebook.com/ayush.yadav.334540",
   googleProfileUrl: "https://share.google/Nyju9PoRuINGGoD83",
   googleReviewUrl: "https://share.google/Nyju9PoRuINGGoD83",
-  googleMapsUrl: "https://maps.app.goo.gl/V1wvtKAGnH5RUG1cA",
+  googleMapsUrl: "https://maps.app.goo.gl/JZJa7km7nj6fACoA6",
   verifiedOfferings: [
     "Birla Opus interior emulsions",
     "Birla Opus exterior paints",

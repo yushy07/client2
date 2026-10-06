@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SlingButton, ShinyText } from "@/components/reactbits";
+import { ShowroomLocationCard } from "@/components/common/ShowroomLocationCard";
 
 export const ContactPage: React.FC = () => {
   const seo = getRouteSEO("/contact");
@@ -128,6 +129,8 @@ export const ContactPage: React.FC = () => {
               </p>
             </div>
           </div>
+
+          <ShowroomLocationCard />
 
             {/* External Links & Google Review CTA */}
             <div className="space-y-4 pt-2">
