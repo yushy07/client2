@@ -98,7 +98,7 @@ export const StepInside: React.FC = () => {
                   ref={videoRef}
                   src="/storage/promo-video.mp4"
                   poster="/storage/storefront/shopwide.webp"
-                  preload="auto"
+                  preload="none"
                   muted={isMuted}
                   playsInline
                   loop
