@@ -222,6 +222,22 @@ export const SITE_ROUTES_SEO: Record<string, RouteSEOConfig> = {
       {
         question: "How can I test a shade on my walls before buying full paint cans?",
         answer: "You can enquire for a sample pot directly through WhatsApp or visit our Baskhari showroom to view physical fan decks under natural and warm lighting."
+      },
+      {
+        question: "Will a shade look exactly the same on my screen and on my wall?",
+        answer: "Not always. Screen settings, lighting, wall texture, and surrounding colours can change how a shade appears. Use the online finder to shortlist colours, then check your choice against a physical fan deck or sample at the showroom."
+      },
+      {
+        question: "How do I find a shade if I already know its name or code?",
+        answer: "Use the search field in the colour finder to look up a shade by its listed name or code. Share that code with our team when you enquire so we can help confirm the corresponding product and tinting options."
+      },
+      {
+        question: "Can I see how a colour might look in a room?",
+        answer: "Visit the Room Inspiration section to compare colour ideas in room settings. Treat these previews as a guide, since lighting and your actual wall surface affect the final appearance."
+      },
+      {
+        question: "Can the showroom prepare my selected shade?",
+        answer: "Our Baskhari showroom offers computerized shade tinting. Contact us or visit with the shade name or code to confirm availability for your chosen paint range."
       }
     ]
   },
