@@ -16,6 +16,25 @@ build/
 *.env
 !.env.example
 !.env.template
+!.env.sample
+
+# Per-machine package and cloud authentication files
+.envrc
+!.envrc.example
+.npmrc
+!.npmrc.example
+.yarnrc.yml
+!.yarnrc.example.yml
+.pypirc
+.netrc
+.aws/
+.azure/
+.gcloud/
+.kube/
+.config/gcloud/
+.terraform/
+*.tfstate
+*.tfstate.*
 
 # Credentials, tokens, private keys and certificates
 *.pem
@@ -25,6 +44,8 @@ build/
 *.pfx
 *.p12
 *.pkcs12
+*.jks
+*.keystore
 *.pub
 id_rsa*
 id_ed25519*
