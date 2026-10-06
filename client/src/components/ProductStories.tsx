@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { ArrowRight, Play, Pause, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Pause, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link } from "wouter";
 
 export interface ProductVideoStory {
   id: string;
@@ -262,6 +263,7 @@ function ProductVideoCard({
       onFocusCard();
     }
   };
+  const catalogueHref = story.tag === "Exteriors" ? "/exterior-paints" : "/interior-paints";
 
   return (
     <article
@@ -330,14 +332,14 @@ function ProductVideoCard({
         <span className="product-story-category">{story.category}</span>
         <h3 className="product-story-title">{story.title}</h3>
         <p className="product-story-descriptor">{story.descriptor}</p>
-        <a
-          href="#products"
+        <Link
+          href={catalogueHref}
           className="product-story-link"
           onClick={(e) => e.stopPropagation()}
         >
-          <span>Explore in catalogue</span>
+          <span>Browse {story.tag.toLowerCase()}</span>
           <ArrowRight size={14} aria-hidden="true" />
-        </a>
+        </Link>
       </div>
     </article>
   );
@@ -504,21 +506,21 @@ export function ProductStories() {
     >
       <div className="product-stories-header">
         <div className="product-stories-intro">
-          <div className="eyebrow">Product Stories</div>
-          <h2 className="section-title">See the products<br />in motion.</h2>
+          <div className="eyebrow">A closer look at Birla Opus</div>
+          <h2 className="section-title">Find the finish<br />that feels right.</h2>
           <p className="section-lead">
-            Explore authentic Birla Opus master formulations through vertical cinematic showcases. Discover the sheen, packaging architecture, and tactile radiance before your consultation at Jaymurti Traders.
+            Short, silent product previews make it easier to compare finishes, discover the right range, and bring your questions to our Baskhari showroom.
           </p>
         </div>
 
         <div className="product-stories-side">
-          <a
-            href="#products"
+          <Link
+            href="/paint-products"
             className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-teal-950/60 hover:bg-teal-900/80 border border-teal-700/40 hover:border-amber-400/60 text-amber-300 hover:text-amber-200 transition-all text-xs font-mono tracking-wider uppercase backdrop-blur-sm shadow-sm"
           >
-            <span>View Master Catalogue</span>
+            <span>Explore all paint ranges</span>
             <ArrowRight size={14} className="transition-transform group-hover:translate-x-1 text-amber-400" />
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -559,11 +561,20 @@ export function ProductStories() {
         </div>
       </div>
 
-      {/* Clean Bottom CTA Footer without scrollbar */}
       <div className="product-stories-footer-note">
-        <a href="#enquiry" className="button-primary">
-          Consult on master finishes <ArrowRight size={14} />
-        </a>
+        <div className="product-stories-count" aria-live="polite">
+          <span>{String((currentIndex % totalOriginal) + 1).padStart(2, "0")}</span>
+          <i aria-hidden="true">/</i>
+          {String(totalOriginal).padStart(2, "0")}
+          <span className="product-stories-count-label">product previews</span>
+        </div>
+        <div className="product-stories-controls" aria-label="Product video controls">
+          <button type="button" onClick={prevCard} aria-label="Previous product video"><ChevronLeft size={18} /></button>
+          <button type="button" onClick={nextCard} aria-label="Next product video"><ChevronRight size={18} /></button>
+        </div>
+        <Link href="/contact" className="product-stories-contact">
+          Ask us about a finish <ArrowRight size={15} />
+        </Link>
       </div>
     </section>
   );
