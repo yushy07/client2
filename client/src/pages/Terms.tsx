@@ -110,22 +110,21 @@ export default function Terms() {
         <section>
           <h2>6. User-Provided Information</h2>
           <p>
-            When utilizing enquiry forms, consultation requests, or review submissions, you agree to provide truthful and accurate
-            details. You must not submit false contact details or impersonate another individual without appropriate authorization.
+            When preparing an enquiry, please provide accurate details so the showroom can respond. You choose whether to
+            send the prepared message through WhatsApp.
           </p>
           <p>
             Please review our <Link href="/privacy" className="underline text-accent hover:text-white">Privacy Policy</Link>
-            {" "}to understand how enquiry details, browser storage, and approved reviews are handled.
+            {" "}to understand how enquiry details and browser storage are handled.
           </p>
         </section>
 
         {/* 7. CUSTOMER REVIEWS & FEEDBACK */}
         <section>
-          <h2>7. Customer Reviews &amp; Moderation</h2>
+          <h2>7. Customer Reviews</h2>
           <p>
-            Visitors may submit a display name, rating, and review text about their showroom experience. Reviews are moderated
-            and may be approved or hidden; submission does not guarantee publication. If approved, the review and display name
-            may appear publicly on the site. Do not include private contact details or sensitive information in a review.
+            The website does not collect or publish reviews. Visitors may choose to view or write a review on the external
+            Google Business Profile, which is governed by Google&rsquo;s own terms and privacy notices.
           </p>
         </section>
 

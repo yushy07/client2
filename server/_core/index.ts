@@ -2,12 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
-import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
-import { appRouter } from "../routers";
-import { createContext } from "./context";
-import { apiLimiter } from "./rateLimiter";
 import { serveStatic, setupVite } from "./vite";
 import { genericErrorHandler, securityHeaders } from "./security";
 import { ENV } from "./env";
@@ -86,15 +81,8 @@ function createBaseApp() {
 
   registerHealthRoute(app);
   registerStorageProxy(app);
-  registerOAuthRoutes(app);
-  app.use(
-    "/api/trpc",
-    apiLimiter,
-    createExpressMiddleware({
-      router: appRouter,
-      createContext,
-    })
-  );
+  // This site has no account, review submission, or database API. Enquiries
+  // are prepared in the browser and sent only when the customer chooses WhatsApp.
   registerApiNotFoundHandler(app);
   return app;
 }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
-import { trpc } from "@/lib/trpc";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useCart } from "@/contexts/CartContext";
 import { businessProfile } from "@shared/businessProfile";
@@ -25,6 +24,7 @@ import {
   ShoppingBag,
   Store,
   X,
+  ExternalLink,
 } from "lucide-react";
 import {
   RotatingText,
@@ -46,10 +46,6 @@ import { HomeShowroomPreview } from "@/components/home/HomeShowroomPreview";
 import { HomeProductsPreview } from "@/components/home/HomeProductsPreview";
 import { HomeColoursPreview } from "@/components/home/HomeColoursPreview";
 import { HomeInspirationPreview } from "@/components/home/HomeInspirationPreview";
-import {
-  HomeReviewsSection,
-  type ReviewSubmissionInput,
-} from "@/components/reviews/HomeReviewsSection";
 
 const campaigns = [
   {
@@ -149,24 +145,6 @@ export default function Home() {
   }, [mobileMenuOpen]);
 
   const activeCampaign = campaigns[campaign] ?? campaigns[0]!;
-
-  // Fetch published reviews via tRPC
-  const publishedReviewsQuery = trpc.shopReviews.listPublished.useQuery(undefined, {
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
-
-  const utils = trpc.useUtils();
-  const createReview = trpc.shopReviews.create.useMutation({
-    onSuccess: () => utils.shopReviews.listPublished.invalidate(),
-  });
-
-  const handleReviewSubmit = useCallback(
-    async ({ displayName, rating, reviewText }: ReviewSubmissionInput) => {
-      await createReview.mutateAsync({ displayName, rating, reviewText });
-    },
-    [createReview],
-  );
 
   const googleBusinessProfileUrl = "https://share.google/Nyju9PoRuINGGoD83";
 
@@ -966,13 +944,25 @@ export default function Home() {
             data-section-label="Reviews"
           >
             <div className="max-w-[var(--shell-max)] mx-auto px-4 sm:px-6 lg:px-8">
-              <HomeReviewsSection
-                reviews={publishedReviewsQuery.data?.reviews ?? []}
-                averageRating={publishedReviewsQuery.data?.averageRating ?? null}
-                isLoading={publishedReviewsQuery.isLoading}
-                onSubmit={handleReviewSubmit}
-                googleBusinessProfileUrl={googleBusinessProfileUrl}
-              />
+              <div className="mx-auto max-w-4xl rounded-3xl border border-[#d8c17a]/45 bg-gradient-to-br from-[#17474a] via-[#10383b] to-[#0b292c] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,.18),0_18px_55px_rgba(0,0,0,.2)] sm:p-10">
+                <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+                  <div>
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-[.2em] text-[#f3cb58]">Your experience matters</p>
+                    <h2 className="font-serif text-3xl text-white sm:text-4xl">Visited our showroom?</h2>
+                    <p className="mt-3 max-w-xl text-sm leading-6 text-white/75 sm:text-base">
+                      Share your feedback on our Google Business Profile and help other homeowners find trusted paint advice in Baskhari.
+                    </p>
+                  </div>
+                  <a
+                    className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-[#f3cb58]/70 bg-[#f3cb58] px-5 py-3 font-semibold text-[#11282a] transition hover:bg-[#ffdc73]"
+                    href={googleBusinessProfileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View us on Google <ExternalLink size={16} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
             </div>
           </section>
 

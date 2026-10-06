@@ -59,7 +59,10 @@ describe("Privacy policy page and routing", () => {
 
   it("serves the privacy route from the Node server's prerendered route map", () => {
     expect(serverEntry).toContain('app.get("/api/health", handler)');
-    expect(serverEntry).toContain('"/api/trpc"');
+    expect(serverEntry).not.toContain("createExpressMiddleware");
+    expect(serverEntry).toContain("registerStorageProxy");
+    expect(privacyPage).toContain("does not store the details you enter in a database or browser storage");
+    expect(appFile).not.toContain("AdminReviewsPage");
     // Prerendered HTML is resolved through the frozen route map rather than by
     // joining request paths onto the filesystem.
     expect(staticServer).toContain("STATIC_ROUTE_FILES");

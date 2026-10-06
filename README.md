@@ -1,13 +1,12 @@
 # Birla Opus Paints — Jaymurti Traders Digital Showroom & SEO Platform
 
-An immersive, full-stack architectural paint platform, digital showroom, and production-grade Local & Technical SEO system for **Jaymurti Traders (जयमूर्ति ट्रेडर्स)** — premier authorized **Birla Opus Paints** dealer located in Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh.
+An interactive digital showroom and WhatsApp enquiry website for Jaymurti Traders, an authorised Birla Opus dealer in Baskhari, Ambedkar Nagar. Customer contact details stay in page memory until the customer chooses to open WhatsApp; the site does not save enquiry details to a database.
 
 [![Birla Opus Authorized Dealer](https://img.shields.io/badge/Birla%20Opus-Authorized%20Dealer-e8a338?style=flat-square)](https://www.birlaopus.com/)
 [![React 19](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646cff?style=flat-square&logo=vite)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![tRPC](https://img.shields.io/badge/tRPC-v11-2596be?style=flat-square&logo=trpc)](https://trpc.io/)
 [![SEO Ready](https://img.shields.io/badge/SEO-Local%20%26%20Technical-00b894?style=flat-square)](https://jaymurtitraders.com/sitemap.xml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
@@ -118,9 +117,8 @@ The main showroom, product catalogue, gallery, and video experiences are respons
 | Layer | Technologies |
 |---|---|
 | **Frontend UI** | React 19, TypeScript 5.9, Vite 8, Tailwind CSS v4, Framer Motion, GSAP, Lucide React, Radix UI |
-| **Routing & State** | Wouter v3.7, TanStack React Query v5 |
-| **Backend & API** | Node.js 22 (ESM), Express 4, tRPC v11 (End-to-end type safety) |
-| **Database & ORM** | MySQL, Drizzle ORM, Drizzle Kit |
+| **Routing & State** | Wouter v3.7, React state and browser storage for non-personal cart selections |
+| **Server Runtime** | Node.js 22 (ESM), Express 4 for media paths, health checks, and static page serving |
 | **Build & Tooling** | esbuild, pnpm v10, Vitest v4, Sharp (SSR Pre-rendering & Budget Checks) |
 | **SEO & Crawl** | Schema.org JSON-LD, W3C XML Sitemaps, Robots.txt, LLMs.txt |
 
@@ -159,29 +157,25 @@ client2/
 │       │   └── usePageSEO.ts             # Dynamic title, meta, canonical & OG sync
 │       ├── lib/
 │       │   ├── analytics.ts              # Privacy-safe conversion event logging
-│       │   └── trpc.ts                   # tRPC client React hooks
 │       ├── pages/
 │       │   ├── Home.tsx                  # Master showroom landing page
 │       │   ├── CategoryPage.tsx          # Dynamic product category template
-│       │   ├── ColourFinderPage.tsx      # 159-shade interactive database
+│       │   ├── ColourFinderPage.tsx      # 159-shade interactive catalogue
 │       │   ├── RoomInspirationPage.tsx   # Room shade lookbook & lighting studio
 │       │   ├── SurfaceStudioPage.tsx     # Wall textures & 3D perspective wall studio
 │       │   ├── AboutPage.tsx             # Showroom history, gallery, product videos & trust pillars
-│       │   ├── ContactPage.tsx           # Contact details, showroom map directions & review flow
+│       │   ├── ContactPage.tsx           # WhatsApp enquiry form and showroom map directions
 │       │   ├── NotFound.tsx              # Luxury dark 404 handler
 │       │   ├── Privacy.tsx               # Privacy policy
 │       │   └── Terms.tsx                 # Terms & conditions
 │       ├── App.tsx                       # Wouter router registering all 17 canonical routes
 │       └── index.css                     # Design tokens, typography & animations
-├── server/                               # Backend Express API & tRPC service
+├── server/                               # Express media, health, and static site support
 │   ├── _core/
 │   │   ├── env.ts                        # Zod environment schema & fail-fast validator
 │   │   ├── index.ts                      # Server bootstrap & HTTP security headers
 │   │   ├── rateLimiter.ts                # Route & asset rate limiting
 │   │   ├── storageProxy.ts               # Local media & storage streaming proxy
-│   │   └── trpc.ts                       # tRPC procedure initialization
-│   ├── db.ts                             # Database queries (enquiries, reviews)
-│   ├── routers.ts                        # tRPC router endpoints
 │   └── seo.test.ts                       # Vitest SEO foundation test suite
 ├── shared/                               # Cross-stack TypeScript data models
 │   ├── seoKeywordMap.ts                  # Central keyword & metadata mapping
@@ -189,7 +183,7 @@ client2/
 │   ├── birlaOpusCatalogue.ts             # Official Birla Opus paint formulations
 │   └── businessProfile.ts                # NAP source of truth & showroom coordinates
 ├── docs/                                 # Technical & deployment documentation
-│   ├── render-deployment.md              # Production Render deployment manual
+│   ├── render-deployment.md              # Note about the retired Render environment setup
 │   └── visual-system-migration.md        # UI design token & visual architecture guide
 ├── scripts/                              # Verification, prerender, & build automation scripts
 ├── package.json                          # Dependencies & scripts
@@ -223,7 +217,7 @@ Copy the template environment file:
 ```bash
 cp .env.example .env
 ```
-*(The local development server does not require production credentials. Database-backed features need their corresponding local services to be configured.)*
+No database or OAuth setup is needed for the public site. Customer details stay in page memory until the customer chooses to open WhatsApp; only non-personal cart selections may persist in browser storage.
 
 ### 5. Start development server
 ```bash
@@ -245,16 +239,16 @@ Open [http://localhost:3000/](http://localhost:3000/) in your browser.
 | `pnpm verify:budget` | Enforces bundle size limits to prevent performance regressions. |
 | `pnpm verify:prerender` | Verifies SSR pre-rendered HTML snapshot integrity for all 17 canonical routes. |
 | `pnpm report:media` | Generates a media inventory report auditing public image/video assets, including showroom and product showcase media. |
-| `pnpm deploy` | Triggers immediate remote production deployment via Render deploy webhook. |
+| `pnpm deploy` | Legacy Render deploy hook; not used for the current Vercel deployment. |
 | `pnpm format` | Formats all code using Prettier. |
 
 ---
 
 ## ⚙️ Production Configuration
 
-Production startup requires a MySQL connection string (`DATABASE_URL`), OAuth provider URL and application ID (`OAUTH_SERVER_URL`, `VITE_APP_ID`), and a session signing key (`JWT_SECRET`, at least 32 characters). The server refuses to start when any required production value is missing. Local development does not use a production demo mode.
+The public site does not require DATABASE_URL, JWT_SECRET, OAUTH_SERVER_URL, or VITE_APP_ID. Import the GitHub repository into Vercel with root directory ./ and the Express preset. The Vite mismatch warning is expected: Vite builds the frontend, while Express handles media paths and health checks. No customer database or administrator login is part of this launch.
 
-For deployment environment variables, see [.env.example](.env.example). The Render-specific guide remains at [docs/render-deployment.md](docs/render-deployment.md).
+Local environment examples are in [.env.example](.env.example). The older Render guide at [docs/render-deployment.md](docs/render-deployment.md) describes the previous full-stack configuration and should not be used for this deployment.
 
 ---
 

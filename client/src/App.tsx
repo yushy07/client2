@@ -12,7 +12,6 @@ const Home = lazy(() => import("./pages/Home"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
-const AdminReviewsPage = lazy(() => import("./pages/AdminReviewsPage"));
 const lazyNamed = <T extends Record<K, ComponentType<any>>, K extends keyof T>(
   loader: () => Promise<T>,
   name: K,
@@ -86,7 +85,6 @@ function Router() {
       {/* Legal & 404 */}
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
-      <Route path="/admin/reviews" component={AdminReviewsPage} />
       <Route path="/404" component={NotFound} />
 
       {/* Final Fallback Route */}

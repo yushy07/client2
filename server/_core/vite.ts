@@ -41,15 +41,13 @@ export async function setupVite(app: Express, server: Server) {
       // always reload the index.html file from disk incase it changes
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       const pathname = req.path.replace(/\/+$/, "") || "/";
-      const knownRoute = pathname === "/admin/reviews" || (Boolean(SITE_ROUTES_SEO[pathname]) && pathname !== "/404");
+      const knownRoute = Boolean(SITE_ROUTES_SEO[pathname]) && pathname !== "/404";
       if (!knownRoute) {
         template = template
           .replace(/<title>[\s\S]*?<\/title>/, "<title>Page Not Found | Jaymurti Traders</title>")
           .replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, nofollow" />')
           .replace('<div id="root"></div>', '<div id="root"><main><p>Error 404</p><h1>Page Not Found</h1><p>The requested page does not exist.</p><a href="/">Return to Jaymurti Traders</a></main></div>');
         res.status(404).setHeader("X-Robots-Tag", "noindex, nofollow");
-      } else if (pathname === "/admin/reviews") {
-        res.setHeader("X-Robots-Tag", "noindex, nofollow, noarchive");
       }
       template = template.replace(
         `src="/src/main.tsx"`,
@@ -67,7 +65,6 @@ export async function setupVite(app: Express, server: Server) {
 // Pre-compute static route to pre-rendered HTML file mappings from SEO config
 const STATIC_ROUTE_FILES: Readonly<Record<string, string>> = Object.freeze({
   "/": "index.html",
-  "/admin/reviews": "admin/reviews/index.html",
   ...Object.keys(SITE_ROUTES_SEO).reduce<Record<string, string>>((acc, routeKey) => {
     if (routeKey !== "/" && routeKey !== "/404") {
       const cleanRoute = routeKey.replace(/^\/+/, "");
@@ -117,10 +114,6 @@ export function serveStatic(app: Express) {
     }
 
     const pathname = req.path.replace(/\/+$/, "") || "/";
-    if (pathname === "/admin/reviews") {
-      res.setHeader("X-Robots-Tag", "noindex, nofollow");
-    }
-
     // Safe lookup from pre-defined static map
     const mappedRelFile = Object.prototype.hasOwnProperty.call(STATIC_ROUTE_FILES, pathname)
       ? STATIC_ROUTE_FILES[pathname]

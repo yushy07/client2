@@ -72,14 +72,4 @@ await writeFile(path.join(output, "sitemap.xml"), sitemap, "utf8");
 
 const notFound = SITE_ROUTES_SEO["/404"];
 await writeFile(path.join(output, "404.html"), withMetadata(template, notFound, "noindex, nofollow"), "utf8");
-await mkdir(path.join(output, "admin/reviews"), { recursive: true });
-await writeFile(path.join(output, "admin/reviews/index.html"), withMetadata(template, {
-  ...notFound,
-  path: "/admin/reviews",
-  title: "Review Administration | Jaymurti Traders",
-  description: "Private review administration area.",
-  h1: "Review Administration",
-  eyebrow: "Private area",
-}, "noindex, nofollow, noarchive"), "utf8");
-
-console.log(`Prerendered ${Object.keys(SITE_ROUTES_SEO).length - 1} public routes, private admin, and 404 HTML.`);
+console.log(`Prerendered ${Object.keys(SITE_ROUTES_SEO).length - 1} public routes and 404 HTML.`);

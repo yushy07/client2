@@ -46,50 +46,12 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = "jaymurti_cart_v1";
 const CUSTOMER_STORAGE_KEY = "jaymurti_customer_v1";
 
-// Contact details are personal data, so the stored copy expires and is only
-// written once the shopper pauses typing rather than on every keystroke.
-const CUSTOMER_STORAGE_TTL_MS = 1000 * 60 * 60 * 24 * 30;
-const CUSTOMER_SAVE_DEBOUNCE_MS = 500;
-
 const EMPTY_CUSTOMER: CustomerInfo = {
   name: "",
   phone: "",
   areaLocation: "",
   pincode: "224129",
 };
-
-function readStoredCustomer(): CustomerInfo {
-  try {
-    const saved = localStorage.getItem(CUSTOMER_STORAGE_KEY);
-    if (!saved) return { ...EMPTY_CUSTOMER };
-
-    const parsed = JSON.parse(saved);
-    if (!parsed || typeof parsed !== "object") return { ...EMPTY_CUSTOMER };
-
-    // Previously the raw details were stored without an expiry wrapper; accept
-    // that shape so an in-flight session is not silently dropped.
-    const isLegacyShape = typeof parsed.name === "string";
-    if (!isLegacyShape) {
-      if (typeof parsed.expiresAt === "number" && Date.now() > parsed.expiresAt) {
-        localStorage.removeItem(CUSTOMER_STORAGE_KEY);
-        return { ...EMPTY_CUSTOMER };
-      }
-      if (!parsed.value || typeof parsed.value !== "object") {
-        return { ...EMPTY_CUSTOMER };
-      }
-    }
-
-    const value = isLegacyShape ? parsed : parsed.value;
-    return {
-      name: typeof value.name === "string" ? value.name : "",
-      phone: typeof value.phone === "string" ? value.phone : "",
-      areaLocation: typeof value.areaLocation === "string" ? value.areaLocation : "",
-      pincode: typeof value.pincode === "string" ? value.pincode : EMPTY_CUSTOMER.pincode,
-    };
-  } catch {
-    return { ...EMPTY_CUSTOMER };
-  }
-}
 
 function clearStoredCustomer() {
   try {
@@ -109,7 +71,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   });
 
-  const [customer, setCustomer] = useState<CustomerInfo>(readStoredCustomer);
+  const [customer, setCustomer] = useState<CustomerInfo>({ ...EMPTY_CUSTOMER });
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [customerError, setCustomerError] = useState("");
@@ -124,25 +86,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [cartItems]);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      const hasNoDetails = !customer.name && !customer.phone && !customer.areaLocation;
-      if (hasNoDetails) {
-        clearStoredCustomer();
-        return;
-      }
-      try {
-        localStorage.setItem(
-          CUSTOMER_STORAGE_KEY,
-          JSON.stringify({ value: customer, expiresAt: Date.now() + CUSTOMER_STORAGE_TTL_MS }),
-        );
-      } catch {
-        // Storage unavailable; details stay in memory for this session.
-      }
-    }, CUSTOMER_SAVE_DEBOUNCE_MS);
-
-    return () => window.clearTimeout(timer);
-  }, [customer]);
+  // Remove contact details saved by older versions. New details stay in memory
+  // only and are included in WhatsApp only after the customer chooses to send.
+  useEffect(() => clearStoredCustomer(), []);
 
   const addToCart = useCallback((item: CartItem, openDrawer = false) => {
     setCartItems((prev) => {

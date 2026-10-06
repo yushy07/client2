@@ -23,8 +23,8 @@ export default function Privacy() {
         <div className="eyebrow">Website Policy</div>
         <h1>Privacy Policy</h1>
         <p className="legal-intro">
-          This policy explains what information is handled when you browse our catalogue, save an enquiry,
-          contact the showroom, use the colour tools, or submit a review. It applies to this website and
+          This policy explains what information is handled when you browse our catalogue, prepare an enquiry,
+          contact the showroom, or use the colour tools. It applies to this website and
           related communications with Jaymurti Traders in Baskhari, India.
         </p>
 
@@ -58,24 +58,13 @@ export default function Privacy() {
         {/* 2. INFORMATION WE COLLECT */}
         <section>
           <h2>2. Information We Collect</h2>
-          <p>Depending on the features you use, information may include:</p>
+          <p>When you prepare an enquiry, you may enter your name, phone number, area, pincode, and selected products or shades. These details stay in the current page session until you choose to open WhatsApp.</p>
           <ul>
             <li>
-              <strong>Contact request details:</strong> The contact form prepares a WhatsApp message containing your
-              name, phone number, requested service, and pincode. Jaymurti Traders receives it only if you choose to
-              send the message.
+              <strong>Enquiry details:</strong> Your browser uses the information you enter to prepare a WhatsApp message. The website does not send or save it to a Jaymurti Traders database.
             </li>
             <li>
-              <strong>Saved enquiry cart:</strong> Product, shade, texture, and other selection details or notes you add.
-              These selections are saved in your browser so the cart remains available when you return.
-            </li>
-            <li>
-              <strong>Reviews:</strong> Display name, star rating, and review text. Reviews are checked before they
-              may appear publicly on the website; an approved review can show the display name and review text you submitted.
-            </li>
-            <li>
-              <strong>Authorised sign-in:</strong> If an administrator signs in, the identity service may provide an
-              account identifier, name, email address, and sign-in method for authentication and review moderation.
+              <strong>Saved cart selections:</strong> Products, shades, and finishes may be kept in browser storage so your enquiry cart remains available when you return. Your name, phone number, area, and pincode are not saved there.
             </li>
             <li>
               <strong>Basic technical information:</strong> Requests to load pages and media may be processed by our
@@ -84,7 +73,7 @@ export default function Privacy() {
           </ul>
           <p>
             The website does not have an online payment checkout and does not ask for card or bank details. Please do
-            not include Aadhaar, PAN, passwords, or other sensitive information in enquiry notes or review text.
+            not include Aadhaar, PAN, passwords, or other sensitive information in enquiry messages.
           </p>
         </section>
 
@@ -96,7 +85,7 @@ export default function Privacy() {
             <li>Responding to paint product enquiries and shade requests.</li>
             <li>Responding to service, surface, and colour consultation requests.</li>
             <li>Contacting customers directly regarding stock availability, tinting details, or showroom assistance.</li>
-            <li>Saving cart selections on your device and showing approved reviews to other visitors.</li>
+            <li>Keeping non-personal cart selections on your device for convenience.</li>
             <li>Maintaining, protecting, and troubleshooting the website and its forms.</li>
           </ul>
           <p>
@@ -107,21 +96,8 @@ export default function Privacy() {
 
         <section>
           <h2>4. Information Saved in Your Browser</h2>
-          <p>
-            The site uses browser storage to remember your enquiry cart. If you enter contact details in the cart,
-            those details are saved on your device for up to 30 days to make a later enquiry easier. The selected
-            theme may also be saved where that setting is available. This is browser storage, not an account; it is
-            not available to us until you choose to send an enquiry.
-          </p>
-          <p>
-            You can remove saved details using the cart&rsquo;s clear-details option where available, or clear this
-            site&rsquo;s storage in your browser settings. Removing browser data may also clear saved cart selections.
-          </p>
-          <p>
-            If you use sign-in features, essential cookies support the sign-in security check and session. The sign-in
-            check cookie is short-lived; a successful account session cookie may remain for up to one year. These
-            cookies support authentication and are not used by us for advertising.
-          </p>
+          <p>The enquiry cart may save product, shade, and finish selections in your browser. Contact details you type into the form stay in page memory only and are cleared when you leave or reload the page. Older saved customer details are removed when the cart loads.</p>
+          <p>The selected theme may also be remembered by your browser. You can clear the cart and theme data through your browser settings.</p>
         </section>
 
         {/* 5. WHATSAPP ENQUIRIES */}
@@ -199,11 +175,11 @@ export default function Privacy() {
           <p>
             The contact form creates a WhatsApp message draft on your device. Selecting the WhatsApp button opens that
             draft with WhatsApp; Jaymurti Traders receives your details only if you review and send the message. The
-            website does not save contact-form details to its database. Review submissions are transmitted to our service
-            and may be stored in the site&rsquo;s database so they can be moderated.
+            website does not store the details you enter in a database or browser storage. Customer reviews are handled
+            through the external Google Business Profile, not submitted to this website.
           </p>
           <p>
-            We may share information with hosting, database, and technical service providers that support the site,
+            We may share technical request information with hosting and security providers that support the site,
             and where necessary to respond to you, protect the service, or meet legal obligations. WhatsApp processes
             the draft when you choose to open it, and we do not control that third-party service.
           </p>
@@ -213,10 +189,7 @@ export default function Privacy() {
         <section>
           <h2>9. Data Retention</h2>
           <p>
-            Cart contact details are stored in your browser for up to 30 days. Cart selections remain in browser storage
-            until removed or cleared. Reviews held in the site database are kept for as long as reasonably needed to
-            moderate reviews, resolve disputes, and meet applicable legal requirements. Retention may depend on the
-            hosting and database configuration in use.
+            The website does not retain the contact details entered into an enquiry form. Non-personal cart selections remain in your browser until you remove them or clear browser storage. Hosting and security providers may retain technical request logs under their own retention settings. If you send a message, WhatsApp and the showroom may retain it under their own practices.
           </p>
         </section>
 
