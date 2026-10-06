@@ -22,7 +22,7 @@ describe("SEO foundation", () => {
   });
 
   it("publishes local business structured data with consistent contact details", () => {
-    expect(html).toContain('"@type": ["LocalBusiness", "Store", "PaintStore"]');
+    expect(html).toContain('"@type": "Store"');
     expect(html).toContain('"name": "Jaymurti Traders"');
     expect(html).toContain('"telephone": "+918756659035"');
     expect(html).toContain('"postalCode": "224129"');

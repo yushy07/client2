@@ -12,9 +12,8 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, character => ({
 
 function renderContent(route: RouteSEOConfig): string {
   const breadcrumbs = route.breadcrumb.map(item => `<a href="${escapeHtml(item.path)}">${escapeHtml(item.name)}</a>`).join(" › ");
-  const topics = [...route.primaryKeywords, ...route.supportingKeywords].map(item => `<li>${escapeHtml(item)}</li>`).join("");
   const faq = route.faq.map(item => `<section><h2>${escapeHtml(item.question)}</h2><p>${escapeHtml(item.answer)}</p></section>`).join("");
-  return `<main data-prerendered-content><nav aria-label="Breadcrumb">${breadcrumbs}</nav><p>${escapeHtml(route.eyebrow)}</p><h1>${escapeHtml(route.h1)}</h1><p>${escapeHtml(route.description)}</p><h2>Explore this page</h2><ul>${topics}</ul>${faq}</main>`;
+  return `<main data-prerendered-content><nav aria-label="Breadcrumb">${breadcrumbs}</nav><p>${escapeHtml(route.eyebrow)}</p><h1>${escapeHtml(route.h1)}</h1><p>${escapeHtml(route.description)}</p>${faq}</main>`;
 }
 
 function withMetadata(base: string, route: RouteSEOConfig, robots = "index, follow, max-image-preview:large") {
@@ -48,6 +47,15 @@ for (const route of Object.values(SITE_ROUTES_SEO)) {
   await mkdir(path.dirname(destination), { recursive: true });
   await writeFile(destination, withMetadata(template, route), "utf8");
 }
+
+// Derive the production sitemap from the same canonical route registry used
+// for pre-rendering, avoiding stale dates and URLs that do not have public pages.
+const sitemapUrls = Object.values(SITE_ROUTES_SEO)
+  .filter(route => route.path !== "/404")
+  .map(route => `  <url><loc>${escapeHtml(`${CANONICAL_HOST}${route.path === "/" ? "/" : route.path}`)}</loc></url>`)
+  .join("\n");
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`;
+await writeFile(path.join(output, "sitemap.xml"), sitemap, "utf8");
 
 const notFound = SITE_ROUTES_SEO["/404"];
 await writeFile(path.join(output, "404.html"), withMetadata(template, notFound, "noindex, nofollow"), "utf8");
