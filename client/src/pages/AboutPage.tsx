@@ -7,6 +7,7 @@ import { InsideJaymurti } from "@/components/experiences/InsideJaymurti";
 import { StepInside } from "@/components/experiences/StepInside";
 import { OwnerAndTeam } from "@/components/experiences/OwnerAndTeam";
 import { ShowroomVideoModal, VideoModalItem } from "@/components/ShowroomVideoModal";
+import { ProductStories } from "@/components/ProductStories";
 import { ShowroomLocationCard } from "@/components/common/ShowroomLocationCard";
 import {
   MapPin,
@@ -280,6 +281,10 @@ export const AboutPage: React.FC = () => {
             <InsideJaymurti />
           </div>
         </section>
+
+        <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+          <ProductStories />
+        </div>
 
         {/* Founder & Showroom Team Section */}
         <section id="team" className="space-y-6 pt-4">
