@@ -294,6 +294,26 @@ export const SITE_ROUTES_SEO: Record<string, RouteSEOConfig> = {
       {
         question: "How can I order paints or request on-site shade testing via WhatsApp?",
         answer: "You can click any WhatsApp link on our website or message directly at +91 87566 59035. Our team responds promptly during shop hours (8 AM – 9 PM)."
+      },
+      {
+        question: "What paint products are available at the showroom?",
+        answer: "We offer Birla Opus interior and exterior paints, waterproofing solutions, enamels, wood finishes, and painting tools and supplies. Contact us to confirm current stock and suitable options for your project."
+      },
+      {
+        question: "Can I get help choosing a paint shade?",
+        answer: "Yes. Visit our Baskhari showroom for shade consultation and to view physical colour cards. Our team can also help you explore Birla Opus shades and computerized tinting options. Screen colours can look different from paint, so confirm your choice with a physical sample."
+      },
+      {
+        question: "Can you help estimate how much paint my project needs?",
+        answer: "We can help you make an estimate based on the area and surface details you share. Actual coverage depends on the surface condition, preparation, number of coats, and product selected, so confirm the final quantity with our team."
+      },
+      {
+        question: "Can I complete a paint purchase on the website?",
+        answer: "The website lets you send a product or consultation enquiry; it does not take online payment or confirm an order. Our team can confirm product availability, pricing, and next steps with you directly."
+      },
+      {
+        question: "When is the showroom open?",
+        answer: "Jaymurti Traders is open daily from 8:00 AM to 9:00 PM. You can call or WhatsApp +91 87566 59035 before visiting to ask about a product or shade consultation."
       }
     ]
   },
@@ -355,4 +375,3 @@ export function getRouteSEO(path: string): RouteSEOConfig {
     breadcrumb: [{ name: "Home", path: "/" }, { name: path.replace(/^\//, ""), path }]
   };
 }
-
