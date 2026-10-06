@@ -23,9 +23,8 @@ export default function Terms() {
         <div className="eyebrow">Website Terms</div>
         <h1>Terms &amp; Conditions</h1>
         <p className="legal-intro">
-          Please review these Terms &amp; Conditions carefully before using the Jaymurti Traders website.
-          By browsing our catalogue, exploring shades, calculating paint estimates, or submitting enquiries,
-          you agree to be guided by these terms.
+          These terms explain how to use the Jaymurti Traders website and its showroom, product, shade, and enquiry
+          features. They do not replace any consumer rights that apply to you under law.
         </p>
 
         {/* 1. WEBSITE PURPOSE */}
@@ -41,6 +40,7 @@ export default function Terms() {
             <li>Inspect textures, metallic effects, and specialized wall finishes.</li>
             <li>View architectural room inspiration and visualize room transformations.</li>
             <li>Generate preliminary material quantities via our interactive Paint Estimator.</li>
+            <li>View product video previews, showroom photographs, and map directions.</li>
             <li>Assemble a project enquiry list and send it directly to our showroom team.</li>
             <li>Access showroom operating hours, phone numbers, and physical location directions.</li>
           </ul>
@@ -55,9 +55,10 @@ export default function Terms() {
             guaranteed inventory reservation, or confirmed delivery contract.
           </div>
           <p>
-            The enquiry cart serves exclusively as an interactive communication tool to help you compile your requirements
-            and transmit them to Jaymurti Traders. Final pricing, stock availability, batch quantities, tinting specifications,
-            physical sample verification, delivery logistics, and payment terms are confirmed separately and directly with our showroom.
+            The enquiry cart helps you compile your requirements. Sending an enquiry or contact form is a request for
+            information, not a confirmed order, appointment, inventory reservation, or delivery contract. Final pricing,
+            stock availability, batch quantities, tinting specifications, physical sample verification, delivery logistics,
+            and payment terms are confirmed separately with our showroom.
           </p>
         </section>
 
@@ -73,15 +74,19 @@ export default function Terms() {
             does not guarantee that third-party messaging services will deliver without interruption, nor can we guarantee
             immediate replies outside of regular showroom operating hours (8:00 AM – 9:00 PM).
           </p>
+          <p>
+            The website does not submit the WhatsApp message for you. A sale is not agreed until the showroom confirms the
+            product, price, availability, and any delivery or payment arrangements with you.
+          </p>
         </section>
 
         {/* 4. PRODUCT INFORMATION & AVAILABILITY */}
         <section>
           <h2>4. Products &amp; Showroom Availability</h2>
           <p>
-            Product descriptions, pack sizes, imagery, application guidelines, and category listings are presented for general
-            informational purposes. While we maintain a comprehensive inventory of Birla Opus products, stock levels, packaging designs,
-            and formulation revisions may change. Customers are advised to confirm current product availability directly with our showroom team.
+            Product descriptions, pack sizes, imagery, video previews, application guidance, and category listings are provided
+            for general information. Product range, pack design, formulation, pricing, and stock can change. Confirm current
+            availability and product instructions with the showroom and the product label before purchase or use.
           </p>
         </section>
 
@@ -127,15 +132,19 @@ export default function Terms() {
             When utilizing enquiry forms, consultation requests, or review submissions, you agree to provide truthful and accurate
             details. You must not submit false contact details or impersonate another individual without appropriate authorization.
           </p>
+          <p>
+            Please review our <Link href="/privacy" className="underline text-accent hover:text-white">Privacy Policy</Link>
+            {" "}to understand how enquiry details, browser storage, and approved reviews are handled.
+          </p>
         </section>
 
         {/* 8. CUSTOMER REVIEWS & FEEDBACK */}
         <section>
           <h2>8. Customer Reviews &amp; Moderation</h2>
           <p>
-            Visitors may submit reviews and ratings reflecting their authentic showroom experiences. Jaymurti Traders reserves
-            the right to review, moderate, edit for clarity, or withhold reviews that contain inappropriate language, spam,
-            promotional links, or unverified claims. Submission of feedback does not guarantee automatic public display.
+            Visitors may submit a display name, rating, and review text about their showroom experience. Reviews are moderated
+            and may be approved or hidden; submission does not guarantee publication. If approved, the review and display name
+            may appear publicly on the site. Do not include private contact details or sensitive information in a review.
           </p>
         </section>
 
@@ -143,8 +152,9 @@ export default function Terms() {
         <section>
           <h2>9. Intellectual Property</h2>
           <p>
-            The design, layout, code, graphics, branding, and original content on this website are the property of Jaymurti Traders
-            and are protected by applicable intellectual property and copyright laws.
+            Website text, photographs, and other original materials created for Jaymurti Traders may not be copied or reused
+            commercially without permission. Third-party software, fonts, media, and brand materials remain subject to their
+            respective licences and rights.
           </p>
           <p>
             Birla Opus, its brand marks, product names, and associated brand imagery are registered trademarks and property of
@@ -157,8 +167,9 @@ export default function Terms() {
         <section>
           <h2>10. External Services &amp; Third-Party Links</h2>
           <p>
-            Our website links to external third-party services including WhatsApp, Google Maps, Google Business Profile, and Instagram.
-            Jaymurti Traders does not own or operate these platforms and is not liable for their content, performance, or terms of service.
+            Our site links to and embeds services such as Google Maps and links to WhatsApp, Google Business Profile,
+            Instagram, and Facebook. Their availability, content, and handling of information are controlled by those providers
+            under their own terms and privacy notices. You choose whether to use those services.
           </p>
         </section>
 
@@ -180,6 +191,10 @@ export default function Terms() {
             Before purchasing paint, applying specialty textures, or commencing large painting projects, customers should verify
             surface preparation instructions, batch codes, and primer compatibility with our showroom technical staff.
           </p>
+          <p>
+            The site and its tools are provided for general assistance and may be temporarily unavailable or contain errors.
+            Nothing in these terms excludes or limits a consumer right or liability that cannot legally be excluded or limited.
+          </p>
         </section>
 
         {/* 13. CHANGES TO TERMS */}
@@ -195,7 +210,8 @@ export default function Terms() {
         <section>
           <h2>14. Governing Law</h2>
           <p>
-            These Terms &amp; Conditions are governed by and construed in accordance with the applicable laws of India.
+            These Terms &amp; Conditions are governed by applicable laws of India, subject to any mandatory consumer protections
+            and legal rights that apply to your use of the site or dealings with the showroom.
           </p>
         </section>
 
@@ -222,7 +238,7 @@ export default function Terms() {
           </ul>
         </section>
 
-        <p className="legal-updated">Last updated: 28 September 2026</p>
+        <p className="legal-updated">Last updated: 6 October 2026</p>
       </div>
     </main>
   );

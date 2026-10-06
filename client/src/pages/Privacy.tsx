@@ -23,9 +23,9 @@ export default function Privacy() {
         <div className="eyebrow">Website Policy</div>
         <h1>Privacy Policy</h1>
         <p className="legal-intro">
-          This Privacy Policy outlines how Jaymurti Traders collects, uses, and safeguards the
-          information you provide when using our website or communicating with our paint showroom in
-          Baskhari, Ambedkar Nagar.
+          This policy explains what information is handled when you browse our catalogue, save an enquiry,
+          contact the showroom, use the colour tools, or submit a review. It applies to this website and
+          related communications with Jaymurti Traders in Baskhari, India.
         </p>
 
         {/* 1. WHO WE ARE */}
@@ -58,50 +58,75 @@ export default function Privacy() {
         {/* 2. INFORMATION WE COLLECT */}
         <section>
           <h2>2. Information We Collect</h2>
-          <p>
-            As an independent paint showroom and enquiry platform, we collect only the personal information
-            that customers voluntarily submit through the forms and interactive features on our website:
-          </p>
+          <p>Depending on the features you use, information may include:</p>
           <ul>
             <li>
-              <strong>Enquiry Cart:</strong> When preparing a product or shade enquiry, customers may provide their
-              Name, Phone number, Area / Locality, and Pincode to coordinate showroom availability and delivery assistance.
+              <strong>Enquiry and contact details:</strong> Name, phone number, locality, pincode, email address,
+              and the service or products you ask about. Contact-form submissions include the name, phone, email,
+              service type, and pincode entered in that form.
             </li>
             <li>
-              <strong>Service &amp; Consultation Form:</strong> When requesting a colour consultation, interior/exterior
-              guidance, or waterproofing advice, customers may provide their Name, Phone number, Email address, Service type,
-              and Project Pincode.
+              <strong>Saved enquiry cart:</strong> Product, shade, texture, estimate selections and any notes you add.
+              These selections are saved in your browser so the cart remains available when you return.
             </li>
             <li>
-              <strong>Shop Reviews:</strong> When submitting feedback about their experience at our showroom, customers may
-              provide a Display name, Star rating, and Review text.
+              <strong>Reviews:</strong> Display name, star rating, and review text. Reviews are checked before they
+              may appear publicly on the website; an approved review can show the display name and review text you submitted.
+            </li>
+            <li>
+              <strong>Authorised sign-in:</strong> If an administrator signs in, the identity service may provide an
+              account identifier, name, email address, and sign-in method for authentication and review moderation.
+            </li>
+            <li>
+              <strong>Basic technical information:</strong> Requests to load pages and media may be processed by our
+              hosting and security providers, which can involve IP address, browser/device details, and request logs.
             </li>
           </ul>
           <p>
-            We collect only the details listed above. We do not ask for or collect sensitive personal credentials such as
-            Aadhaar, PAN, payment card details, bank account information, account passwords, exact GPS coordinates, or biometric information.
+            The website does not have an online payment checkout and does not ask for card or bank details. Please do
+            not include Aadhaar, PAN, passwords, or other sensitive information in enquiry notes or review text.
           </p>
         </section>
 
         {/* 3. WHY WE COLLECT IT */}
         <section>
           <h2>3. Why We Collect It</h2>
-          <p>We use customer-provided details strictly for practical showroom assistance, including:</p>
+          <p>We use information to operate the website and respond to the actions you choose, including:</p>
           <ul>
             <li>Responding to paint product enquiries and shade requests.</li>
             <li>Responding to service, surface, and colour consultation requests.</li>
-            <li>Understanding project requirements and project locations within Baskhari and nearby regions.</li>
             <li>Contacting customers directly regarding stock availability, tinting details, or showroom assistance.</li>
-            <li>Reviewing and publishing helpful customer testimonials to guide fellow homeowners.</li>
+            <li>Saving cart selections on your device and showing approved reviews to other visitors.</li>
+            <li>Maintaining, protecting, and troubleshooting the website and its forms.</li>
           </ul>
           <p>
-            We do not sell, rent, or trade customer information, nor do we use submitted personal details for advertising networks or profiling.
+            We do not sell personal information. We do not currently use this website to build advertising profiles
+            from enquiry details.
           </p>
         </section>
 
-        {/* 4. WHATSAPP ENQUIRIES */}
         <section>
-          <h2>4. WhatsApp Enquiries</h2>
+          <h2>4. Information Saved in Your Browser</h2>
+          <p>
+            The site uses browser storage to remember your enquiry cart. If you enter contact details in the cart,
+            those details are saved on your device for up to 30 days to make a later enquiry easier. The selected
+            theme may also be saved where that setting is available. This is browser storage, not an account; it is
+            not available to us until you choose to send an enquiry.
+          </p>
+          <p>
+            You can remove saved details using the cart&rsquo;s clear-details option where available, or clear this
+            site&rsquo;s storage in your browser settings. Removing browser data may also clear saved cart selections.
+          </p>
+          <p>
+            If you use sign-in features, essential cookies support the sign-in security check and session. The sign-in
+            check cookie is short-lived; a successful account session cookie may remain for up to one year. These
+            cookies support authentication and are not used by us for advertising.
+          </p>
+        </section>
+
+        {/* 5. WHATSAPP ENQUIRIES */}
+        <section>
+          <h2>5. WhatsApp Enquiries</h2>
           <p>
             Our website allows customers to conveniently prepare an enquiry list and choose{" "}
             <strong>&ldquo;Send Enquiry on WhatsApp&rdquo;</strong>.
@@ -118,9 +143,9 @@ export default function Privacy() {
           </p>
         </section>
 
-        {/* 5. THIRD-PARTY SERVICES & EXTERNAL LINKS */}
+        {/* 6. THIRD-PARTY SERVICES & EXTERNAL LINKS */}
         <section>
-          <h2>5. Third-Party Services &amp; External Links</h2>
+          <h2>6. Third-Party Services, Maps &amp; External Links</h2>
           <p>
             To help visitors connect with our showroom and explore authentic colour and map resources, our website includes
             links to reputable third-party platforms:
@@ -133,6 +158,10 @@ export default function Privacy() {
               <strong>Google Maps:</strong> For step-by-step driving directions to our showroom in Baskhari.
             </li>
             <li>
+              <strong>Google Fonts:</strong> The website loads fonts from Google to display its typography.
+              Your browser may connect to Google when those fonts are requested.
+            </li>
+            <li>
               <strong>Google Business Profile:</strong> For verified showroom listings, operating hours, and customer reviews.
             </li>
             <li>
@@ -140,14 +169,16 @@ export default function Privacy() {
             </li>
           </ul>
           <p>
-            When you follow an external link, you leave our website. We do not control and are not responsible for the privacy
-            practices, policies, or content of these external third-party platforms.
+            The map is embedded on our About and Contact pages. Loading the map or following an external link can
+            allow that provider to receive technical information from your browser and apply its own privacy terms.
+            We do not receive your precise device location through the map embed. Review the provider&rsquo;s privacy
+            information before using its services.
           </p>
         </section>
 
-        {/* 6. DIGITAL SHADE INFORMATION */}
+        {/* 7. DIGITAL SHADE INFORMATION */}
         <section>
-          <h2>6. Digital Shade Information &amp; Colour Disclaimer</h2>
+          <h2>7. Digital Shade Information &amp; Colour Disclaimer</h2>
           <p>
             Digital paint colours, swatches, room visualisations, and finish previews displayed on this website are visual
             representations created to assist with colour exploration and design inspiration.
@@ -162,9 +193,9 @@ export default function Privacy() {
           </p>
         </section>
 
-        {/* 7. PAINT ESTIMATOR */}
+        {/* 8. PAINT ESTIMATOR */}
         <section>
-          <h2>7. Paint Estimator Tool</h2>
+          <h2>8. Paint Estimator Tool</h2>
           <p>
             The Paint Estimator tool provides an approximate, indicative material estimate based on the room dimensions,
             carpet area, coats, and paint category entered by the customer.
@@ -177,32 +208,36 @@ export default function Privacy() {
           </p>
         </section>
 
-        {/* 8. DATA SHARING */}
+        {/* 9. ENQUIRY SUBMISSIONS &amp; DATA SHARING */}
         <section>
-          <h2>8. Data Sharing</h2>
+          <h2>9. Enquiry Submissions &amp; Data Sharing</h2>
           <p>
-            Personal information submitted to Jaymurti Traders is used solely for the customer service and enquiry purposes described
-            in this policy. We do not sell, rent, or monetize your personal information.
+            When you send a contact-form enquiry, the information is transmitted to our service and may be stored in
+            the site&rsquo;s database so the showroom can respond. Database-backed enquiry and review submissions
+            are unavailable when the website is operating in standalone demo mode; in that case, use the phone or
+            WhatsApp links to contact us.
           </p>
           <p>
-            Information may only be processed through essential technical infrastructure providers (such as hosting servers, database hosting,
-            and telecommunication services like WhatsApp when initiated by you) necessary to deliver our website and communicate with you.
-          </p>
-        </section>
-
-        {/* 9. DATA RETENTION */}
-        <section>
-          <h2>9. Data Retention</h2>
-          <p>
-            We retain customer enquiry submissions, consultation requests, and review records only for as long as reasonably
-            necessary to address your project needs, maintain business correspondence, manage showroom records, handle disputes,
-            and satisfy legitimate operational or legal requirements under applicable law.
+            We may share information with hosting, database, and technical service providers that support the site,
+            and where necessary to respond to you, protect the service, or meet legal obligations. WhatsApp receives
+            information only when you choose to open and send a message. We do not control third-party services.
           </p>
         </section>
 
-        {/* 10. DATA SECURITY */}
+        {/* 10. DATA RETENTION */}
         <section>
-          <h2>10. Data Security</h2>
+          <h2>10. Data Retention</h2>
+          <p>
+            Cart contact details are stored in your browser for up to 30 days. Cart selections remain in browser storage
+            until removed or cleared. Enquiries and reviews held in the site database are kept for as long as reasonably
+            needed to respond, maintain business records, moderate reviews, resolve disputes, and meet applicable legal
+            requirements. Retention may depend on the hosting and database configuration in use.
+          </p>
+        </section>
+
+        {/* 11. DATA SECURITY */}
+        <section>
+          <h2>11. Data Security</h2>
           <p>
             We take reasonable technical and organizational measures designed to protect personal information from unauthorized access,
             misuse, alteration, disclosure, or loss. However, no internet transmission or electronic storage method can ever be guaranteed
@@ -210,12 +245,13 @@ export default function Privacy() {
           </p>
         </section>
 
-        {/* 11. USER REQUESTS & PRIVACY CONTACT */}
+        {/* 12. USER REQUESTS & PRIVACY CONTACT */}
         <section>
-          <h2>11. User Requests &amp; Privacy Contact</h2>
+          <h2>12. Your Requests &amp; Privacy Contact</h2>
           <p>
-            If you have questions about your personal information, wish to update or correct details you have submitted, or wish to
-            request the removal of an enquiry or review submission, please contact us directly:
+            You may contact us to ask about, correct, or request deletion of information you submitted, or to raise a
+            privacy concern. We may need to verify the request before acting and may retain information where required
+            for legitimate business or legal reasons. Contact us by phone or WhatsApp:
           </p>
           <ul>
             <li>
@@ -228,25 +264,26 @@ export default function Privacy() {
           </ul>
         </section>
 
-        {/* 12. CHILDREN'S PRIVACY */}
+        {/* 13. CHILDREN'S PRIVACY */}
         <section>
-          <h2>12. Children&rsquo;s Privacy</h2>
+          <h2>13. Children&rsquo;s Privacy</h2>
           <p>
             Our website is designed for adult homeowners, contractors, architects, and trade professionals seeking paint products
             and architectural finishes. We do not knowingly solicit or collect personal information from children under the age of 18.
           </p>
         </section>
 
-        {/* 13. POLICY DATE & LEGAL CONTEXT */}
+        {/* 14. POLICY DATE & LEGAL CONTEXT */}
         <section>
-          <h2>13. Governing Legal Context &amp; Updates</h2>
+          <h2>14. Applicable Law &amp; Updates</h2>
           <p>
-            This Privacy Policy is formulated in accordance with applicable laws of India. Jaymurti Traders may revise this policy
-            periodically to reflect changes in our showroom offerings, technological improvements, or legal requirements.
+            We handle personal information subject to applicable Indian law, including data-protection requirements as
+            they come into force. Jaymurti Traders may revise this policy when the website, our practices, or applicable
+            requirements change. The latest version and date will appear on this page.
           </p>
         </section>
 
-        <p className="legal-updated">Last updated: 28 September 2026</p>
+        <p className="legal-updated">Last updated: 6 October 2026</p>
       </div>
     </main>
   );
