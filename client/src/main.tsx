@@ -25,8 +25,8 @@ if ("serviceWorker" in navigator) {
         if (offset < urls.length) window.setTimeout(warmBatch, 4000);
       };
       const start = () => warmBatch();
-      if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 5000 });
-      else window.setTimeout(start, 2500);
+      window.setTimeout(start, 2500);
+      
     }).catch(() => undefined);
   }, { once: true });
 }
