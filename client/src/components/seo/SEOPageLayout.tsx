@@ -347,7 +347,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       {/* 6. Local Showroom Visit & Direct Contact CTA */}
       <section className="bg-gradient-to-b from-[#0C292F] to-[#081F24] border-t border-[#176B73]/50 py-14 sm:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#123F46] via-[#176B73]/90 to-[#0C292F] border-2 border-[#F3D36B]/50 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-black/50 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="metallic-surface max-w-5xl mx-auto bg-gradient-to-br from-[#123F46] via-[#176B73]/90 to-[#0C292F] border-2 border-[#F3D36B]/50 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-black/50 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="space-y-3 max-w-2xl">
               <div className="inline-flex items-center gap-2 text-xs text-[#F3D36B] font-semibold uppercase tracking-wider">
                 <MapPin className="w-4 h-4" /> Shukul Bazar, Baskhari Showroom

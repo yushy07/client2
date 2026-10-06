@@ -6,7 +6,7 @@ export const HomeShowroomPreview: React.FC = () => {
   return (
     <section className="scroll-chapter py-12 px-4 sm:px-6 lg:px-8" id="showroom-preview" data-scroll-section data-section-label="Showroom">
       <div className="max-w-[var(--shell-max)] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-dark-surface/90 border border-border-teal/50 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div className="metallic-surface grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-dark-surface/90 border border-border-teal/50 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
 
           {/* Left Column: Showroom Info */}

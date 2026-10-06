@@ -7,7 +7,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
 )}&output=embed`;
 
 export const ShowroomLocationCard: React.FC = () => (
-  <section className="grid grid-cols-1 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] overflow-hidden rounded-3xl border border-[#F3D36B]/25 bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#081F24] shadow-xl shadow-black/20">
+  <section className="metallic-surface grid grid-cols-1 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] overflow-hidden rounded-3xl border border-[#F3D36B]/25 bg-gradient-to-br from-[#123F46] via-[#0E353B] to-[#081F24] shadow-xl shadow-black/20">
     <div className="flex flex-col justify-center gap-5 p-5 sm:p-7 lg:p-9">
       <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#F3D36B]/30 bg-[#F3D36B]/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.14em] text-[#F3D36B]">
         <MapPin className="h-3.5 w-3.5" /> Find our showroom

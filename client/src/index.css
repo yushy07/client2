@@ -13292,3 +13292,26 @@ html.desktop-site-phone-layout .visual-catalogue-header .filter-pills {
   align-self: flex-start !important; width: 100% !important; max-width: 680px !important;
   margin: 0 !important;
 }
+
+/* Soft reflected-metal finish for shared dark cards and information panels. */
+.metallic-surface,
+[class*="bg-dark-surface"][class*="rounded-2xl"][class*="border"],
+[class*="bg-dark-surface"][class*="rounded-3xl"][class*="border"] {
+  background-image: linear-gradient(118deg, rgba(255,255,255,.105) 0%, rgba(255,255,255,.025) 17%, transparent 39%, rgba(126,232,222,.065) 72%, transparent 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.23), inset 0 14px 30px rgba(134,240,233,.045), 0 12px 28px rgba(0,0,0,.12);
+}
+
+.metallic-surface { border-color: rgba(243,211,107,.42); }
+
+.product-card {
+  background-image: linear-gradient(118deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.08) 20%, transparent 45%, rgba(148,184,190,.08) 78%, transparent 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 22px rgba(12,41,47,.08);
+}
+
+@media (max-width: 640px) {
+  .metallic-surface,
+  [class*="bg-dark-surface"][class*="rounded-2xl"][class*="border"],
+  [class*="bg-dark-surface"][class*="rounded-3xl"][class*="border"] {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 10px 22px rgba(134,240,233,.035), 0 8px 18px rgba(0,0,0,.10);
+  }
+}
