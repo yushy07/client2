@@ -56,7 +56,7 @@ Production Domain:  https://jaymurtitraders.com/
 | `/about` | `About Jaymurti Traders \| Authorized Birla Opus Dealer in Baskhari` | E-E-A-T, Trust & Leadership | `BreadcrumbList`, `AboutPage` |
 | `/contact` | `Contact Jaymurti Traders \| Paint Showroom in Shukul Bazar, Baskhari` | Direct Calls, Directions & Reviews | `BreadcrumbList`, `ContactPage` |
 | `/privacy` | `Privacy Policy \| Jaymurti Traders` | Data Protection & Customer Rights | `WebPage` |
-| `/terms` | `Terms & Conditions \| Jaymurti Traders` | Terms of Use & Estimation Disclaimer | `WebPage` |
+| `/terms` | `Terms & Conditions \| Jaymurti Traders` | Website Use & Enquiry Terms | `WebPage` |
 
 ---
 
@@ -82,7 +82,6 @@ Tracks high-intent local conversion events without collecting Personally Identif
 - `click_whatsapp` (WhatsApp consultation dispatches)
 - `click_directions` (Google Maps route navigations)
 - `search_shade` & `view_shade` (Birla Opus shade queries)
-- `use_estimator` (Carpet area paint calculation runs)
 - `submit_review` (Google Business Profile review prompts)
 
 ### 5. Production Hardening & Security Headers
@@ -103,7 +102,7 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 1. **159 Verified Birla Opus Shades**: Complete verified catalogue across 10 families (*Whites, Neutrals, Oranges, Yellows, Yellow-Greens, Greens, Blue-Greens, Blues, Purples, Reds*) with digital hex matching, lightness-aware badges, and direct WhatsApp enquiry.
 2. **Room Shade Studio & Lookbook**: Virtual try-on studio previewing verified shades across 12 architectural spaces under Daylight, Warm Golden, and Twilight lighting.
 3. **Surface Studio & Extended Textures**: 21 tactile texture finishes and 17 sensory relief studies.
-4. **Precision Paint Estimator**: Instant engineering-grade calculation of topcoat litres, primer litres, and putty kg by either carpet area or standard home configuration (1 BHK, 2 BHK, 3 BHK, Villa).
+4. **Showroom Consultation**: Contact the Baskhari team for product guidance, shade selection, surface preparation advice, and project estimates.
 5. **Showroom Visual Tour**: Real interior photos, computerized tinting machinery, and founder consultation desk in Baskhari.
 6. **Omni-Channel Floating Actions & Mobile Sticky Bar**: Persistent quick-access actions across desktop (floating glassmorphic contact pill) and mobile (ergonomic bottom sticky bar) featuring instant showroom calls (`tel:`), pre-formatted WhatsApp consultations (`wa.me`), Instagram, Facebook, and the interactive Enquiry Cart drawer.
 7. **Product Video Stories**: The About page includes a responsive carousel of 14 short Birla Opus product videos. It advances every 10 seconds, supports touch swipes and previous/next controls, and links each video to its relevant interior or exterior catalogue page. A contact action opens the showroom contact page.
@@ -160,7 +159,6 @@ client2/
 │       │   └── usePageSEO.ts             # Dynamic title, meta, canonical & OG sync
 │       ├── lib/
 │       │   ├── analytics.ts              # Privacy-safe conversion event logging
-│       │   ├── paintCalculator.ts        # Material requirement estimation algorithms
 │       │   └── trpc.ts                   # tRPC client React hooks
 │       ├── pages/
 │       │   ├── Home.tsx                  # Master showroom landing page
@@ -225,7 +223,7 @@ Copy the template environment file:
 ```bash
 cp .env.example .env
 ```
-*(For basic local UI development, no database connection is required; `DEMO_MODE=true` can be set).*
+*(The local development server does not require production credentials. Database-backed features need their corresponding local services to be configured.)*
 
 ### 5. Start development server
 ```bash
@@ -252,20 +250,11 @@ Open [http://localhost:3000/](http://localhost:3000/) in your browser.
 
 ---
 
-## ⚙️ Runtime & Deployment Modes
+## ⚙️ Production Configuration
 
-The application supports two production operating modes via the `DEMO_MODE` environment variable:
+Production startup requires a MySQL connection string (`DATABASE_URL`), OAuth provider URL and application ID (`OAUTH_SERVER_URL`, `VITE_APP_ID`), and a session signing key (`JWT_SECRET`, at least 32 characters). The server refuses to start when any required production value is missing. Local development does not use a production demo mode.
 
-1. **Standalone Demo Mode (`DEMO_MODE=true`)**:
-   - Designed for standalone client preview deployments (e.g., Render, Railway) without requiring external MySQL or OAuth infrastructure.
-   - All 17 canonical public pages, 159 verified shade databases, 3D room/texture visualizers, paint calculators, and static assets operate at 100% fidelity.
-   - Database-dependent mutations (enquiry form saving and review submission) are safely disabled with clear feedback prompting direct WhatsApp/phone contact or Google Business reviews.
-
-2. **Full Production Mode (`DEMO_MODE=false`)**:
-   - Requires real MySQL connection string (`DATABASE_URL`), OAuth provider (`OAUTH_SERVER_URL`, `VITE_APP_ID`), and session cookie signing key (`JWT_SECRET`).
-   - Enforces strict startup validation to safeguard authenticated review moderation and database transactions.
-
-For detailed deployment steps, see [docs/render-deployment.md](docs/render-deployment.md).
+For deployment environment variables, see [.env.example](.env.example). The Render-specific guide remains at [docs/render-deployment.md](docs/render-deployment.md).
 
 ---
 

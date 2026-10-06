@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SEOPageLayout } from "@/components/seo/SEOPageLayout";
 import { getRouteSEO } from "@shared/seoKeywordMap";
 import { businessProfile } from "@shared/businessProfile";
-import { trpc } from "@/lib/trpc";
 import {
   MapPin,
   Clock,
@@ -25,41 +24,36 @@ export const ContactPage: React.FC = () => {
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    email: "",
     serviceType: "Colour consultation",
     pincode: "224129",
   });
   const [statusMessage, setStatusMessage] = useState("");
-
-  const enquiry = trpc.enquiries.create.useMutation({
-    onSuccess: () => {
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        serviceType: "Colour consultation",
-        pincode: "224129",
-      });
-      setStatusMessage("Thank you! Your enquiry has been received. Our showroom team will contact you shortly.");
-    },
-    onError: (err) => {
-      setStatusMessage(`Error: ${err.message || "Failed to submit enquiry. Please call or WhatsApp us directly."}`);
-    }
-  });
+  const [whatsappUrl, setWhatsappUrl] = useState("");
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!form.name.trim() || !form.phone.trim()) {
+      setWhatsappUrl("");
       setStatusMessage("Please provide your name and phone number.");
       return;
     }
-    enquiry.mutate(form);
+
+    const message = [
+      "Hello Jaymurti Traders, I would like to request a consultation.",
+      `Name: ${form.name.trim()}`,
+      `Phone: ${form.phone.trim()}`,
+      `Service: ${form.serviceType}`,
+      `Pincode: ${form.pincode.trim() || "Not provided"}`,
+    ].join("\n");
+
+    setWhatsappUrl(`https://wa.me/${businessProfile.whatsappHref}?text=${encodeURIComponent(message)}`);
+    setStatusMessage("Your request is ready. Continue to WhatsApp, review the message, and tap Send to contact the showroom.");
   };
 
   return (
     <SEOPageLayout seo={seo}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        
+
         {/* Left Col: Contact Info & Showroom Cards */}
         <div className="space-y-8">
           <div className="space-y-3">
@@ -194,9 +188,9 @@ export const ContactPage: React.FC = () => {
             <span className="text-[10px] text-accent font-semibold uppercase tracking-wider font-mono">
               Direct Showroom Enquiry
             </span>
-            <h3 className="text-xl font-serif text-white">Book an In-Person Colour Consultation</h3>
+            <h3 className="text-xl font-serif text-white">Request a Colour Consultation</h3>
             <p className="text-xs text-on-dark-muted">
-              Submit your project details and our certified paint advisors will assist you.
+              Prepare your request and send it directly to the showroom in WhatsApp.
             </p>
           </div>
 
@@ -209,7 +203,11 @@ export const ContactPage: React.FC = () => {
                 required
                 placeholder="e.g. Ramesh Yadav"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, name: e.target.value });
+                  setWhatsappUrl("");
+                  setStatusMessage("");
+                }}
                 className="w-full px-4 py-2.5 bg-dark/80 border border-border-teal/60 rounded-xl text-xs text-white placeholder:text-on-dark-muted focus:outline-none focus:border-accent"
               />
             </div>
@@ -223,7 +221,11 @@ export const ContactPage: React.FC = () => {
                   required
                   placeholder="+91 98765 43210"
                   value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  onChange={(e) => {
+                    setForm({ ...form, phone: e.target.value });
+                    setWhatsappUrl("");
+                    setStatusMessage("");
+                  }}
                   className="w-full px-4 py-2.5 bg-dark/80 border border-border-teal/60 rounded-xl text-xs text-white placeholder:text-on-dark-muted focus:outline-none focus:border-accent"
                 />
               </div>
@@ -235,7 +237,11 @@ export const ContactPage: React.FC = () => {
                   type="text"
                   placeholder="224129"
                   value={form.pincode}
-                  onChange={(e) => setForm({ ...form, pincode: e.target.value })}
+                  onChange={(e) => {
+                    setForm({ ...form, pincode: e.target.value });
+                    setWhatsappUrl("");
+                    setStatusMessage("");
+                  }}
                   className="w-full px-4 py-2.5 bg-dark/80 border border-border-teal/60 rounded-xl text-xs text-white placeholder:text-on-dark-muted focus:outline-none focus:border-accent font-mono"
                 />
               </div>
@@ -246,7 +252,11 @@ export const ContactPage: React.FC = () => {
               <select
                 id="contact-service"
                 value={form.serviceType}
-                onChange={(e) => setForm({ ...form, serviceType: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, serviceType: e.target.value });
+                  setWhatsappUrl("");
+                  setStatusMessage("");
+                }}
                 className="w-full px-4 py-2.5 bg-dark/80 border border-border-teal/60 rounded-xl text-xs text-white focus:outline-none focus:border-accent"
               >
                 <option value="Colour consultation">Colour Consultation & Daylight Sampling</option>
@@ -258,12 +268,12 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {statusMessage && (
-              <div className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
-                statusMessage.startsWith("Thank you")
+              <div aria-live="polite" className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                statusMessage.startsWith("Your request is ready")
                   ? "bg-emerald-950/80 text-emerald-300 border border-emerald-500/40"
                   : "bg-red-950/80 text-red-300 border border-red-500/40"
               }`}>
-                {statusMessage.startsWith("Thank you") ? (
+                {statusMessage.startsWith("Your request is ready") ? (
                   <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
                 ) : (
                   <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -275,17 +285,15 @@ export const ContactPage: React.FC = () => {
             <div className="flex items-center gap-3 pt-2">
               <Button
                 type="submit"
-                disabled={enquiry.isPending}
                 className="flex-1 bg-accent text-dark font-bold hover:bg-accent/90 text-xs py-3 rounded-xl shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{enquiry.isPending ? "Submitting..." : "Submit Consultation Request"}</span>
+                <span>Prepare WhatsApp Request</span>
               </Button>
-              
-              <div title="Tactile Slingshot Launch: Drag back and release to submit">
+
+              <div title="Prepare the consultation message for WhatsApp">
                 <SlingButton
                   onSend={() => handleSubmit()}
-                  disabled={enquiry.isPending}
                   padColor="#d97706"
                   iconColor="#0f172a"
                   accentColor="#f59e0b"
@@ -293,12 +301,22 @@ export const ContactPage: React.FC = () => {
                   bandColor="rgba(217, 119, 6, 0.6)"
                   size={46}
                   tapSends={true}
-                  ariaLabel="Sling launch enquiry"
+                  ariaLabel="Prepare WhatsApp consultation request"
                 />
               </div>
             </div>
+            {whatsappUrl && (
+              <Button
+                asChild
+                className="w-full bg-emerald-500 text-white font-bold hover:bg-emerald-400 text-xs py-3 rounded-xl shadow-lg shadow-emerald-900/30 flex items-center justify-center gap-2"
+              >
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="w-4 h-4" /> Review and Send in WhatsApp
+                </a>
+              </Button>
+            )}
             <p className="text-[10px] text-center text-on-dark-muted">
-              Tip: Click button or pull back the slingshot handle to launch your enquiry!
+              Your details are only sent to the showroom if you press Send in WhatsApp.
             </p>
           </form>
         </div>

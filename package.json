@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsx watch server/_core/index.ts",
-    "build": "tsc --noEmit && vite build && tsx scripts/check-bundle-budget.mts && tsx scripts/prerender.mts && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "tsc --noEmit && vite build && tsx scripts/check-bundle-budget.mts && tsx scripts/prerender.mts && esbuild ./server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "vercel-build": "pnpm run build && node scripts/prepare-vercel-public.mjs",
     "verify:prerender": "tsx scripts/verify-prerender.mts",
     "verify:budget": "tsx scripts/check-bundle-budget.mts",
     "report:media": "tsx scripts/report-orphan-media.mts",

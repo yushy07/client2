@@ -6,7 +6,6 @@
 // - WhatsApp Dispatches
 // - Google Maps Directions
 // - Shade Lookups & Visualizer Interactions
-// - Paint Estimator Completions
 //
 // ZERO PII (Personally Identifiable Information) collected or transmitted.
 // =============================================================================
@@ -22,7 +21,6 @@ export type AnalyticsEventName =
   | "start_enquiry"
   | "send_whatsapp_enquiry"
   | "submit_review"
-  | "use_estimator"
   | "page_view";
 
 export interface AnalyticsEventParams {
@@ -34,7 +32,6 @@ export interface AnalyticsEventParams {
   product_name?: string;
   room_name?: string;
   surface_type?: string;
-  estimated_litres?: number;
   page_path?: string;
   [key: string]: unknown;
 }

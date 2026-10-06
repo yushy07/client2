@@ -18,12 +18,11 @@ describe("Production Environment Startup Validation", () => {
     });
   });
 
-  it("fails fast with non-zero exit code when required production variables are missing and DEMO_MODE is false", async () => {
+  it("fails fast when required production variables are missing", async () => {
     const child = spawn(process.execPath, [DIST_INDEX], {
       env: {
         ...process.env,
         NODE_ENV: "production",
-        DEMO_MODE: "false",
         DATABASE_URL: "",
         JWT_SECRET: "",
         OAUTH_SERVER_URL: "",
@@ -53,7 +52,6 @@ describe("Production Environment Startup Validation", () => {
       env: {
         ...process.env,
         NODE_ENV: "production",
-        DEMO_MODE: "false",
         DATABASE_URL: "mysql://test:test@localhost:3306/test",
         JWT_SECRET: "too-short-secret-under-32-chars",
         OAUTH_SERVER_URL: "https://auth.example.com",
@@ -74,7 +72,7 @@ describe("Production Environment Startup Validation", () => {
     expect(stderr).toContain("JWT_SECRET is shorter than 32 characters");
   });
 
-  it("successfully boots and binds to PORT in DEMO_MODE without database or OAuth configuration", async () => {
+  it("does not allow DEMO_MODE to bypass required production configuration", async () => {
     const testPort = 3098;
     const child = spawn(process.execPath, [DIST_INDEX], {
       env: {
@@ -118,22 +116,9 @@ describe("Production Environment Startup Validation", () => {
       }, 5000);
     });
 
-    expect(started).toBe(true);
-    expect(stdout).toContain("[Config] Starting in DEMO_MODE");
-
-    // Verify /health endpoint responds
-    const healthStatus = await new Promise<number>((resolve, reject) => {
-      http
-        .get(`http://localhost:${testPort}/health`, (res) => {
-          resolve(res.statusCode ?? 0);
-        })
-        .on("error", reject);
-    });
-
-    expect(healthStatus).toBe(200);
-
-    // Clean up
-    child.kill("SIGTERM");
+    expect(started).toBe(false);
+    expect(stderr).toContain("[Config] Refusing to start: missing required production configuration.");
+    expect(stderr).toContain("DATABASE_URL");
   });
 
   it("successfully boots and binds to PORT in strict production mode when all required variables are present", async () => {
@@ -142,7 +127,6 @@ describe("Production Environment Startup Validation", () => {
       env: {
         ...process.env,
         NODE_ENV: "production",
-        DEMO_MODE: "false",
         PORT: String(testPort),
         DATABASE_URL: "mysql://mock_user:mock_pass@127.0.0.1:3306/mock_db",
         JWT_SECRET: "a_very_secure_test_jwt_secret_with_more_than_32_characters!",

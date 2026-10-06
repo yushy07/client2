@@ -39,9 +39,8 @@ export default function Terms() {
             <li>Explore curated colour palettes, curated shade codes, and trending designer colour stories.</li>
             <li>Inspect textures, metallic effects, and specialized wall finishes.</li>
             <li>View architectural room inspiration and visualize room transformations.</li>
-            <li>Generate preliminary material quantities via our interactive Paint Estimator.</li>
             <li>View product video previews, showroom photographs, and map directions.</li>
-            <li>Assemble a project enquiry list and send it directly to our showroom team.</li>
+            <li>Prepare a project enquiry and send it to our showroom through WhatsApp after reviewing the message.</li>
             <li>Access showroom operating hours, phone numbers, and physical location directions.</li>
           </ul>
         </section>
@@ -107,27 +106,9 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 6. ESTIMATOR LIMITATIONS */}
+        {/* 6. USER-PROVIDED INFORMATION */}
         <section>
-          <h2>6. Paint Estimator Limitations</h2>
-          <p>
-            The Paint Estimator provides indicative calculations based on standard theoretical spreading rates and the surface
-            dimensions entered by the user. It does not constitute:
-          </p>
-          <ul>
-            <li>A firm contractual quotation or fixed price guarantee.</li>
-            <li>A binding guarantee of the exact litres or kilograms needed on site.</li>
-            <li>A formal structural or architectural assessment.</li>
-          </ul>
-          <p>
-            Actual paint coverage depends significantly on surface porosity, roughness, drywall vs. plaster substrates, number of coats,
-            undercoat primers, applicator tools, and site wastage. Always consult our showroom specialists for a precise bill of quantities.
-          </p>
-        </section>
-
-        {/* 7. USER-PROVIDED INFORMATION */}
-        <section>
-          <h2>7. User-Provided Information</h2>
+          <h2>6. User-Provided Information</h2>
           <p>
             When utilizing enquiry forms, consultation requests, or review submissions, you agree to provide truthful and accurate
             details. You must not submit false contact details or impersonate another individual without appropriate authorization.
@@ -138,9 +119,9 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 8. CUSTOMER REVIEWS & FEEDBACK */}
+        {/* 7. CUSTOMER REVIEWS & FEEDBACK */}
         <section>
-          <h2>8. Customer Reviews &amp; Moderation</h2>
+          <h2>7. Customer Reviews &amp; Moderation</h2>
           <p>
             Visitors may submit a display name, rating, and review text about their showroom experience. Reviews are moderated
             and may be approved or hidden; submission does not guarantee publication. If approved, the review and display name
@@ -148,9 +129,9 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 9. INTELLECTUAL PROPERTY */}
+        {/* 8. INTELLECTUAL PROPERTY */}
         <section>
-          <h2>9. Intellectual Property</h2>
+          <h2>8. Intellectual Property</h2>
           <p>
             Website text, photographs, and other original materials created for Jaymurti Traders may not be copied or reused
             commercially without permission. Third-party software, fonts, media, and brand materials remain subject to their
@@ -163,9 +144,9 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 10. EXTERNAL SERVICES & LINKS */}
+        {/* 9. EXTERNAL SERVICES & LINKS */}
         <section>
-          <h2>10. External Services &amp; Third-Party Links</h2>
+          <h2>9. External Services &amp; Third-Party Links</h2>
           <p>
             Our site links to and embeds services such as Google Maps and links to WhatsApp, Google Business Profile,
             Instagram, and Facebook. Their availability, content, and handling of information are controlled by those providers
@@ -173,9 +154,9 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 11. WEBSITE AVAILABILITY */}
+        {/* 10. WEBSITE AVAILABILITY */}
         <section>
-          <h2>11. Website Availability</h2>
+          <h2>10. Website Availability</h2>
           <p>
             We strive to provide continuous, dependable access to our digital catalogue and colour tools. However, the website is
             provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis. Access may occasionally be interrupted or restricted
@@ -183,11 +164,11 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 12. LIMITATION OF ESTIMATES & GENERAL INFORMATION */}
+        {/* 11. GENERAL INFORMATION */}
         <section>
-          <h2>12. Limitation of Estimates &amp; Information</h2>
+          <h2>11. General Information</h2>
           <p>
-            All information, specifications, and estimates presented on this website are intended for general consumer guidance.
+            Product information, specifications, and guidance presented on this website are intended for general consumer information.
             Before purchasing paint, applying specialty textures, or commencing large painting projects, customers should verify
             surface preparation instructions, batch codes, and primer compatibility with our showroom technical staff.
           </p>
@@ -197,27 +178,27 @@ export default function Terms() {
           </p>
         </section>
 
-        {/* 13. CHANGES TO TERMS */}
+        {/* 12. CHANGES TO TERMS */}
         <section>
-          <h2>13. Changes to These Terms</h2>
+          <h2>12. Changes to These Terms</h2>
           <p>
             Jaymurti Traders reserves the right to amend these Terms &amp; Conditions at any time to reflect updates to our showroom
             services, catalogue features, or applicable legal standards. Any revisions will be published on this page with an updated date.
           </p>
         </section>
 
-        {/* 14. GOVERNING LAW */}
+        {/* 13. GOVERNING LAW */}
         <section>
-          <h2>14. Governing Law</h2>
+          <h2>13. Governing Law</h2>
           <p>
             These Terms &amp; Conditions are governed by applicable laws of India, subject to any mandatory consumer protections
             and legal rights that apply to your use of the site or dealings with the showroom.
           </p>
         </section>
 
-        {/* 15. CONTACT US */}
+        {/* 14. CONTACT US */}
         <section>
-          <h2>15. Contact Us</h2>
+          <h2>14. Contact Us</h2>
           <p>
             For any questions regarding these Terms &amp; Conditions, product enquiries, or our showroom policies, please get in touch:
           </p>
