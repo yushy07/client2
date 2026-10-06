@@ -10,10 +10,23 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, character => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
 })[character]!);
 
+// Keep the main routes discoverable in the first HTML response, before the
+// client-side navigation has loaded. Google can render JavaScript, but these
+// ordinary links also help crawlers that do not execute it.
+const crawlNavigation = [
+  { path: "/paint-products", label: "Paint products" },
+  { path: "/colour-finder", label: "Colour guide" },
+  { path: "/room-inspiration", label: "Room inspiration" },
+  { path: "/surface-studio", label: "Surface studio" },
+  { path: "/about", label: "About the showroom" },
+  { path: "/contact", label: "Contact and directions" },
+];
+
 function renderContent(route: RouteSEOConfig): string {
   const breadcrumbs = route.breadcrumb.map(item => `<a href="${escapeHtml(item.path)}">${escapeHtml(item.name)}</a>`).join(" › ");
+  const navigation = crawlNavigation.map(item => `<a href="${item.path}">${item.label}</a>`).join(" · ");
   const faq = route.faq.map(item => `<section><h2>${escapeHtml(item.question)}</h2><p>${escapeHtml(item.answer)}</p></section>`).join("");
-  return `<main data-prerendered-content><nav aria-label="Breadcrumb">${breadcrumbs}</nav><p>${escapeHtml(route.eyebrow)}</p><h1>${escapeHtml(route.h1)}</h1><p>${escapeHtml(route.description)}</p>${faq}</main>`;
+  return `<main data-prerendered-content><nav aria-label="Main site sections">${navigation}</nav><nav aria-label="Breadcrumb">${breadcrumbs}</nav><p>${escapeHtml(route.eyebrow)}</p><h1>${escapeHtml(route.h1)}</h1><p>${escapeHtml(route.description)}</p>${faq}</main>`;
 }
 
 function withMetadata(base: string, route: RouteSEOConfig, robots = "index, follow, max-image-preview:large") {
