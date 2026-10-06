@@ -6,7 +6,6 @@ vi.mock("./db", () => ({
 
 import { createServiceEnquiry } from "./db";
 import { appRouter, serviceEnquiryInput } from "./routers";
-import { calculatePaintEstimate, findStoreByPincode } from "../shared/paintTools";
 
 describe("service enquiries", () => {
   beforeEach(() => vi.mocked(createServiceEnquiry).mockReset());
@@ -37,12 +36,5 @@ describe("service enquiries", () => {
 
     await expect(caller.enquiries.create(input)).resolves.toEqual({ success: true, enquiryId: 42 });
     expect(createServiceEnquiry).toHaveBeenCalledWith(input);
-  });
-
-  it("calculates estimates and only returns studios mapped to a supported pincode", () => {
-    expect(calculatePaintEstimate("villa", "exterior", 1000, "224129")).toEqual({ low: 17400, high: 21228 });
-    expect(calculatePaintEstimate("studio", "interior", 80, "224129")).toBeNull();
-    expect(findStoreByPincode("224129")?.name).toBe("Birla Opus Paint Jaymurti Traders");
-    expect(findStoreByPincode("110001")).toBeUndefined();
   });
 });

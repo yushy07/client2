@@ -187,7 +187,7 @@ export default function Home() {
       videos: [
         {
           label: "Showroom Walkthrough V4",
-          url: "/storage/jay-murti-traders-v4.mp4",
+          url: "/storage/promo-video.mp4",
           desc: "Full authorized Birla Opus showroom showcase at Jaymurti Traders, Baskhari, Ambedkar Nagar.",
         },
       ],
@@ -203,7 +203,7 @@ export default function Home() {
       videos: [
         {
           label: "Tinting Machine in Action",
-          url: "/storage/tiniting machine.mp4",
+          url: "/storage/tinting-machine.mp4",
           desc: "Watch the computerized automated tinting machine dispense exact pigment formulas for true shade accuracy.",
         },
         {

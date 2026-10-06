@@ -205,7 +205,7 @@ export const OwnerAndTeam: React.FC = () => {
                 <div className="relative aspect-[9/16] sm:aspect-[4/5] lg:aspect-[3/4] w-full bg-black flex items-center justify-center">
                   <video
                     ref={videoRef}
-                    src="/storage/jay-murti-traders-v4.mp4"
+                    src="/storage/promo-video.mp4"
                     poster="/storage/storefront/shopreception.webp"
                     preload="none"
                     className="w-full h-full object-cover"

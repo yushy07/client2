@@ -46,7 +46,7 @@ export const AboutPage: React.FC = () => {
       videos: [
         {
           title: "Authorised Dealership Showroom Tour",
-          src: "/storage/jay-murti-traders-v4.mp4",
+          src: "/storage/promo-video.mp4",
           badge: "Full Tour"
         }
       ]
@@ -61,7 +61,7 @@ export const AboutPage: React.FC = () => {
       videos: [
         {
           title: "Computerized Tinting Machine",
-          src: "/storage/tiniting machine.mp4",
+          src: "/storage/tinting-machine.mp4",
           badge: "Tinting Unit"
         },
         {
