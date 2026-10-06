@@ -106,6 +106,11 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 4. **Precision Paint Estimator**: Instant engineering-grade calculation of topcoat litres, primer litres, and putty kg by either carpet area or standard home configuration (1 BHK, 2 BHK, 3 BHK, Villa).
 5. **Showroom Visual Tour**: Real interior photos, computerized tinting machinery, and founder consultation desk in Baskhari.
 6. **Omni-Channel Floating Actions & Mobile Sticky Bar**: Persistent quick-access actions across desktop (floating glassmorphic contact pill) and mobile (ergonomic bottom sticky bar) featuring instant showroom calls (`tel:`), pre-formatted WhatsApp consultations (`wa.me`), Instagram, Facebook, and the interactive Enquiry Cart drawer.
+7. **Product Video Stories**: The About page includes a responsive carousel of 14 short Birla Opus product videos. It advances every 10 seconds, supports touch swipes and previous/next controls, and links each video to its relevant interior or exterior catalogue page. A contact action opens the showroom contact page.
+8. **Showroom Photo Gallery**: Browse real showroom photos in a detail modal. The image stays unobstructed; photo navigation sits with the details and the layout adapts to phone and desktop screens.
+9. **Showroom Location**: About and Contact pages show the Baskhari showroom address with a map and direct Google Maps directions.
+
+The main showroom, product catalogue, gallery, and video experiences are responsive and adapt their layouts to phone and desktop screen widths.
 
 ---
 
@@ -140,6 +145,7 @@ client2/
 │       │   │   ├── ColourCapsule.tsx     # Curated 50-shade mood palette
 │       │   │   ├── ExtendedTextures.tsx  # 17 sensory relief studies & modal showcase
 │       │   │   ├── InsideJaymurti.tsx    # Photographic showroom gallery
+│       │   │   ├── ProductStories.tsx    # Responsive product video carousel and catalogue links
 │       │   │   ├── OwnerAndTeam.tsx      # Leadership video & specialist team
 │       │   │   ├── ProductWorlds.tsx     # 8 Birla Opus product categories
 │       │   │   ├── RoomLibrary.tsx       # 102-space room inspiration library
@@ -162,8 +168,8 @@ client2/
 │       │   ├── ColourFinderPage.tsx      # 159-shade interactive database
 │       │   ├── RoomInspirationPage.tsx   # Room shade lookbook & lighting studio
 │       │   ├── SurfaceStudioPage.tsx     # Wall textures & 3D perspective wall studio
-│       │   ├── AboutPage.tsx             # Showroom history & trust pillars
-│       │   ├── ContactPage.tsx           # Contact details, map directions & review flow
+│       │   ├── AboutPage.tsx             # Showroom history, gallery, product videos & trust pillars
+│       │   ├── ContactPage.tsx           # Contact details, showroom map directions & review flow
 │       │   ├── NotFound.tsx              # Luxury dark 404 handler
 │       │   ├── Privacy.tsx               # Privacy policy
 │       │   └── Terms.tsx                 # Terms & conditions
@@ -233,14 +239,14 @@ Open [http://localhost:3000/](http://localhost:3000/) in your browser.
 
 | Command | Description |
 |---|---|
-| `pnpm dev` | Starts Vite development server with hot module replacement (`localhost:3000`). |
+| `pnpm dev` | Starts the Express/Vite development server with hot module replacement (port `3000` by default; uses the next available port if busy). |
 | `pnpm check` | Runs strict TypeScript typecheck (`tsc --noEmit`) with zero emit. |
 | `pnpm test` | Executes the complete Vitest test suite (SEO, APIs, calculations, components). |
 | `pnpm build` | Compiles frontend bundle, runs bundle budget checks, executes prerender scripts, and bundles the server. |
 | `pnpm start` | Boots the compiled production Node/Express server (`dist/index.js`). |
 | `pnpm verify:budget` | Enforces bundle size limits to prevent performance regressions. |
 | `pnpm verify:prerender` | Verifies SSR pre-rendered HTML snapshot integrity for all 17 canonical routes. |
-| `pnpm report:media` | Generates a media inventory report auditing public image/video assets. |
+| `pnpm report:media` | Generates a media inventory report auditing public image/video assets, including showroom and product showcase media. |
 | `pnpm deploy` | Triggers immediate remote production deployment via Render deploy webhook. |
 | `pnpm format` | Formats all code using Prettier. |
 
