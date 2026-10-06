@@ -162,14 +162,21 @@ export const InsideJaymurti: React.FC = () => {
 
         {/* Photo Modal with Previous/Next Controls */}
         <Dialog open={!!activePhoto} onOpenChange={(open) => !open && setActivePhoto(null)}>
-          <DialogContent className="max-w-4xl bg-dark-surface border-border-teal text-on-dark p-0 overflow-hidden sm:rounded-2xl">
+          <DialogContent className="w-[96vw] !max-w-[1100px] sm:!max-w-[1100px] max-h-[92dvh] bg-[#081F24] border-border-teal text-on-dark p-0 overflow-hidden rounded-2xl shadow-[0_32px_100px_rgba(0,0,0,.6)] [&>button]:z-30 [&>button]:rounded-full [&>button]:bg-black/50 [&>button]:text-white [&>button]:opacity-100 [&>button]:hover:bg-black/80">
             {activePhoto && (
-              <div className="flex flex-col md:flex-row h-full max-h-[85vh]">
-                <div className="relative md:w-3/5 bg-black flex items-center justify-center p-4 overflow-auto min-h-[280px]">
+              <div className="flex max-h-[92dvh] min-h-0 flex-col md:flex-row">
+                <div className="relative flex h-[42dvh] min-h-[240px] items-center justify-center overflow-hidden bg-[#061719] p-2 sm:p-3 md:h-[min(78dvh,760px)] md:min-h-[360px] md:w-[64%]">
+                  <img
+                    src={activePhoto.image}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0C292F]/20 via-transparent to-[#061719]/50" />
                   <ResponsiveImage
                     src={activePhoto.image}
                     alt={activePhoto.title}
-                    className="max-h-[70vh] w-auto object-contain rounded shadow-2xl"
+                    className="relative z-10 h-full w-full rounded-lg object-contain shadow-2xl"
                   />
 
                   {/* Prev / Next Image Navigation Controls */}
@@ -180,7 +187,7 @@ export const InsideJaymurti: React.FC = () => {
                         e.stopPropagation();
                         handlePrevPhoto();
                       }}
-                      className="pointer-events-auto w-9 h-9 rounded-full bg-black/70 hover:bg-teal-900/90 text-white/90 hover:text-accent border border-white/20 flex items-center justify-center transition-all shadow-lg backdrop-blur-md"
+                      className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-[#08272b]/85 text-white shadow-lg backdrop-blur-md transition hover:border-accent hover:bg-[#123F46] hover:text-accent"
                       aria-label="Previous Photo"
                       title="Previous Photo (Left Arrow)"
                     >
@@ -192,7 +199,7 @@ export const InsideJaymurti: React.FC = () => {
                         e.stopPropagation();
                         handleNextPhoto();
                       }}
-                      className="pointer-events-auto w-9 h-9 rounded-full bg-black/70 hover:bg-teal-900/90 text-white/90 hover:text-accent border border-white/20 flex items-center justify-center transition-all shadow-lg backdrop-blur-md"
+                      className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-[#08272b]/85 text-white shadow-lg backdrop-blur-md transition hover:border-accent hover:bg-[#123F46] hover:text-accent"
                       aria-label="Next Photo"
                       title="Next Photo (Right Arrow)"
                     >
@@ -201,50 +208,50 @@ export const InsideJaymurti: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="md:w-2/5 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
-                  <div>
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs uppercase tracking-widest text-accent font-semibold">
+                <div className="flex min-h-0 flex-1 flex-col justify-between gap-6 overflow-y-auto border-t border-border-teal bg-gradient-to-br from-[#123F46] to-[#081F24] p-5 sm:p-7 md:w-[36%] md:flex-none md:border-l md:border-t-0 md:p-8">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-3 pr-8">
+                      <span className="text-[10px] uppercase tracking-[.16em] text-accent font-semibold">
                         Jaymurti Traders Showroom
                       </span>
                       {activeIndex >= 0 && (
-                        <span className="text-[10px] font-mono text-teal-300/80 bg-teal-950/60 px-2 py-0.5 rounded-full border border-teal-700/40">
+                        <span className="shrink-0 rounded-full border border-teal-300/20 bg-teal-950/60 px-2.5 py-1 text-[10px] font-mono text-teal-200">
                           {activeIndex + 1} of {INSIDE_JAYMURTI_PHOTOS.length}
                         </span>
                       )}
                     </div>
-                    <DialogTitle className="text-2xl font-serif text-on-dark mt-2 mb-2">
+                    <DialogTitle className="mt-1 text-3xl font-serif leading-tight tracking-tight text-on-dark sm:text-4xl">
                       {activePhoto.title}
                     </DialogTitle>
-                    <p className="text-xs text-on-dark-muted font-medium mb-4">
+                    <p className="text-sm font-medium leading-relaxed text-teal-100/80">
                       {activePhoto.subtitle}
                     </p>
-                    <p className="text-sm text-on-dark-muted leading-relaxed">
+                    <p className="max-w-prose text-sm leading-relaxed text-on-dark-muted sm:text-base">
                       {activePhoto.description}
                     </p>
                   </div>
-                  <div className="pt-6 border-t border-border-teal space-y-2">
-                    <div className="flex items-center justify-between text-xs text-on-dark-muted">
+                  <div className="space-y-3 border-t border-white/10 pt-4">
+                    <div className="grid grid-cols-2 gap-2 text-xs text-on-dark-muted">
                       <button
                         type="button"
                         onClick={handlePrevPhoto}
-                        className="hover:text-accent transition-colors flex items-center gap-1 font-medium"
+                        className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[.04] px-3 font-medium transition hover:border-accent/40 hover:bg-white/[.08] hover:text-accent"
                       >
-                        &larr; Previous Photo
+                        <ChevronLeft className="h-4 w-4" /> Previous
                       </button>
                       <button
                         type="button"
                         onClick={handleNextPhoto}
-                        className="hover:text-accent transition-colors flex items-center gap-1 font-medium"
+                        className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[.04] px-3 font-medium transition hover:border-accent/40 hover:bg-white/[.08] hover:text-accent"
                       >
-                        Next Photo &rarr;
+                        Next <ChevronRight className="h-4 w-4" />
                       </button>
                     </div>
                     <a
                       href={businessProfile.googleMapsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full bg-dark-surface hover:bg-dark text-on-dark border border-brand-secondary font-medium py-2.5 rounded-xl flex items-center justify-center gap-2 text-center text-sm transition-colors"
+                      className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-center text-sm font-bold text-dark shadow-lg shadow-accent/15 transition hover:brightness-105"
                     >
                       <MapPin className="w-4 h-4" /> Get Directions to Showroom
                     </a>
