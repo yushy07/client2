@@ -179,33 +179,6 @@ export const InsideJaymurti: React.FC = () => {
                     className="relative z-10 h-full w-full rounded-lg object-contain shadow-2xl"
                   />
 
-                  {/* Prev / Next Image Navigation Controls */}
-                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handlePrevPhoto();
-                      }}
-                      className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-[#08272b]/85 text-white shadow-lg backdrop-blur-md transition hover:border-accent hover:bg-[#123F46] hover:text-accent"
-                      aria-label="Previous Photo"
-                      title="Previous Photo (Left Arrow)"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleNextPhoto();
-                      }}
-                      className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-[#08272b]/85 text-white shadow-lg backdrop-blur-md transition hover:border-accent hover:bg-[#123F46] hover:text-accent"
-                      aria-label="Next Photo"
-                      title="Next Photo (Right Arrow)"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                  </div>
                 </div>
 
                 <div className="flex min-h-0 flex-1 flex-col justify-between gap-6 overflow-y-auto border-t border-border-teal bg-gradient-to-br from-[#123F46] to-[#081F24] p-5 sm:p-7 md:w-[36%] md:flex-none md:border-l md:border-t-0 md:p-8">
