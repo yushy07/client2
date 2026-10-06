@@ -1,4 +1,8 @@
 import "dotenv/config";
+import express from "express";
 import { createProductionApp } from "./server/_core/index";
 
-export default createProductionApp();
+const app = express();
+app.use(createProductionApp());
+
+export default app;
