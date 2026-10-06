@@ -34,7 +34,7 @@ export const ShowroomLocationCard: React.FC = () => (
       </a>
     </div>
 
-    <div className="relative min-h-[250px] border-t border-white/10 md:min-h-[330px] md:border-l md:border-t-0">
+    <div className="relative min-h-[250px] border-t border-white/10 md:min-h-[380px] md:border-l md:border-t-0 xl:min-h-[430px]">
       <iframe
         title="Jaymurti Traders showroom location in Baskhari on Google Maps"
         src={mapEmbedUrl}

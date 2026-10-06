@@ -130,8 +130,6 @@ export const ContactPage: React.FC = () => {
             </div>
           </div>
 
-          <ShowroomLocationCard />
-
             {/* External Links & Google Review CTA */}
             <div className="space-y-4 pt-2">
               <div className="flex flex-wrap gap-3">
@@ -306,6 +304,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
       </div>
+      <ShowroomLocationCard />
     </SEOPageLayout>
   );
 };
