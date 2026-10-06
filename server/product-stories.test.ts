@@ -43,9 +43,9 @@ describe("Product Stories Video Showcase", () => {
     expect(productStoriesComponent).not.toContain("product-stories-indicator-dot");
   });
 
-  it("preserves View Master Catalogue and Consult CTAs with infinite 10s auto-advance", () => {
-    expect(productStoriesComponent).toContain("View Master Catalogue");
-    expect(productStoriesComponent).toContain("Consult on master finishes");
+  it("preserves the current catalogue and contact CTAs with infinite 10s auto-advance", () => {
+    expect(productStoriesComponent).toContain("Explore all paint ranges");
+    expect(productStoriesComponent).toContain("Ask us about a finish");
     expect(productStoriesComponent).toContain("AUTO_ADVANCE_INTERVAL = 10000");
   });
 
