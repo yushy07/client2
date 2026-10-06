@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { INSIDE_JAYMURTI_PHOTOS, type ShowroomPhoto } from "@shared/insideJaymurtiData";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Building2, Maximize2, MapPin, Phone, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import { businessProfile } from "@shared/businessProfile";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
@@ -199,6 +199,9 @@ export const InsideJaymurti: React.FC = () => {
                     <p className="text-sm font-medium leading-relaxed text-teal-100/80">
                       {activePhoto.subtitle}
                     </p>
+                    <DialogDescription className="sr-only">
+                      {activePhoto.description}
+                    </DialogDescription>
                     <p className="max-w-prose text-sm leading-relaxed text-on-dark-muted sm:text-base">
                       {activePhoto.description}
                     </p>
