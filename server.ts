@@ -1,7 +1,10 @@
 import "dotenv/config";
 import express from "express";
-import { createProductionApp } from "./server/_core/index";
 
+// Vercel does not always provide NODE_ENV to Express functions at runtime.
+process.env.NODE_ENV ??= "production";
+
+const { createProductionApp } = await import("./server/_core/index");
 const app = express();
 app.use(createProductionApp());
 
