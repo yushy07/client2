@@ -33,7 +33,8 @@ if (!rawEnvResult.success) {
 }
 
 const rawEnv: RawEnv = rawEnvResult.data;
-const isProduction = rawEnv.NODE_ENV === "production";
+const isProduction =
+  rawEnv.NODE_ENV === "production" || process.env.VERCEL_ENV === "production";
 
 export const ENV = {
   // These empty compatibility fields are for legacy, unmounted server modules.
