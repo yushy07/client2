@@ -34,7 +34,9 @@ describe("SEO foundation", () => {
     expect(robots).toContain("Allow: /");
     expect(robots).toContain("Disallow: /api/");
     expect(robots).toContain("Sitemap: https://jaymurtitraders.vercel.app/sitemap.xml");
-    expect(sitemap).toContain("<urlset");
+    expect(sitemap.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
+    expect(sitemap).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(sitemap).not.toContain("<script");
     expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/</loc>");
     expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/paint-products</loc>");
     expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/interior-paints</loc>");
