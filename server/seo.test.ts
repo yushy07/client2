@@ -18,6 +18,7 @@ describe("SEO foundation", () => {
     expect(html).toContain('rel="canonical" href="https://jaymurtitraders.vercel.app/"');
     expect(html).toContain('property="og:image"');
     expect(html).toContain('property="og:url" content="https://jaymurtitraders.vercel.app/"');
+    expect(html).toContain('name="google-site-verification" content="cMSgEGN4rF12HHqGXEk5JePYloXNZA3MjfXSSMaZCTU"');
     expect(html).toContain('name="twitter:card" content="summary_large_image"');
   });
 
