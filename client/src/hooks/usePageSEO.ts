@@ -7,9 +7,10 @@ export interface PageSEOMetadata {
   canonicalPath?: string;
   ogType?: string;
   ogImage?: string;
+  noIndex?: boolean;
 }
 
-export const CANONICAL_BASE_URL = "https://jaymurtitraders.com";
+export const CANONICAL_BASE_URL = "https://jaymurtitraders.vercel.app";
 
 export function usePageSEO({
   title,
@@ -17,6 +18,7 @@ export function usePageSEO({
   canonicalPath = "/",
   ogType = "website",
   ogImage = `${CANONICAL_BASE_URL}/storage/storefront/shopwide.jpeg`,
+  noIndex = false,
 }: PageSEOMetadata) {
   useEffect(() => {
     // 0. Privacy-safe analytics pageview tracking
@@ -38,7 +40,20 @@ export function usePageSEO({
       document.head.appendChild(metaDesc);
     }
 
-    // 3. Canonical link
+    // 3. Robots meta tag
+    let robotsTag = document.querySelector('meta[name="robots"]');
+    const prevRobots = robotsTag?.getAttribute("content") ?? "index, follow, max-image-preview:large";
+    const desiredRobots = noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large";
+    if (robotsTag) {
+      robotsTag.setAttribute("content", desiredRobots);
+    } else {
+      robotsTag = document.createElement("meta");
+      robotsTag.setAttribute("name", "robots");
+      robotsTag.setAttribute("content", desiredRobots);
+      document.head.appendChild(robotsTag);
+    }
+
+    // 4. Canonical link
     const cleanPath = canonicalPath.startsWith("/") ? canonicalPath : `/${canonicalPath}`;
     const canonicalUrl = `${CANONICAL_BASE_URL}${cleanPath === "/" ? "/" : cleanPath}`;
     let canonicalTag = document.querySelector('link[rel="canonical"]');
@@ -52,7 +67,7 @@ export function usePageSEO({
       document.head.appendChild(canonicalTag);
     }
 
-    // 4. Open Graph Tags
+    // 5. Open Graph Tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", title);
 
@@ -68,7 +83,7 @@ export function usePageSEO({
     const ogImgTag = document.querySelector('meta[property="og:image"]');
     if (ogImgTag && ogImage) ogImgTag.setAttribute("content", ogImage);
 
-    // 5. Twitter Tags
+    // 6. Twitter Tags
     const twTitle = document.querySelector('meta[name="twitter:title"]');
     if (twTitle) twTitle.setAttribute("content", title);
 
@@ -79,6 +94,7 @@ export function usePageSEO({
       document.title = previousTitle;
       if (metaDesc && prevDesc) metaDesc.setAttribute("content", prevDesc);
       if (canonicalTag && prevCanonical) canonicalTag.setAttribute("href", prevCanonical);
+      if (robotsTag && prevRobots) robotsTag.setAttribute("content", prevRobots);
     };
-  }, [title, description, canonicalPath, ogType, ogImage]);
+  }, [title, description, canonicalPath, ogType, ogImage, noIndex]);
 }

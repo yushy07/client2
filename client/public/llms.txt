@@ -9,7 +9,7 @@
 - **Location:** Shukul Bazar, Baskhari, Ambedkar Nagar, Uttar Pradesh - 224129, India
 - **Phone / WhatsApp:** +91 87566 59035
 - **Operating Hours:** 8:00 AM – 9:00 PM (Monday – Sunday)
-- **Primary Website:** https://jaymurtitraders.com/
+- **Primary Website:** https://jaymurtitraders.vercel.app/
 - **Google Maps:** https://maps.app.goo.gl/V1wvtKAGnH5RUG1cA
 - **Google Business Profile:** https://share.google/Nyju9PoRuINGGoD83
 - **Instagram:** https://www.instagram.com/paintwalebhaiya45/
@@ -26,20 +26,20 @@
 
 ## Key Indexable Routes
 
-- Showroom Homepage: https://jaymurtitraders.com/
-- All Paint Products: https://jaymurtitraders.com/paint-products
-- Interior Paints: https://jaymurtitraders.com/interior-paints
-- Exterior Paints: https://jaymurtitraders.com/exterior-paints
-- Waterproofing Solutions: https://jaymurtitraders.com/waterproofing
-- Enamel Paints: https://jaymurtitraders.com/enamels
-- Wood Finishes: https://jaymurtitraders.com/wood-finishes
-- Wall Textures & Finishes: https://jaymurtitraders.com/wall-textures
-- Designer Wallpapers: https://jaymurtitraders.com/wallpapers
-- Painting Tools & Accessories: https://jaymurtitraders.com/paint-tools
-- Birla Opus Colour Finder: https://jaymurtitraders.com/colour-finder
-- Room Shade Inspiration: https://jaymurtitraders.com/room-inspiration
-- Surface Studio: https://jaymurtitraders.com/surface-studio
-- About Jaymurti Traders: https://jaymurtitraders.com/about
-- Contact & Directions: https://jaymurtitraders.com/contact
-- Privacy Policy: https://jaymurtitraders.com/privacy
-- Terms & Conditions: https://jaymurtitraders.com/terms
+- Showroom Homepage: https://jaymurtitraders.vercel.app/
+- All Paint Products: https://jaymurtitraders.vercel.app/paint-products
+- Interior Paints: https://jaymurtitraders.vercel.app/interior-paints
+- Exterior Paints: https://jaymurtitraders.vercel.app/exterior-paints
+- Waterproofing Solutions: https://jaymurtitraders.vercel.app/waterproofing
+- Enamel Paints: https://jaymurtitraders.vercel.app/enamels
+- Wood Finishes: https://jaymurtitraders.vercel.app/wood-finishes
+- Wall Textures & Finishes: https://jaymurtitraders.vercel.app/wall-textures
+- Designer Wallpapers: https://jaymurtitraders.vercel.app/wallpapers
+- Painting Tools & Accessories: https://jaymurtitraders.vercel.app/paint-tools
+- Birla Opus Colour Finder: https://jaymurtitraders.vercel.app/colour-finder
+- Room Shade Inspiration: https://jaymurtitraders.vercel.app/room-inspiration
+- Surface Studio: https://jaymurtitraders.vercel.app/surface-studio
+- About Jaymurti Traders: https://jaymurtitraders.vercel.app/about
+- Contact & Directions: https://jaymurtitraders.vercel.app/contact
+- Privacy Policy: https://jaymurtitraders.vercel.app/privacy
+- Terms & Conditions: https://jaymurtitraders.vercel.app/terms

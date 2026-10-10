@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://jaymurtitraders.com/sitemap.xml
+Sitemap: https://jaymurtitraders.vercel.app/sitemap.xml

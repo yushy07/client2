@@ -15,9 +15,9 @@ describe("SEO foundation", () => {
     expect(html).toContain("<title>Jaymurti Traders | Birla Opus Paints in Baskhari, Ambedkar Nagar</title>");
     expect(html).toContain('name="description"');
     expect(html).toContain('name="robots" content="index, follow');
-    expect(html).toContain('rel="canonical" href="https://jaymurtitraders.com/"');
+    expect(html).toContain('rel="canonical" href="https://jaymurtitraders.vercel.app/"');
     expect(html).toContain('property="og:image"');
-    expect(html).toContain('property="og:url" content="https://jaymurtitraders.com/"');
+    expect(html).toContain('property="og:url" content="https://jaymurtitraders.vercel.app/"');
     expect(html).toContain('name="twitter:card" content="summary_large_image"');
   });
 
@@ -33,20 +33,20 @@ describe("SEO foundation", () => {
   it("publishes valid crawl entry points and all category sitemaps", () => {
     expect(robots).toContain("Allow: /");
     expect(robots).toContain("Disallow: /api/");
-    expect(robots).toContain("Sitemap: https://jaymurtitraders.com/sitemap.xml");
+    expect(robots).toContain("Sitemap: https://jaymurtitraders.vercel.app/sitemap.xml");
     expect(sitemap).toContain("<urlset");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/paint-products</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/interior-paints</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/exterior-paints</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/waterproofing</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/colour-finder</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/room-inspiration</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/surface-studio</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/about</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/contact</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/privacy</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/terms</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/paint-products</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/interior-paints</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/exterior-paints</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/waterproofing</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/colour-finder</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/room-inspiration</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/surface-studio</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/about</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/contact</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/privacy</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/terms</loc>");
     expect(manifest).toContain('"start_url": "/"');
   });
 

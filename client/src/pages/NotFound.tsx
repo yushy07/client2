@@ -18,6 +18,7 @@ export default function NotFound() {
     title: "Page Not Found | Jaymurti Traders",
     description: "The page you are looking for does not exist. Return to Jaymurti Traders showroom in Baskhari, Ambedkar Nagar to explore Birla Opus paints, colour finder, and room shade studio.",
     canonicalPath: "/404",
+    noIndex: true,
   });
 
   return (

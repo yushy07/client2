@@ -51,8 +51,8 @@ describe("Privacy policy page and routing", () => {
   });
 
   it("declares the privacy canonical URL in sitemap.xml without UI anchors", () => {
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/</loc>");
-    expect(sitemap).toContain("<loc>https://jaymurtitraders.com/privacy</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/</loc>");
+    expect(sitemap).toContain("<loc>https://jaymurtitraders.vercel.app/privacy</loc>");
     expect(sitemap).not.toContain("#products");
     expect(sitemap).not.toContain("#reviews");
   });

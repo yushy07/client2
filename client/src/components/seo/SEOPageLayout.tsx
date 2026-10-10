@@ -75,7 +75,7 @@ export const SEOPageLayout: React.FC<SEOPageLayoutProps> = ({
       "@type": "ListItem",
       "position": idx + 1,
       "name": item.name,
-      "item": `${CANONICAL_HOST}${item.path === "/" ? "" : item.path}`
+      "item": `${CANONICAL_HOST}${item.path === "/" ? "/" : item.path}`
     }))
   };
 

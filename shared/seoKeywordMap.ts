@@ -12,7 +12,7 @@ export interface RouteSEOConfig {
   faq: Array<{ question: string; answer: string }>;
 }
 
-export const CANONICAL_HOST = "https://jaymurtitraders.com";
+export const CANONICAL_HOST = "https://jaymurtitraders.vercel.app";
 
 export const SITE_ROUTES_SEO: Record<string, RouteSEOConfig> = {
   "/": {

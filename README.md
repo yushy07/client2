@@ -7,7 +7,7 @@ An interactive digital showroom and WhatsApp enquiry website for Jaymurti Trader
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646cff?style=flat-square&logo=vite)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![SEO Ready](https://img.shields.io/badge/SEO-Local%20%26%20Technical-00b894?style=flat-square)](https://jaymurtitraders.com/sitemap.xml)
+[![SEO Ready](https://img.shields.io/badge/SEO-Local%20%26%20Technical-00b894?style=flat-square)](https://jaymurtitraders.vercel.app/sitemap.xml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
 ---
@@ -29,7 +29,7 @@ WhatsApp Showroom:  +91 87566 59035
 Instagram:          https://www.instagram.com/paintwalebhaiya45/
 Google Profile:     https://share.google/Nyju9PoRuINGGoD83
 Google Maps:        https://maps.app.goo.gl/V1wvtKAGnH5RUG1cA
-Production Domain:  https://jaymurtitraders.com/
+Production Domain:  https://jaymurtitraders.vercel.app/
 =============================================================================
 ```
 
